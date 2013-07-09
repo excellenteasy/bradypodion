@@ -64,7 +64,7 @@ module.exports = (grunt) ->
         browsers: ['PhantomJS']
       unit:
         background: true
-        browsers: ['Chrome','Safari']
+        browsers: ['Chrome']
 
     shell:
       options:
