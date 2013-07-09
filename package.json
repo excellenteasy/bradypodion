@@ -2,11 +2,19 @@
   "name": "bradypodion",
   "description": "Bradypodion is an AngularJS directive library written in CoffeeScript used to build maintainable mobile web apps that don't suck.",
   "version": "0.1.0",
+  "private": true,
   "homepage": "https://github.com/excellenteasy/bradypodion",
-  "author": {
-    "name": "David Pfahler",
-    "email": "david@excellenteasy.com"
-  },
+  "author": "excellenteasy <dev@excellenteasy.com>",
+  "contributors": [
+    {
+      "name": "David Pfahler",
+      "email": "david@excellenteasy.com"
+    },
+    {
+      "name": "Stephan Bönnemann",
+      "email": "stephan@excellenteasy.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/excellenteasy/bradypodion.git"
@@ -14,21 +22,22 @@
   "bugs": {
     "url": "https://github.com/excellenteasy/bradypodion/issues"
   },
-  "main": "lib/bradypodion",
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
     "test": "grunt test"
   },
-  "devDependencies": {
-    "grunt-contrib-watch": "0.2.0",
-    "grunt": "0.4.1",
-    "grunt-contrib-coffee": "0.7.0",
-    "grunt-contrib-qunit": "~0.2.2",
-    "grunt-contrib-clean": "~0.4.1",
-    "matchdep": "~0.1.2",
-    "grunt-contrib-concat": "~0.3.0"
+  "peerDependencies": {
+    "grunt": "0.4.1"
   },
-  "keywords": []
+  "devDependencies": {
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-coffee": "0.7.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-qunit": "~0.2.2",
+    "grunt-contrib-watch": "0.2.0",
+    "matchdep": "~0.1.2"
+  },
+  "keywords": ["angular","directive","post-platform","ui","ios","android","web"]
 }
