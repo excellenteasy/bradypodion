@@ -1,0 +1,19 @@
+/*
+# Defaults
+"feels like native"-Mobile-Web-Development relies one some defaults regarding spacing, animations and browser behaviour.
+Most of this webkit specific.
+
+* hardware acceleration for smoothness.
+* prevent callout to copy image, etc. on taphold.
+* prevent copy & paste.
+* disable resizing to fit text.
+* enable text optimisation
+* transparent link selection.
+*/
+
+.scf-defaults() {
+  -webkit-backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout      : none;
+  -webkit-user-select        : none;
+}

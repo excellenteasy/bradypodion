@@ -1,0 +1,98 @@
+@import "general/defaults";
+@import "general/size";
+@import "general/boxsizing";
+
+/*
+# Relevant normalize parts
+*/
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}
+
+button,
+input {
+    line-height: normal;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+}
+/*
+# Defaults
+*/
+html {
+  overflow: hidden;
+  .scf-full-size;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  .scf-defaults;
+  .scf-full-size;
+}
+.screen {
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .UIcing-flexbox(vertical,start,stretch);
+  .scf-full-size;
+
+  display: none;
+  pointer-events: none;
+
+  &.active {
+    z-index: 1000;
+    pointer-events: auto;
+  }
+
+  &.visible {
+    display: -webkit-box;
+  }
+
+  .content {
+    position: relative;
+    .UIcing-flexbox(vertical, start, stretch);
+    -webkit-box-flex: 1;
+    div {
+      overflow: hidden;
+    }
+  }
+}
+a {
+  display: block;
+  color: inherit;
+  &:link, &:visited {
+    color: inherit;
+    text-decoration: none
+  }
+}
+
+//To be used for extension
+
+.borderBox {
+  .scf-box;
+}
+
+.contentBox {
+  .scf-box(content);
+}

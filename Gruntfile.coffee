@@ -66,7 +66,15 @@ module.exports = (grunt) ->
         background: true
         browsers: ['Chrome']
 
-    less: dev: files: 'dist/bradypodion.css': ['modules/directives/*/less/*']
+    less: dev: files: 'dist/bradypodion.css': ['tmp/bradypodion.less']
+
+    pathfinder:
+      less:
+        paths:
+          mixins:  ["#{MODULES_DIR}/directives/*/less/*/*.less"]
+          modules: ["#{MODULES_DIR}/directives/*/less/*.less"]
+        template: 'modules/bradypodion.less'
+        output: 'tmp/bradypodion.less'
 
     shell:
       options:
@@ -88,17 +96,29 @@ module.exports = (grunt) ->
   # Load grunt-* plugins
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
-  grunt.registerTask 'build', ['clean:build', 'concat', 'coffee', 'less']
-  grunt.registerTask 'dist',  ['clean:dist', 'coffee:dist', 'less']
-  grunt.registerTask 'test',  ['bower:install', 'build', 'karma:continuous']
+  grunt.registerTask 'build', [
+    'clean:build'
+    'concat'
+    'coffee'
+    'pathfinder:less'
+    'less']
 
+  grunt.registerTask 'dist', [
+    'clean:dist'
+    'coffee:dist'
+    'pathfinder:less'
+    'less']
+
+  grunt.registerTask 'test',  ['bower:install', 'build', 'karma:continuous']
   grunt.registerTask 'default',   ['build']
-  grunt.registerTask 'dev',       [
+
+  grunt.registerTask 'dev', [
     'bower:install'
     'shell:hooks'
     'build'
     'karma:unit'
     'watch'
   ]
+
   grunt.registerTask 'docs',      ['dist', 'shell:docs']
   grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']

@@ -44,7 +44,8 @@
     "grunt-bower-task": "~0.2.3",
     "grunt-conventional-changelog": "git://github.com/vojtajina/grunt-conventional-changelog.git#merge-with-karma-angular-changelog-task",
     "codo": "~1.7.0",
-    "grunt-contrib-less": "git://github.com/excellenteasy/grunt-contrib-less.git"
+    "grunt-contrib-less": "git://github.com/excellenteasy/grunt-contrib-less.git",
+    "grunt-pathfinder": "~0.3.1"
   },
   "keywords": [
     "angular",

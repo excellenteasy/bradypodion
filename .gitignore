@@ -4,6 +4,7 @@ components/
 node_modules/
 
 # ignore generated files
+tmp/
 build/
 docs/
 
