@@ -10,14 +10,6 @@ module.exports = (grunt) ->
   grunt.initConfig
     clean: build: [BUILD_DIR]
 
-    concat:
-      test_vendors:
-        src: [VENDOR_FILES]
-        dest: "#{BUILD_DIR}/test_vendor.js"
-      vendors:
-        src: [VENDOR_FILES, '!components/qunit/index.js']
-        dest: "#{BUILD_DIR}/vendor.js"
-
     coffee:
       directives:
         options: join: yes
@@ -27,6 +19,30 @@ module.exports = (grunt) ->
         options: join: yes
         src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
         dest: "#{BUILD_DIR}/tests.js"
+
+    coffeelint:
+      options:
+        newlines_after_classes:
+          level: 'error'
+        no_empty_param_list:
+          level: 'error'
+        no_stand_alone_at:
+          level: 'error'
+      directives:
+        files: src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
+        max_line_length:
+          value: 79
+          level: 'error'
+      tests:
+        files: src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
+
+    concat:
+      test_vendors:
+        src: [VENDOR_FILES]
+        dest: "#{BUILD_DIR}/test_vendor.js"
+      vendors:
+        src: [VENDOR_FILES, '!components/qunit/index.js']
+        dest: "#{BUILD_DIR}/vendor.js"
 
     qunit: directives: src: ['test/index.html']
 
