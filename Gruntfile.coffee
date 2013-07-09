@@ -85,4 +85,4 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default',   ['build']
   grunt.registerTask 'dev',       ['bower:install', 'shell:hooks', 'build', 'karma:unit', 'watch']
-  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'changelog', 'dist']
+  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
