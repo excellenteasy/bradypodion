@@ -9,5 +9,6 @@ body = ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     scope.platform = attrs.platform or 'ios'
+    element.addClass scope.platform
 
 angular.module('bp.directives').directive 'body', body
