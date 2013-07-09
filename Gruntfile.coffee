@@ -23,7 +23,10 @@ module.exports = (grunt) ->
         options:
           sourceMap: yes
           join: yes
-        src: ["#{MODULES_DIR}/**/*.coffee"]
+        src: [
+          "#{MODULES_DIR}/bradypodion.coffee"
+          "#{MODULES_DIR}/*/*/*.coffee"
+        ]
         dest: "#{DIST_DIR}/bradypodion.js"
       tests:
         options: join: yes
