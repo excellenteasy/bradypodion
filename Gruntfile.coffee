@@ -23,7 +23,7 @@ module.exports = (grunt) ->
         options:
           sourceMap: yes
           join: yes
-        src: ["#{MODULES_DIR}/bradypodion.coffee", "#{MODULES_DIR}/*/*/*.coffee"]
+        src: ["#{MODULES_DIR}/**/*.coffee"]
         dest: "#{DIST_DIR}/bradypodion.js"
       tests:
         options: join: yes
@@ -45,6 +45,8 @@ module.exports = (grunt) ->
           level: 'error'
       tests:
         files: src: ["#{MODULES_DIR}/*/*/test/*.coffee"]
+      gruntfile:
+        files: src: ['Gruntfile.coffee']
 
     concat:
       vendors:
@@ -88,6 +90,12 @@ module.exports = (grunt) ->
   grunt.registerTask 'test',  ['bower:install', 'build', 'karma:continuous']
 
   grunt.registerTask 'default',   ['build']
-  grunt.registerTask 'dev',       ['bower:install', 'shell:hooks', 'build', 'karma:unit', 'watch']
+  grunt.registerTask 'dev',       [
+    'bower:install'
+    'shell:hooks'
+    'build'
+    'karma:unit'
+    'watch'
+  ]
   grunt.registerTask 'docs',      ['dist', 'shell:docs']
   grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
