@@ -9,7 +9,9 @@ _(Coming soon)_
 _(Coming soon)_
 
 ## Contributing
-Adhere to the [excellenteasy styleguides](https://github.com/excellenteasy/styleguides) and take care to maintain the existing coding style. Add unit tests and documentation for any new or changed functionality.
+* Adhere to the [coffeescript styleguide](https://github.com/excellenteasy/styleguides/blob/master/coffee.md).
+* Adhere these [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y).
+* Add unit tests and documentation for any new or changed functionality.
 
 ## Release History
 See [Changelog](CHANGELOG.md)
