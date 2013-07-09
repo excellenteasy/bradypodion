@@ -39,3 +39,4 @@ module.exports = (grunt) ->
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
   grunt.registerTask 'default', ['clean:build', 'concat', 'coffee', 'qunit']
+  grunt.registerTask 'test', ['default']
