@@ -4,5 +4,5 @@
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
 ###
-directives = angular.module 'bp.directives', []
-bp = angular.module 'bp', ['bp.directives']
+angular.module 'bp.directives', []
+angular.module 'bp', ['bp.directives']

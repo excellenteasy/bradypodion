@@ -11,4 +11,4 @@ bpButton = ->
   link: (scope, element, attrs) ->
     scope.title = attrs.title
 
-directives.directive 'bpButton', bpButton
+angular.module('bp.directives').directive 'bpButton', bpButton

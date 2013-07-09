@@ -10,4 +10,4 @@ body = ->
   link: (scope, element, attrs) ->
     scope.platform = attrs.platform or 'ios'
 
-directives.directive 'body', body
+angular.module('bp.directives').directive 'body', body
