@@ -1,7 +1,7 @@
 'use strict'
 
 # Constants
-DIRECTIVES_DIR   = 'modules/directives'
+MODULES_DIR      = 'modules'
 BUILD_DIR        = 'build'
 DIST_DIR         = 'dist'
 VENDOR_FILES     = 'lib/*/index.js'
@@ -23,11 +23,11 @@ module.exports = (grunt) ->
         options:
           sourceMap: yes
           join: yes
-        src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
+        src: ["#{MODULES_DIR}/bradypodion.coffee", "#{MODULES_DIR}/*/*/*.coffee"]
         dest: "#{DIST_DIR}/bradypodion.js"
       tests:
         options: join: yes
-        src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
+        src: ["#{MODULES_DIR}/*/*/test/*.coffee"]
         dest: "#{BUILD_DIR}/tests.js"
 
     coffeelint:
@@ -39,12 +39,12 @@ module.exports = (grunt) ->
         no_stand_alone_at:
           level: 'error'
       directives:
-        files: src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
+        files: src: ["#{MODULES_DIR}/*/*/*.coffee"]
         max_line_length:
           value: 79
           level: 'error'
       tests:
-        files: src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
+        files: src: ["#{MODULES_DIR}/*/*/test/*.coffee"]
 
     concat:
       vendors:
@@ -73,7 +73,7 @@ module.exports = (grunt) ->
 
     watch:
       lib:
-        files: "#{DIRECTIVES_DIR}/**"
+        files: "#{MODULES_DIR}/**"
         tasks: ['build', 'karma:unit:run']
 
   # Load grunt-* plugins

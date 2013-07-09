@@ -1,5 +1,5 @@
-angular.module('button', [])
-  .directive 'button', ->
+angular.module('bp.directives', [])
+  .directive 'bpButton', ->
     restrict: 'ACE'
     template: '{{ title }}'
     link: (scope, element, attrs) ->
