@@ -1,4 +1,4 @@
-# bradypodion [![Build Status](https://secure.travis-ci.org/excellenteasy/bradypodion.png?branch=master)](http://travis-ci.org/excellenteasy/bradypodion)
+# bradypodion [![Build Status](https://magnum.travis-ci.com/excellenteasy/bradypodion.png?token=eXbhDbHCycbq8ZfsMAgq&branch=master)](https://magnum.travis-ci.com/excellenteasy/bradypodion)
 
 Bradypodion is an AngularJS directive library written in CoffeeScript used to build maintainable mobile web apps that don't suck.
 
