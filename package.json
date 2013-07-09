@@ -22,10 +22,13 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-nodeunit": "0.1.2",
     "grunt-contrib-watch": "0.2.0",
     "grunt": "0.4.1",
-    "grunt-contrib-coffee": "0.7.0"
+    "grunt-contrib-coffee": "0.7.0",
+    "grunt-contrib-qunit": "~0.2.2",
+    "grunt-contrib-clean": "~0.4.1",
+    "matchdep": "~0.1.2",
+    "grunt-contrib-concat": "~0.3.0"
   },
   "keywords": []
 }

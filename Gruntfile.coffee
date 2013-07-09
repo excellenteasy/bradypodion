@@ -1,27 +1,41 @@
-"use strict"
+'use strict'
+
+# Constants
+DIRECTIVES_DIR   = 'modules/directives'
+BUILD_DIR        = 'build'
+VENDOR_FILES     = 'components/*/index.js'
+
 module.exports = (grunt) ->
 
   grunt.initConfig
-    nodeunit:
-      files: ["test/**/*_test.js"]
+    clean: build: [BUILD_DIR]
+
+    concat:
+      test_vendors:
+        src: [VENDOR_FILES]
+        dest: "#{BUILD_DIR}/test_vendor.js"
+      vendors:
+        src: [VENDOR_FILES, '!components/qunit/index.js']
+        dest: "#{BUILD_DIR}/vendor.js"
+
+    coffee:
+      directives:
+        options: join: yes
+        src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
+        dest: "#{BUILD_DIR}/directives.js"
+      tests:
+        options: join: yes
+        src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
+        dest: "#{BUILD_DIR}/tests.js"
+
+    qunit: directives: src: ['test/index.html']
 
     watch:
-      gruntfile:
-        files: "<%= jshint.gruntfile.src %>"
-        tasks: ["jshint:gruntfile"]
-
       lib:
-        files: "<%= jshint.lib.src %>"
-        tasks: ["jshint:lib", "nodeunit"]
+        files: "#{DIRECTIVES_DIR}/**"
+        tasks: ['coffee', 'qunit']
 
-      test:
-        files: "<%= jshint.test.src %>"
-        tasks: ["jshint:test", "nodeunit"]
+  # Load grunt-* plugins
+  require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
-
-  # These plugins provide necessary tasks.
-  grunt.loadNpmTasks "grunt-contrib-nodeunit"
-  grunt.loadNpmTasks "grunt-contrib-watch"
-
-  # Default task.
-  grunt.registerTask "default", ["nodeunit"]
+  grunt.registerTask 'default', ['clean:build', 'concat', 'coffee', 'qunit']

@@ -1,0 +1,10 @@
+{
+  "name": "bradypodion",
+  "version": "0.1.0",
+  "dependencies": {
+    "jquery": "http://code.jquery.com/jquery-2.0.3.js",
+    "lodash": "https://raw.github.com/bestiejs/lodash/v1.3.1/dist/lodash.js",
+    "qunit" : "http://code.jquery.com/qunit/qunit-1.12.0.js",
+    "angular": "https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"
+  }
+}
