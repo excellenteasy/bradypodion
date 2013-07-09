@@ -12,8 +12,7 @@ _(Coming soon)_
 Adhere to the [excellenteasy styleguides](https://github.com/excellenteasy/styleguides) and take care to maintain the existing coding style. Add unit tests and documentation for any new or changed functionality.
 
 ## Release History
-_(Nothing yet)_
+See [Changelog](CHANGELOG.md)
 
 ## License
-Copyright (c) 2013 David Pfahler
-Licensed under the MIT license.
+Copyright (c) 2013 excellenteasy

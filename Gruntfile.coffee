@@ -14,6 +14,11 @@ module.exports = (grunt) ->
         cleanup: yes
         copy: no
 
+    changelog:
+      dist:
+        dest: 'CHANGELOG.md'
+        enforce: yes
+
     clean:
       build: [BUILD_DIR]
       dist: [DIST_DIR]
@@ -85,4 +90,4 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default',   ['build']
   grunt.registerTask 'dev',       ['bower:install', 'shell:hooks', 'build', 'karma:unit', 'watch']
-  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
+  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'changelog', 'dist']
