@@ -5,6 +5,6 @@ module 'button', setup: ->
   @$compile = injector.get '$compile'
 
 test 'buttonDirective', ->
-  element = @$compile('<div class="bp-button" title="test"></div>') @$scope
+  element = @$compile('<bp-button title="test"></bp-button>') @$scope
   equal @$scope.title, 'test'
 

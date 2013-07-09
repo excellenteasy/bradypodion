@@ -6,7 +6,7 @@
   @return [Object<restrict|template|link>] Angular directive
 ###
 bpButton = ->
-  restrict: 'ACE'
+  restrict: 'E'
   template: '{{ title }}'
   link: (scope, element, attrs) ->
     scope.title = attrs.title
