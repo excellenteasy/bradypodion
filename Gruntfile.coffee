@@ -3,14 +3,23 @@
 # Constants
 DIRECTIVES_DIR   = 'modules/directives'
 BUILD_DIR        = 'build'
+DIST_DIR        = 'dist'
 VENDOR_FILES     = 'components/*/index.js'
 
 module.exports = (grunt) ->
 
   grunt.initConfig
-    clean: build: [BUILD_DIR]
+    clean:
+      build: [BUILD_DIR]
+      dist: [DIST_DIR]
 
     coffee:
+      dist:
+        options:
+          sourceMap: true
+          join: yes
+        src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
+        dest: "#{DIST_DIR}/bradypodion.js"
       directives:
         options: join: yes
         src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
@@ -46,6 +55,16 @@ module.exports = (grunt) ->
 
     qunit: directives: src: ['test/index.html']
 
+    shell:
+      options:
+        stderr : true
+        stdout : true
+        failOnError : true
+      semver:
+        command: './node_modules/semver-sync/bin/semver-sync -v'
+      hooks:
+        command: 'cp -R ./hooks ./.git/'
+
     watch:
       lib:
         files: "#{DIRECTIVES_DIR}/**"
@@ -54,5 +73,9 @@ module.exports = (grunt) ->
   # Load grunt-* plugins
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
-  grunt.registerTask 'default', ['clean:build', 'concat', 'coffee', 'qunit']
-  grunt.registerTask 'test', ['default']
+  grunt.registerTask 'build', ['clean:build', 'concat', 'coffee:directives', 'coffee:tests']
+  grunt.registerTask 'dist',  ['clean:dist', 'coffee:dist']
+  grunt.registerTask 'test',  ['build', 'qunit']
+
+  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
+  grunt.registerTask 'default',   ['build']
