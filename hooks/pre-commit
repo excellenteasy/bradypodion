@@ -3,3 +3,4 @@
 grunt precommit
 
 git add dist
+git add CHANGELOG.md
