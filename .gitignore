@@ -3,8 +3,9 @@ lib/
 components/
 node_modules/
 
-# ignore generated build files
+# ignore generated files
 build/
+docs/
 
 # npm debug
 npm-debug.log

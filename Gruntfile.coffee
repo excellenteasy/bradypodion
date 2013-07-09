@@ -66,6 +66,8 @@ module.exports = (grunt) ->
         stderr : true
         stdout : true
         failOnError : true
+      docs:
+        command: './node_modules/codo/bin/codo modules -o docs'
       semver:
         command: './node_modules/semver-sync/bin/semver-sync -v'
       hooks:
@@ -85,4 +87,5 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default',   ['build']
   grunt.registerTask 'dev',       ['bower:install', 'shell:hooks', 'build', 'karma:unit', 'watch']
+  grunt.registerTask 'docs',      ['dist', 'shell:docs']
   grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
