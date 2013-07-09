@@ -3,12 +3,17 @@
 # Constants
 DIRECTIVES_DIR   = 'modules/directives'
 BUILD_DIR        = 'build'
-DIST_DIR        = 'dist'
-VENDOR_FILES     = 'components/*/index.js'
+DIST_DIR         = 'dist'
+VENDOR_FILES     = 'lib/*/index.js'
 
 module.exports = (grunt) ->
 
   grunt.initConfig
+    bower:
+      install:
+        cleanup: yes
+        copy: no
+
     clean:
       build: [BUILD_DIR]
       dist: [DIST_DIR]
@@ -16,14 +21,10 @@ module.exports = (grunt) ->
     coffee:
       dist:
         options:
-          sourceMap: true
+          sourceMap: yes
           join: yes
         src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
         dest: "#{DIST_DIR}/bradypodion.js"
-      directives:
-        options: join: yes
-        src: ["#{DIRECTIVES_DIR}/*/*.coffee"]
-        dest: "#{BUILD_DIR}/directives.js"
       tests:
         options: join: yes
         src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
@@ -46,14 +47,19 @@ module.exports = (grunt) ->
         files: src: ["#{DIRECTIVES_DIR}/*/test/*.coffee"]
 
     concat:
-      test_vendors:
-        src: [VENDOR_FILES]
-        dest: "#{BUILD_DIR}/test_vendor.js"
       vendors:
-        src: [VENDOR_FILES, '!components/qunit/index.js']
+        src: [VENDOR_FILES]
         dest: "#{BUILD_DIR}/vendor.js"
 
-    qunit: directives: src: ['test/index.html']
+    karma:
+      options:
+        configFile: 'karma.conf.js'
+      continuous:
+        singleRun: true
+        browsers: ['PhantomJS']
+      unit:
+        background: true
+        browsers: ['Chrome','Safari']
 
     shell:
       options:
@@ -68,14 +74,15 @@ module.exports = (grunt) ->
     watch:
       lib:
         files: "#{DIRECTIVES_DIR}/**"
-        tasks: ['coffee', 'qunit']
+        tasks: ['build', 'karma:unit:run']
 
   # Load grunt-* plugins
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
-  grunt.registerTask 'build', ['clean:build', 'concat', 'coffee:directives', 'coffee:tests']
+  grunt.registerTask 'build', ['clean:build', 'concat', 'coffee']
   grunt.registerTask 'dist',  ['clean:dist', 'coffee:dist']
-  grunt.registerTask 'test',  ['build', 'qunit']
+  grunt.registerTask 'test',  ['bower:install', 'build', 'karma:continuous']
 
-  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
   grunt.registerTask 'default',   ['build']
+  grunt.registerTask 'dev',       ['bower:install', 'shell:hooks', 'build', 'karma:unit', 'watch']
+  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']

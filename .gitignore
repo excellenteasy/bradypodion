@@ -1,4 +1,5 @@
 # ignore dependencies
+lib/
 components/
 node_modules/
 
