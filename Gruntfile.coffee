@@ -61,6 +61,8 @@ module.exports = (grunt) ->
         background: true
         browsers: ['Chrome']
 
+    less: dev: files: 'dist/bradypodion.css': ['modules/directives/*/less/*']
+
     shell:
       options:
         stderr : true
@@ -81,8 +83,8 @@ module.exports = (grunt) ->
   # Load grunt-* plugins
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
-  grunt.registerTask 'build', ['clean:build', 'concat', 'coffee']
-  grunt.registerTask 'dist',  ['clean:dist', 'coffee:dist']
+  grunt.registerTask 'build', ['clean:build', 'concat', 'coffee', 'less']
+  grunt.registerTask 'dist',  ['clean:dist', 'coffee:dist', 'less']
   grunt.registerTask 'test',  ['bower:install', 'build', 'karma:continuous']
 
   grunt.registerTask 'default',   ['build']
