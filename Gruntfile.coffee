@@ -14,11 +14,6 @@ module.exports = (grunt) ->
         cleanup: yes
         copy: no
 
-    changelog:
-      dist:
-        dest: 'CHANGELOG.md'
-        enforce: yes
-
     clean:
       build: [BUILD_DIR]
       dist: [DIST_DIR]
