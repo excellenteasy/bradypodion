@@ -5,6 +5,8 @@ MODULES_DIR      = 'modules'
 BUILD_DIR        = 'build'
 DIST_DIR         = 'dist'
 VENDOR_FILES     = 'lib/*/index.js'
+GRUNTFILE        = 'Gruntfile.coffee'
+TMP_DIR          = 'tmp'
 
 module.exports = (grunt) ->
 
@@ -17,7 +19,7 @@ module.exports = (grunt) ->
     clean:
       build: [BUILD_DIR]
       dist: [DIST_DIR]
-      tmp: 'tmp'
+      tmp: TMP_DIR
 
     coffee:
       dist:
@@ -26,7 +28,7 @@ module.exports = (grunt) ->
           join: yes
         src: [
           "#{MODULES_DIR}/bradypodion.coffee"
-          "#{MODULES_DIR}/*/*/*.coffee"
+          '<%= coffeelint.directives.files.src %>'
         ]
         dest: "#{DIST_DIR}/bradypodion.js"
       tests:
@@ -48,9 +50,9 @@ module.exports = (grunt) ->
           value: 79
           level: 'error'
       tests:
-        files: src: ["#{MODULES_DIR}/*/*/test/*.coffee"]
+        files: src: "<%= coffee.tests.src %>"
       gruntfile:
-        files: src: ['Gruntfile.coffee']
+        files: src: [GRUNTFILE]
 
     concat:
       vendors:
@@ -67,7 +69,6 @@ module.exports = (grunt) ->
         background: true
         browsers: ['Chrome']
 
-
     shell:
       options:
         stderr : true
@@ -82,15 +83,23 @@ module.exports = (grunt) ->
 
     watch:
       lib:
-        files: ['Gruntfile.coffee', "#{MODULES_DIR}/**"]
+        files: ['<%= coffeelint.gruntfile.files.src %>', "#{MODULES_DIR}/**"]
         tasks: ['build', 'karma:unit:run']
 
     # internal tasks don't use by hand
     less:
-      web:     files: 'dist/bradypodion.css':         ['tmp/bradypodion.less']
-      android: files: 'dist/bradypodion.android.css': ['tmp/bradypodion.less']
-      ios:     files: 'dist/bradypodion.ios.css':     ['tmp/bradypodion.less']
-      ios7:    files: 'dist/bradypodion.ios7.css':    ['tmp/bradypodion.less']
+      all:
+        dest: "#{DIST_DIR}/bradypodion.css"
+        src: ['<%= clean.tmp %>/bradypodion.less']
+      android:
+        dest: "#{DIST_DIR}/bradypodion.android.css"
+        src: ['<%= clean.tmp %>/bradypodion.less']
+      ios:
+        dest: "#{DIST_DIR}/bradypodion.ios.css"
+        src: ['<%= clean.tmp %>/bradypodion.less']
+      ios7:
+        dest: "#{DIST_DIR}/bradypodion.ios7.css"
+        src: ['<%= clean.tmp %>/bradypodion.less']
 
   grunt.registerTask 'cssbuild', ->
     # config
@@ -126,7 +135,7 @@ module.exports = (grunt) ->
 
     grunt.file.write 'tmp/bradypodion.less', fileContent
     lessTask =  if platforms is possiblePlatforms
-      'less:web'
+      'less:all'
     else
       # TODO: handle custom builds like `cssbuild:ios:android`
       "less:#{platforms[0]}"
