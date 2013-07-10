@@ -48,36 +48,36 @@ body {
   .scf-defaults;
   .scf-full-size;
 }
-.screen {
-  overflow: visible;
-  position: absolute;
-  top: 0;
-  left: 0;
+// .screen {
+//   overflow: visible;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
 
-  .UIcing-flexbox(vertical,start,stretch);
-  .scf-full-size;
+//   .UIcing-flexbox(vertical,start,stretch);
+//   .scf-full-size;
 
-  display: none;
-  pointer-events: none;
+//   display: none;
+//   pointer-events: none;
 
-  &.active {
-    z-index: 1000;
-    pointer-events: auto;
-  }
+//   &.active {
+//     z-index: 1000;
+//     pointer-events: auto;
+//   }
 
-  &.visible {
-    display: -webkit-box;
-  }
+//   &.visible {
+//     display: -webkit-box;
+//   }
 
-  .content {
-    position: relative;
-    .UIcing-flexbox(vertical, start, stretch);
-    -webkit-box-flex: 1;
-    div {
-      overflow: hidden;
-    }
-  }
-}
+//   .content {
+//     position: relative;
+//     .UIcing-flexbox(vertical, start, stretch);
+//     -webkit-box-flex: 1;
+//     div {
+//       overflow: hidden;
+//     }
+//   }
+// }
 a {
   display: block;
   color: inherit;
