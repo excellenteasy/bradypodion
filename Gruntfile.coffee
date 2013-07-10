@@ -171,6 +171,7 @@ module.exports = (grunt) ->
     'shell:hooks'
     'build'
     'karma:unit'
+    'karma:continuous'
     'watch'
   ]
 
