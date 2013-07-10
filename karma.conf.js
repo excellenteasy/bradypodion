@@ -6,7 +6,9 @@ basePath = '';
 files = [
   QUNIT,
   QUNIT_ADAPTER,
-  'build/vendor.js',
+  'components/lodash/index.js',
+  'components/jquery/index.js',
+  'components/angular/index.js',
   'dist/bradypodion.js',
   'build/tests.js'
 ];

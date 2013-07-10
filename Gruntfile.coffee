@@ -4,10 +4,9 @@
 MODULES_DIR      = 'modules'
 BUILD_DIR        = 'build'
 DIST_DIR         = 'dist'
-VENDOR_FILES     = 'lib/*/index.js'
 GRUNTFILE        = 'Gruntfile.coffee'
 TMP_DIR          = 'tmp'
-PLATFORMS        = ['android', 'ios','ios7']
+PLATFORMS        = ['android', 'ios', 'ios7']
 
 module.exports = (grunt) ->
 
@@ -21,6 +20,7 @@ module.exports = (grunt) ->
       build: [BUILD_DIR]
       dist: [DIST_DIR]
       tmp: TMP_DIR
+      lib: 'lib'
 
     coffee:
       dist:
@@ -54,11 +54,6 @@ module.exports = (grunt) ->
         files: src: "<%= coffee.tests.src %>"
       gruntfile:
         files: src: [GRUNTFILE]
-
-    concat:
-      vendors:
-        src: [VENDOR_FILES]
-        dest: "#{BUILD_DIR}/vendor.js"
 
     karma:
       options:
@@ -151,8 +146,7 @@ module.exports = (grunt) ->
     # compile less and clean up
     grunt.task.run [
       lessTask
-      'clean:tmp'
-    ]
+      'clean:tmp']
 
   # Load grunt-* plugins
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
@@ -165,27 +159,30 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean:build'
-    'concat'
     'coffee'
-    'css'
-  ]
+    'css']
 
   grunt.registerTask 'dist', [
     'clean:dist'
     'coffee:dist'
     'css']
 
-  grunt.registerTask 'test',  ['bower:install', 'build', 'karma:continuous']
+  grunt.registerTask 'test',  [
+    'bower:install'
+    'clean:lib'
+    'build'
+    'karma:continuous']
+
   grunt.registerTask 'default',   ['build']
 
   grunt.registerTask 'dev', [
     'bower:install'
+    'clean:lib'
     'shell:hooks'
     'build'
     'karma:continuous'
     'karma:unit'
-    'watch'
-  ]
+    'watch']
 
   grunt.registerTask 'docs',      ['dist', 'shell:docs']
   grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
