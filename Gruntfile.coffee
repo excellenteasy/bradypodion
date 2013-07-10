@@ -180,7 +180,6 @@ module.exports = (grunt) ->
     'clean:lib'
     'shell:hooks'
     'build'
-    'karma:continuous'
     'karma:unit'
     'watch']
 

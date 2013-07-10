@@ -1,0 +1,60 @@
+@import 'ios/basic';
+@import 'ios/value';
+@import 'ios/subtitle';
+
+bp-cell {
+  &:extend(.borderBox);
+  &:extend(.ellipsis);
+  .UIcing-flexbox(horizontal);
+  .bp-cell-wrapper;
+  > div, > span {
+    &:extend(.ellipsis);
+    .bp-cell-content;
+  }
+  &.active {
+    .bp-cell-active;
+  }
+}
+
+.bp-cell-value1 {
+  .label {
+    .bp-cell-value1-cell-label;
+  }
+  .value {
+    .bp-cell-value1-cell;
+  }
+  select.value {
+    -webkit-box-flex: 0;
+  }
+  .input-switch {
+    display: block;
+    float: right;
+  }
+}
+
+.bp-cell-value2 {
+  .value {
+    &:extend(.borderBox);
+    .bp-cell-value2-cell;
+  }
+  .label {
+    &:extend(.borderBox);
+    .bp-cell-value2-cell-label;
+  }
+}
+
+.bp-cell-subtitle {
+  .titles {
+    .UIcing-flexbox(vertical, center, start);
+    .title, .subtitle {
+      &:extend(.ellipsis);
+      width: 100%;
+    }
+    .title {
+      .bp-cell-subtitle-title;
+    }
+    .subtitle {
+      .bp-cell-subtitle-subtitle;
+    }
+  }
+}
