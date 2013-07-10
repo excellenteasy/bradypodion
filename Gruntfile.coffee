@@ -95,6 +95,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'cssbuild', ->
     # config
     template = 'modules/bradypodion.less'
+    configs  = "#{MODULES_DIR}/_less/*.less"
     modules  = "#{MODULES_DIR}/directives/*/less/*.less"
 
     # parse task flags
@@ -109,15 +110,35 @@ module.exports = (grunt) ->
       platforms = PLATFORMS
       lessTask = 'less:all'
 
-    # import modules into template file
-    fileContent = grunt.file.read template
-    grunt.file.expand(modules).forEach (module) ->
-      platform = module.match(/(\/|^)([a-zA-Z0-9-_.]+)\.less$/)[2]
+    toBeNamespaced = platforms.length > 1
+    platformRegEx  = /(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/
+    fileContent    = grunt.file.read template
+
+    chunks = {}
+    chunks.general = ''
+    chunks[platform] = '' for platform in platforms
+
+    # import config into template file
+    grunt.file.expand(configs).forEach (config) ->
+      matches = config.match(platformRegEx)
+      platform = matches[3]
       if platform in platforms or platform is 'general'
-        chunk = "@import '#{module}';"
-        if platforms.length > 1 and platform isnt 'general'
-          chunk = ".#{platform} { #{chunk} }"
-        fileContent += chunk
+        chunk = "@import '../#{matches[1]}';\n"
+        chunks[platform] += chunk
+
+    # import modules into template file
+    grunt.file.expand(modules).forEach (module) ->
+      matches = module.match(platformRegEx)
+      platform = matches[3]
+      if platform in platforms or platform is 'general'
+        chunk = "@import '../#{matches[1]}';\n"
+        chunks[platform] += chunk
+
+    for platform, chunk of chunks
+      fileContent += if toBeNamespaced and platform isnt 'general'
+        ".#{platform} {#{chunk}}"
+      else
+        chunk
 
     grunt.file.write 'tmp/bradypodion.less', fileContent
 
@@ -165,8 +186,8 @@ module.exports = (grunt) ->
     'bower:install'
     'shell:hooks'
     'build'
-    'karma:unit'
     'karma:continuous'
+    'karma:unit'
     'watch'
   ]
 
