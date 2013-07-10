@@ -97,7 +97,7 @@ module.exports = (grunt) ->
     template = 'modules/bradypodion.less'
     modules  = "#{MODULES_DIR}/directives/*/less/*.less"
 
-    # logic
+    # parse task flags
     platforms = []
     if @args.length then @args.forEach (arg) ->
       arg = arg.toLowerCase()
@@ -107,36 +107,31 @@ module.exports = (grunt) ->
         PLATFORMS.splice index, 1
     else
       platforms = PLATFORMS
+      lessTask = 'less:all'
 
+    # import modules into template file
     fileContent = grunt.file.read template
-    grunt.file.expand
-      filter: (path) ->
-        platforms.forEach (platform) ->
-          p = path.split '/'
-          p = p[p.length-1].split '.'
-          p.pop()
-          p = p.join '.'
-          if p is platform or p is 'general'
-            chunk = "@import '#{path}';"
-            if platforms.length > 1 and p isnt 'general'
-              chunk = ".#{platform} { #{chunk} }"
-            fileContent += chunk
-    , modules
+    grunt.file.expand(modules).forEach (module) ->
+      platform = module.match(/(\/|^)([a-zA-Z0-9-_.]+)\.less$/)[2]
+      if platform in platforms or platform is 'general'
+        chunk = "@import '#{module}';"
+        if platforms.length > 1 and platform isnt 'general'
+          chunk = ".#{platform} { #{chunk} }"
+        fileContent += chunk
 
     grunt.file.write 'tmp/bradypodion.less', fileContent
-    lessTask =  if platforms is PLATFORMS
-      'less:all'
-    else
-      # create less task configuration on runtime depending on platforms
+
+    # create less task configuration on runtime depending on platforms
+    unless lessTask
+      filename = platforms.sort().join '.'
       config = grunt.config.get 'less'
       config.custom =
         src: ["<%= clean.tmp %>/bradypodion.less"]
-        dest: "#{DIST_DIR}/bradypodion.#{platforms[0]}.css"
+        dest: "#{DIST_DIR}/bradypodion.#{filename}.css"
       grunt.config.set 'less', config
+      lessTask = "less:custom"
 
-      # TODO: handle custom builds like `cssbuild:ios:android`
-      "less:custom"
-
+    # compile less and clean up
     grunt.task.run [
       lessTask
       'clean:tmp'
