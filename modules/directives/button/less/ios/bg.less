@@ -1,0 +1,39 @@
+.btn-bg (@color: @ui-color) {
+  @color-top    : saturate(lighten(@color, 35%), 10%);
+  @color-bottom : saturate(@color, 10%);
+  .gradient(~"linear-gradient(top, @{color-top}, @{color-bottom})");
+}
+
+.btn-bg-active (@color: @ui-color) {
+  @color-top    : darken(lighten(@color, 35%), 20%);
+  @color-bottom : darken(@color, 20%);
+  .gradient(~"linear-gradient(top, @{color-top}, @{color-bottom})");
+}
+
+.btn-bg-arrow (@direction: back, @color: @ui-color) when (@direction = back) {
+  @deg          : (135deg + 90deg);
+  @color-top    : saturate(lighten(@color, 35%), 10%);
+  @color-bottom : saturate(@color, 10%);
+  .gradient(~"linear-gradient(@{deg}, @{color-top}, @{color-bottom})");
+}
+
+.btn-bg-arrow (@direction, @color: @ui-color) when (@direction = forward) {
+  @deg          : (135deg - 90deg);
+  @color-top    : saturate(lighten(@color, 35%), 10%);
+  @color-bottom : saturate(@color, 10%);
+  .gradient(~"linear-gradient(@{deg}, @{color-top}, @{color-bottom})");
+}
+
+.btn-bg-arrow-active (@direction: back, @color: @ui-color) when (@direction = back) {
+  @deg          : (135deg + 90deg);
+  @color-top    : darken(lighten(@color, 35%), 20%);
+  @color-bottom : darken(@color, 20%);
+  .gradient(~"linear-gradient(@{deg}, @{color-top}, @{color-bottom})");
+}
+
+.btn-bg-arrow-active (@direction, @color: @ui-color) when (@direction = forward) {
+  @deg          : (135deg - 90deg);
+  @color-top    : darken(lighten(@color, 35%), 20%);
+  @color-bottom : darken(@color, 20%);
+  .gradient(~"linear-gradient(@{deg}, @{color-top}, @{color-bottom})");
+}

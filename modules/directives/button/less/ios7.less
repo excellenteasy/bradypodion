@@ -1,0 +1,30 @@
+@import "../../../config/ios7";
+@import "ios7/basic";
+@import "ios7/arrows";
+@import "ios7/type";
+@import "ios7/extra";
+
+bp-button {
+  .btn-basic;
+  .btn-type;
+
+  &.btn-back  {
+    &:extend(.icon all);
+    .btn-arrow(back);
+  }
+
+  &.btn-forward {
+    .btn-arrow(forward);
+    &:after {
+      &:extend(.icon:before);
+    }
+  }
+
+  &.disabled, &[disabled] {
+    .btn-disabled;
+  }
+
+  &.@{tap-active}:not(.disabled), &.@{tap-active}:not([disabled]) {
+    color: fade(@ui-color, 50%);
+  }
+}

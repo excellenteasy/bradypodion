@@ -4,14 +4,7 @@
  * @license none
  */
 @import "../lib/lesshat/lesshat";
-@webkit : true;
-@w3c : true;
-@moz : false;
-@opera : false;
-@ms : false;
-@oldWebkit : false;
-@svg : false;
-@tap-active : tappable-active;
+@import "../modules/config/general";
 
 .UIcing-flexbox(@orient: horizontal, @pack: start, @align: center) {
   -webkit-box-orient: @orient;
@@ -32,6 +25,3 @@
 .ellipsis {
   .UIcing-ellipsis;
 }
-
-<% [].concat(mixins,modules).forEach(function(file) { %>
-@import '../<%= file %>';<% }); %>

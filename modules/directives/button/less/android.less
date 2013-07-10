@@ -1,0 +1,19 @@
+@import "../../../config/android";
+@import "android/basic";
+@import "android/type";
+@import "android/bg";
+
+bp-button:not(.icon) {
+  &:extend(.ellipsis);
+  .btn-basic;
+  .btn-type;
+  .btn-bg;
+
+  &.@{tap-active} {
+    .btn-bg-active;
+  }
+
+  &.disabled, &[disabled]{
+    .btn-bg-disabled;
+  }
+}
