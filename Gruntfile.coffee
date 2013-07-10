@@ -7,6 +7,7 @@ DIST_DIR         = 'dist'
 VENDOR_FILES     = 'lib/*/index.js'
 GRUNTFILE        = 'Gruntfile.coffee'
 TMP_DIR          = 'tmp'
+PLATFORMS        = ['android', 'ios','ios7']
 
 module.exports = (grunt) ->
 
@@ -87,36 +88,25 @@ module.exports = (grunt) ->
         tasks: ['build', 'karma:unit:run']
 
     # internal tasks don't use by hand
-    less:
-      all:
-        dest: "#{DIST_DIR}/bradypodion.css"
-        src: ['<%= clean.tmp %>/bradypodion.less']
-      android:
-        dest: "#{DIST_DIR}/bradypodion.android.css"
-        src: ['<%= clean.tmp %>/bradypodion.less']
-      ios:
-        dest: "#{DIST_DIR}/bradypodion.ios.css"
-        src: ['<%= clean.tmp %>/bradypodion.less']
-      ios7:
-        dest: "#{DIST_DIR}/bradypodion.ios7.css"
-        src: ['<%= clean.tmp %>/bradypodion.less']
+    less: all:
+      dest: "#{DIST_DIR}/bradypodion.css"
+      src: ['<%= clean.tmp %>/bradypodion.less']
 
   grunt.registerTask 'cssbuild', ->
     # config
     template = 'modules/bradypodion.less'
     modules  = "#{MODULES_DIR}/directives/*/less/*.less"
-    possiblePlatforms = ['android', 'ios','ios7']
 
     # logic
     platforms = []
     if @args.length then @args.forEach (arg) ->
       arg = arg.toLowerCase()
-      index = possiblePlatforms.indexOf arg
+      index = PLATFORMS.indexOf arg
       if index >= 0
         platforms.push arg
-        possiblePlatforms.splice index, 1
+        PLATFORMS.splice index, 1
     else
-      platforms = possiblePlatforms
+      platforms = PLATFORMS
 
     fileContent = grunt.file.read template
     grunt.file.expand
@@ -134,11 +124,18 @@ module.exports = (grunt) ->
     , modules
 
     grunt.file.write 'tmp/bradypodion.less', fileContent
-    lessTask =  if platforms is possiblePlatforms
+    lessTask =  if platforms is PLATFORMS
       'less:all'
     else
+      # create less task configuration on runtime depending on platforms
+      config = grunt.config.get 'less'
+      config.custom =
+        src: ["<%= clean.tmp %>/bradypodion.less"]
+        dest: "#{DIST_DIR}/bradypodion.#{platforms[0]}.css"
+      grunt.config.set 'less', config
+
       # TODO: handle custom builds like `cssbuild:ios:android`
-      "less:#{platforms[0]}"
+      "less:custom"
 
     grunt.task.run [
       lessTask
