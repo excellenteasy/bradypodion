@@ -4,8 +4,10 @@ Bradypodion is an AngularJS directive library written in CoffeeScript used to bu
 
 The repository provides a [prebuilt bradypodion version](dist).
 
+Each directive has a demo (e.g. [button](modules/directives/button/demo/index.html)). All you need to do to play with them is `bower install`.
+
 ## Documentation
-To build the documentation go the repo in you terminal.
+To build the documentation go to the repo in you terminal.
 ```bash
 npm install -g grunt-cli && npm install && grunt docs
 ```
