@@ -8,8 +8,8 @@ tmp/
 build/
 docs/
 
-# npm debug
-npm-debug.log
+# logs
+*.log
 
 # Folder view configuration files
 .DS_Store
