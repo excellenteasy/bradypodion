@@ -39,17 +39,23 @@ You need to create a `less` folder within a directive.
 There is a special treatment for these files.
 * `general.less`: Contains general styles for your directive.
 * `$platform.less`(android|ios|ios7): Contains platform specific styles.
+
 NOTE: Platforms will be namespaced whenever you build more than one.
+
 `modules/directives/*/less/$platform.less`
+
 ```less
 bg-button {
   background: green;
 }
 ```
+
 `bradypodion.css`
+
 ```css
 .$platform bg-button {
   background: green;
 }
 ```
+
 You *can* create and import as many other files within the less folder as you like, but you are encouraged to group them in platform folders.
