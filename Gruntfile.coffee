@@ -111,29 +111,25 @@ module.exports = (grunt) ->
       lessTask = 'less:all'
 
     toBeNamespaced = platforms.length > 1
-    platformRegEx  = /(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/
     fileContent    = grunt.file.read template
 
-    chunks = {}
-    chunks.general = ''
+    chunks =
+      general: ''
     chunks[platform] = '' for platform in platforms
 
-    # import config into template file
-    grunt.file.expand(configs).forEach (config) ->
-      matches = config.match(platformRegEx)
+    # importer function
+    importer = (path) ->
+      matches = path.match(/(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/)
       platform = matches[3]
       if platform in platforms or platform is 'general'
-        chunk = "@import '../#{matches[1]}';\n"
+        chunk = "@import '../#{matches[1]}';"
         chunks[platform] += chunk
 
-    # import modules into template file
-    grunt.file.expand(modules).forEach (module) ->
-      matches = module.match(platformRegEx)
-      platform = matches[3]
-      if platform in platforms or platform is 'general'
-        chunk = "@import '../#{matches[1]}';\n"
-        chunks[platform] += chunk
+    # import config and modules
+    grunt.file.expand(configs).forEach importer
+    grunt.file.expand(modules).forEach importer
 
+    # append imports to template and namespace them if necessary
     for platform, chunk of chunks
       fileContent += if toBeNamespaced and platform isnt 'general'
         ".#{platform} {#{chunk}}"
