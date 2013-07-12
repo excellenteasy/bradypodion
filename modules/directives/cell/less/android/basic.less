@@ -1,0 +1,22 @@
+.bp-cell-wrapper(@height: @table-cell-height) {
+  background : transparent;
+  font-size  : 20px;
+  height     : @height;
+  line-height: @height;
+
+  list-style   : none;
+  padding      : 0 (@height/6);
+  margin       : 0 (@height/3);
+  .box-shadow(~"inset 0 -1px #D9D9D9");
+}
+
+.bp-cell-active(@color: @highlight-color) {
+  @bg-color: lighten(desaturate(spin(@color, -1deg), 16%), 17%);
+  background-color: @bg-color;
+  color : inherit;
+}
+
+.bp-cell-content() {
+  display: block;
+  -webkit-box-flex: 1;
+}

@@ -1,3 +1,61 @@
+@import 'android/basic';
+@import 'android/value';
+@import 'android/subtitle';
+
 bp-cell {
-  //…
+  &:extend(.borderBox);
+  &:extend(.ellipsis);
+  .UIcing-flexbox(horizontal);
+  .bp-cell-wrapper;
+  > div, > span {
+    &:extend(.ellipsis);
+    .bp-cell-content;
+  }
+  &.active {
+    &:extend(.bp-cell-active);
+  }
+}
+
+.bp-cell-value1 {
+  .label {
+    .bp-cell-value1-cell-label;
+  }
+  .value {
+    .bp-cell-value1-cell;
+  }
+  // minor tweaks for weird form elements
+  select.value {
+    width: auto;
+    border-radius: 0;
+    -webkit-box-flex: 0;
+  }
+  .input-switch {
+    display: block;
+    float: right;
+  }
+}
+.bp-cell-value2 {
+  .value {
+    &:extend(.borderBox);
+    .bp-cell-value2-cell;
+  }
+  .label {
+    &:extend(.borderBox);
+    .bp-cell-value2-cell-label;
+  }
+}
+.bp-cell-subtitle {
+  .titles {
+    .UIcing-flexbox(vertical, center, start);
+    .title, .subtitle {
+      &:extend(.ellipsis);
+      width: 100%;
+    }
+    .title {
+      .bp-cell-subtitle-title;
+    }
+    .subtitle {
+      .bp-cell-subtitle-subtitle;
+    }
+  }
 }
