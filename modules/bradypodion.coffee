@@ -5,4 +5,5 @@
  * @license none
 ###
 angular.module 'bp.directives', []
-angular.module 'bp', ['bp.directives']
+angular.module 'bp.factories', []
+angular.module 'bp', ['bp.directives', 'bp.factories']

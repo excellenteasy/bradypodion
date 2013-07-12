@@ -5,10 +5,9 @@
     <body platform='ios'></body>
   @return [Object<restrict|link>] Angular directive
 ###
-body = ->
+body = (bpConfig) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
-    scope.platform = attrs.platform or 'ios'
-    element.addClass scope.platform
+    element.addClass bpConfig.platform
 
 angular.module('bp.directives').directive 'body', body
