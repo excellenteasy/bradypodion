@@ -5,10 +5,13 @@
     <bp-button title="test"></bp-button>
   @return [Object<restrict|template|link>] Angular directive
 ###
-bpButton = ->
+button = ->
   restrict: 'E'
-  template: '{{ title }}'
-  link: (scope, element, attrs) ->
-    scope.title = attrs.title
+  transclude: true
+  template: ''
+  compile: (elem, attrs, transcludeFn) ->
+    (scope, element, attrs) ->
+      transcludeFn scope, (clone) ->
+        element.append clone
 
-angular.module('bp.directives').directive 'bpButton', bpButton
+angular.module('bp.directives').directive 'bpButton', button
