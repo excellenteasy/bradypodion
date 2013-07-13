@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="bp">
+<html ng-app="demo">
   <head>
     <title>Bradypodion cell demo</title>
     <link rel="stylesheet" href="../../../../dist/bradypodion.css">
@@ -11,6 +11,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
   <body>
+    <div>
+      <bp-button demo-switch-theme title='Toggle Theme'></bp-button>
+    </div>
     <bp-cell>Cell</bp-cell>
     <bp-cell>ANOTHER!</bp-cell>
     <bp-cell class="bp-cell-value1">
@@ -36,5 +39,21 @@
     <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
     <script type='text/javascript' src='../../../../components/angular/index.js'></script>
     <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
+    <script type='text/javascript'>
+      angular.module('demo', ['bp'])
+        .directive('demoSwitchTheme', function(bpConfig){
+          return function(scope, element, attrs) {
+            platforms = ['ios','ios7','android']
+            index = platforms.indexOf(bpConfig.platform);
+            element.on('click',function(e){
+              bpConfig.platform = platforms[++index%3];
+              scope.$apply();
+            });
+          }
+        })
+        .factory('bpUserConfig', function(){
+          return {platform: 'ios7'}
+        });
+    </script>
   </body>
 </html>
