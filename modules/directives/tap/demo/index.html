@@ -40,7 +40,6 @@
             index = platforms.indexOf(bpConfig.platform);
             scope.toggleTheme = function() {
               bpConfig.platform = platforms[++index%3];
-              scope.$apply();
             };
           }
         });

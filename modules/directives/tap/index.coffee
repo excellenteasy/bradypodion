@@ -36,12 +36,15 @@ tap = (bpConfig) ->
       x = e.originalEvent.pageX or
         e.originalEvent.changedTouches[0].pageX
       if options.boundMargin and
-         (Math.abs(touch.y - y) > options.boundMargin or
-         Math.abs(touch.x - x) > options.boundMargin)
+         (Math.abs(touch.y - y) < options.boundMargin and
+         Math.abs(touch.x - x) < options.boundMargin)
+        element.addClass options.activeClass
+        touch.ongoing = on
+        if options.noScroll
+          e.preventDefault()
+      else
         touch.ongoing = no
         element.removeClass options.activeClass
-      else if options.noScroll
-        e.preventDefault()
     element.bind 'touchend', (e) ->
       if touch.ongoing
         scope.$apply attrs['bpTap'], element
