@@ -45,10 +45,10 @@ tap = (bpConfig) ->
       else
         touch.ongoing = no
         element.removeClass options.activeClass
-    element.bind 'touchend', (e) ->
-      if touch.ongoing
+    element.bind 'touchend touchcancel', (e) ->
+      if touch.ongoing and e.type is 'touchend'
         scope.$apply attrs['bpTap'], element
-        touch.ongoing = no
+      touch = {}
       element.removeClass options.activeClass
 
     if (not options.allowClick) and 'ontouchstart' of window
