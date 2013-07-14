@@ -11,15 +11,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
   <body>
-    <bp-button bp-tap="toggleTheme()" demo-switch-theme>Toggle Theme</bp-button>
-    <bp-button bp-tap="tapped()" demo-tapped>tap me {{ random }}</bp-button>
-    <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll=true>
-      tap me (no scroll) {{ random }}
-    </bp-button>
-    <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll=true bp-bound-margin="100">
-      tap me (no scroll & bound margin 100) {{ random }}
-    </bp-button>
-  </div>
+    <bp-navbar>
+      <bp-button bp-tap="toggleTheme()" demo-switch-theme>Toggle Theme</bp-button>
+      <bp-button bp-tap="tapped()" demo-tapped>tap me {{ random }}</bp-button>
+      <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll=true>
+        tap me (no scroll) {{ random }}
+      </bp-button>
+      <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll=true bp-bound-margin="100">
+        tap me (no scroll & bound margin 100) {{ random }}
+      </bp-button>
+    </bp-navbar>
 
     <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
     <script type='text/javascript' src='../../../../components/jquery/index.js'></script>

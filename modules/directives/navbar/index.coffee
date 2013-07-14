@@ -14,20 +14,23 @@ navbar = ->
       transcludeFn scope, (clone) ->
         $text = element.find('.bp-navbar-text')
         placedButtons = 0
+        buttons = []
 
-        angular.forEach clone, (value, key) ->
-          $value = angular.element(value)
-          if $value.is('bp-button') or $value.is('bp-icon')
-            method = (if placedButtons % 2 then "append" else "prepend")
-            elem[method] value
-            if method is "append"
-              $value.addClass('after')
-            else
-              $value.addClass('before')
-            placedButtons++
-          else if $value.context.nodeName is '#text' or
-                  $value.is('span.ng-scope')
-            $text.text($text.text() + $value.text())
+        for child in clone
+          $child = angular.element(child)
+          if $child.is('bp-button') or $child.is('bp-icon')
+            buttons.push($child)
+          else if $child.context.nodeName is '#text' or
+                  $child.is('span.ng-scope')
+            $text.text($text.text() + $child.text())
+
+        for $button, i in buttons
+          if (i+1) <= Math.round(buttons.length/2)
+            $button
+              .addClass('before')
+              .insertBefore $text
+          else
+            element.append $button.addClass('after')
 
         setTimeout ->
           beforeWidth = 0
