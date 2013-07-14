@@ -11,8 +11,8 @@ bp-cell {
     &:extend(.ellipsis);
     .bp-cell-content;
   }
-  &.active {
-    &:extend(.bp-cell-active);
+  &.@{tap-active} {
+    .bp-cell-active;
   }
   &:last-child {
     &.active {
