@@ -32,7 +32,7 @@ navbar = ->
           else
             element.append $button.addClass('after')
 
-        setTimeout ->
+        unless /^\s*$/.test $text.text() then setTimeout ->
           beforeWidth = 0
           afterWidth  = 0
           elem.find('.after').each ->
