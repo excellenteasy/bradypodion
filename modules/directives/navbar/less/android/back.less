@@ -1,0 +1,27 @@
+.navbar-back(@color: @font-color, @height: @navbar-height) {
+  .box-shadow(~"none");
+  position   : absolute;
+  top        : 0px;
+  left       : (-@height/6);
+  width      : @height;
+  height     : @height;
+  line-height: @height;
+  padding    : 0;
+  background : transparent;
+  color      : transparent;
+  &:extend(.icon all);
+  &:before {
+    &:extend(.icon-system:before);
+    position : absolute;
+    left     : -2px;
+    font-size: 12px;
+    color    : fade(@color ,60%);
+    content : '\e001';
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+.navbar-back-active(@color: @highlight-color) {
+  @bg-color       : lighten(desaturate(spin(@color, -1deg), 16%), 17%);
+  background-color: @bg-color;
+}

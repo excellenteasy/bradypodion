@@ -1,0 +1,44 @@
+@import "android/back";
+@import "android/bg";
+@import "android/icon";
+@import "android/icons";
+@import "android/size";
+@import "android/text";
+
+bp-navbar {
+  &:extend(.borderBox);
+  &:extend(.flexbox);
+  .navbar-size;
+  .navbar-bg;
+}
+
+.bp-navbar-text {
+  &:extend(.ellipsis);
+  .navbar-text;
+  &:before {
+    .navbar-icon;
+  }
+}
+
+bp-navbar .bp-icon {
+  .navbar-icons;
+
+  &.@{tap-active} {
+    .navbar-icons-active;
+  }
+
+  &[disabled], &.disabled {
+    .navbar-icons-disabled;
+  }
+}
+
+bp-navbar bp-button {
+  margin-left: (@navbar-height/6);
+}
+
+bp-navbar bp-button.btn-back:first-child {
+  .navbar-back;
+  &.@{tap-active} {
+    .navbar-back-active;
+  }
+}

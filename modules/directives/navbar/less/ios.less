@@ -1,0 +1,55 @@
+@import "ios/bg";
+@import "ios/size";
+@import "ios/align";
+
+bp-navbar{
+  &:extend(.borderBox);
+  &:extend(.flexbox);
+  .btn-type(@ui-color, 22px);
+  .navbar-bg;
+  .navbar-size;
+  .before {
+    margin-right: 9px;
+  }
+  .after {
+    margin-left: 9px;
+  }
+  &.navbar-small {
+    .navbar-size(small);
+    .btn-type(@ui-color, 14px);
+    bp-button {
+      &:extend(.btn.btn-small all);
+      &.btn-back {
+        &:extend(.btn.btn-small.btn-back all);
+      }
+      &.btn-forward {
+        &:extend(.btn.btn-small.btn-forward all);
+      }
+    }
+  }
+}
+  //Parser throws errors if I put it up. Don't ask why >:(
+.bp-navbar-text {
+  &:extend(.ellipsis);
+  .navbar-text;
+}
+.bp-navbar-spacer {
+  .navbar-spacer;
+}
+
+@media only screen and (orientation:landscape) {
+  bp-navbar {
+    .btn-type(@ui-color, 18px);
+    .navbar-bg;
+    .navbar-size(small);
+    bp-button {
+      .btn-height(small);
+      &.btn-back {
+        .btn-arrow(back, small);
+      }
+      &.btn-forward {
+        .btn-arrow(forward, small);
+      }
+    }
+  }
+}

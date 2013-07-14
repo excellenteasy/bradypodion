@@ -1,0 +1,48 @@
+@import "ios7/bg";
+@import "ios7/size";
+@import "ios7/type";
+@import "ios7/align";
+
+bp-navbar {
+  &:extend(.borderBox);
+  &:extend(.flexbox);
+  .navbar-bg;
+  .navbar-size;
+  .before {
+    margin-right: 9px;
+  }
+  .after {
+    margin-left: 9px;
+  }
+  &.navbar-small {
+    .navbar-size(small);
+    .btn {
+      min-width: 33px;
+      height: 33px;
+      line-height: 33px;
+    }
+  }
+  bp-button {
+    min-width: 44px;
+    height: 44px;
+    line-height: 44px;
+  }
+}
+  //Parser throws errors if I put it up. Don't ask why >:(
+.bp-navbar-text {
+  &:extend(.ellipsis);
+  .btn-type(@ui-color);
+  .navbar-text;
+  .navbar-type;
+}
+
+@media only screen and (orientation:landscape) {
+  bp-navbar {
+    .navbar-size(small);
+    bp-button {
+      min-width: 33px;
+      height: 33px;
+      line-height: 33px;
+    }
+  }
+}

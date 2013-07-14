@@ -1,0 +1,6 @@
+
+.navbar-bg(@color: @theme-color) {
+  background: @color + #0f0f0f;
+  @inset-color: ((@color + #0f0f0f) - #0B0B0B);
+  .box-shadow(~"inset 0 -2px @{inset-color}, 0 0 1px black");
+}
