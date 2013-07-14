@@ -2,7 +2,7 @@
   bradypodion tap directive
   @since 0.1.0
   @example description of tap example
-    <bp-tap></bp-tap>
+    <div bp-tap></div>
   @return [Object<restrict|template|link>] Angular directive
 ###
 tap = (bpConfig) ->
