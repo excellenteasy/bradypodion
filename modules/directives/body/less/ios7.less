@@ -1,3 +1,5 @@
+@import "ios7/input";
+
 body, & {
   font: 62.5%/150% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   font-weight: lighter;
@@ -7,4 +9,9 @@ body, & {
 strong, b {
   font-family: HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   font-weight: normal;
+}
+
+input, select, option {
+  &:extend(.borderBox);
+  .form-disable-default;
 }

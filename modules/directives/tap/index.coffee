@@ -57,4 +57,7 @@ tap = (bpConfig) ->
         e.stopPropagation()
         e.stopImmediatePropagation()
 
+    scope.$on '$destroy', ->
+      element.unbind 'touchstart touchmove touchend touchcancel click'
+
 angular.module('bp.directives').directive 'bpTap', tap
