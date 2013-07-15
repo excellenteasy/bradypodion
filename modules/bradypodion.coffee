@@ -6,4 +6,4 @@
 ###
 angular.module 'bp.directives', []
 angular.module 'bp.factories', []
-angular.module 'bp', ['bp.directives', 'bp.factories']
+angular.module 'bp', ['bp.directives', 'bp.factories', 'ui.state']

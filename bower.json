@@ -5,6 +5,7 @@
     "angular": "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.js",
     "jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js",
     "lesshat": "git@github.com:excellenteasy/LESSHat.git#v1.2.0",
-    "lodash": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.js"
+    "lodash": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.js",
+    "angular-ui-router": "http://angular-ui.github.io/ui-router/build/angular-ui-router.js"
   }
 }
