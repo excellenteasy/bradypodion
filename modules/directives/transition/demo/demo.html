@@ -1,0 +1,69 @@
+<!doctype html>
+<html ng-app="demo">
+  <head>
+    <title>Bradypodion transition demo</title>
+    <link rel="stylesheet" href="../../../../dist/bradypodion.css">
+    <meta charset="UTF-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style type="text/css">
+    /*
+     The animate-enter CSS class is the event name that you
+     have provided within the ngAnimate attribute.
+    */
+    .animate-enter {
+     -webkit-transition: 1s linear all; /* Safari/Chrome */
+     -moz-transition: 1s linear all; /* Firefox */
+     -o-transition: 1s linear all; /* Opera */
+     transition: 1s linear all; /* IE10+ and Future Browsers */
+
+     /* The animation preparation code */
+     opacity: 0;
+    }
+
+    /*
+     Keep in mind that you want to combine both CSS
+     classes together to avoid any CSS-specificity
+     conflicts
+    */
+    .animate-enter.animate-enter-active {
+     /* The animation code itself */
+     opacity: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <div ui-view ng-animate="'animate'"></div>
+
+    <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
+    <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
+    <script type='text/javascript' src='../../../../components/angular/index.js'></script>
+    <script type='text/javascript' src='../../../../components/angular-ui-router/index.js'></script>
+    <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
+    <script>
+      angular.module('demo', ['bp'])
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+          $urlRouterProvider.otherwise('/home');
+
+          $stateProvider
+            .state('home', {
+              url: '/home',
+              template: '<bp-button bp-tap="toSecond()">to second</bp-button>',
+              controller: function ($state, $scope) {
+                 $scope.toSecond = function() {$state.transitionTo('second')};
+              }
+            })
+            .state('second', {
+              url: '/second',
+              template: '<bp-button bp-tap="toHome()">to home</bp-button>',
+              controller: function ($state, $scope) {
+                $scope.toHome = function() {$state.transitionTo('home')};
+              }
+            });
+        }]);
+    </script>
+  </body>
+</html>
