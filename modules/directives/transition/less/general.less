@@ -10,5 +10,22 @@ bp-screen {
   .scf-full-size;
 }
 
+.fade-normal-enter {
+  .transition(~"0.3s linear all");
+  opacity: 0;
+  z-index: 1;
+}
+.fade-normal-enter.fade-normal-enter-active {
+  opacity: 1;
+}
+.fade-normal-leave {
+  .transition(~"0.3s linear all");
+  opacity: 1;
+  z-index: 0;
+}
+.fade-normal-leave.fade-normal-leave-active {
+  opacity: 1;
+}
+
 .bp-scale;
-.bp-scale(shrink);
+.bp-scale(reverse);

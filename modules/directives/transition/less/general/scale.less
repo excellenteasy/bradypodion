@@ -1,6 +1,6 @@
-.bp-scale (@direction: grow, @name: scale, @duration: 0.3s) {
-  @enter: ~`'@{direction}' === 'grow' ? 0 : 1`;
-  @leave: ~`'@{direction}' === 'grow' ? 1 : 0`;
+.bp-scale (@direction: normal, @name: scale, @duration: 0.3s) {
+  @enter: ~`'@{direction}' === 'normal' ? 0 : 1`;
+  @leave: ~`'@{direction}' === 'normal' ? 1 : 0`;
 
   .@{name}-@{direction}-enter {
     .transition(~"@{duration} linear all");

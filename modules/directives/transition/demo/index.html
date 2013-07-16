@@ -15,7 +15,7 @@
                             {name:'Mike', phone:'555-4321'},
                             {name:'Adam', phone:'555-5678'},
                             {name:'Julie', phone:'555-8765'}]">
-    <div ng-controller="ViewController" ui-view ng-animate="getTransition()"></div>
+    <div ng-controller="ViewController" ui-view ng-animate="getFullTransition()"></div>
 
     <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
     <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
@@ -23,52 +23,51 @@
     <script type='text/javascript' src='../../../../components/angular-ui-router/index.js'></script>
     <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
     <script>
-      function ViewController($scope)  {
-        $scope.reverseTransition = function() {
-          transition = $scope.transition;
-          reverseTransition = '';
-          if (transition === 'scale-grow') {
-            reverseTransition = 'scale-shrink';
+      function ViewController($scope, $state)  {
+        var transition = '';
+        var direction = 'normal';
+
+        $scope.to = function(state, back) {
+          direction = back?'reverse':'normal';
+          $state.transitionTo(state);
+        };
+
+        $scope.setTransition = function(newTransition) {
+          transition = newTransition;
+        };
+
+        $scope.getDirection = function() {
+          return direction;
+        };
+
+        $scope.getFullTransition = function() {
+          return transition +'-'+ direction;
+        };
+
+        $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          $scope = event.currentScope;
+          if ($scope.getDirection() === 'reverse') {
+            $scope.setTransition(fromState.transition);
           } else {
-            reverseTransition = 'scale-grow';
+            $scope.setTransition(toState.transition);
           }
-          $scope.setTransition(reverseTransition);
-        };
-        $scope.setTransition = function(transition) {
-          $scope.transition = transition;
-        };
-        $scope.getTransition = function() {
-          return $scope.transition;
-        };
-        $scope.transition = "";
+        });
       };
+
       angular.module('demo', ['bp','ui.state'])
         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/home');
-          var controller = function ($state, $scope) {
-            $scope.to = function(state, back) {
-              if (back) {
-                $scope.reverseTransition();
-              } else {
-                var transition = $state.current.transition
-                $scope.setTransition(transition);
-              }
-              $state.transitionTo(state);
-            };
-          };
 
           $stateProvider
             .state('home', {
               url: '/home',
               templateUrl: 'home.html',
-              controller: controller,
-              transition: 'scale-grow'
+              transition: 'fade'
             })
             .state('second', {
               url: '/second',
               templateUrl: 'second.html',
-              controller: controller,
-              transition: 'scale-grow'
+              transition: 'scale'
             });
         }]);
     </script>
