@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="demo">
+  <head>
+    <title>Bradypodion transition demo</title>
+    <link rel="stylesheet" href="../../../../dist/bradypodion.css">
+    <meta charset="UTF-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <body ng-init="friends = [{name:'John', phone:'555-1276'},
+                            {name:'Mary', phone:'800-BIG-MARY'},
+                            {name:'Mike', phone:'555-4321'},
+                            {name:'Adam', phone:'555-5678'},
+                            {name:'Julie', phone:'555-8765'}]">
+    <div ng-controller="ViewController" ui-view ng-animate="getTransition()"></div>
+
+    <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
+    <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
+    <script type='text/javascript' src='../../../../components/angular/index.js'></script>
+    <script type='text/javascript' src='../../../../components/angular-ui-router/index.js'></script>
+    <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
+    <script>
+      function ViewController($scope)  {
+        $scope.reverseTransition = function() {
+          transition = $scope.transition;
+          reverseTransition = '';
+          if (transition === 'scale-grow') {
+            reverseTransition = 'scale-shrink';
+          } else {
+            reverseTransition = 'scale-grow';
+          }
+          $scope.setTransition(reverseTransition);
+        };
+        $scope.setTransition = function(transition) {
+          $scope.transition = transition;
+        };
+        $scope.getTransition = function() {
+          return $scope.transition;
+        };
+        $scope.transition = "";
+      };
+      angular.module('demo', ['bp','ui.state'])
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+          $urlRouterProvider.otherwise('/home');
+          var controller = function ($state, $scope) {
+            $scope.to = function(state, back) {
+              if (back) {
+                $scope.reverseTransition();
+              } else {
+                var transition = $state.current.transition
+                $scope.setTransition(transition);
+              }
+              $state.transitionTo(state);
+            };
+          };
+
+          $stateProvider
+            .state('home', {
+              url: '/home',
+              templateUrl: 'home.html',
+              controller: controller,
+              transition: 'scale-grow'
+            })
+            .state('second', {
+              url: '/second',
+              templateUrl: 'second.html',
+              controller: controller,
+              transition: 'scale-grow'
+            });
+        }]);
+    </script>
+  </body>
+</html>

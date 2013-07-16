@@ -1,0 +1,12 @@
+<bp-screen>
+  <bp-navbar>
+    Second
+    <bp-button class="btn-back btn-inverse" bp-tap="to('home',true)">Back</bp-button>
+  </bp-navbar>
+  <div>
+    <bp-cell ng-repeat="friend in friends" class="bp-cell-value1">
+      <div class="label">Second</div>
+      <div class="value">{{ friend.phone }}</div>
+    </bp-cell>
+  </div>
+</bp-screen>
