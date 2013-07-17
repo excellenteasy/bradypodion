@@ -6,7 +6,6 @@
 ###
 
 modules = [
-  'animations'
   'controllers'
   'directives'
   'factories'

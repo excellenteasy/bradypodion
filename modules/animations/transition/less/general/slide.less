@@ -1,0 +1,92 @@
+
+
+.bp-slide (@direction: normal, @name: slide, @duration: 0.3s) {
+  .transparent (@number) when (@number >= 50) {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+
+  @enterTrans: ~`'@{direction}' === 'normal' ? 100 : 1`;
+  @leaveTrans: ~`'@{direction}' === 'normal' ? 1 : 100`;
+
+  @enterPer:   ~`'@{direction}' === 'normal' ? '100%' : '-100%'`;
+  @leavePer:   0;
+
+  @leavePerNeg:~`'@{direction}' === 'normal' ? '-100%' : '100%'`;
+
+  @enterIndex: ~`'@{direction}' === 'normal' ? 1000 : 'inherit'`;
+  @leaveIndex: ~`'@{direction}' === 'normal' ? 'inherit' : 1000`;
+
+
+  .@{name}-@{direction}-enter {
+    .transition(~"@{duration} ease-in all");
+    .transform(scale(1));
+    z-index: @enterIndex;
+    > * {
+      .transition(~"@{duration} ease-in all");
+      .transform(translateX(@enterPer));
+    }
+    bp-navbar {
+      .transition(~"none");
+      .transform(none);
+
+      .transparent(@enterTrans);
+
+      .bp-navbar-text, bp-button, bp-icon {
+        .transition(~"@{duration} ease-in all");
+        .transform(translateX(@enterPer));
+        opacity: 0;
+      }
+    }
+  }
+
+  .@{name}-@{direction}-enter.@{name}-@{direction}-enter-active {
+    .transform(scale(1));
+    > * {
+      .transform(translateX(@leavePer));
+    }
+    bp-navbar {
+      .bp-navbar-text, bp-button, bp-icon {
+        .transform(translateX(@leavePer));
+        opacity: 1;
+      }
+    }
+  }
+
+  .@{name}-@{direction}-leave {
+    .transition(~"@{duration} ease-in all");
+    .transform(scale(1));
+    z-index: @leaveIndex;
+    > * {
+      .transition(~"@{duration} ease-in all");
+      .transform(translateX(@leavePer));
+    }
+    bp-navbar {
+      .transition(~"none");
+      .transform(none);
+
+      .transparent(@leaveTrans);
+
+      .bp-navbar-text, bp-button, bp-icon {
+        .transition(~"@{duration} ease-in all");
+        .transform(translateX(@leavePer));
+        opacity: 1;
+      }
+    }
+  }
+
+  .@{name}-@{direction}-leave.@{name}-@{direction}-leave-active {
+    .transform(scale(1));
+    > * {
+      .transform(translateX(@leavePerNeg));
+    }
+    bp-navbar {
+      .transition(~"none");
+      .transform(none);
+      .bp-navbar-text, bp-button, bp-icon {
+        .transform(translateX(@leavePerNeg));
+        opacity: 0;
+      }
+    }
+  }
+}

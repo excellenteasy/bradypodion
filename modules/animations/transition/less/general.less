@@ -1,6 +1,7 @@
+@import "general/cover";
 @import "general/fade";
 @import "general/scale";
-@import "general/cover";
+@import "general/slide";
 
 [ui-view] {
   display: block;
@@ -18,11 +19,14 @@ bp-screen {
   z-index: 1;
 }
 
+.bp-cover;
+.bp-cover(reverse);
+
 .bp-fade;
 .bp-fade(reverse);
 
 .bp-scale;
 .bp-scale(reverse);
 
-.bp-cover;
-.bp-cover(reverse);
+.bp-slide;
+.bp-slide(reverse);
