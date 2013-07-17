@@ -7,4 +7,5 @@ before_script:
   - npm install -g grunt-cli
 notifications:
   email: false
-  secure: "UUJWZIqcpXnJ9Y6EeLeNRQSj9ExZaoHla7aSazJNSMrVUjYew/1DkOK9w0eS\n4lvtS5rKW2bhAoGt5+y9M0oiFwox7UgG/o6/2gmSGIhUJjyL94K0z6aSJLjg\n/JIoXMxhKXFAL+cuESRQGuie2IUxbOc2N/7GO+wHgTxDn3miFo8="
+  hipchat:
+    secure: "tjVNZJhelIBNYD2wG9GPe5o5TV+kZv5fr+U1QunLM+SmQi66hYRHIh6LDFn8\nu6X7pDESihRXnOT4cBYCIDqG2MT9s1Kti5zdfwUN2w1HTJgK+V0+/Ccs+Z7V\noPAnvv0Q9Am+Do6tTu9coex3S5AEOr/xNgJQf6CU2lHIZvElM5k="
