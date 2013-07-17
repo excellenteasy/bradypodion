@@ -91,7 +91,7 @@ module.exports = (grunt) ->
     # config
     template = 'modules/bradypodion.less'
     configs  = "#{MODULES_DIR}/_less/*.less"
-    modules  = "#{MODULES_DIR}/directives/*/less/*.less"
+    modules  = "#{MODULES_DIR}/*/*/less/*.less"
 
     # parse task flags
     platforms = []
