@@ -14,7 +14,12 @@ iscroll = (bpConfig, $timeout) ->
     options = angular.extend
       delay: 0
       stickyHeadersSelector: 'h1'
+      scrollbarsEnabled: yes
     , bpConfig.iscroll or {}
+
+    # Scrollbar Y options
+    if attrs.bpIscrollNoScrollbars?
+      options.scrollbarsEnabled = no
 
     # Sticky Headers Options
     if attrs.bpIscrollSticky?
@@ -24,7 +29,9 @@ iscroll = (bpConfig, $timeout) ->
 
     # create IScroll instance on element
     instanciateIScroll = ->
-      iscroll = new IScroll element[0], {probeType: 3}
+      iscroll = new IScroll element[0],
+        probeType: 3
+        scrollbars: options.scrollbarsEnabled
       if options.stickyHeadersEnabled
         new IScrollSticky iscroll, options.stickyHeadersSelector
 
