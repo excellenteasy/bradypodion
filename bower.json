@@ -6,6 +6,8 @@
     "jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js",
     "lesshat": "git@github.com:excellenteasy/LESSHat.git#v1.2.0",
     "lodash": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.js",
-    "angular-ui-router": "http://angular-ui.github.io/ui-router/build/angular-ui-router.js"
+    "angular-ui-router": "http://angular-ui.github.io/ui-router/build/angular-ui-router.js",
+    "iscroll": "https://rawgithub.com/cubiq/iscroll/v5.0.4/build/iscroll-probe.js",
+    "iscroll-sticky": "https://raw.github.com/excellenteasy/iscroll-sticky/v0.1.0/dist/iscroll-sticky.js"
   }
 }
