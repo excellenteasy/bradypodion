@@ -1,0 +1,11 @@
+<bp-screen>
+  <bp-navbar>
+    Home
+  </bp-navbar>
+  <div>
+    <bp-cell ng-repeat="friend in friends" class="bp-cell-value2" bp-tap="to('second')">
+      <div class="label">{{ friend.name }}</div>
+      <div class="value">{{ friend.phone }}</div>
+    </bp-cell>
+  </div>
+</bp-screen>

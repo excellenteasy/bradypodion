@@ -4,6 +4,7 @@
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
 ###
+angular.module 'bp.controllers', []
 angular.module 'bp.directives', []
 angular.module 'bp.factories', []
-angular.module 'bp', ['bp.directives', 'bp.factories']
+angular.module 'bp', ['bp.controllers', 'bp.directives', 'bp.factories']
