@@ -41,7 +41,7 @@
     "semver-sync": "~1.2.0",
     "grunt-karma": "~0.4.5",
     "grunt-bower-task": "~0.2.3",
-    "grunt-conventional-changelog": "git://github.com/vojtajina/grunt-conventional-changelog.git#merge-with-karma-angular-changelog-task",
+    "grunt-conventional-changelog": "git://github.com/btford/grunt-conventional-changelog.git#aa77460",
     "codo": "~1.7.0",
     "grunt-contrib-less": "~0.6.4"
   },
