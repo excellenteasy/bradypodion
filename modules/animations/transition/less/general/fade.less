@@ -5,7 +5,7 @@
   .@{name}-@{direction}-enter {
     .transition(~"@{duration} linear all");
     opacity: @enter;
-    z-index: @leave;
+    z-index: ~`'@{leave}' === '1' ? 1000 : 'inherit'`;
   }
   .@{name}-@{direction}-enter.@{name}-@{direction}-enter-active {
     opacity: 1;
@@ -13,7 +13,7 @@
   .@{name}-@{direction}-leave {
     .transition(~"@{duration} linear all");
     opacity: 1;
-    z-index: @enter;
+    z-index: ~`'@{enter}' === '1' ? 1000 : 'inherit'`;
   }
   .@{name}-@{direction}-leave.@{name}-@{direction}-leave-active {
     opacity: @leave;

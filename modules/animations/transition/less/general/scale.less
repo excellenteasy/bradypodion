@@ -3,17 +3,17 @@
   @leave: ~`'@{direction}' === 'normal' ? 1 : 0`;
 
   .@{name}-@{direction}-enter {
-    .transition(~"@{duration} linear all");
+    .transition(~"@{duration} ease-in all");
     .transform(scale(@enter));
-    z-index: @leave;
+    z-index: ~`'@{leave}' === '1' ? 1000 : 'inherit'`;
   }
   .@{name}-@{direction}-enter.@{name}-@{direction}-enter-active {
     .transform(scale(1));
   }
   .@{name}-@{direction}-leave {
-    .transition(~"@{duration} linear all");
+    .transition(~"@{duration} ease-in all");
     .transform(scale(1));
-    z-index: @enter;
+    z-index: ~`'@{enter}' === '1' ? 1000 : 'inherit'`;
   }
   .@{name}-@{direction}-leave.@{name}-@{direction}-leave-active {
     .transform(scale(@leave));

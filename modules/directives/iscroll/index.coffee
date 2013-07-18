@@ -24,7 +24,7 @@ iscroll = (bpConfig, $timeout) ->
     # Sticky Headers Options
     if attrs.bpIscrollSticky?
       options.stickyHeadersEnabled  = yes
-      if attrs.bpIscrollSticky isnt ''
+      unless attrs.bpIscrollSticky is ''
         options.stickyHeadersSelector = attrs.bpIscrollSticky
 
     # create IScroll instance on element

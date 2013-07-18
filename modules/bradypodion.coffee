@@ -4,7 +4,15 @@
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
 ###
-angular.module 'bp.controllers', []
-angular.module 'bp.directives', []
-angular.module 'bp.factories', []
-angular.module 'bp', ['bp.controllers', 'bp.directives', 'bp.factories']
+
+modules = [
+  'controllers'
+  'directives'
+  'factories'
+]
+
+modules = for module in modules
+  angular.module (namespaced = "bp.#{module}"), []
+  namespaced
+
+angular.module 'bp', modules

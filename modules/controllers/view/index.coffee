@@ -24,12 +24,14 @@ viewCtrl = ($scope, $state) ->
     toState
     toParams
     fromState
-    fromParams ) ->
+    fromParams
+    ) ->
 
-    $scope = event.currentScope
-    if $scope.getDirection() is 'reverse'
-      $scope.setTransition fromState.transition
+    event.currentScope.setTransition if fromState.name is ''
+      ''
+    else if $scope.getDirection() is 'reverse'
+      fromState.transition
     else
-      $scope.setTransition toState.transition
+      toState.transition
 
 angular.module('bp.controllers').controller 'bpViewCtrl', viewCtrl
