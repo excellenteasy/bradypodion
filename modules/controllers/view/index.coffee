@@ -1,7 +1,4 @@
-###
-  bradypodion view controller
-  @since 0.1.0
-###
+# # ViewCtrl
 viewCtrl = ($scope, $state) ->
   transition = ''
   direction  = 'normal'

@@ -1,10 +1,5 @@
-###
-  bradypodion iscroll directive
-  @since 0.1.0
-  @example description of iscroll example
-    <div bp-iscroll></div>
-  @return [Object<restrict|template|link>] Angular directive
-###
+# # iScroll
+
 iscroll = (bpConfig, $timeout) ->
   transclude: yes
   template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'

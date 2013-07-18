@@ -1,10 +1,5 @@
-###
-  bradypodion cell directive
-  @since 0.1.0
-  @example description of cell example
-    <bp-cell></bp-cell>
-  @return [Object<restrict|template|link>] Angular directive
-###
+# # Cell
+
 cell = ->
   restrict: 'E'
   transclude: true

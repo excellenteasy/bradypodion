@@ -1,16 +1,10 @@
-###
-  bradypodion config factory
-  @since 0.1.0
-###
+# # Config
+
 config = (bpUserConfig) ->
   angular.extend
     platform: 'ios'
   , bpUserConfig
-###
-  bradypodion userConfig factory
-  @note meant to be overwritten
-  @since 0.1.0
-###
+
 userConfig = ->
   noUserConfig: yes
 

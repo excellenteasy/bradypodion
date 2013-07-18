@@ -1,10 +1,5 @@
-###
-  bradypodion navbar directive
-  @since 0.1.0
-  @example description of navbar example
-    <bp-navbar>Title</bp-navbar>
-  @return [Object<restrict|template|link>] Angular directive
-###
+# # Navbar
+
 navbar = ->
   restrict: 'E'
   transclude: true

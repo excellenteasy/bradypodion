@@ -1,10 +1,5 @@
-###
-  bradypodion button directive
-  @since 0.1.0
-  @example Simple button with title
-    <bp-button title="test"></bp-button>
-  @return [Object<restrict|template|link>] Angular directive
-###
+# # Button
+
 button = ->
   restrict: 'E'
   transclude: true

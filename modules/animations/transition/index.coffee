@@ -1,3 +1,5 @@
+# # Flip
+
 flip = (direction = 'normal', name = 'flip', duration = 500) ->
   sign = if direction is 'normal' then '' else '-'
 

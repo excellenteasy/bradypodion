@@ -1,10 +1,5 @@
-###
-  bradypodion tap directive
-  @since 0.1.0
-  @example description of tap example
-    <div bp-tap></div>
-  @return [Object<restrict|template|link>] Angular directive
-###
+# # Tap
+
 tap = (bpConfig) ->
   link: (scope, element, attrs) ->
     options = angular.extend
