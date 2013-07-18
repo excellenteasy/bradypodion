@@ -1,6 +1,6 @@
 # # Body
 
-body = (bpConfig) ->
+angular.module('bp.directives').directive 'body', ['bpConfig', (bpConfig) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     scope.config = bpConfig
@@ -10,5 +10,4 @@ body = (bpConfig) ->
       element.removeClass latestPlatform
       element.addClass scope.config.platform
       latestPlatform = scope.config.platform
-
-angular.module('bp.directives').directive 'body', body
+]

@@ -1,12 +1,12 @@
 # # Config
 
-config = (bpUserConfig) ->
-  angular.extend
-    platform: 'ios'
-  , bpUserConfig
+angular.module('bp.factories').factory 'bpConfig', [
+  'bpUserConfig'
+  (bpUserConfig) ->
+    angular.extend
+      platform: 'ios'
+    , bpUserConfig
+  ]
 
-userConfig = ->
+angular.module('bp.factories').factory 'bpUserConfig', ->
   noUserConfig: yes
-
-angular.module('bp.factories').factory 'bpConfig', config
-angular.module('bp.factories').factory 'bpUserConfig', userConfig

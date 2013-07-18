@@ -1,36 +1,38 @@
 # # iScroll
 
-iscroll = (bpConfig, $timeout) ->
-  transclude: yes
-  template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'
-  link: (scope, element, attrs) ->
+angular.module('bp.directives').directive 'bpIscroll', [
+  'bpConfig'
+  '$timeout'
+  (bpConfig, $timeout) ->
+    transclude: yes
+    template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'
+    link: (scope, element, attrs) ->
 
-    # merge defaults with global user options
-    options = angular.extend
-      delay: 0
-      stickyHeadersSelector: 'h1'
-      scrollbarsEnabled: yes
-    , bpConfig.iscroll or {}
+      # merge defaults with global user options
+      options = angular.extend
+        delay: 0
+        stickyHeadersSelector: 'h1'
+        scrollbarsEnabled: yes
+      , bpConfig.iscroll or {}
 
-    # Scrollbar Y options
-    if attrs.bpIscrollNoScrollbars?
-      options.scrollbarsEnabled = no
+      # Scrollbar Y options
+      if attrs.bpIscrollNoScrollbars?
+        options.scrollbarsEnabled = no
 
-    # Sticky Headers Options
-    if attrs.bpIscrollSticky?
-      options.stickyHeadersEnabled  = yes
-      unless attrs.bpIscrollSticky is ''
-        options.stickyHeadersSelector = attrs.bpIscrollSticky
+      # Sticky Headers Options
+      if attrs.bpIscrollSticky?
+        options.stickyHeadersEnabled  = yes
+        unless attrs.bpIscrollSticky is ''
+          options.stickyHeadersSelector = attrs.bpIscrollSticky
 
-    # create IScroll instance on element
-    instanciateIScroll = ->
-      iscroll = new IScroll element[0],
-        probeType: 3
-        scrollbars: options.scrollbarsEnabled
-      if options.stickyHeadersEnabled
-        new IScrollSticky iscroll, options.stickyHeadersSelector
+      # create IScroll instance on element
+      instanciateIScroll = ->
+        iscroll = new IScroll element[0],
+          probeType: 3
+          scrollbars: options.scrollbarsEnabled
+        if options.stickyHeadersEnabled
+          new IScrollSticky iscroll, options.stickyHeadersSelector
 
-    # schedule IScroll instantication
-    $timeout instanciateIScroll, options.delay
-
-angular.module('bp.directives').directive 'bpIscroll', iscroll
+      # schedule IScroll instantication
+      $timeout instanciateIScroll, options.delay
+  ]

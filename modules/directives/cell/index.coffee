@@ -1,6 +1,6 @@
 # # Cell
 
-cell = ->
+angular.module('bp.directives').directive 'bpCell', ->
   restrict: 'E'
   transclude: true
   template: ''
@@ -8,5 +8,3 @@ cell = ->
     (scope, element, attrs) ->
       transcludeFn scope, (clone) ->
         element.append clone
-
-angular.module('bp.directives').directive 'bpCell', cell

@@ -1,34 +1,37 @@
 # # ViewCtrl
-viewCtrl = ($scope, $state) ->
-  transition = ''
-  direction  = 'normal'
 
-  $scope.to = (state, back) ->
-    direction = if back then 'reverse' else 'normal'
-    $state.transitionTo state
+angular.module('bp.controllers').controller 'bpViewCtrl', [
+  '$scope'
+  '$state'
+  ($scope, $state) ->
+    transition = ''
+    direction  = 'normal'
 
-  $scope.setTransition = (newTransition) ->
-    transition = newTransition
+    $scope.to = (state, back) ->
+      direction = if back then 'reverse' else 'normal'
+      $state.transitionTo state
 
-  $scope.getDirection = ->
-    direction
+    $scope.setTransition = (newTransition) ->
+      transition = newTransition
 
-  $scope.getFullTransition = ->
-    "#{transition}-#{direction}"
+    $scope.getDirection = ->
+      direction
 
-  $scope.$on '$stateChangeStart', (
-    event
-    toState
-    toParams
-    fromState
-    fromParams
-    ) ->
+    $scope.getFullTransition = ->
+      "#{transition}-#{direction}"
 
-    event.currentScope.setTransition if fromState.name is ''
-      ''
-    else if $scope.getDirection() is 'reverse'
-      fromState.transition
-    else
-      toState.transition
+    $scope.$on '$stateChangeStart', (
+      event
+      toState
+      toParams
+      fromState
+      fromParams
+      ) ->
 
-angular.module('bp.controllers').controller 'bpViewCtrl', viewCtrl
+      event.currentScope.setTransition if fromState.name is ''
+        ''
+      else if $scope.getDirection() is 'reverse'
+        fromState.transition
+      else
+        toState.transition
+  ]

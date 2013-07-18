@@ -1,6 +1,6 @@
 # # Navbar
 
-navbar = ->
+angular.module('bp.directives').directive 'bpNavbar', ->
   restrict: 'E'
   transclude: true
   template: '<div class="bp-navbar-text"></div>'
@@ -47,5 +47,3 @@ navbar = ->
           else if difference < 0
             $spacer.insertAfter $text
         , 0
-
-angular.module('bp.directives').directive 'bpNavbar', navbar

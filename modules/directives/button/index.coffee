@@ -1,6 +1,6 @@
 # # Button
 
-button = ->
+angular.module('bp.directives').directive 'bpButton', ->
   restrict: 'E'
   transclude: true
   template: ''
@@ -8,5 +8,3 @@ button = ->
     (scope, element, attrs) ->
       transcludeFn scope, (clone) ->
         element.append clone
-
-angular.module('bp.directives').directive 'bpButton', button
