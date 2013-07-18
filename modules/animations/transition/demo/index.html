@@ -15,29 +15,29 @@
                             {name:'Mike', phone:'555-4321'},
                             {name:'Adam', phone:'555-5678'},
                             {name:'Julie', phone:'555-8765'}]">
-    <div ng-controller="bpViewCtrl" ui-view ng-animate="getFullTransition()"></div>
-    <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
-    <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
-    <script type='text/javascript' src='../../../../components/angular/index.js'></script>
-    <script type='text/javascript' src='../../../../components/angular-ui-router/index.js'></script>
-    <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
+    <div ng-controller="bpViewCtrl" ui-view ng-animate="getFullTransition()">
+      Bradypodion: "Serve this site from a webserver to see the demo."
+    </div>
+    <script type='text/javascript' src='../../../../demo.js'></script>
     <script>
-      angular.module('demo', ['bp','ui.state'])
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-          $urlRouterProvider.otherwise('/home');
+      var finalLoad = function () {
+        angular.module('demo', ['bp','ui.state'])
+          .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/home');
 
-          $stateProvider
-            .state('home', {
-              url: '/home',
-              templateUrl: 'home.html',
-              transition: 'fade'
-            })
-            .state('second', {
-              url: '/second',
-              templateUrl: 'second.html',
-              transition: 'flip'
-            });
-        }]);
+            $stateProvider
+              .state('home', {
+                url: '/home',
+                templateUrl: 'home.html',
+                transition: 'fade'
+              })
+              .state('second', {
+                url: '/second',
+                templateUrl: 'second.html',
+                transition: 'flip'
+              });
+          }]);
+      };
     </script>
   </body>
 </html>

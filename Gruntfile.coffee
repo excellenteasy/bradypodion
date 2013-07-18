@@ -78,15 +78,18 @@ module.exports = (grunt) ->
         command: 'cp -R ./hooks ./.git/'
 
     watch:
+      options:
+        livereload: true
       grunt:
         files: '<%= coffeelint.gruntfile.files.src %>'
+      demo:
+        files: "#{MODULES_DIR}/**/*.html"
       coffee:
         files: "#{MODULES_DIR}/**/*.coffee"
         tasks: ['coffee', 'karma:unit:run']
       less:
         files: "#{MODULES_DIR}/**/*.less"
         tasks: ['cssbuild']
-
 
     # internal tasks don't use by hand
     less: all:

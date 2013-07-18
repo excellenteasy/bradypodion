@@ -208,23 +208,20 @@
         </div>
       </div>
     </bp-screen>
-    <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
-    <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
-    <script type='text/javascript' src='../../../../components/angular/index.js'></script>
-    <script type='text/javascript' src='../../../../components/iscroll/index.js'></script>
-    <script type='text/javascript' src='../../../../components/iscroll-sticky/index.js'></script>
-    <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
+    <script type='text/javascript' src='../../../../demo.js'></script>
     <script type='text/javascript'>
-      angular.module('demo', ['bp'])
-        .directive('demoSwitchTheme', function(bpConfig){
-          return function(scope, element, attrs) {
-            platforms = ['ios','ios7','android']
-            index = platforms.indexOf(bpConfig.platform);
-            scope.toggleTheme = function() {
-              bpConfig.platform = platforms[++index%3];
-            };
-          }
-        });
+      var finalLoad = function () {
+        angular.module('demo', ['bp'])
+          .directive('demoSwitchTheme', function(bpConfig){
+            return function(scope, element, attrs) {
+              platforms = ['ios','ios7','android']
+              index = platforms.indexOf(bpConfig.platform);
+              scope.toggleTheme = function() {
+                bpConfig.platform = platforms[++index%3];
+              };
+            }
+          });
+      };
     </script>
   </body>
 </html>
