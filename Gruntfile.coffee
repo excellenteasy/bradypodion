@@ -78,9 +78,15 @@ module.exports = (grunt) ->
         command: 'cp -R ./hooks ./.git/'
 
     watch:
-      lib:
-        files: ['<%= coffeelint.gruntfile.files.src %>', "#{MODULES_DIR}/**"]
-        tasks: ['build', 'karma:unit:run']
+      grunt:
+        files: '<%= coffeelint.gruntfile.files.src %>'
+      coffee:
+        files: "#{MODULES_DIR}/**/*.coffee"
+        tasks: ['coffee', 'karma:unit:run']
+      less:
+        files: "#{MODULES_DIR}/**/*.less"
+        tasks: ['cssbuild']
+
 
     # internal tasks don't use by hand
     less: all:
@@ -159,8 +165,10 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean:build'
-    'coffee'
-    'css']
+    'clean:dist'
+    'coffee:dist'
+    'css'
+    'coffee:tests']
 
   grunt.registerTask 'dist', [
     'clean:dist'
