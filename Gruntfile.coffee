@@ -55,6 +55,17 @@ module.exports = (grunt) ->
       gruntfile:
         files: src: [GRUNTFILE]
 
+    groc:
+      options:
+        out: 'docs/'
+        index: "#{MODULES_DIR}/index.md"
+      modules: [
+        "#{MODULES_DIR}/index.md"
+        "#{MODULES_DIR}/**/*.{coffee,less,md}"
+        "!#{MODULES_DIR}/**/test.coffee"
+        "!#{MODULES_DIR}/_less/*.less"
+        "!#{MODULES_DIR}/bradypodion.*"]
+
     karma:
       options:
         configFile: 'karma.conf.js'
@@ -70,8 +81,6 @@ module.exports = (grunt) ->
         stderr : true
         stdout : true
         failOnError : true
-      docs:
-        command: './node_modules/codo/bin/codo modules -o docs'
       semver:
         command: './node_modules/semver-sync/bin/semver-sync -v'
       hooks:
@@ -194,5 +203,5 @@ module.exports = (grunt) ->
     'karma:unit'
     'watch']
 
-  grunt.registerTask 'docs',      ['dist', 'shell:docs']
+  grunt.registerTask 'docs',      ['dist', 'groc']
   grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
