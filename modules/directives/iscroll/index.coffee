@@ -1,41 +1,38 @@
-###
-  bradypodion iscroll directive
-  @since 0.1.0
-  @example description of iscroll example
-    <div bp-iscroll></div>
-  @return [Object<restrict|template|link>] Angular directive
-###
-iscroll = (bpConfig, $timeout) ->
-  transclude: yes
-  template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'
-  link: (scope, element, attrs) ->
+# # iScroll
 
-    # merge defaults with global user options
-    options = angular.extend
-      delay: 0
-      stickyHeadersSelector: 'h1'
-      scrollbarsEnabled: yes
-    , bpConfig.iscroll or {}
+angular.module('bp.directives').directive 'bpIscroll', [
+  'bpConfig'
+  '$timeout'
+  (bpConfig, $timeout) ->
+    transclude: yes
+    template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'
+    link: (scope, element, attrs) ->
 
-    # Scrollbar Y options
-    if attrs.bpIscrollNoScrollbars?
-      options.scrollbarsEnabled = no
+      # merge defaults with global user options
+      options = angular.extend
+        delay: 0
+        stickyHeadersSelector: 'h1'
+        scrollbarsEnabled: yes
+      , bpConfig.iscroll or {}
 
-    # Sticky Headers Options
-    if attrs.bpIscrollSticky?
-      options.stickyHeadersEnabled  = yes
-      unless attrs.bpIscrollSticky is ''
-        options.stickyHeadersSelector = attrs.bpIscrollSticky
+      # Scrollbar Y options
+      if attrs.bpIscrollNoScrollbars?
+        options.scrollbarsEnabled = no
 
-    # create IScroll instance on element
-    instanciateIScroll = ->
-      iscroll = new IScroll element[0],
-        probeType: 3
-        scrollbars: options.scrollbarsEnabled
-      if options.stickyHeadersEnabled
-        new IScrollSticky iscroll, options.stickyHeadersSelector
+      # Sticky Headers Options
+      if attrs.bpIscrollSticky?
+        options.stickyHeadersEnabled  = yes
+        unless attrs.bpIscrollSticky is ''
+          options.stickyHeadersSelector = attrs.bpIscrollSticky
 
-    # schedule IScroll instantication
-    $timeout instanciateIScroll, options.delay
+      # create IScroll instance on element
+      instanciateIScroll = ->
+        iscroll = new IScroll element[0],
+          probeType: 3
+          scrollbars: options.scrollbarsEnabled
+        if options.stickyHeadersEnabled
+          new IScrollSticky iscroll, options.stickyHeadersSelector
 
-angular.module('bp.directives').directive 'bpIscroll', iscroll
+      # schedule IScroll instantication
+      $timeout instanciateIScroll, options.delay
+  ]

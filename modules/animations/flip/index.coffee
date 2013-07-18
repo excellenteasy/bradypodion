@@ -1,8 +1,10 @@
+# # Flip
+
 flip = (direction = 'normal', name = 'flip', duration = 500) ->
   sign = if direction is 'normal' then '' else '-'
 
   angular.module('bp.animations')
-    .animation "#{name}-#{direction}-enter", ($timeout) ->
+    .animation "#{name}-#{direction}-enter", ['$timeout', ($timeout) ->
       setup: (element) ->
         view    = element.parent('[ui-view]')
           .addClass('flip-normal-view')
@@ -31,11 +33,13 @@ flip = (direction = 'normal', name = 'flip', duration = 500) ->
           elements.wrapper.removeClass 'flip-normal-wrapper'
           done()
         , duration
+    ]
 
   angular.module('bp.animations')
-    .animation "#{name}-#{direction}-leave", ($timeout) ->
+    .animation "#{name}-#{direction}-leave", ['$timeout', ($timeout) ->
       start: (e, done) ->
         $timeout done, duration
+    ]
 
 flip()
 flip 'reverse'

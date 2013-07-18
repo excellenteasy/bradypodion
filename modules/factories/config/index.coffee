@@ -1,18 +1,12 @@
-###
-  bradypodion config factory
-  @since 0.1.0
-###
-config = (bpUserConfig) ->
-  angular.extend
-    platform: 'ios'
-  , bpUserConfig
-###
-  bradypodion userConfig factory
-  @note meant to be overwritten
-  @since 0.1.0
-###
-userConfig = ->
-  noUserConfig: yes
+# # Config
 
-angular.module('bp.factories').factory 'bpConfig', config
-angular.module('bp.factories').factory 'bpUserConfig', userConfig
+angular.module('bp.factories').factory 'bpConfig', [
+  'bpUserConfig'
+  (bpUserConfig) ->
+    angular.extend
+      platform: 'ios'
+    , bpUserConfig
+  ]
+
+angular.module('bp.factories').factory 'bpUserConfig', ->
+  noUserConfig: yes

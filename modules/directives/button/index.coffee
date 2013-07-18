@@ -1,6 +1,6 @@
-# # Cell
+# # Button
 
-angular.module('bp.directives').directive 'bpCell', ->
+angular.module('bp.directives').directive 'bpButton', ->
   restrict: 'E'
   transclude: true
   template: ''

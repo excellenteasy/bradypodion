@@ -1,3 +1,5 @@
+// # Cover
+
 .bp-cover (@direction: normal, @name: cover, @duration: 0.3s) {
   @enterPer:   ~`'@{direction}' === 'normal' ? '100%' : 0`;
   @enterIndex: ~`'@{direction}' === 'normal' ? 1000 : 'inherit'`;
@@ -21,3 +23,6 @@
     .transform(translateY(@leavePer));
   }
 }
+
+.bp-cover;
+.bp-cover(reverse);

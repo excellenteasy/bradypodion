@@ -1,11 +1,6 @@
-###
-  bradypodion navbar directive
-  @since 0.1.0
-  @example description of navbar example
-    <bp-navbar>Title</bp-navbar>
-  @return [Object<restrict|template|link>] Angular directive
-###
-navbar = ->
+# # Navbar
+
+angular.module('bp.directives').directive 'bpNavbar', ->
   restrict: 'E'
   transclude: true
   template: '<div class="bp-navbar-text"></div>'
@@ -52,5 +47,3 @@ navbar = ->
           else if difference < 0
             $spacer.insertAfter $text
         , 0
-
-angular.module('bp.directives').directive 'bpNavbar', navbar

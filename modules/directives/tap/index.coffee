@@ -1,11 +1,6 @@
-###
-  bradypodion tap directive
-  @since 0.1.0
-  @example description of tap example
-    <div bp-tap></div>
-  @return [Object<restrict|template|link>] Angular directive
-###
-tap = (bpConfig) ->
+# # Tap
+
+angular.module('bp.directives').directive 'bpTap', ['bpConfig', (bpConfig) ->
   link: (scope, element, attrs) ->
     options = angular.extend
       noScroll: no
@@ -56,5 +51,4 @@ tap = (bpConfig) ->
 
     scope.$on '$destroy', ->
       element.unbind 'touchstart touchmove touchend touchcancel click'
-
-angular.module('bp.directives').directive 'bpTap', tap
+]
