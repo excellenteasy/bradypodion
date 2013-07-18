@@ -2,6 +2,8 @@
   scripts = [
     '../../../../components/lodash/index.js',
     '../../../../components/jquery/index.js',
+    '../../../../components/iscroll/index.js',
+    '../../../../components/iscroll-sticky/index.js',
     '../../../../components/angular/index.js',
     '../../../../components/angular-ui-router/index.js',
     '../../../../dist/bradypodion.js'
