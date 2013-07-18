@@ -15,11 +15,8 @@ tap = (bpConfig) ->
     , bpConfig.tap or {}
 
     for key of options
-      attr = attrs['bp' + key.charAt(0).toUpperCase() + key.slice(1)]
-      if attr? then options[key] = switch attr
-        when 'true'  then true
-        when 'false' then false
-        else attr
+      attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
+      if attr? then options[key] = if attr is '' then true else attr
 
     touch = {}
 
