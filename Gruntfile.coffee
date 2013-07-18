@@ -59,6 +59,7 @@ module.exports = (grunt) ->
       options:
         out: 'docs/'
         index: "#{MODULES_DIR}/index.md"
+        strip: "#{MODULES_DIR}"
       modules: [
         "#{MODULES_DIR}/index.md"
         "#{MODULES_DIR}/**/*.{coffee,less,md}"
