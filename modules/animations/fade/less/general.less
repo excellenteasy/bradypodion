@@ -1,3 +1,5 @@
+// # Fade
+
 .bp-fade (@direction: normal, @name: fade, @duration: 0.3s) {
   @enter: ~`'@{direction}' === 'normal' ? 0 : 1`;
   @leave: ~`'@{direction}' === 'normal' ? 1 : 0`;
@@ -19,3 +21,6 @@
     opacity: @leave;
   }
 }
+
+.bp-fade;
+.bp-fade(reverse);
