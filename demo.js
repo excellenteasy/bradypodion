@@ -9,7 +9,7 @@
     '../../../../dist/bradypodion.js'
   ];
   if (!/phantom/i.test(navigator.userAgent) && document.location.protocol !== 'file:') {
-    scripts.push(window.location.origin + ':35729/livereload.js');
+    scripts.push(window.location.protocol + '//' + window.location.hostname + ':35729/livereload.js');
   } else {
     console.warn('Bradypodion: "Serve this site from a webserver to enable livereload."');
   }
