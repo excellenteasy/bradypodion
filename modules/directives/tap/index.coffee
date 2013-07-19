@@ -1,15 +1,27 @@
 # # Tap
-
+# ## Description
+# The `bpTap` allows you to specify custom behavior when element is tapped.
+# ## Usage
+# as attribute
+# `<ANY bp-tap="{expression}">`
+# ### Parameters
+# * `ngClick` – `{expression}` Expression to evaluate upon tap.
 angular.module('bp.directives').directive 'bpTap', deps [
   'bpConfig'
   ], (
   bpConfig
   ) ->
   (scope, element, attrs) ->
+    # ### Options
+    # You can specify some options as attributes to control the behavior.
     options = angular.extend
+      # * `bp-no-scroll` – Prevent page scroll when moving after touchstart
       noScroll: no
+      # * `bp-active-class - `CSS class` - Class to add during tap
       activeClass: 'bp-active'
+      # * `bp-bound-margin - `int` - Pixels allowed to move to fire tap
       boundMargin: 50
+      # * `bp-allow-click - Fire click and tap events
       allowClick: no
     , bpConfig.tap or {}
 
@@ -17,19 +29,16 @@ angular.module('bp.directives').directive 'bpTap', deps [
       attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
       if attr? then options[key] = if attr is '' then true else attr
 
-    # # Intelligent Defaults
-    # ## bp-no-scroll
-    # Apply bp-no-scroll to tappable buttons in a navbar
+    # #### Intelligent Defaults
+    # * Apply `bp-no-scroll` to  `bp-button` within `bp-navbar`
     if element.is('bp-button') and element.parent().is('bp-navbar')
       element.attr 'bp-no-scroll', ''
       options.noScroll = yes
-    # ## bp-bound-margin
-    # Set bound margin to 5 when cell is seated inside an iScroll
+    # * Set `bp-bound-margin` to 5 when `bp-cell` is within `bp-iscroll`
     if element.parents('[bp-iscroll]').length
       element.attr 'bp-bound-margin', '5'
       options.boundMargin = 5
-    # ## bp-tap='fn(arg1,arg2)'
-    # Apply back button CSS class if tap will result in reverse transition.
+    # * Apply `bp-button-back` class if tap will result in reverse transition.
     if /to\(('|")[A-Za-z]+('|"),true\)/.test attrs.bpTap
       element.addClass 'bp-button-back'
 
