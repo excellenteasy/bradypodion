@@ -5,7 +5,7 @@ angular.module('bp.directives').directive 'bpTap', deps [
   ], (
   bpConfig
   ) ->
-  link: (scope, element, attrs) ->
+  (scope, element, attrs) ->
     options = angular.extend
       noScroll: no
       activeClass: 'bp-active'
@@ -16,6 +16,22 @@ angular.module('bp.directives').directive 'bpTap', deps [
     for key of options
       attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
       if attr? then options[key] = if attr is '' then true else attr
+
+    # # Intelligent Defaults
+    # ## bp-no-scroll
+    # Apply bp-no-scroll to tappable buttons in a navbar
+    if element.is('bp-button') and element.parent().is('bp-navbar')
+      element.attr 'bp-no-scroll', ''
+      options.noScroll = yes
+    # ## bp-bound-margin
+    # Set bound margin to 5 when cell is seated inside an iScroll
+    if element.parents('[bp-iscroll]').length
+      element.attr 'bp-bound-margin', '5'
+      options.boundMargin = 5
+    # ## bp-tap='fn(arg1,arg2)'
+    # Apply back button CSS class if tap will result in reverse transition.
+    if /to\(('|")[A-Za-z]+('|"),true\)/.test attrs.bpTap
+      element.addClass 'bp-button-back'
 
     touch = {}
 
