@@ -2,16 +2,19 @@
 
 angular.module('bp.directives').directive 'bpSearch', [
   '$compile'
-  ($compile) ->
+  '$timeout'
+  ($compile, $timeout) ->
     restrict: 'E'
     link: (scope, element, attrs) ->
       $cancel = $compile(
-        '<bp-button bp-tap="cancel()" bp-no-scroll>Cancel</bp-button>'
+        '<bp-button bp-tap="cancel()" bp-no-scroll>
+          Cancel
+        </bp-button>'
         ) scope
       $search = element.find 'input'
       element
         .attr('role','search')
-        .append $cancel
+        .append $cancel.hide()
 
       # set input placeholder to "Search" if not already set
       placeholder = $search?.attr 'placeholder'
@@ -28,6 +31,7 @@ angular.module('bp.directives').directive 'bpSearch', [
         cancelWidth = $cancel.outerWidth()
         inputWidth = element.width() - (padding)
         $search?.css 'width', "#{inputWidth - cancelWidth - padding}px"
+        $cancel.show()
         element.addClass 'focus'
 
         # scroll out UI before search
@@ -44,6 +48,9 @@ angular.module('bp.directives').directive 'bpSearch', [
         scope.searchTerm = ''
         $search?.css 'width', ''
         element.removeClass 'focus'
+        $timeout ->
+          $cancel.hide()
+        , 500
 
       $search?.bind 'blur', (e) ->
         # cancel on blur  if no searchterm is present
