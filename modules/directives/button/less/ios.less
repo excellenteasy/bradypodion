@@ -12,20 +12,20 @@ bp-button {
 
   .btn-height;
 
-  &.btn-back  {
+  &.bp-button-back  {
     .btn-arrow(back);
   }
 
-  &.btn-forward {
+  &.bp-button-forward {
     .btn-arrow(forward);
   }
 
   &.btn-small {
     .btn-height(small);
-    &.btn-back {
+    &.bp-button-back {
       .btn-arrow(back, small);
     }
-    &.btn-forward {
+    &.bp-button-forward {
       .btn-arrow(forward, small);
     }
   }
@@ -38,26 +38,26 @@ bp-button {
 bp-button {
   .btn-bg-theme(@ui-color-secondary);
 
-  &.btn-primary {
+  &.bp-button-primary {
     .btn-bg-theme(@ui-color-primary);
   }
-  &.btn-info {
+  &.bp-button-info {
     .btn-bg-theme(@ui-color-info);
   }
-  &.btn-success {
+  &.bp-button-success {
     .btn-bg-theme(@ui-color-success);
   }
-  &.btn-warning {
+  &.bp-button-warning {
     .btn-bg-theme(@ui-color-warning);
   }
-  &.btn-danger {
+  &.bp-button-danger {
     .btn-bg-theme(@ui-color-danger);
   }
-  &.btn-inverse {
+  &.bp-button-inverse {
     .btn-bg-theme(@ui-color-inverse);
   }
 }
 
-.btn-group bp-button {
+bp-button-group bp-button {
   .btn-group;
 }

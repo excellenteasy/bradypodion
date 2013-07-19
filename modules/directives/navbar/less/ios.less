@@ -19,11 +19,11 @@ bp-navbar{
     .btn-type(@ui-color, 14px);
     bp-button {
       &:extend(.btn.btn-small all);
-      &.btn-back {
-        &:extend(.btn.btn-small.btn-back all);
+      &.bp-button-back {
+        &:extend(.btn.btn-small.bp-button-back all);
       }
-      &.btn-forward {
-        &:extend(.btn.btn-small.btn-forward all);
+      &.bp-button-forward {
+        &:extend(.btn.btn-small.bp-button-forward all);
       }
     }
   }
@@ -44,10 +44,10 @@ bp-navbar{
     .navbar-size(small);
     bp-button {
       .btn-height(small);
-      &.btn-back {
+      &.bp-button-back {
         .btn-arrow(back, small);
       }
-      &.btn-forward {
+      &.bp-button-forward {
         .btn-arrow(forward, small);
       }
     }
