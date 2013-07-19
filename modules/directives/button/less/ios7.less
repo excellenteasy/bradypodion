@@ -8,15 +8,11 @@ bp-button {
   .btn-type;
 
   &.btn-back  {
-    &:extend(.icon all);
     .btn-arrow(back);
   }
 
   &.btn-forward {
     .btn-arrow(forward);
-    &:after {
-      &:extend(.icon:before);
-    }
   }
 
   &.disabled, &[disabled] {

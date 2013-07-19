@@ -1,23 +1,19 @@
-.btn-arrow-meta {
-  font-size: 20px;
-  line-height: 22px;
-  height: 22px;
-  content : '\e001';
-  &:extend(.icon-system:before);
-}
-
 .btn-arrow(back) {
+  &:extend(bp-icon all);
+  &:extend(.bp-icon-chevron-left all);
   &:before {
-    &:extend(.btn-arrow-meta);
-    margin-left: -9px;
-    -webkit-transform: rotate(180deg) translateX(-6px);
+    font-size: 20px;
+    line-height: 22px;
+    height: 22px;
   }
 }
 
 .btn-arrow(forward) {
   &:after {
-    margin-right: -9px;
-    -webkit-transform: translateX(-6px);
-    &:extend(.btn-arrow-meta);
+    &:extend(bp-icon:before);
+    &:extend(.bp-icon-chevron-right:before);
+    font-size: 20px;
+    line-height: 22px;
+    height: 22px;
   }
 }

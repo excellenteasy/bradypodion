@@ -9,15 +9,13 @@
   padding    : 0;
   background : transparent;
   color      : transparent;
-  &:extend(.icon all);
+  &:extend(bp-icon all);
+  &:extend(.bp-icon-chevron-left all);
   &:before {
-    &:extend(.icon-system:before);
     position : absolute;
     left     : -2px;
     font-size: 12px;
     color    : fade(@color ,60%);
-    content : '\e001';
-    -webkit-transform: rotate(180deg);
   }
 }
 
