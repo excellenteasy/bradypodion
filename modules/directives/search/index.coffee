@@ -9,11 +9,13 @@ angular.module('bp.directives').directive 'bpSearch', [
         '<bp-button bp-tap="cancel()" bp-no-scroll>Cancel</bp-button>'
         ) scope
       $search = element.find 'input'
-      element.append $cancel
+      element
+        .attr('role','search')
+        .append $cancel
 
       # set input placeholder to "Search" if not already set
       placeholder = $search?.attr 'placeholder'
-      if !placeholder? or /^\s*$/.test placerholder
+      if !placeholder? or /^\s*$/.test placeholder
         $search?.attr 'placeholder', 'Search'
 
       # helper to prevent event default

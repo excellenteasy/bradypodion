@@ -7,4 +7,7 @@ angular.module('bp.directives').directive 'bpCell', ->
   compile: (elem, attrs, transcludeFn) ->
     (scope, element, attrs) ->
       transcludeFn scope, (clone) ->
-        element.append clone
+        element
+          .attr(
+            role: 'listitem')
+          .append clone

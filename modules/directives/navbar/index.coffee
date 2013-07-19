@@ -3,9 +3,11 @@
 angular.module('bp.directives').directive 'bpNavbar', ->
   restrict: 'E'
   transclude: true
-  template: '<div class="bp-navbar-text"></div>'
+  template: '<div class="bp-navbar-text" role="heading"></div>'
   compile: (elem, attrs, transcludeFn) ->
     (scope, element, attrs) ->
+      element.attr
+        role: 'navigation'
       transcludeFn scope, (clone) ->
         $text = element.find('.bp-navbar-text')
         placedButtons = 0
