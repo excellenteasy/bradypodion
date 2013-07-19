@@ -1,6 +1,10 @@
 # # Tap
 
-angular.module('bp.directives').directive 'bpTap', ['bpConfig', (bpConfig) ->
+angular.module('bp.directives').directive 'bpTap', deps [
+  'bpConfig'
+  ], (
+  bpConfig
+  ) ->
   link: (scope, element, attrs) ->
     options = angular.extend
       noScroll: no
@@ -51,4 +55,3 @@ angular.module('bp.directives').directive 'bpTap', ['bpConfig', (bpConfig) ->
 
     scope.$on '$destroy', ->
       element.unbind 'touchstart touchmove touchend touchcancel click'
-]

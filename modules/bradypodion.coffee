@@ -17,3 +17,7 @@ modules = for module in modules
   namespaced
 
 angular.module 'bp', modules
+
+deps = (deps, fn) ->
+  deps.push fn
+  deps
