@@ -6,13 +6,13 @@
 @import "../components/lesshat/lesshat";
 @import "../modules/_less/general";
 
-.UIcing-flexbox(@orient: horizontal, @pack: start, @align: center) {
+.bp-flexbox(@orient: horizontal, @pack: start, @align: center) {
   -webkit-box-orient: @orient;
   -webkit-box-pack  : @pack;
   -webkit-box-align : @align;
   display           : -webkit-box;
 }
-.UIcing-ellipsis(@a:a) {
+.bp-ellipsis(@a:a) {
   overflow     : hidden;
   text-overflow: ellipsis;
   white-space  : nowrap;
@@ -20,8 +20,8 @@
 
 /* Extends */
 .flexbox {
-  .UIcing-flexbox;
+  .bp-flexbox;
 }
 .ellipsis {
-  .UIcing-ellipsis;
+  .bp-ellipsis;
 }

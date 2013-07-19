@@ -5,7 +5,7 @@
 bp-cell {
   &:extend(.borderBox);
   &:extend(.ellipsis);
-  .UIcing-flexbox(horizontal);
+  .bp-flexbox(horizontal);
   .bp-cell-wrapper;
   > div, > span {
     &:extend(.ellipsis);
@@ -46,7 +46,7 @@ bp-cell {
 }
 .bp-cell-subtitle {
   .titles {
-    .UIcing-flexbox(vertical, center, start);
+    .bp-flexbox(vertical, center, start);
     .title, .subtitle {
       &:extend(.ellipsis);
       width: 100%;
