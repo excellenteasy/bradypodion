@@ -1,4 +1,5 @@
 @import 'ios/basic';
+@import 'ios/elements';
 @import 'ios/value';
 @import 'ios/subtitle';
 
@@ -57,4 +58,19 @@ bp-cell {
       .bp-cell-subtitle-subtitle;
     }
   }
+}
+
+.bp-cell-disclosure {
+  &:after {
+    &:extend(bp-icon:before);
+    &:extend(.bp-icon-system:before);
+  }
+  .table-element('\e001', #7F7F7F);
+}
+.bp-cell-checkmark {
+  &:after {
+    &:extend(bp-icon:before);
+    &:extend(.bp-icon-system:before);
+  }
+  .table-element('\e002', '',#354969);
 }

@@ -1,4 +1,5 @@
 @import 'android/basic';
+@import 'android/elements';
 @import 'android/value';
 @import 'android/subtitle';
 
@@ -58,4 +59,19 @@ bp-cell {
       .bp-cell-subtitle-subtitle;
     }
   }
+}
+
+.bp-cell-disclosure {
+  &:after {
+    &:extend(bp-icon:before);
+    &:extend(.bp-icon-system:before);
+  }
+  .table-element('\e001', #333);
+}
+.bp-cell-checkmark {
+  &:after {
+    &:extend(bp-icon:before);
+    &:extend(.bp-icon-system:before);
+  }
+  .table-element('\e002', #333);
 }

@@ -1,0 +1,25 @@
+/*
+# Elements
+*/
+
+.table-element(@icon, @iconcolor) {
+  &:after {
+    font-size: 0.8em;
+    content: @icon;
+    color: @iconcolor;
+  }
+  &.active:after {
+    color: white;
+  }
+}
+
+.table-element(@icon, @iconcolor, @textcolor) {
+  color: @textcolor;
+  &:after {
+    font-size: 0.8em;
+    content: @icon;
+  }
+  &.active {
+    color: white;
+  }
+}
