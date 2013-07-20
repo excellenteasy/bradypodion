@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app="demo">
+  <head>
+    <title>Bradypodion cell demo</title>
+    <link rel="stylesheet" href="../../../../dist/bradypodion.css">
+    <meta charset="UTF-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <body>
+    <bp-navbar>
+      <bp-button bp-tap="toggleTheme()" demo-switch-theme>Toggle Theme</bp-button>
+    </bp-navbar>
+    <bp-table-header>A</bp-table-header>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-table-header>B</bp-table-header>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-table-header>C</bp-table-header>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <bp-cell>Cell</bp-cell>
+    <script type='text/javascript' src='../../../../demo.js'></script>
+    <script type='text/javascript'>
+      var finalLoad = function () {
+        angular.module('demo', ['bp'])
+          .directive('demoSwitchTheme', function(bpConfig){
+            return function(scope, element, attrs) {
+              platforms = ['ios','ios7','android']
+              index = platforms.indexOf(bpConfig.platform);
+              scope.toggleTheme = function(e) {
+                bpConfig.platform = platforms[++index%3];
+              };
+            }
+          })
+      };
+    </script>
+  </body>
+</html>

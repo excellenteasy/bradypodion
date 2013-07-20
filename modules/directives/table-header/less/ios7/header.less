@@ -1,0 +1,18 @@
+.table-header-element(@height: @table-header-height) {
+  &:extend(strong);
+  background-color: #f8f8f8;
+
+  .gradient(~"linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%)");
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
+
+  color           : black;
+  font-size       : 18px;
+
+  height          : @height;
+  line-height     : @height;
+
+  margin          : 0;
+  padding         : 0 13px;
+}

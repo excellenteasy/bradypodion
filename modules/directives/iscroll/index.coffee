@@ -14,7 +14,7 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
     # merge defaults with global user options
     options = angular.extend
       delay: 0
-      stickyHeadersSelector: 'h1'
+      stickyHeadersSelector: 'bp-table-header'
       scrollbarsEnabled: yes
     , bpConfig.iscroll or {}
 
