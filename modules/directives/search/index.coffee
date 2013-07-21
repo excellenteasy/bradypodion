@@ -35,7 +35,9 @@ angular.module('bp.directives').directive 'bpSearch', deps [
       inputWidth = element.width() - (padding)
       $search?.css 'width', "#{inputWidth - cancelWidth - padding}px"
       $cancel.show()
-      element.addClass 'focus'
+      $timeout ->
+        element.addClass 'focus'
+      , 0
 
       # scroll out UI before search
       if element.prev().length
