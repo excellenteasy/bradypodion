@@ -1,3 +1,5 @@
+var scripts = require(__dirname+'/deps.js').scripts;
+
 // Karma configuration
 // base path, that will be used to resolve files and exclude
 basePath = '';
@@ -6,12 +8,9 @@ basePath = '';
 files = [
   QUNIT,
   QUNIT_ADAPTER,
-  'components/lodash/index.js',
-  'components/jquery/index.js',
-  'components/angular/index.js',
-  'dist/bradypodion.js',
-  'build/tests.js'
-];
+].concat(scripts)
+
+files.push('build/tests.js');
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'

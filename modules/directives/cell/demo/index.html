@@ -40,7 +40,7 @@
       <div class="value">Value</div>
     </bp-cell>
 
-    <script type='text/javascript' src='../../../../demo.js'></script>
+    <script type='text/javascript' src='../../../../deps.js'></script>
     <script type='text/javascript'>
       var finalLoad = function () {
         angular.module('demo', ['bp'])
@@ -50,7 +50,6 @@
               index = platforms.indexOf(bpConfig.platform);
               scope.toggleTheme = function(e) {
                 bpConfig.platform = platforms[++index%3];
-                scope.$apply();
               };
             }
           })
