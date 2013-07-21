@@ -10,9 +10,7 @@ angular.module('bp.directives').directive 'bpSearch', deps [
   restrict: 'E'
   link: (scope, element, attrs) ->
     $cancel = $compile(
-      '<bp-button bp-tap="cancel()" bp-no-scroll>
-        Cancel
-      </bp-button>'
+      '<bp-button bp-tap="cancel()" bp-no-scroll>Cancel</bp-button>'
       ) scope
     $search = element.find 'input'
     element
