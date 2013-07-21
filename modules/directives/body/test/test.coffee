@@ -5,4 +5,11 @@ module 'body', setup: ->
   @$compile = injector.get '$compile'
 
 test 'bodyDirective', ->
-  ok true, 'Write some tests'
+  element = @$compile('<body></body>') @$scope
+  @$scope.$apply()
+
+  ok element.hasClass @$scope.config.platform, 'test'
+
+  @$scope.config.platform = 'android'
+  @$scope.$apply()
+  ok element.hasClass @$scope.config.platform, 'foo'

@@ -5,5 +5,8 @@ module 'cell', setup: ->
   @$compile = injector.get '$compile'
 
 test 'cellDirective', ->
-  element = @$compile('<bp-cell</bp-cell>') @$scope
-  ok true, 'Write your fuckin tests dude!'
+  text    = 'Some Test'
+  element = @$compile("<bp-cell>#{text}</bp-cell>") @$scope
+
+  equal element.attr('role'), 'listitem', 'role is listitem'
+  equal text, element.text(), 'text'

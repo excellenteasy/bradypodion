@@ -5,6 +5,7 @@ module 'button', setup: ->
   @$compile = injector.get '$compile'
 
 test 'buttonDirective', ->
-  element = @$compile('<bp-button></bp-button>') @$scope
-  ok true, 'test'
-
+  text    = 'Some Test'
+  element = @$compile("<bp-button>#{text}</bp-button>") @$scope
+  equal element.attr('role'), 'button'
+  equal text, element.text()
