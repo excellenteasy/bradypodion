@@ -40,7 +40,7 @@ angular.module('bp.directives').directive 'bpSearch', deps [
       # scroll out UI before search
       if element.prev().length
         element.bind 'touchmove', preventDefault
-        setTimeout ->
+        $timeout ->
           window.scrollTo 0, element.prev().outerHeight()
         , 0
 

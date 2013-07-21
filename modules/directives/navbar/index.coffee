@@ -1,6 +1,10 @@
 # # Navbar
 
-angular.module('bp.directives').directive 'bpNavbar', ->
+angular.module('bp.directives').directive 'bpNavbar', deps [
+  '$timeout'
+  ], (
+  $timeout
+  ) ->
   restrict: 'E'
   transclude: true
   template: '<div class="bp-navbar-text" role="heading"></div>'
@@ -33,7 +37,7 @@ angular.module('bp.directives').directive 'bpNavbar', ->
           else
             element.append $button.addClass('after')
 
-        unless /^\s*$/.test $navbarText.text() then setTimeout ->
+        unless /^\s*$/.test $navbarText.text() then $timeout ->
           beforeWidth = 0
           afterWidth  = 0
           elem.find('.after').each ->
