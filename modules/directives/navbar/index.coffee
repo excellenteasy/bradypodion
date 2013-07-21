@@ -9,27 +9,31 @@ angular.module('bp.directives').directive 'bpNavbar', ->
       element.attr
         role: 'navigation'
       transcludeFn scope, (clone) ->
-        $text = element.find('.bp-navbar-text')
+        $navbarText = element.find('.bp-navbar-text')
         placedButtons = 0
         buttons = []
 
+        navbarText = $navbarText.text()
         for child in clone
           $child = angular.element(child)
           if $child.is('bp-button') or $child.is('bp-icon')
             buttons.push($child)
           else if $child.context.nodeName is '#text' or
                   $child.is('span.ng-scope')
-            $text.text($text.text() + $child.text())
+            navbarText += ' ' + $child.text().trim()
+
+        # Trim leading and trailing whitespace
+        $navbarText.text navbarText.trim()
 
         for $button, i in buttons
           if (i+1) <= Math.round(buttons.length/2)
             $button
               .addClass('before')
-              .insertBefore $text
+              .insertBefore $navbarText
           else
             element.append $button.addClass('after')
 
-        unless /^\s*$/.test $text.text() then setTimeout ->
+        unless /^\s*$/.test $navbarText.text() then setTimeout ->
           beforeWidth = 0
           afterWidth  = 0
           elem.find('.after').each ->
@@ -45,7 +49,7 @@ angular.module('bp.directives').directive 'bpNavbar', ->
             '>")
 
           if difference > 0
-            $spacer.insertBefore $text
+            $spacer.insertBefore $navbarText
           else if difference < 0
-            $spacer.insertAfter $text
+            $spacer.insertAfter $navbarText
         , 0
