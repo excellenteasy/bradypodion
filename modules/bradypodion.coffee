@@ -7,13 +7,16 @@
 
 modules = [
   'animations'
-  'controllers'
   'directives'
   'factories'
+  'controllers'
+  'services'
 ]
 
 modules = for module in modules
-  angular.module (namespaced = "bp.#{module}"), []
+  inject = []
+  if module is 'controllers' then inject.push('bp.services')
+  angular.module (namespaced = "bp.#{module}"), inject
   namespaced
 
 angular.module 'bp', modules
