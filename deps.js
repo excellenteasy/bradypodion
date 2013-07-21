@@ -9,10 +9,9 @@
     'dist/bradypodion.js'
   ];
 
-  if(module != null && module.exports != null) {
+  if (typeof module !== 'undefined' && module.exports) {
     module.exports.scripts = scripts;
-  }
-  else {
+  } else {
 
     scripts = scripts.map(function (script) {
       return '../../../../'+script;
@@ -49,4 +48,4 @@
 
   }
 
-})();
+}).call(this);
