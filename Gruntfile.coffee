@@ -94,8 +94,11 @@ module.exports = (grunt) ->
         files: '<%= coffeelint.gruntfile.files.src %>'
       demo:
         files: "#{MODULES_DIR}/**/*.html"
+      tests:
+        files: "#{MODULES_DIR}/*/*/test/*.coffee"
+        tasks: ['coffee:tests', 'karma:unit:run']
       coffee:
-        files: "#{MODULES_DIR}/**/*.coffee"
+        files: "#{MODULES_DIR}/*/*/*.coffee"
         tasks: ['coffee', 'karma:unit:run']
       less:
         files: "#{MODULES_DIR}/**/*.less"
