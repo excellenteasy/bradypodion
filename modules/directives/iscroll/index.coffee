@@ -10,6 +10,9 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
   transclude: yes
   template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'
   link: (scope, element, attrs) ->
+    iscroll = {}
+
+    scope.getIScroll = -> iscroll
 
     # merge defaults with global user options
     options = angular.extend
