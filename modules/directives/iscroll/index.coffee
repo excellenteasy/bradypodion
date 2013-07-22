@@ -41,3 +41,9 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
 
     # schedule IScroll instantication
     $timeout instanciateIScroll, options.delay
+
+    scope.$on '$destroy', ->
+      iscroll.destroy()
+
+    scope.$on '$stateChangeStart', ->
+      iscroll.destroy()
