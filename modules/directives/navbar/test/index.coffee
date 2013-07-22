@@ -24,5 +24,5 @@ test 'navbarDirective', ->
   $buttons = element.children('bp-button')
   equal $buttons.length, 3, 'two buttons in navbar'
   ok $buttons.filter('.one').hasClass('before'), 'first button has .before'
-  ok $buttons.filter('.two').hasClass('before'), 'second button has .after'
-  ok $buttons.filter('.three').hasClass('after'), 'third button has .before'
+  ok $buttons.filter('.two').hasClass('before'), 'second button has .before'
+  ok $buttons.filter('.three').hasClass('after'), 'third button has .after'

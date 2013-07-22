@@ -14,7 +14,8 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
     (scope, element, attrs) ->
 
       options = angular.extend
-        noCenter: if bpConfig.platform is 'android' then yes else no
+        noCenter:      if bpConfig.platform is 'android' then yes else no
+        noButtonSplit: if bpConfig.platform is 'android' then yes else no
       , bpConfig.navbar or {}
 
       for key of options
@@ -40,13 +41,20 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
         # Trim leading and trailing whitespace
         $navbarText.text navbarText.trim()
 
-        for $button, i in buttons
-          if (i+1) <= Math.round(buttons.length/2)
-            $button
-              .addClass('before')
-              .insertBefore $navbarText
-          else
-            element.append $button.addClass('after')
+        if options.noButtonSplit
+          for $button in buttons
+            if $button.hasClass 'bp-button-back'
+              $button.insertBefore $navbarText
+            else
+              element.append $button.addClass('after')
+        else
+          for $button, i in buttons
+            if (i+1) <= Math.round(buttons.length/2)
+              $button
+                .addClass('before')
+                .insertBefore $navbarText
+            else
+              element.append $button.addClass('after')
 
         if not options.noCenter and
            not /^\s*$/.test $navbarText.text() then $timeout ->
