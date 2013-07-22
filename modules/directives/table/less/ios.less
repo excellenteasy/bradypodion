@@ -1,0 +1,30 @@
+@import 'ios/grouped.less';
+
+.bp-table-grouped {
+  .table-grouped-wrapper;
+  bp-cell {
+    .table-grouped-cell;
+  }
+}
+
+bp-table-grouped-header {
+  &:extend(.borderBox);
+  &:extend(.ellipsis);
+  .table-grouped-meta;
+  .table-grouped-header-specific;
+  + .bp-table-grouped {
+    margin-top: 10px;
+  }
+}
+
+bp-table-grouped-footer {
+  &:extend(.borderBox);
+  .table-grouped-meta;
+  .table-grouped-footer-specific;
+}
+
+.bp-background {
+  .gradient(~"linear-gradient(left, #D6DBE4, #D6DBE4 70%, #D3D8E2 70%, #D3D8E2)");
+  .background-size(8px);
+}
+

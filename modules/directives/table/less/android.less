@@ -1,0 +1,22 @@
+@import 'android/grouped';
+
+.bp-table-grouped {
+  margin-top: 24px;
+}
+
+bp-table-grouped-header {
+  &:extend(.borderBox);
+  &:extend(.ellipsis);
+  .table-header-element;
+  .table-grouped-meta;
+  .table-grouped-header-specific;
+  + .bp-table-grouped {
+    margin-top: 0;
+  }
+}
+
+bp-table-grouped-footer {
+  &:extend(.borderBox);
+  .table-grouped-meta;
+  .table-grouped-footer-specific;
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html ng-app="demo">
+  <head>
+    <title>Bradypodion flip demo</title>
+    <link rel="stylesheet" href="../../../../dist/bradypodion.css">
+    <meta charset="UTF-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <body ng-init="friends = [{name:'John', phone:'555-1276'},
+                            {name:'Mary', phone:'800-BIG-MARY'},
+                            {name:'Mike', phone:'555-4321'},
+                            {name:'Adam', phone:'555-5678'},
+                            {name:'Julie', phone:'555-8765'}]">
+    <bp-navbar>
+      Table
+      <bp-button bp-tap="to('plain')">Plain</bp-button>
+      <bp-button bp-tap="to('section')">Section</bp-button>
+      <bp-button bp-tap="to('grouped')">Grouped</bp-button>
+      <bp-button bp-tap="toggleTheme()" demo-switch-theme>Toogle Theme</bp-button>
+    </bp-navbar>
+    <div ng-controller="bpViewCtrl" ui-view ng-animate="getFullTransition()"></div>
+    <script type='text/javascript' src='../../../../deps.js'></script>
+    <script>
+      var finalLoad = function () {
+        angular.module('demo', ['bp','ui.state'])
+          .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/plain');
+
+            $stateProvider
+              .state('plain', {
+                url: '/plain',
+                templateUrl: 'plain.html',
+                transition: 'fade'
+              })
+              .state('section', {
+                url: '/section',
+                templateUrl: 'section.html',
+                transition: 'fade'
+
+              })
+              .state('grouped', {
+                url: '/grouped',
+                templateUrl: 'grouped.html',
+                transition: 'fade'
+              });
+          }])
+          .directive('demoSwitchTheme', function(bpConfig){
+            return function(scope, element, attrs) {
+              platforms = ['ios','ios7','android']
+              index = platforms.indexOf(bpConfig.platform);
+              scope.toggleTheme = function(e) {
+                bpConfig.platform = platforms[++index%3];
+              };
+            }
+          });
+      };
+    </script>
+  </body>
+</html>
