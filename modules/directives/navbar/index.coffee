@@ -1,8 +1,10 @@
 # # Navbar
 
 angular.module('bp.directives').directive 'bpNavbar', deps [
+  'bpConfig'
   '$timeout'
   ], (
+  bpConfig
   $timeout
   ) ->
   restrict: 'E'
@@ -10,6 +12,15 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
   template: '<div class="bp-navbar-text" role="heading"></div>'
   compile: (elem, attrs, transcludeFn) ->
     (scope, element, attrs) ->
+
+      options = angular.extend
+        noCenter: if bpConfig.platform is 'android' then yes else no
+      , bpConfig.navbar or {}
+
+      for key of options
+        attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
+        if attr? then options[key] = if attr is '' then true else attr
+
       element.attr
         role: 'navigation'
       transcludeFn scope, (clone) ->
@@ -37,7 +48,8 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
           else
             element.append $button.addClass('after')
 
-        unless /^\s*$/.test $navbarText.text() then $timeout ->
+        if not options.noCenter and
+           not /^\s*$/.test $navbarText.text() then $timeout ->
           beforeWidth = 0
           afterWidth  = 0
           elem.find('.after').each ->
