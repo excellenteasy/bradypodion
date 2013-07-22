@@ -13,8 +13,9 @@
     module.exports.scripts = scripts;
   } else {
 
+    var pathDeepness = document.querySelector('script').attributes.src.nodeValue.replace('deps.js','');
     scripts = scripts.map(function (script) {
-      return '../../../../'+script;
+      return pathDeepness+script;
     });
 
     if (!/phantom/i.test(navigator.userAgent) && document.location.protocol !== 'file:') {
