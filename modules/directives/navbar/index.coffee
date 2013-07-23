@@ -1,8 +1,10 @@
 # # Navbar
 
 angular.module('bp.directives').directive 'bpNavbar', deps [
+  'bpConfig'
   '$timeout'
   ], (
+  bpConfig
   $timeout
   ) ->
   restrict: 'E'
@@ -10,6 +12,16 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
   template: '<div class="bp-navbar-text" role="heading"></div>'
   compile: (elem, attrs, transcludeFn) ->
     (scope, element, attrs) ->
+
+      options = angular.extend
+        noCenter:      if bpConfig.platform is 'android' then yes else no
+        noButtonSplit: if bpConfig.platform is 'android' then yes else no
+      , bpConfig.navbar or {}
+
+      for key of options
+        attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
+        if attr? then options[key] = if attr is '' then true else attr
+
       element.attr
         role: 'navigation'
       transcludeFn scope, (clone) ->
@@ -29,15 +41,23 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
         # Trim leading and trailing whitespace
         $navbarText.text navbarText.trim()
 
-        for $button, i in buttons
-          if (i+1) <= Math.round(buttons.length/2)
-            $button
-              .addClass('before')
-              .insertBefore $navbarText
-          else
-            element.append $button.addClass('after')
+        if options.noButtonSplit
+          for $button in buttons
+            if $button.hasClass 'bp-button-back'
+              $button.insertBefore $navbarText
+            else
+              element.append $button.addClass('after')
+        else
+          for $button, i in buttons
+            if (i+1) <= Math.round(buttons.length/2)
+              $button
+                .addClass('before')
+                .insertBefore $navbarText
+            else
+              element.append $button.addClass('after')
 
-        unless /^\s*$/.test $navbarText.text() then $timeout ->
+        if not options.noCenter and
+           not /^\s*$/.test $navbarText.text() then $timeout ->
           beforeWidth = 0
           afterWidth  = 0
           elem.find('.after').each ->
