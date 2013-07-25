@@ -26,5 +26,3 @@ test 'bodyDirective', ->
   @$scope.$apply()
   ok element.hasClass 'android', 'element has class android'
   ok element.hasClass @$scope.config.platform, 'element has platform as class'
-
-
