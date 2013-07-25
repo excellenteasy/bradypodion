@@ -13,5 +13,6 @@ module 'config',
       @bpConfig[key] = value
 
 test 'configFactory', ->
+  expect 2
   equal @bpConfig.platform, 'ios', 'default config exposed'
   equal @bpConfig.randomProperty, 'random', 'user config exposed'

@@ -5,6 +5,7 @@ module 'iscroll', setup: ->
   @$compile = injector.get '$compile'
 
 test 'iscrollDirective', ->
+  expect 2
 
   innerhtml = '<ul>
       <li>1</li>

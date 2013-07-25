@@ -11,6 +11,7 @@ module 'body',
       @bpConfig[key] = value
 
 test 'bodyDirective', ->
+  expect 6
   element = @$compile('<body></body>') @$scope
   @$scope.$apply()
 

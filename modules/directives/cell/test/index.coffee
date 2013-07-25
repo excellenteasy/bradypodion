@@ -5,6 +5,7 @@ module 'cell', setup: ->
   @$compile = injector.get '$compile'
 
 test 'cellDirective', ->
+  expect 2
   text    = 'Some Test'
   element = @$compile("<bp-cell>#{text}</bp-cell>") @$scope
 

@@ -5,5 +5,6 @@ module 'table-header', setup: ->
   @$compile = injector.get '$compile'
 
 test 'tableHeaderDirective', ->
+  expect 1
   element = @$compile('<bp-table-header>A</bp-table-header>') @$scope
   equal element.attr('role'), 'heading', 'has role heading'

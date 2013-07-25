@@ -5,6 +5,7 @@ module 'search', setup: ->
   @$compile = injector.get '$compile'
 
 test 'searchDirective', ->
+  expect 3
   element = @$compile('<bp-search><input type="text" /></bp-search>') @$scope
   ok element.has('input').length, 'input field preserved in search'
   ok element.has('bp-button[bp-tap][bp-no-scroll]').length,

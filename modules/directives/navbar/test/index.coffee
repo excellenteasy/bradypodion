@@ -5,6 +5,7 @@ module 'navbar', setup: ->
   @$compile = injector.get '$compile'
 
 test 'navbarDirective', ->
+  expect 8
   hText = 'Foo'
   navbarTemplate = "<bp-navbar>
     <bp-button class='one'>Title</bp-button>
