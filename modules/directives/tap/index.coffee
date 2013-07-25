@@ -8,8 +8,10 @@
 # * `ngClick` – `{expression}` Expression to evaluate upon tap.
 angular.module('bp.directives').directive 'bpTap', deps [
   'bpConfig'
+  '$parse'
   ], (
   bpConfig
+  $parse
   ) ->
   (scope, element, attrs) ->
     # ### Options
@@ -27,7 +29,8 @@ angular.module('bp.directives').directive 'bpTap', deps [
 
     for key of options
       attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
-      if attr? then options[key] = if attr is '' then true else attr
+      if attr?
+        options[key] = if attr is '' then true else attr
 
     # #### Intelligent Defaults
     # * Apply `bp-no-scroll` to  `bp-button` within `bp-navbar`
@@ -45,17 +48,30 @@ angular.module('bp.directives').directive 'bpTap', deps [
     touch = {}
 
     element.bind 'touchstart', (e) ->
-      touch.y = e.originalEvent.pageY or
-        e.originalEvent.changedTouches[0].pageY
-      touch.x = e.originalEvent.pageX or
-        e.originalEvent.changedTouches[0].pageX
+      touch.y =
+        if e.originalEvent.pageY?
+          e.originalEvent.pageY
+        else
+          e.originalEvent.changedTouches?[0].pageY
+      touch.x =
+        if e.originalEvent.pageX?
+          e.originalEvent.pageX
+        else
+          e.originalEvent.changedTouches?[0].pageX
       touch.ongoing = yes
       element.addClass options.activeClass
+
     element.bind 'touchmove', (e) ->
-      y = e.originalEvent.pageY or
-        e.originalEvent.changedTouches[0].pageY
-      x = e.originalEvent.pageX or
-        e.originalEvent.changedTouches[0].pageX
+      y =
+        if e.originalEvent.pageY?
+          e.originalEvent.pageY
+        else
+          e.originalEvent.changedTouches?[0].pageY
+      x =
+        if e.originalEvent.pageX?
+          e.originalEvent.pageX
+        else
+          e.originalEvent.changedTouches?[0].pageX
       if options.boundMargin and
          (Math.abs(touch.y - y) < options.boundMargin and
          Math.abs(touch.x - x) < options.boundMargin)
@@ -66,9 +82,11 @@ angular.module('bp.directives').directive 'bpTap', deps [
       else
         touch.ongoing = no
         element.removeClass options.activeClass
+
     element.bind 'touchend touchcancel', (e) ->
       if touch.ongoing and e.type is 'touchend'
-        scope.$apply attrs['bpTap'], element
+        scope.$apply $parse(attrs.bpTap), {$event: e, touch}
+        element.trigger 'tap', angular.extend {type: 'tap', touch}, e
       touch = {}
       element.removeClass options.activeClass
 
