@@ -34,7 +34,7 @@ angular.module('bp.directives').directive 'bpTap', deps [
 
     # #### Intelligent Defaults
     # * Apply `bp-no-scroll` to  `bp-button` within `bp-navbar`
-    if element.is('bp-button') and element.parent().is('bp-navbar')
+    if element.is('bp-button') and element.parent('bp-navbar')
       element.attr 'bp-no-scroll', ''
       options.noScroll = yes
     # * Set `bp-bound-margin` to 5 when `bp-cell` is within `bp-iscroll`
@@ -49,29 +49,37 @@ angular.module('bp.directives').directive 'bpTap', deps [
 
     element.bind 'touchstart', (e) ->
       touch.y =
-        if e.originalEvent.pageY?
+        if e.originalEvent.pageY
           e.originalEvent.pageY
+        else if e.originalEvent.changedTouches?[0]?
+          e.originalEvent.changedTouches[0].pageY
         else
-          e.originalEvent.changedTouches?[0].pageY
+          0
       touch.x =
-        if e.originalEvent.pageX?
+        if e.originalEvent.pageX
           e.originalEvent.pageX
+        else if e.originalEvent.changedTouches?[0]?
+          e.originalEvent.changedTouches[0].pageX
         else
-          e.originalEvent.changedTouches?[0].pageX
+          0
       touch.ongoing = yes
       element.addClass options.activeClass
 
     element.bind 'touchmove', (e) ->
       y =
-        if e.originalEvent.pageY?
+        if e.originalEvent.pageY
           e.originalEvent.pageY
+        else if e.originalEvent.changedTouches?[0]?
+          e.originalEvent.changedTouches[0].pageY
         else
-          e.originalEvent.changedTouches?[0].pageY
+          0
       x =
-        if e.originalEvent.pageX?
+        if e.originalEvent.pageX
           e.originalEvent.pageX
+        else if e.originalEvent.changedTouches?[0]?
+          e.originalEvent.changedTouches[0].pageX
         else
-          e.originalEvent.changedTouches?[0].pageX
+          0
       if options.boundMargin and
          (Math.abs(touch.y - y) < options.boundMargin and
          Math.abs(touch.x - x) < options.boundMargin)
