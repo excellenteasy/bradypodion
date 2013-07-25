@@ -4,5 +4,3 @@
 set -e
 
 grunt precommit
-
-git add dist

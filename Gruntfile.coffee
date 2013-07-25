@@ -170,6 +170,30 @@ module.exports = (grunt) ->
       lessTask
       'clean:tmp']
 
+  grunt.registerTask 'release', ->
+    done = @async()
+
+    {exec} = require 'child_process'
+    semver = require 'semver'
+
+    oldVersion = require('./package.json').version
+    newVersion = @args[0]
+
+    unless semver.valid newVersion
+      grunt.fail.fatal "Invalid version specified: #{newVersion}"
+
+    unless semver.gt newVersion, oldVersion
+      grunt.fail.fatal "Version has to be greater than #{oldVersion}"
+
+    exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
+          grunt dist changelog &&
+          git add -f dist package.json bower.json CHANGELOG.md &&
+          git commit -m 'v#{newVersion}' &&
+          git tag v#{newVersion}",
+      (error, stdout, stderr) ->
+        grunt.log.writeln if error then stderr else stdout
+        done error or {}
+
   # Load grunt-* plugins
   require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
@@ -207,5 +231,6 @@ module.exports = (grunt) ->
     'karma:unit'
     'watch']
 
+
   grunt.registerTask 'docs',      ['dist', 'groc']
-  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint', 'dist']
+  grunt.registerTask 'precommit', ['shell:semver', 'coffeelint']

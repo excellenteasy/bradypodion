@@ -4,6 +4,8 @@ components/
 node_modules/
 
 # ignore generated files
+CHANGELOG.md
+dist/
 tmp/
 build/
 docs/
