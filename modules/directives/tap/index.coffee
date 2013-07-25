@@ -8,8 +8,10 @@
 # * `ngClick` – `{expression}` Expression to evaluate upon tap.
 angular.module('bp.directives').directive 'bpTap', deps [
   'bpConfig'
+  '$parse'
   ], (
   bpConfig
+  $parse
   ) ->
   (scope, element, attrs) ->
     # ### Options
@@ -66,9 +68,11 @@ angular.module('bp.directives').directive 'bpTap', deps [
       else
         touch.ongoing = no
         element.removeClass options.activeClass
+
     element.bind 'touchend touchcancel', (e) ->
       if touch.ongoing and e.type is 'touchend'
-        scope.$apply attrs['bpTap'], element
+	scope.$apply $parse(attrs.bpTap), {$event: e, touch}
+	element.trigger 'tap', angular.extend {type: 'tap', touch}, e
       touch = {}
       element.removeClass options.activeClass
 
