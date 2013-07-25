@@ -51,14 +51,14 @@ angular.module('bp.directives').directive 'bpTap', deps [
       touch.y =
         if e.originalEvent.pageY
           e.originalEvent.pageY
-        else if e.originalEvent.changedTouches[0]?
+        else if e.originalEvent.changedTouches?[0]?
           e.originalEvent.changedTouches[0].pageY
         else
           0
       touch.x =
         if e.originalEvent.pageX
           e.originalEvent.pageX
-        else if e.originalEvent.changedTouches[0]?
+        else if e.originalEvent.changedTouches?[0]?
           e.originalEvent.changedTouches[0].pageX
         else
           0
@@ -69,14 +69,14 @@ angular.module('bp.directives').directive 'bpTap', deps [
       y =
         if e.originalEvent.pageY
           e.originalEvent.pageY
-        else if e.originalEvent.changedTouches[0]?
+        else if e.originalEvent.changedTouches?[0]?
           e.originalEvent.changedTouches[0].pageY
         else
           0
       x =
         if e.originalEvent.pageX
           e.originalEvent.pageX
-        else if e.originalEvent.changedTouches[0]?
+        else if e.originalEvent.changedTouches?[0]?
           e.originalEvent.changedTouches[0].pageX
         else
           0
