@@ -5,7 +5,7 @@ module 'tap', setup: ->
   @$compile = injector.get '$compile'
 
 test 'tapDirective', ->
-  expect 9
+  expect 11
 
   # test standard tap
   element = @$compile('<div bp-tap></div>') @$scope
@@ -52,9 +52,11 @@ test 'tapDirective', ->
   # test active-class (default and custom)
   element = @$compile('<div bp-tap></div>') @$scope
   element.trigger $.Event 'touchstart', originalEvent: {pageX: 0, pageY: 0}
-  ok element.hasClass('a'), 'default active-class is set on touchstart'
+  ok element.hasClass('bp-active'),
+    'default active-class is set on touchstart'
   element.trigger 'touchend'
-  ok not element.hasClass('a'), 'default active-class was removed on touchend'
+  ok not element.hasClass('bp-active'),
+    'default active-class was removed on touchend'
 
   element = @$compile('<div bp-tap bp-active-class="a"></div>') @$scope
   element.trigger $.Event 'touchstart', originalEvent: {pageX: 0, pageY: 0}
