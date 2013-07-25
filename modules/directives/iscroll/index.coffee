@@ -16,7 +16,7 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
 
     # merge defaults with global user options
     options = angular.extend
-      delay: 0
+      delay: if element.parents('[ng-animate]') then 500 else 0
       stickyHeadersSelector: 'bp-table-header'
       scrollbarsEnabled: yes
     , bpConfig.iscroll or {}
@@ -46,4 +46,10 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
       iscroll.destroy()
 
     scope.$on '$stateChangeStart', ->
+      element.removeAttr 'bp-iscroll'
+      element.find('bp-iscroll-wrapper').css
+        position: 'static'
+        transform: ''
+        transition: ''
+
       iscroll.destroy()
