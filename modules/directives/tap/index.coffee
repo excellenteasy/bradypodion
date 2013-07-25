@@ -29,7 +29,8 @@ angular.module('bp.directives').directive 'bpTap', deps [
 
     for key of options
       attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
-      if attr? then options[key] = if attr is '' then true else attr
+      if attr?
+	options[key] = if attr is '' then true else attr
 
     # #### Intelligent Defaults
     # * Apply `bp-no-scroll` to  `bp-button` within `bp-navbar`
