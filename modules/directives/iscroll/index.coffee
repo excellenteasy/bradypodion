@@ -36,7 +36,7 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
       iscroll = new IScroll element[0],
         probeType: 3
         scrollbars: options.scrollbarsEnabled
-      if options.stickyHeadersEnabled
+      if options.stickyHeadersEnabled and bpConfig.platform isnt 'android'
         new IScrollSticky iscroll, options.stickyHeadersSelector
 
     # schedule IScroll instantication
