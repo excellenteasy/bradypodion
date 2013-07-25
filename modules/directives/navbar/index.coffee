@@ -20,7 +20,7 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
 
       for key of options
         attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
-        if attr? then options[key] = if attr is '' then true else attr
+        if attr? then options[key] = (if attr is '' then true else attr)
 
       element.attr
         role: 'navigation'
