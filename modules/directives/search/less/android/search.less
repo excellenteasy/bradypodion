@@ -12,7 +12,7 @@
   .transition(width 0.3s ease);
   border: none;
   border-bottom: 2px solid #ABABAB;
-
+  .border-radius(0);
 
   &:focus {
     border-bottom: 2px solid @highlight-color;
@@ -24,13 +24,11 @@
   &:before {
     &:extend(.bp-icon-search:before );
     color       : #ABABAB;
-    height      : 30px;
-    line-height : 30px;
+    line-height : 48px;
     font-size   : @font-icon-size;
     pointer-events: none;
     content     : '\e000';
     position    : absolute;
-    top         : 9px;
     left        : 16px;
   }
   background: @color + #0f0f0f;
@@ -47,7 +45,8 @@
     .transform(translateX(100%));
     .transition(all 0.3s ease);
     position: absolute;
-    right: -24px;
+    right: 24px;
+    top: 4px;
     speak: none;
     pointer-events: none;
   }
