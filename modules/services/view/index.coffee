@@ -10,9 +10,11 @@ angular.module('bp.services').service 'bpViewService', deps [
   transition = ''
   direction  = 'normal'
 
-  @to = (state, back) ->
-    direction = if back then 'reverse' else 'normal'
-    $state.transitionTo state
+  @to = (state, stateParams = {}) ->
+    if not _.isObject stateParams
+      stateParams = back: stateParams
+    direction = if stateParams.back then 'reverse' else 'normal'
+    $state.transitionTo state, stateParams
 
   @setTransition  = (newTransition) ->
     transition = newTransition
