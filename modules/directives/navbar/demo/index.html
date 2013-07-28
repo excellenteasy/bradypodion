@@ -10,13 +10,17 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
     <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
-  <body>
+  <body ng-init="title = 'Bound title'">
     <bp-navbar>
       Title
       <bp-button bp-tap='toggleTheme()' demo-switch-theme>Toggle Theme</bp-button>
       for
       <bp-button bp-tap>Another Button</bp-button>
       Navbar
+    </bp-navbar>
+    <bp-navbar>
+      {{ title }} for Navbar
+      <bp-button bp-tap>Another Button</bp-button>
     </bp-navbar>
     <bp-navbar>
       <bp-button bp-tap>Single Button</bp-button>

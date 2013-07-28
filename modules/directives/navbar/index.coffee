@@ -3,9 +3,11 @@
 angular.module('bp.directives').directive 'bpNavbar', deps [
   'bpConfig'
   '$timeout'
+  '$compile'
   ], (
   bpConfig
   $timeout
+  $compile
   ) ->
   restrict: 'E'
   transclude: true
@@ -39,7 +41,7 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             navbarText += ' ' + $child.text().trim()
 
         # Trim leading and trailing whitespace
-        $navbarText.text navbarText.trim()
+        $compile($navbarText.text navbarText.trim()) scope
 
         if options.noButtonSplit
           for $button in buttons
