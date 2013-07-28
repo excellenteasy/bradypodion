@@ -536,6 +536,10 @@ bp-table {
   margin: 0;
   padding: 0;
 }
+bp-screen,
+[bp-screen] {
+  background-color: white;
+}
 /*
 # Default input appearence deactivation
 */

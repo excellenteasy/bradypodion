@@ -560,9 +560,12 @@ bp-table {
   margin: 0;
   padding: 0;
 }
+bp-screen,
+[bp-screen] {
+  background-color: #ededed;
+}
 body {
   font: 62.5%/150% Roboto Condensed, sans-serif;
-  background-color: #EDEDED;
 }
 input,
 select,

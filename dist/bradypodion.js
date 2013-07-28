@@ -154,7 +154,7 @@
           return iscroll;
         };
         options = angular.extend({
-          delay: element.parents('[ng-animate]') ? 500 : 0,
+          delay: element.parents('[ng-animate]').length ? 500 : 0,
           stickyHeadersSelector: 'bp-table-header',
           scrollbarsEnabled: true
         }, bpConfig.iscroll || {});
@@ -193,7 +193,7 @@
     };
   }));
 
-  angular.module('bp.directives').directive('bpNavbar', deps(['bpConfig', '$timeout'], function(bpConfig, $timeout) {
+  angular.module('bp.directives').directive('bpNavbar', deps(['bpConfig', '$timeout', '$compile'], function(bpConfig, $timeout, $compile) {
     return {
       restrict: 'E',
       transclude: true,
@@ -229,7 +229,7 @@
                 navbarText += ' ' + $child.text().trim();
               }
             }
-            $navbarText.text(navbarText.trim());
+            $compile($navbarText.text(navbarText.trim()))(scope);
             if (options.noButtonSplit) {
               for (_j = 0, _len1 = buttons.length; _j < _len1; _j++) {
                 $button = buttons[_j];
@@ -370,7 +370,7 @@
 
   angular.module('bp.directives').directive('bpTap', deps(['bpConfig', '$parse'], function(bpConfig, $parse) {
     return function(scope, element, attrs) {
-      var attr, key, options, touch;
+      var attr, dir, key, options, toStateName, touch, _ref;
       options = angular.extend({
         noScroll: false,
         activeClass: 'bp-active',
@@ -391,21 +391,29 @@
         element.attr('bp-bound-margin', '5');
         options.boundMargin = 5;
       }
-      if (/to\(('|")[A-Za-z]+('|"),true\)/.test(attrs.bpTap)) {
-        element.addClass('bp-button-back');
+      if (element.is('bp-button')) {
+        toStateName = (_ref = attrs.bpTap.match(/to\(('|")([A-Za-z]+)('|")/)) != null ? _ref[2] : void 0;
+        if (toStateName && angular.isFunction(scope.getDirection)) {
+          dir = scope.getDirection({
+            to: toStateName
+          });
+          if (dir === 'reverse') {
+            element.addClass('bp-button-back');
+          }
+        }
       }
       touch = {};
       element.bind('touchstart', function(e) {
-        var _ref, _ref1;
-        touch.y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref = e.originalEvent.changedTouches) != null ? _ref[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
-        touch.x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
+        var _ref1, _ref2;
+        touch.y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
+        touch.x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref2 = e.originalEvent.changedTouches) != null ? _ref2[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
         touch.ongoing = true;
         return element.addClass(options.activeClass);
       });
       element.bind('touchmove', function(e) {
-        var x, y, _ref, _ref1;
-        y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref = e.originalEvent.changedTouches) != null ? _ref[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
-        x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
+        var x, y, _ref1, _ref2;
+        y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
+        x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref2 = e.originalEvent.changedTouches) != null ? _ref2[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
         if (options.boundMargin && (Math.abs(touch.y - y) < options.boundMargin && Math.abs(touch.x - x) < options.boundMargin)) {
           element.addClass(options.activeClass);
           touch.ongoing = true;
@@ -457,25 +465,48 @@
   });
 
   angular.module('bp.services').service('bpViewService', deps(['$rootScope', '$state'], function($rootScope, $state) {
-    var direction, transition,
-      _this = this;
-    transition = '';
-    direction = 'normal';
-    this.to = function(state, back) {
-      direction = back ? 'reverse' : 'normal';
-      return $state.transitionTo(state);
+    var _this = this;
+    this.to = function(state, stateParams) {
+      if (stateParams == null) {
+        stateParams = {};
+      }
+      return $state.transitionTo(state, stateParams);
     };
     this.setTransition = function(newTransition) {
-      return transition = newTransition;
+      return $state.params.transition = newTransition;
     };
-    this.getDirection = function() {
-      return direction;
+    this.getDirection = function(from, to) {
+      var fromURL, toURL, _ref;
+      if ($state.params.direction) {
+        return $state.params.direction;
+      }
+      $state.params.direction = 'normal';
+      if (from === '^') {
+        from = '/';
+      }
+      if (angular.isObject(from)) {
+        _ref = from, to = _ref.to, from = _ref.from;
+      }
+      if (from) {
+        fromURL = from.charAt(0) === '/' ? from : $state.href(from);
+      } else {
+        fromURL = $state.current.url;
+      }
+      toURL = to.charAt(0) === '/' ? to : $state.href(to);
+      fromURL = fromURL.split('/');
+      toURL = toURL.split('/');
+      if (toURL.length === fromURL.length - 1 && fromURL.slice(0, fromURL.length - 1).join('') === toURL.join('')) {
+        $state.params.direction = 'reverse';
+      }
+      return $state.params.direction;
     };
     this.getFullTransition = function() {
       return "" + transition + "-" + direction;
     };
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-      return $rootScope.setTransition(fromState.name === '' ? '' : $rootScope.getDirection() === 'reverse' ? fromState.transition : toState.transition);
+      var direction;
+      direction = _this.getDirection(fromState.url, toState.url);
+      return $rootScope.setTransition(fromState.name === '' ? '' : direction === 'reverse' ? fromState.transition : toState.transition);
     });
     return angular.extend($rootScope, this);
   }));

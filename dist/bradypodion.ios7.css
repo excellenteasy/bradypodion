@@ -563,13 +563,16 @@ bp-table {
   margin: 0;
   padding: 0;
 }
+bp-screen,
+[bp-screen] {
+  background-color: white;
+}
 /*
 # Default input appearence deactivation
 */
 body {
   font: 62.5%/150% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   font-weight: lighter;
-  background-color: white;
 }
 strong,
 b,

@@ -645,10 +645,13 @@ bp-table {
 */
 
 }
+.android bp-screen,
+.android [bp-screen] {
+  background-color: #ededed;
+}
 .android body,
 .android {
   font: 62.5%/150% Roboto Condensed, sans-serif;
-  background-color: #EDEDED;
 }
 .android input,
 .android select,
@@ -1028,6 +1031,10 @@ bp-table {
 # Search
 */
 
+}
+.ios bp-screen,
+.ios [bp-screen] {
+  background-color: white;
 }
 .ios body,
 .ios {
@@ -1819,11 +1826,14 @@ alignment of navbar children
 */
 
 }
+.ios7 bp-screen,
+.ios7 [bp-screen] {
+  background-color: white;
+}
 .ios7 body,
 .ios7 {
   font: 62.5%/150% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   font-weight: lighter;
-  background-color: white;
 }
 .ios7 strong,
 .ios7 b {
