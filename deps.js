@@ -1,5 +1,5 @@
 (function() {
-  scripts = [
+  var scripts = [
     'components/lodash/index.js',
     'components/jquery/index.js',
     'components/iscroll/index.js',

@@ -6,10 +6,11 @@ basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  QUNIT,
-  QUNIT_ADAPTER,
+  JASMINE,
+  JASMINE_ADAPTER,
 ].concat(scripts)
 
+files.push('components/angular-mocks/index.js');
 files.push('build/tests.js');
 
 // test results reporter to use
