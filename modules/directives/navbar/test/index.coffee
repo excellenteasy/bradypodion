@@ -26,13 +26,13 @@ describe 'navbarDirective', ->
       $text = element.find '.bp-navbar-text'
       expect($text.attr 'role' ).toBe 'heading'
 
-    # it 'should be compiled', ->
-    #   $text = element.find '.bp-navbar-text'
-    #   expect($text.text()).toBe ' Bar'
-    #   scope.label = 'Foo'
-    #   scope.$apply()
-    #   $text = element.find '.bp-navbar-text'
-    #   expect($text.text()).toBe 'Foo Bar'
+    it 'should be compiled', ->
+      $text = element.find '.bp-navbar-text'
+      expect($text.text()).toBe ' Bar'
+      scope.label = 'Foo'
+      scope.$apply()
+      $text = element.find '.bp-navbar-text'
+      expect($text.text()).toBe 'Foo Bar'
 
   describe 'buttons', ->
     it 'should have correct order', ->
