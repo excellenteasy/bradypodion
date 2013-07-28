@@ -1,13 +1,24 @@
-injector = angular.injector ['ng', 'bp']
+describe 'cellDirective', ->
 
-module 'cell', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  scope   = null
+  element = null
 
-test 'cellDirective', ->
-  expect 2
-  text    = 'Some Test'
-  element = @$compile("<bp-cell>#{text}</bp-cell>") @$scope
+  beforeEach module 'bp'
 
-  equal element.attr('role'), 'listitem', 'role is listitem'
-  equal text, element.text(), 'text'
+  beforeEach inject ($rootScope, $compile) ->
+    scope   = $rootScope.$new()
+    element = $compile('<bp-cell>{{ label }}</bp-cell>') scope
+    scope.$apply()
+
+  describe 'element', ->
+    it 'should have correct label', ->
+      scope.label = 'foo'
+      scope.$apply()
+      expect(element.text()).toBe scope.label
+
+      scope.label = 'bar'
+      scope.$apply()
+      expect(element.text()).toBe scope.label
+
+    it 'should have ARIA role', ->
+      expect(element.attr 'role' ).toBe 'listitem'

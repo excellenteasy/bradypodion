@@ -1,13 +1,18 @@
-injector = angular.injector ['ng', 'bp']
+describe 'searchDirective', ->
 
-module 'search', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  beforeEach module 'bp'
 
-test 'searchDirective', ->
-  expect 3
-  element = @$compile('<bp-search><input type="text" /></bp-search>') @$scope
-  ok element.has('input').length, 'input field preserved in search'
-  ok element.has('bp-button[bp-tap][bp-no-scroll]').length,
-    'has button with tap and no-scroll directive'
-  equal element.find('bp-button').text(), 'Cancel', 'button title is Cancel'
+  scope   = null
+  element = null
+
+  beforeEach inject ($rootScope, $compile) ->
+    scope   = $rootScope.$new()
+    element = $compile('<bp-search><input type="search" /></bp-search>') scope
+    scope.$apply()
+
+  describe 'element', ->
+    it 'should transclude the input field"', ->
+      expect(element.has('input').length).toBe 1
+    it 'should have a cancel button', ->
+      expect(element.has('bp-button[bp-tap][bp-no-scroll]').length).toBe 1
+      expect(element.find('bp-button').text()).toBe 'Cancel'

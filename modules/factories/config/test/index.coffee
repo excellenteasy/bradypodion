@@ -1,18 +1,37 @@
-angular.module('test', ['bp']).factory 'bpUserConfig', ->
-  randomProperty: 'random'
-injector = angular.injector ['ng', 'test']
+describe 'configFactory', ->
 
-module 'config',
-  setup: ->
-    @$scope   = injector.get('$rootScope').$new()
-    @$compile = injector.get '$compile'
-    @bpConfig = injector.get 'bpConfig'
-    @pristineConfig = _.clone @bpConfig
-  teardown: ->
-    for key, value of @pristineConfig
-      @bpConfig[key] = value
+  describe 'default', ->
 
-test 'configFactory', ->
-  expect 2
-  equal @bpConfig.platform, 'ios', 'default config exposed'
-  equal @bpConfig.randomProperty, 'random', 'user config exposed'
+    config = null
+    scope  = null
+
+    beforeEach module 'bp'
+
+    beforeEach inject ($rootScope, bpConfig) ->
+      config = bpConfig
+      scope  = $rootScope.$new()
+      scope.$apply()
+
+    it 'should have default config', ->
+      expect(config.platform).toBe 'ios'
+
+  describe 'user', ->
+
+    config = null
+    scope  = null
+
+    object = {foo:1}
+
+    angular.module('bp').factory 'bpUserConfig', ->
+      property: 'random'
+      object: object
+    beforeEach module 'bp'
+
+    beforeEach inject ($rootScope, bpConfig) ->
+      config = bpConfig
+      scope  = $rootScope.$new()
+      scope.$apply()
+
+    it 'should have user config', ->
+      expect(config.property).toBe 'random'
+      expect(config.object).toEqual object
