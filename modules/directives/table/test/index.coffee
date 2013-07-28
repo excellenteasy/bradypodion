@@ -1,10 +1,15 @@
-injector = angular.injector ['ng', 'bp']
+describe 'tableDirective', ->
 
-module 'table', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  beforeEach module 'bp'
 
-test 'tableDirective', ->
-  expect 1
-  element = @$compile('<bp-table></bp-table>') @$scope
-  equal element.attr('role'), 'list', 'has role list'
+  scope   = null
+  element = null
+
+  beforeEach inject ($rootScope, $compile) ->
+    scope   = $rootScope.$new()
+    element = $compile('<bp-table>Title</bp-table>') scope
+    scope.$apply()
+
+  describe 'element', ->
+    it 'should have the role "list"', ->
+      expect(element.attr 'role').toBe 'list'

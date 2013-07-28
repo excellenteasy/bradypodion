@@ -1,10 +1,15 @@
-injector = angular.injector ['ng', 'bp']
+describe 'tableHeaderDirective', ->
 
-module 'table-header', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  beforeEach module 'bp'
 
-test 'tableHeaderDirective', ->
-  expect 1
-  element = @$compile('<bp-table-header>A</bp-table-header>') @$scope
-  equal element.attr('role'), 'heading', 'has role heading'
+  scope   = null
+  element = null
+
+  beforeEach inject ($rootScope, $compile) ->
+    scope   = $rootScope.$new()
+    element = $compile('<bp-table-header>A</bp-table-header>') scope
+    scope.$apply()
+
+  describe 'element', ->
+    it 'should have the role "heading"', ->
+      expect(element.attr 'role').toBe 'heading'

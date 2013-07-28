@@ -1,20 +1,21 @@
-injector = angular.injector ['ng', 'bp']
+describe 'tapDirective', ->
 
-module 'tap', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  beforeEach module 'bp'
 
-test 'tapDirective', ->
-  expect 11
+  scope   = null
+  element = null
+  tapped  = no
+  compile = null
 
-  # test standard tap
-  element = @$compile('<div bp-tap></div>') @$scope
+  beforeEach inject ($rootScope, $compile) ->
+    scope   = $rootScope.$new()
+    element = $compile('<div bp-tap>A</div>') scope
+    scope.$apply()
+    compile = $compile
 
-  element.on 'tap', ->
-    ok yes, 'tap callback works'
-    start()
-
-  stop()
+    tapped = no
+    element.on 'tap', ->
+      tapped = yes
 
   testForCoordinates = (x,y,move) ->
     startEv = $.Event 'touchstart', originalEvent: {pageX: x, pageY: y}
@@ -24,57 +25,62 @@ test 'tapDirective', ->
     element.trigger moveEv if moveEv
     element.trigger 'touchend'
 
-  testForCoordinates 0, 0
-  testForCoordinates 1, 1
-  testForCoordinates 150, 350
+  describe 'standard attribute', ->
+    it 'should emit tap event on touchend', ->
+      testForCoordinates 0, 0
+      expect(tapped).toBe true
+      tapped = false
+      testForCoordinates 1, 1
+      expect(tapped).toBe true
+      tapped = false
+      testForCoordinates 150, 350
+      expect(tapped).toBe true
+      tapped = false
 
-  # test bound margin (default and custom)
-  element.off 'tap'
-  element.on 'tap', ->
-    ok true, 'trigger tap when moving 1px with default boundMargin'
-    start()
+    it 'should emit tap event inside bound margin', ->
+      testForCoordinates 0, 0, {x: 1, y: 1}
+      expect(tapped).toBe true
 
-  testForCoordinates 0, 0, {x: 1, y: 1}
-  testForCoordinates 0, 0, {x: 10, y: 10} # this should not trigger a tap
+    it 'should not emit tap event outside bound margin', ->
+      testForCoordinates 0, 0, {x: 100, y: 100}
+      expect(tapped).toBe false
 
-  element.off 'tap'
-  element = @$compile('<div bp-tap bp-bound-margin="0"></div>') @$scope
-  element.on 'tap', ->
-    ok false, 'should not trigger tap on zero bound margin'
-    start()
+    it 'should add active class on touchstart', ->
+      element.trigger $.Event 'touchstart', originalEvent: {pageX: 0, pageY: 0}
+      expect(element.hasClass 'bp-active').toBe true
+      element.trigger 'touchend'
+      expect(element.hasClass 'bp-active').toBe false
 
-  testForCoordinates 0, 0, {x: 1, y: 1}
+  describe 'custom options', ->
+    it 'should respect bound margin setting via attribute', ->
+      element = compile('<div bp-tap bp-bound-margin="0"></div>') scope
+      testForCoordinates 0, 0, {x: 1, y: 1}
+      expect(tapped).toBe false
 
   # test no-scroll
-  # element = @$compile('<div bp-tap bp-no-scroll></div>') @$scope
+  # element = @$compile('<div bp-tap bp-no-scroll></div>') scope
   # TODO: Find a way to test this
 
-  # test active-class (default and custom)
-  element = @$compile('<div bp-tap></div>') @$scope
-  element.trigger $.Event 'touchstart', originalEvent: {pageX: 0, pageY: 0}
-  ok element.hasClass('bp-active'),
-    'default active-class is set on touchstart'
-  element.trigger 'touchend'
-  ok not element.hasClass('bp-active'),
-    'default active-class was removed on touchend'
-
-  element = @$compile('<div bp-tap bp-active-class="a"></div>') @$scope
-  element.trigger $.Event 'touchstart', originalEvent: {pageX: 0, pageY: 0}
-  ok element.hasClass('a'), 'custom active-class is set on touchstart'
-  element.trigger 'touchend'
-  ok not element.hasClass('a'), 'custom active-class was removed on touchend'
+    it 'should use custom active class when set via attribute', ->
+      element = compile('<div bp-tap bp-active-class="a"></div>') scope
+      element.trigger $.Event 'touchstart', originalEvent: {pageX: 0, pageY: 0}
+      expect(element.hasClass 'a').toBe true
+      expect(element.hasClass 'bp-active').toBe false
+      element.trigger 'touchend'
+      expect(element.hasClass 'a').toBe false
 
   # TODO: test allow-click
 
-  # test intelligent defaults
-  element =
-    @$compile('<bp-navbar><bp-button bp-tap></bp-button></bp-navbar>') @$scope
-  equal element.find('bp-button').attr('bp-no-scroll'), '', 'auto no-scroll'
+  describe 'intelligent defaults', ->
+    it 'should apply bp-no-scroll attribute to a button inside a navbar', ->
+      html = '<bp-navbar><bp-button bp-tap></bp-button></bp-navbar>'
+      element = compile(html) scope
+      expect(element.find('bp-button').attr 'bp-no-scroll').toBe ''
 
-  element =
-    @$compile('<div bp-iscroll><bp-cell bp-tap></bp-cell></div>') @$scope
-  equal element.find('[bp-tap]').attr('bp-bound-margin'), '5',
-    'auto bound margin is 5'
+    it 'should apply bp-bound-margin=5 attribute to cell inside iscroll', ->
+      html = '<div bp-iscroll><bp-cell bp-tap></bp-cell></div>'
+      element = compile(html) scope
+      expect(element.find('[bp-tap]').attr 'bp-bound-margin').toBe '5'
 
   # TODO: test bpConfig
 

@@ -1,21 +1,18 @@
-injector = angular.injector ['ng', 'bp']
+describe 'iscrollDirective', ->
 
-module 'iscroll', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  scope   = null
+  element = null
 
-test 'iscrollDirective', ->
-  expect 2
+  beforeEach module 'bp'
 
-  innerhtml = '<ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-    </ul>'
-  html = "<div bp-iscroll bp-iscroll-no-scrollbars>#{innerhtml}</div>"
-  element = @$compile(html) @$scope
+  beforeEach inject ($rootScope, $compile) ->
+    scope = $rootScope.$new()
+    scope.$apply()
+    element = $compile('<div bp-iscroll><ul class="inner"></ul></div>') scope
 
-  ok element.children().is('bp-iscroll-wrapper'),
-    'immediate child of is bp-iscroll-wrapper'
-  ok element.children().children().is('ul'),
-    'transclude children inside bp-iscroll-wrapper'
+  describe 'element', ->
+    it 'should have immediate child `bp-iscroll-wrapper`', ->
+      expect(element.children().is 'bp-iscroll-wrapper' ).toBe true
+
+    it 'should have transcluded content', ->
+      expect(element.children().children().is '.inner' ).toBe true

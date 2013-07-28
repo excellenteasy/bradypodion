@@ -1,12 +1,24 @@
-injector = angular.injector ['ng', 'bp']
+describe 'buttonDirective', ->
 
-module 'button', setup: ->
-  @$scope   = injector.get('$rootScope').$new()
-  @$compile = injector.get '$compile'
+  scope   = null
+  element = null
 
-test 'buttonDirective', ->
-  expect 2
-  text    = 'Some Test'
-  element = @$compile("<bp-button>#{text}</bp-button>") @$scope
-  equal element.attr('role'), 'button'
-  equal text, element.text()
+  beforeEach module 'bp'
+
+  beforeEach inject ($rootScope, $compile) ->
+    scope   = $rootScope.$new()
+    element = $compile('<bp-button>{{ label }}</bp-button>') scope
+    scope.$apply()
+
+  describe 'element', ->
+    it 'should have correct label', ->
+      scope.label = 'foo'
+      scope.$apply()
+      expect(element.text()).toBe scope.label
+
+      scope.label = 'bar'
+      scope.$apply()
+      expect(element.text()).toBe scope.label
+
+    it 'should have ARIA role', ->
+      expect(element.attr 'role' ).toBe 'button'
