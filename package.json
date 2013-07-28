@@ -43,7 +43,8 @@
     "grunt-bower-task": "~0.2.3",
     "grunt-conventional-changelog": "git://github.com/btford/grunt-conventional-changelog.git#aa77460",
     "grunt-groc": "git://github.com/excellenteasy/grunt-groc.git#e72d3d4",
-    "grunt-contrib-less": "~0.6.4"
+    "grunt-contrib-less": "~0.6.4",
+    "semver": "~2.0.11"
   },
   "keywords": [
     "angular",
