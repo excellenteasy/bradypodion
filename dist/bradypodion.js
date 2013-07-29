@@ -103,13 +103,8 @@
         var latestPlatform;
         scope.config = bpConfig;
         latestPlatform = scope.config.platform;
-        element.addClass(scope.platform).attr({
+        return element.addClass(scope.config.platform).attr({
           role: 'application'
-        });
-        return scope.$watch('config.platform', function() {
-          element.removeClass(latestPlatform);
-          element.addClass(scope.config.platform);
-          return latestPlatform = scope.config.platform;
         });
       }
     };
@@ -452,35 +447,35 @@
     };
   }));
 
-  angular.module('bp.factories').factory('bpConfig', deps(['bpUserConfig'], function(bpUserConfig) {
-    return angular.extend({
+  angular.module('bp.factories').provider('bpConfig', function() {
+    this.defaultConfig = {
       platform: 'ios'
-    }, bpUserConfig);
-  }));
-
-  angular.module('bp.factories').factory('bpUserConfig', function() {
-    return {
+    };
+    this.userConfig = {
       noUserConfig: true
+    };
+    this.$get = function() {
+      return angular.extend(this.defaultConfig, this.userConfig);
+    };
+    return this.setConfig = function(config) {
+      return this.userConfig = config;
     };
   });
 
   angular.module('bp.services').service('bpViewService', deps(['$rootScope', '$state'], function($rootScope, $state) {
-    var _this = this;
+    var direction, transition,
+      _this = this;
+    direction = 'normal';
+    transition = '';
     this.to = function(state, stateParams) {
       if (stateParams == null) {
         stateParams = {};
       }
       return $state.transitionTo(state, stateParams);
     };
-    this.setTransition = function(newTransition) {
-      return $state.params.transition = newTransition;
-    };
     this.getDirection = function(from, to) {
-      var fromURL, toURL, _ref;
-      if ($state.params.direction) {
-        return $state.params.direction;
-      }
-      $state.params.direction = 'normal';
+      var dir, fromURL, toURL, _ref;
+      dir = 'normal';
       if (from === '^') {
         from = '/';
       }
@@ -496,17 +491,20 @@
       fromURL = fromURL.split('/');
       toURL = toURL.split('/');
       if (toURL.length === fromURL.length - 1 && fromURL.slice(0, fromURL.length - 1).join('') === toURL.join('')) {
-        $state.params.direction = 'reverse';
+        dir = 'reverse';
       }
-      return $state.params.direction;
+      return dir;
     };
     this.getFullTransition = function() {
       return "" + transition + "-" + direction;
     };
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-      var direction;
-      direction = _this.getDirection(fromState.url, toState.url);
-      return $rootScope.setTransition(fromState.name === '' ? '' : direction === 'reverse' ? fromState.transition : toState.transition);
+      if (toParams.direction) {
+        direction = toParams.direction;
+      } else {
+        direction = _this.getDirection(fromState.url, toState.url);
+      }
+      return transition = toParams.transition ? toParams.transition : fromState.name === '' ? '' : direction === 'reverse' ? fromState.transition : toState.transition;
     });
     return angular.extend($rootScope, this);
   }));

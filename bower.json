@@ -1,6 +1,6 @@
 {
   "name": "bradypodion",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "dependencies": {
     "angular": "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.js",
     "jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js",

@@ -379,6 +379,14 @@ bp-screen,
   transform: translate3d(0, 0, 0);
   z-index: 1;
 }
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
 /*
 # Relevant normalize parts
 */
@@ -544,7 +552,7 @@ bp-screen,
 # Default input appearence deactivation
 */
 body {
-  font: 62.5%/150% Helvetica Neue, Helvetica, Arial, sans-serif;
+  font: 0.4166666666666667% Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 input,
 select,
