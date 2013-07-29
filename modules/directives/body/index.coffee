@@ -10,11 +10,6 @@ angular.module('bp.directives').directive 'body', deps [
     scope.config = bpConfig
     latestPlatform = scope.config.platform
     element
-      .addClass(scope.platform)
+      .addClass(scope.config.platform)
       .attr
         role: 'application'
-
-    scope.$watch 'config.platform', ->
-      element.removeClass latestPlatform
-      element.addClass scope.config.platform
-      latestPlatform = scope.config.platform
