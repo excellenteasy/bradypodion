@@ -10,7 +10,7 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
     <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
-  <body>
+  <body ng-cloak>
     <bp-navbar>
       <bp-button bp-tap="toggleTheme()" demo-switch-theme>Toggle Theme</bp-button>
       <bp-button bp-tap="tapped()" demo-tapped>tap me {{ random }}</bp-button>
@@ -26,6 +26,9 @@
     <script type='text/javascript'>
       var finalLoad = function () {
         angular.module('demo', ['bp'])
+          .config(function(bpConfigProvider) {
+            bpConfigProvider.setConfig({platform: localStorage.getItem('platform') || 'ios'})
+          })
           .directive('demoTapped', function(bpConfig){
             return function(scope, element, attrs) {
               scope.tapped = function() {
@@ -33,16 +36,18 @@
               };
             };
           })
-          .directive('demoSwitchTheme', function(bpConfig){
+          .directive('demoSwitchTheme', function(){
             return function(scope, element, attrs) {
               platforms = ['ios','ios7','android']
-              index = platforms.indexOf(bpConfig.platform);
-              scope.toggleTheme = function() {
-                bpConfig.platform = platforms[++index%3];
+              scope.toggleTheme = function(e) {
+                index = platforms.indexOf(scope.config.platform);
+                scope.config.platform = platforms[++index%3];
+                localStorage.setItem('platform', scope.config.platform);
+                location.reload();
               };
             }
-          });
-      };
+          })
+        };
     </script>
   </body>
 </html>
