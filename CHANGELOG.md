@@ -1,3 +1,18 @@
+<a name="v0.2.1"></a>
+### v0.2.1 (2013-07-29)
+
+
+#### Bug Fixes
+
+* **body:** add class from scope config ([1f7d3079](http://github.com/excellenteasy/bradypodion/commit/1f7d3079d5e917dbbf34585301868ffbd18756a9))
+* **config:** use provider instead of factories ([963bccf6](http://github.com/excellenteasy/bradypodion/commit/963bccf6db65b530fd08734edd2abd7fb423ce68))
+* **viewService:** correct transition and direction detection ([97352e61](http://github.com/excellenteasy/bradypodion/commit/97352e616086f3dcfcfa81400e9e17dbfca73890))
+
+
+#### Features
+
+* **body:** add ng-cloak CSS ([a6e9e658](http://github.com/excellenteasy/bradypodion/commit/a6e9e65847c536bd6a7db27e52d047573ea51b4d))
+
 <a name="v0.2.0"></a>
 ## v0.2.0 (2013-07-28)
 
