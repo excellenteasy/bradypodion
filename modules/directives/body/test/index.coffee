@@ -16,14 +16,3 @@ describe 'bodyDirective', ->
     it 'should have default class ios', ->
       expect(element.hasClass 'ios').toBe true
       expect(element.hasClass config.platform).toBe true
-
-    it 'should reflect changed config', ->
-      config.platform = 'ios7'
-      scope.$apply()
-      expect(element.hasClass 'ios7').toBe true
-      expect(element.hasClass config.platform).toBe true
-
-      config.platform = 'android'
-      scope.$apply()
-      expect(element.hasClass 'android').toBe true
-      expect(element.hasClass config.platform).toBe true
