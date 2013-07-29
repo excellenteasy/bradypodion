@@ -22,9 +22,11 @@ describe 'configFactory', ->
 
     object = {foo:1}
 
-    angular.module('bp').factory 'bpUserConfig', ->
-      property: 'random'
-      object: object
+    angular.module('bp').config (bpConfigProvider) ->
+      bpConfigProvider.setConfig
+        property: 'random'
+        object: object
+
     beforeEach module 'bp'
 
     beforeEach inject ($rootScope, bpConfig) ->
