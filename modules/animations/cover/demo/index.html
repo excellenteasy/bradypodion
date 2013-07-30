@@ -10,7 +10,7 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
     <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
-  <body ng-init="friends = [{name:'John', phone:'555-1276'},
+  <body ng-cloak ng-init="friends = [{name:'John', phone:'555-1276'},
                             {name:'Mary', phone:'800-BIG-MARY'},
                             {name:'Mike', phone:'555-4321'},
                             {name:'Adam', phone:'555-5678'},
@@ -32,7 +32,7 @@
                 transition: 'fade'
               })
               .state('second', {
-                url: '/home/second',
+                url: '/home/second/',
                 templateUrl: 'second.html',
                 transition: 'cover'
               });
