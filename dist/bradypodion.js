@@ -473,25 +473,30 @@
       }
       return $state.transitionTo(state, stateParams);
     };
+    this._getURISegmentsFrom = function(urlOrState) {
+      var url;
+      url = angular.isString(urlOrState) ? urlOrState.charAt(0) === '/' ? urlOrState : $state.href(urlOrState) : angular.isObject(urlOrState && (urlOrState.url != null)) ? urlOrState.url : void 0;
+      url = url.replace(/\/$/, '');
+      return url.split('/');
+    };
     this.getDirection = function(from, to) {
-      var dir, fromURL, toURL, _ref;
+      var dir, fromURI, toURI, _ref;
       dir = 'normal';
-      if (from === '^') {
-        from = '/';
-      }
       if (angular.isObject(from)) {
         _ref = from, to = _ref.to, from = _ref.from;
       }
-      if (from) {
-        fromURL = from.charAt(0) === '/' ? from : $state.href(from);
-      } else {
-        fromURL = $state.current.url;
+      if (!from) {
+        from = $state.current.url;
       }
-      toURL = to.charAt(0) === '/' ? to : $state.href(to);
-      fromURL = fromURL.split('/');
-      toURL = toURL.split('/');
-      if (toURL.length === fromURL.length - 1 && fromURL.slice(0, fromURL.length - 1).join('') === toURL.join('')) {
+      if (from === '^') {
+        return 'none';
+      }
+      fromURI = this._getURISegmentsFrom(from);
+      toURI = this._getURISegmentsFrom(to);
+      if (toURI.length === fromURI.length - 1 && fromURI.slice(0, fromURI.length - 1).join('') === toURI.join('')) {
         dir = 'reverse';
+      } else if (toURI.length === fromURI.length) {
+        dir = 'none';
       }
       return dir;
     };

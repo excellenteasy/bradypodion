@@ -1,3 +1,12 @@
+<a name="v0.2.2"></a>
+### v0.2.2 (2013-07-31)
+
+
+#### Bug Fixes
+
+* **view:** fix slide animation w/ consistent backgrounds ([18828a34](http://github.com/excellenteasy/bradypodion/commit/18828a34b69281b39c2c127569562357901f3a9f))
+* **viewService:** detect direction for URL with trailing slash ([9e5f7855](http://github.com/excellenteasy/bradypodion/commit/9e5f78556e11a8620f4b24451d9f5a12da017d60))
+
 <a name="v0.2.1"></a>
 ### v0.2.1 (2013-07-29)
 

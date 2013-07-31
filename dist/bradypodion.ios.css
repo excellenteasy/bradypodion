@@ -544,15 +544,14 @@ bp-table {
   margin: 0;
   padding: 0;
 }
-bp-screen,
-[bp-screen] {
+[ui-view] {
   background-color: white;
 }
 /*
 # Default input appearence deactivation
 */
 body {
-  font: 0.4166666666666667% Helvetica Neue, Helvetica, Arial, sans-serif;
+  font: 62.5%/150% Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 input,
 select,
