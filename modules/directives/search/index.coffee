@@ -35,6 +35,7 @@ angular.module('bp.directives').directive 'bpSearch', deps [
       $cancel.show()
       $timeout ->
         element.addClass 'focus'
+        scope.$emit 'bpTextDidBeginEditing'
       , 0
 
       # scroll out UI before search
@@ -48,6 +49,7 @@ angular.module('bp.directives').directive 'bpSearch', deps [
     scope.cancel = ->
       if $search?.is ':focus'
         $search.blur()
+        scope.$emit 'bpTextDidEndEditing'
       scope.searchTerm = ''
       $search?.css 'width', ''
       element.removeClass 'focus'
