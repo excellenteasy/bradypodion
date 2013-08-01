@@ -12,6 +12,9 @@ describe 'viewService', ->
       .state 'second',
         url: '/home/second'
         transition: 'slide'
+      .state 'third',
+        url: '/home/second/:third'
+        transition: 'slide'
     null
 
   viewService = null
@@ -48,6 +51,22 @@ describe 'viewService', ->
         to: 'second'
       ).toBe 'none'
 
+    it 'should detect reverse direction using state objects', ->
+      expect(viewService.getDirection
+        name: 'second'
+        url: '/home/second'
+      ,
+        url: '/home'
+        name: 'home'
+      ).toBe('reverse')
+
+    it 'should detect normal direction using state objects without urls', ->
+      expect(viewService.getDirection
+        name: 'second'
+      ,
+        name: 'home'
+      ).toBe('reverse')
+
 
     # using urls
     it 'should detect normal direction using url strings', ->
@@ -83,3 +102,41 @@ describe 'viewService', ->
       expect(viewService.getDirection '/home/', '/home/second').toBe 'normal'
       expect(viewService.getDirection '/home', '/home/second/').toBe 'normal'
       expect(viewService.getDirection '/home/', '/home/second/').toBe 'normal'
+
+    # back button detection edge case
+    it 'should detect reverse direction in paramzartized URLs (1)', ->
+      expect(viewService.getDirection
+        from: 'third'
+        to: 'second'
+      ).toBe 'reverse'
+
+    it 'should detect reverse direction in paramzartized URLs (2)', ->
+      expect(viewService.getDirection
+        from: '/home/second/:third'
+        to: 'second'
+      ).toBe 'reverse'
+
+    # jumping levels
+    it 'should detect reverse directions when jumping back to /home', ->
+      expect(viewService.getDirection
+        from: '/home/second/:third'
+        to: '/home'
+      ).toBe 'reverse'
+
+    it 'should detect reverse directions when jumping back to state home', ->
+      expect(viewService.getDirection
+        from: 'third'
+        to: 'home'
+      ).toBe 'reverse'
+
+    it 'should detect normal directions when jumping from home to third', ->
+      expect(viewService.getDirection
+        from: 'home'
+        to: 'third'
+      ).toBe 'normal'
+
+    it 'should detect normal directions when jumping from /home to third', ->
+      expect(viewService.getDirection
+        from: '/home'
+        to: '/home/second/:third'
+      ).toBe 'normal'
