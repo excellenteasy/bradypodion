@@ -20,9 +20,12 @@ angular.module('bp.services').service 'bpViewService', deps [
         if urlOrState.charAt(0) is '/'
           urlOrState
         else
-          $state.href urlOrState
-      else if angular.isObject urlOrState and urlOrState.url?
-        urlOrState.url
+          $state.getOptionsOfState(urlOrState)?.url
+      else if angular.isObject urlOrState
+        if urlOrState.url?
+          urlOrState.url
+        else if urlOrState.name?
+          $state.href urlOrState.name
 
     # remove trailing slashes
     url = url.replace /\/$/, ''
@@ -35,17 +38,24 @@ angular.module('bp.services').service 'bpViewService', deps [
   # 3) options = {from, to}
   @getDirection = (from, to) ->
     dir = 'normal'
-    {to, from} = from if angular.isObject from
-    from =  $state.current.url unless from
 
+
+    if not to and angular.isObject(from) and from.to
+      {to, from} = from
+
+    from =  $state.current.url unless from
     return 'none' if from is '^'
 
     fromURI = @_getURISegmentsFrom from
     toURI = @_getURISegmentsFrom to
 
-    if toURI.length is fromURI.length-1 and
-        fromURI.slice(0,fromURI.length-1).join('') is toURI.join('')
+    if toURI.length < fromURI.length
       dir = 'reverse'
+      for segment, index in toURI
+        if segment isnt fromURI[index]
+          dir = 'normal'
+          break
+      dir
     else if toURI.length is fromURI.length
       dir = 'none'
     dir
@@ -60,10 +70,13 @@ angular.module('bp.services').service 'bpViewService', deps [
     fromParams
     ) =>
 
+    unless toState.transition and fromState.transition
+      return ''
+
     if toParams.direction
       {direction} = toParams
     else
-      direction = @getDirection fromState.url, toState.url
+      direction = @getDirection fromState, toState
 
     transition =
       if toParams.transition
