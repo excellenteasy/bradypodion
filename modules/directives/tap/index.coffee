@@ -41,12 +41,6 @@ angular.module('bp.directives').directive 'bpTap', deps [
     if element.parents('[bp-iscroll]').length
       element.attr 'bp-bound-margin', '5'
       options.boundMargin = 5
-    # * Apply `bp-button-back` class if tap will result in reverse transition.
-    if element.is 'bp-button'
-      toStateName = (attrs.bpTap.match /to\(('|")([A-Za-z]+)('|")/)?[2]
-      if toStateName and angular.isFunction scope.getDirection
-        dir = scope.getDirection to: toStateName
-        if dir is 'reverse' then element.addClass 'bp-button-back'
 
     touch = {}
 
