@@ -14,9 +14,20 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
 
     scope.getIScroll = -> iscroll
 
+    # only use a delay if an animation will be played during transition
+    delay =
+      if element.parents('[ng-animate]').length
+        transition = scope.getFullTransition?()
+        if not transition or transition.split('-')[0] is ''
+          0
+        else
+          500
+      else
+        0
+
     # merge defaults with global user options
     options = angular.extend
-      delay: if element.parents('[ng-animate]').length then 500 else 0
+      delay: delay
       stickyHeadersSelector: 'bp-table-header'
       scrollbarsEnabled: yes
     , bpConfig.iscroll or {}
@@ -42,14 +53,15 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
     # schedule IScroll instantication
     $timeout instanciateIScroll, options.delay
 
-    scope.$on '$destroy', ->
-      iscroll.destroy()
+    scope.$on 'bpRefreshIScrollInstances', ->
+      scope.getIScroll()?.refresh?()
+
+    scope.$on '$destroy', -> iscroll.destroy()
 
     scope.$on '$stateChangeStart', ->
+      iscroll.destroy()
       element.removeAttr 'bp-iscroll'
       element.find('bp-iscroll-wrapper').css
         position: 'static'
         transform: ''
         transition: ''
-
-      iscroll.destroy()
