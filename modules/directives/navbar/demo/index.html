@@ -40,26 +40,25 @@
       <bp-button bp-tap>Button</bp-button>
       <bp-button bp-tap class="bp-button-back">Back</bp-button>
     </bp-navbar>
-    <script type='text/javascript' src='../../../../components/lodash/index.js'></script>
-    <script type='text/javascript' src='../../../../components/jquery/index.js'></script>
-    <script type='text/javascript' src='../../../../components/angular/index.js'></script>
-    <script type='text/javascript' src='../../../../dist/bradypodion.js'></script>
+    <script type='text/javascript' src='../../../../deps.js'></script>
     <script type='text/javascript'>
-      angular.module('demo', ['bp'])
-        .config(function(bpConfigProvider) {
-            bpConfigProvider.setConfig({platform: localStorage.getItem('platform') || 'ios'})
-          })
-        .directive('demoSwitchTheme', function(){
-          return function(scope, element, attrs) {
-            platforms = ['ios','ios7','android']
-            scope.toggleTheme = function(e) {
-              index = platforms.indexOf(scope.config.platform);
-              scope.config.platform = platforms[++index%3];
-              localStorage.setItem('platform', scope.config.platform);
-              location.reload();
-            };
-          }
-        });
+      var finalLoad = function () {
+        angular.module('demo', ['bp'])
+          .config(function(bpConfigProvider) {
+              bpConfigProvider.setConfig({platform: localStorage.getItem('platform') || 'ios'})
+            })
+          .directive('demoSwitchTheme', function(){
+            return function(scope, element, attrs) {
+              platforms = ['ios','ios7','android']
+              scope.toggleTheme = function(e) {
+                index = platforms.indexOf(scope.config.platform);
+                scope.config.platform = platforms[++index%3];
+                localStorage.setItem('platform', scope.config.platform);
+                location.reload();
+              };
+            }
+          });
+      };
     </script>
   </body>
 </html>
