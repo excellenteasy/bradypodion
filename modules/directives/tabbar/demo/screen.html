@@ -1,0 +1,12 @@
+<bp-screen>
+  <bp-navbar>
+    <bp-button demo-switch-theme bp-tap='toggleTheme()'>Toggle Theme</bp-button>
+    The {{ state }} Tab
+  </bp-navbar>
+  <div class='bp-content'>
+    <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+      <div class="label">{{ friend.name }}</div>
+      <div class="value">{{ friend.phone }}</div>
+    </bp-cell>
+  </div>
+</bp-screen>
