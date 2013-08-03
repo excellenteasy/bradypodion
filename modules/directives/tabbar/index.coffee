@@ -10,8 +10,10 @@ angular.module('bp.directives').directive 'bpTabbar', ->
 
 angular.module('bp.directives').directive 'bpTab', deps [
   '$state'
+  '$timeout'
   ], (
   $state
+  $timeout
   )->
   scope: true
   restrict: 'E'
@@ -39,3 +41,11 @@ angular.module('bp.directives').directive 'bpTab', deps [
           element.addClass 'bp-tab-active'
         else
           element.removeClass 'bp-tab-active'
+
+      element.bind 'touchstart', ->
+        $timeout ->
+          element.trigger 'touchend'
+        , 500
+
+      scope.$on '$destroy', ->
+        element.unbind 'touchstart'
