@@ -1,43 +1,61 @@
-describe 'navbarDirective', ->
+describe 'tabbarDirective', ->
 
-  scope   = null
   element = null
+  scope   = null
+  state   = null
+
+  beforeEach module 'ui.state'
 
   beforeEach module 'bp'
 
-  beforeEach inject ($rootScope, $compile) ->
+  beforeEach module ($stateProvider, $urlRouterProvider) ->
+    $urlRouterProvider.otherwise '/first'
+    $stateProvider
+      .state 'first',
+        url: '/first'
+      .state 'second',
+        url: '/second'
+    null
+
+  beforeEach inject ($rootScope, $compile, $state) ->
     scope = $rootScope.$new()
-    template = "<bp-navbar>
-        <bp-button class='one'>Title</bp-button>
-        {{ label }}
-        <bp-button class='two'>Other</bp-button>
-        Bar
-        <bp-button class='three'>Three</bp-button>
-      </bp-navbar>"
+    state = $state
+    template = '''
+    <bp-tabbar>
+      <bp-tab class="bp-icon-search" bp-tap='to(tabState)' bp-state="first">
+        First
+      </bp-tab>
+      <bp-tab class="bp-icon-search" bp-tap='to(tabState)' bp-state="second">
+        Second
+      </bp-tab>
+    </bp-tabbar>'''
     element = $compile(template) scope
     scope.$apply()
 
-  describe 'element', ->
+  describe 'tabbar element', ->
     it 'should have ARIA role', ->
-      expect(element.attr 'role' ).toBe 'navigation'
+      expect(element.attr 'role' ).toBe 'tablist'
 
-  describe 'text', ->
+  describe 'tab elements', ->
     it 'should have ARIA role', ->
-      $text = element.find '.bp-navbar-text'
-      expect($text.attr 'role' ).toBe 'heading'
+      element.children().each (i,element) ->
+        expect($(element).attr 'role' ).toBe 'tab'
 
-    it 'should be compiled', ->
-      $text = element.find '.bp-navbar-text'
-      expect($text.text()).toBe ' Bar'
-      scope.label = 'Foo'
-      scope.$apply()
-      $text = element.find '.bp-navbar-text'
-      expect($text.text()).toBe 'Foo Bar'
+    it 'should have `bp-tab-active` class', ->
+      $first  = element.find ':first-child'
+      $second = element.find ':nth-child(2)'
 
-  describe 'buttons', ->
-    it 'should have correct order', ->
-      $buttons = element.children('bp-button')
-      expect($buttons.length).toBe 3
-      expect($buttons.filter('.one').hasClass 'before' ).toBe true
-      expect($buttons.filter('.two').hasClass 'before' ).toBe true
-      expect($buttons.filter('.three').hasClass 'after' ).toBe true
+      expect($first.hasClass 'bp-tab-active').toBe true
+      expect($second.hasClass 'bp-tab-active').toBe false
+
+      # done = no
+      # runs ->
+      #   scope.$on '$stateChangeError', ->
+      #     done = yes
+      #   state.transitionTo 'second'
+
+      # waitsFor (-> done), 1000
+
+      # runs ->
+      #   expect($first.hasClass 'bp-tab-active').toBe false
+      #   expect($second.hasClass 'bp-tab-active').toBe true
