@@ -11,6 +11,7 @@ dist/
 tmp/
 build/
 docs/
+coverage/
 
 # logs
 *.log
