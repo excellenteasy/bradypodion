@@ -1,3 +1,14 @@
+<a name="v0.2.3"></a>
+### v0.2.3 (2013-08-05)
+
+
+#### Bug Fixes
+
+* **iscroll:** evented refresh and delay detection ([ad888219](http://github.com/excellenteasy/bradypodion/commit/ad8882198165a90734f6b5bfacbcd75b1cd16d5c))
+* **search:** $emit event on scope when text begin and ends editing ([7c311c4d](http://github.com/excellenteasy/bradypodion/commit/7c311c4dcfc6b585b57de09b5bb06bcd40bee53b))
+* **tap:** back button detection in child states ([b6bc2258](http://github.com/excellenteasy/bradypodion/commit/b6bc2258acd4b31dc4042ec3ceb8e53856c541bd))
+* **viewService:** direction detection for paramatarized URLs ([4771df66](http://github.com/excellenteasy/bradypodion/commit/4771df66ed7c0373dc194234c18421a8ee78d5b1))
+
 <a name="v0.2.2"></a>
 ### v0.2.2 (2013-07-31)
 
