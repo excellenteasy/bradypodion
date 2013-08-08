@@ -1,0 +1,9 @@
+<bp-screen class='bp-background'>
+  <bp-table-grouped-header>The {{ state }} segment</bp-table-grouped-header>
+  <bp-table class='bp-table-grouped'>
+    <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+      <div class="label">{{ friend.name }}</div>
+      <div class="value">{{ friend.phone }}</div>
+    </bp-cell>
+  </bp-table>
+</bp-screen>
