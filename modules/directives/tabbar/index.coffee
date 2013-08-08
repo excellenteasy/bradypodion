@@ -38,9 +38,15 @@ angular.module('bp.directives').directive 'bpTab', deps [
 
       scope.$on '$stateChangeSuccess', ->
         if $state.includes scope.tabState
-          element.addClass 'bp-tab-active'
+          element
+            .addClass('bp-tab-active')
+            .attr
+              'aria-selected': 'true'
         else
-          element.removeClass 'bp-tab-active'
+          element
+            .removeClass('bp-tab-active')
+            .attr
+              'aria-selected': 'false'
 
       element.bind 'touchstart', ->
         $timeout ->
