@@ -30,18 +30,23 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
         $navbarText = element.find('.bp-navbar-text')
         placedButtons = 0
         buttons = []
+        noText = no
 
         navbarText = $navbarText.text()
         for child in clone
           $child = angular.element(child)
           if $child.is('bp-button') or $child.is('bp-icon')
             buttons.push($child)
-          else if $child.context.nodeName is '#text' or
-                  $child.is('span.ng-scope')
+          else if $child.is 'bp-segmented-control'
+            $navbarText.append $child
+            noText = yes
+          else if not noText and
+                  ($child.context.nodeName is '#text' or
+                  $child.is 'span.ng-scope' )
             navbarText += ' ' + $child.text().trim()
 
         # Trim leading and trailing whitespace
-        $compile($navbarText.text navbarText.trim()) scope
+        $compile($navbarText.text navbarText.trim()) scope unless noText
 
         if options.noButtonSplit
           for $button in buttons
