@@ -14,11 +14,11 @@ bp-segment {
   display: block;
   -webkit-box-flex: 1;
   line-height: 24px;
-  border-left: 1px solid @ui-color;
+  border-left: transparent;
   border-right: 1px solid @ui-color;
   &:extend(.ellipsis);
-  &:first-child, &:last-child {
-    border: none;
+  &:last-child {
+    border-right: transparent;
   }
   &.bp-active {
     background-color: fade(@ui-color,20%);
