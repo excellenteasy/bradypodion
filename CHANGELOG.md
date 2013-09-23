@@ -1,3 +1,12 @@
+<a name="v0.2.4"></a>
+### v0.2.4 (2013-09-13)
+
+
+#### Bug Fixes
+
+* https reference lesshat dependency ([e2cff5a2](http://github.com/excellenteasy/bradypodion/commit/e2cff5a27cf7b2f166431b888f02b95c07dd600e))
+* **iscroll:** form support ([dae5c3a2](http://github.com/excellenteasy/bradypodion/commit/dae5c3a25853578dfd33fe4ef8dfebf8f2e19466))
+
 <a name="v0.2.3"></a>
 ### v0.2.3 (2013-08-05)
 
