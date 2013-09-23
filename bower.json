@@ -7,7 +7,7 @@
     "lesshat": "https://github.com/excellenteasy/LESSHat.git#v1.2.0",
     "lodash": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.js",
     "angular-ui-router": "https://raw.github.com/excellenteasy/ui-router/284ae20daaa5c3f9d255f27d8a58f7e9451b9aae/release/angular-ui-router.js",
-    "iscroll": "https://rawgithub.com/excellenteasy/iscroll/v5.0.5/build/iscroll-probe.js",
+    "iscroll": "https://rawgithub.com/cubiq/iscroll/v5.0.5/build/iscroll-probe.js",
     "iscroll-sticky": "https://raw.github.com/excellenteasy/iscroll-sticky/v0.1.0/dist/iscroll-sticky.js",
     "angular-mocks": "http://code.angularjs.org/1.1.5/angular-mocks.js"
   }
