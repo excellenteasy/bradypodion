@@ -551,7 +551,7 @@ bp-table {
 # Default input appearence deactivation
 */
 body {
-  font: 62.5%/150% Helvetica Neue, Helvetica, Arial, sans-serif;
+  font: 0.4166666666666667% Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 input,
 select,
