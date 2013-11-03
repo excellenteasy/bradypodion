@@ -1,18 +1,8 @@
 # bradypodion [![Build Status](https://magnum.travis-ci.com/excellenteasy/bradypodion.png?token=eXbhDbHCycbq8ZfsMAgq&branch=master)](https://magnum.travis-ci.com/excellenteasy/bradypodion)
 
-> Bradypodion is an AngularJS component library used to build maintainable mobile web apps that don't suck.
+> Build maintainable mobile web apps that don't suck.
 
 The repository provides a [prebuilt bradypodion version](dist).
-
-Each directive has a demo (e.g. [button](modules/directives/button/demo/index.html)). All you need to do to play with them is `bower install`.
-
-## Documentation
-Documentation generation depends on [Pygments](http://pygments.org/). Follow the installation instructions [here](http://pygments.org/docs/installation/).
-To build the documentation `cd` to the repository in you terminal.
-```bash
-npm install -g grunt-cli && npm install && grunt docs
-```
-Open `docs/index.html` in your browser.
 
 ## Contributing
 See [Contributing](CONTRIBUTING.md)

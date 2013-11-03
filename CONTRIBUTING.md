@@ -4,25 +4,26 @@ Adhere to these [commit message conventions](https://docs.google.com/document/d/
 
 ## Prerequisites
 
-Install the grunt CLI:
-```bash
-npm install -g grunt-cli
-```
-Clone the repository:
+After cloning the repository…
 ```
 git clone git@github.com:excellenteasy/bradypodion.git
 ```
-Install dependencies:
+
+…you should install global…
 ```bash
-cd bradypodion
+npm install -g bower grunt-cli
+```
+
+…and local dependencies.
+```bash
 npm install
 ```
 
 ## Development
 
-During development you need to run the `dev` task. It will install bower dependencies and build & test your files on change.
+During development you need to run the `server` task. It will build & test your files on change.
 ```bash
-grunt dev
+grunt server
 ```
 
 ### Coffeescript
@@ -34,15 +35,15 @@ Add unit tests and documentation for any new or changed functionality.
 > Convention over Configuration
 
 The build process relies on conventions.
-You need to create a `less` folder within a directive.
-`modules/directives/*/less/`
-There is a special treatment for these files.
+You need to create a new folder within [modules/styles](modules/styles), like so `modules/styles/$modulestype/$modulename`.
+
+There is a special treatment for files within those folders.
 * `general.less`: Contains general styles for your directive.
 * `$platform.less`(android|ios|ios7): Contains platform specific styles.
 
 NOTE: Platforms will be namespaced whenever you build more than one.
 
-`modules/directives/*/less/$platform.less`
+So the rules in this imaginary file (`modules/styles/$modulestype/$modulename/$platform.less`)…
 
 ```less
 bg-button {
@@ -50,6 +51,7 @@ bg-button {
 }
 ```
 
+… will look like this, once compiled.
 `bradypodion.css`
 
 ```css
@@ -58,4 +60,4 @@ bg-button {
 }
 ```
 
-You *can* create and import as many other files within the less folder as you like, but you are encouraged to group them in platform folders.
+You *can* create and import as many other files within the module's folder as you like, but you are encouraged to group them in platform folders.
