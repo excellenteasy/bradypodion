@@ -1,0 +1,29 @@
+<bp-screen ng-init="title = 'Bound title'">
+  <bp-navbar>
+    <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
+    Navbar
+  </bp-navbar>
+  <br>
+  <br>
+  <bp-navbar>
+    {{ title }} for Navbar
+    <bp-button bp-tap>Another Button</bp-button>
+  </bp-navbar>
+  <bp-navbar>
+    <bp-button bp-tap>Single Button</bp-button>
+    still centered
+  </bp-navbar>
+  <bp-navbar>
+    <bp-button bp-tap>Single Button</bp-button>
+    title uses all the remaining space
+  </bp-navbar>
+  <bp-navbar bp-no-center>
+    No Centering
+    <bp-button bp-tap>Single Button</bp-button>
+  </bp-navbar>
+  <bp-navbar bp-no-center bp-no-button-split>
+    No Button Split
+    <bp-button bp-tap>Button</bp-button>
+    <bp-button bp-tap>Button</bp-button>
+    <bp-button bp-tap class="bp-button-back">Back</bp-button>
+  </bp-navbar>

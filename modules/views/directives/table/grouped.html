@@ -1,0 +1,36 @@
+<bp-screen class="bp-background" ng-controller="DemoDataCtrl">
+  <bp-navbar>
+    <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('table')">Directives</bp-button>
+    Grouped Table
+  </bp-navbar>
+  <div bp-iscroll>
+    <bp-table-grouped-header>Grouped Table Header</bp-table-grouped-header>
+    <bp-table class="bp-table-grouped">
+      <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+        <div class="label">{{ friend.name }}</div>
+        <div class="value">{{ friend.phone }}</div>
+      </bp-cell>
+    </bp-table>
+    <bp-table-grouped-footer>Grouped Table Footer</bp-table-grouped-footer>
+    <bp-table-grouped-header>Grouped Table Header</bp-table-grouped-header>
+    <bp-table class="bp-table-grouped">
+      <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+        <div class="label">{{ friend.name }}</div>
+        <div class="value">{{ friend.phone }}</div>
+      </bp-cell>
+    </bp-table>
+    <bp-table-grouped-footer>Grouped Table Footer</bp-table-grouped-footer>
+    <bp-table class="bp-table-grouped">
+      <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+        <div class="label">{{ friend.name }}</div>
+        <div class="value">{{ friend.phone }}</div>
+      </bp-cell>
+    </bp-table>
+    <bp-table class="bp-table-grouped">
+      <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+        <div class="label">{{ friend.name }}</div>
+        <div class="value">{{ friend.phone }}</div>
+      </bp-cell>
+    </bp-table>
+  </div>
+</bp-screen>

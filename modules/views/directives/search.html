@@ -1,0 +1,15 @@
+<bp-screen ng-controller="DemoDataCtrl">
+  <bp-navbar>
+    <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
+    Search
+  </bp-navbar>
+  <bp-search>
+    <input type="search" ng-model="searchTerm">
+  </bp-search>
+  <div>
+    <bp-cell ng-repeat='friend in friends | filter:searchTerm' class='bp-cell-value2'>
+      <div class="label">{{ friend.name }}</div>
+      <div class="value">{{ friend.phone }}</div>
+    </bg-cell>
+  </div>
+</bp-screen>

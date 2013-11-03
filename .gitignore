@@ -1,14 +1,13 @@
 .sublime-project.sublime-workspace
 
 # ignore dependencies
-lib/
-components/
+modules/bower_components/
 node_modules/
 
 # ignore generated files
 CHANGELOG.md
 dist/
-tmp/
+.tmp/
 build/
 docs/
 coverage/

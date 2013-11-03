@@ -1,5 +1,3 @@
-var scripts = require(__dirname+'/deps.js').scripts;
-
 // Karma configuration
 // base path, that will be used to resolve files and exclude
 basePath = '';
@@ -8,10 +6,16 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-].concat(scripts);
-
-files.push('components/angular-mocks/index.js');
-files.push('build/tests.js');
+  'dist/bower_components/lodash/index.js',
+  'dist/bower_components/jquery/index.js',
+  'dist/bower_components/iscroll/index.js',
+  'dist/bower_components/iscroll-sticky/index.js',
+  'dist/bower_components/angular/index.js',
+  'dist/bower_components/angular-ui-router/index.js',
+  'dist/bradypodion.js',
+  'dist/bower_components/angular-mocks/index.js',
+  '.tmp/test/tests.js'
+];
 
 preprocessors = {
   'dist/*.js': 'coverage'
