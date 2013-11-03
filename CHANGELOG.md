@@ -1,3 +1,11 @@
+<a name="v0.2.5"></a>
+### v0.2.5 (2013-09-23)
+
+
+#### Bug Fixes
+
+* **iscroll:** use official form support ([5971c6ee](http://github.com/excellenteasy/bradypodion/commit/5971c6eebf45ec74381c5b7b8c3aab0ffec372eb))
+
 <a name="v0.2.4"></a>
 ### v0.2.4 (2013-09-13)
 

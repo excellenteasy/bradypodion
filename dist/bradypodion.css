@@ -658,7 +658,7 @@ bp-table {
 }
 .android body,
 .android {
-  font: 62.5%/150% Roboto Condensed, sans-serif;
+  font: 0.4166666666666667% Roboto Condensed, sans-serif;
 }
 .android input,
 .android select,
@@ -1044,7 +1044,7 @@ bp-table {
 }
 .ios body,
 .ios {
-  font: 62.5%/150% Helvetica Neue, Helvetica, Arial, sans-serif;
+  font: 0.4166666666666667% Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 .ios input,
 .ios select,
