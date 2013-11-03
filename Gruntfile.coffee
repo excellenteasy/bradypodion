@@ -140,6 +140,7 @@ module.exports = (grunt) ->
 
     concurrent:
       server: [
+        'coffee:app'
         'coffee:dist'
         'coffee:test'
         'cssbuild'
