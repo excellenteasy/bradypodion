@@ -1,0 +1,27 @@
+/*!
+ * Bradypodion – an AngularJS directive library written in CoffeeScript used to build maintainable mobile web apps that don't suck.
+ * @link https://github.com/excellenteasy/bradypodion
+ * @license none
+ */
+@import "../../modules/bower_components/lesshat/lesshat";
+@import "../../modules/styles/variables/general";
+
+.bp-flexbox(@orient: horizontal, @pack: start, @align: center) {
+  -webkit-box-orient: @orient;
+  -webkit-box-pack  : @pack;
+  -webkit-box-align : @align;
+  display           : -webkit-box;
+}
+.bp-ellipsis(@a:a) {
+  overflow     : hidden;
+  text-overflow: ellipsis;
+  white-space  : nowrap;
+}
+
+/* Extends */
+.flexbox {
+  .bp-flexbox;
+}
+.ellipsis {
+  .bp-ellipsis;
+}
