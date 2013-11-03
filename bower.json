@@ -12,8 +12,5 @@
   },
   "devDependencies": {
     "angular-mocks": "http://code.angularjs.org/1.1.5/angular-mocks.js"
-  },
-  "resolutions": {
-    "angular": "*"
   }
 }
