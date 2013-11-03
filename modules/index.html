@@ -1,17 +1,21 @@
 <!doctype html>
 <html ng-app="bradypodionApp">
   <head>
-    <meta charset="utf-8">
     <title>Bradypodion</title>
     <link rel="stylesheet" href="bradypodion.css">
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
   <body ng-cloak>
-
     <bp-navbar>
-      Bradypodion Demo App
+      Bradypodion
       <bp-button bp-tap='toggleTheme()' switch-theme>Toggle Theme</bp-button>
     </bp-navbar>
-
+    <div ng-controller="bpViewCtrl" ui-view ng-animate="getFullTransition()"></div>
     <script src="bower_components/lodash/index.js"></script>
     <script src="bower_components/jquery/index.js"></script>
     <script src="bower_components/iscroll/index.js"></script>
