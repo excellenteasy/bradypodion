@@ -11,12 +11,20 @@ module.exports = (grunt) ->
       platforms: ['android', 'ios', 'ios7']
 
     watch:
+      options:
+        livereload: '<%= connect.options.livereload %>'
       coffee:
         files: [
+          '<%=bp.app%>/scripts/app.coffee'
           '<%=bp.app%>/scripts/bradypodion.coffee'
           '<%=bp.app%>/scripts/*/**/*.coffee'
         ]
-        tasks: ['coffeelint:build', 'coffee:dist', 'karma:unit:run']
+        tasks: [
+          'coffeelint:build'
+          'coffee:app'
+          'coffee:dist'
+          'karma:unit:run'
+        ]
 
       coffeeTest:
         files: ['test/spec/**/*.coffee']
@@ -30,15 +38,10 @@ module.exports = (grunt) ->
         files: ['<%=bp.app%>/styles/**/*.less']
         tasks: ['cssbuild']
 
-      livereload:
-        options:
-          livereload: '<%= connect.options.livereload %>'
+      views:
+        files: ['<%=bp.app%>/index.html', '<%=bp.app%>/views/**/*.html']
 
-        files: [
-          '{<%=bp.tmp%>,<%=bp.app%>}/**/*.html'
-          '{<%=bp.tmp%>,<%=bp.app%>}/**/*.css'
-          '{<%=bp.tmp%>,<%=bp.app%>}/**/*.js'
-        ]
+
 
     connect:
       options:
@@ -83,6 +86,10 @@ module.exports = (grunt) ->
       options:
         sourceMap: true
         sourceRoot: ''
+
+      app:
+        files:
+          '<%=bp.dist%>/scripts/app.js': '<%=bp.app%>/scripts/app.coffee'
 
       dist:
         options:
@@ -138,6 +145,7 @@ module.exports = (grunt) ->
         'cssbuild'
       ]
       dist: [
+        'coffee:app'
         'coffee:dist'
         'cssbuild'
         'cssbuild:android'
