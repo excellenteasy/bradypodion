@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app="bradypodionApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Bradypodion</title>
+    <link rel="stylesheet" href="bradypodion.css">
+</head>
+  <body ng-cloak>
+
+    <bp-navbar>
+      Bradypodion Demo App
+      <bp-button bp-tap='toggleTheme()' switch-theme>Toggle Theme</bp-button>
+    </bp-navbar>
+
+    <script src="bower_components/lodash/index.js"></script>
+    <script src="bower_components/jquery/index.js"></script>
+    <script src="bower_components/iscroll/index.js"></script>
+    <script src="bower_components/iscroll-sticky/index.js"></script>
+    <script src="bower_components/angular/index.js"></script>
+    <script src="bower_components/angular-ui-router/index.js"></script>
+
+    <script src="bradypodion.js"></script>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
