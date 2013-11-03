@@ -239,8 +239,8 @@ module.exports = (grunt) ->
     exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
         grunt dist changelog &&
         git add package.json bower.json &&
-        bradypodion.android.css
         git add -f dist/bradypodion.css &&
+        git add -f dist/bradypodion.android.css &&
         git add -f dist/bradypodion.ios.css &&
         git add -f dist/bradypodion.ios7.css &&
         git add -f dist/bradypodion.js &&
