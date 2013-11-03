@@ -32,19 +32,21 @@
     "grunt": "0.4.1"
   },
   "devDependencies": {
+    "load-grunt-tasks": "~0.1.0",
+    "semver": "~2.0.11",
+    "semver-sync": "~1.2.0",
+    "time-grunt": "~0.1.0",
     "grunt-coffeelint": "0.0.7",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-coffee": "0.7.0",
-    "grunt-contrib-watch": "0.4.4",
-    "grunt-shell": "~0.3.0",
-    "matchdep": "~0.1.2",
-    "semver-sync": "~1.2.0",
-    "grunt-karma": "~0.4.5",
-    "grunt-bower-task": "~0.2.3",
-    "grunt-conventional-changelog": "git://github.com/btford/grunt-conventional-changelog.git#aa77460",
-    "grunt-groc": "git://github.com/excellenteasy/grunt-groc.git#e72d3d4",
+    "grunt-contrib-connect": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-less": "~0.6.4",
-    "semver": "~2.0.11"
+    "grunt-contrib-watch": "0.4.4",
+    "grunt-concurrent": "~0.4.1",
+    "grunt-conventional-changelog": "git://github.com/btford/grunt-conventional-changelog.git#aa77460",
+    "grunt-karma": "~0.4.5",
+    "grunt-shell": "~0.3.0"
   },
   "keywords": [
     "angular",
