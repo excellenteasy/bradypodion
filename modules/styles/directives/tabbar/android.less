@@ -1,0 +1,28 @@
+@import "android/wrapper";
+@import "android/tab";
+@import "android/type";
+
+bp-tabbar {
+  &:extend(.borderBox);
+  &:extend(.flexbox);
+  .tabbar-wrapper;
+}
+
+bp-tabbar > bp-tab {
+  &:extend(.borderBox);
+  .bp-flexbox(vertical);
+  .tabbar-tab;
+
+  bp-icon {
+    display: none;
+  }
+
+  &.bp-tab-active {
+    .tabbar-tab-active;
+  }
+
+  span {
+    .tabbar-label;
+    &:extend(.ellipsis);
+  }
+}

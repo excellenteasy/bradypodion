@@ -61,6 +61,21 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
       templateUrl: 'views/directives/cell.html'
       transition: 'slide'
     )
+    .state('detail-disclosure',
+      url: '/directives/detail-disclosure'
+      templateUrl: 'views/directives/detail-disclosure.html'
+      transition: 'slide'
+    )
+    .state('detail-disclosure-site',
+      url: '/directives/detail-disclosure/site'
+      templateUrl: 'views/directives/detail-disclosure/site.html'
+      transition: 'cover'
+    )
+    .state('detail-disclosure-detail',
+      url: '/directives/detail-disclosure/detail'
+      templateUrl: 'views/directives/detail-disclosure/detail.html'
+      transition: 'slide'
+    )
     .state('icon',
       url: '/directives/icon'
       templateUrl: 'views/directives/icon.html'
@@ -85,6 +100,41 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
       url: '/directives/search'
       templateUrl: 'views/directives/search.html'
       transition: 'slide'
+    )
+    .state('tabbar',
+      url: '/directives/tabbar'
+      templateUrl: 'views/directives/tabbar.html'
+      transition: 'slide'
+    )
+    .state('tabbar.first',
+      url: '/directives/tabbar/first'
+      templateUrl: 'views/directives/tabbar/screen.html'
+      controller: 'DemoTabbarCtrl'
+      transition: 'fade'
+    )
+    .state('tabbar.second',
+      url: '/directives/tabbar/second'
+      templateUrl: 'views/directives/tabbar/screen.html'
+      controller: 'DemoTabbarCtrl'
+      transition: 'fade'
+    )
+    .state('tabbar.third',
+      url: '/directives/tabbar/third'
+      templateUrl: 'views/directives/tabbar/screen.html'
+      controller: 'DemoTabbarCtrl'
+      transition: 'fade'
+    )
+    .state('tabbar.fourth',
+      url: '/directives/tabbar/fourth'
+      templateUrl: 'views/directives/tabbar/screen.html'
+      controller: 'DemoTabbarCtrl'
+      transition: 'fade'
+    )
+    .state('tabbar.fifth',
+      url: '/directives/tabbar/fifth'
+      templateUrl: 'views/directives/tabbar/screen.html'
+      controller: 'DemoTabbarCtrl'
+      transition: 'fade'
     )
     .state('table-header',
       url: '/directives/table-header'
@@ -116,6 +166,23 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
       templateUrl: 'views/directives/tap.html'
       transition: 'slide'
     )
+).factory('dummyFriends', ->
+  [
+    name: 'Sandy'
+    phone: '555-1276'
+  ,
+    name: 'Kirsten'
+    phone: '800-BIG-MARY'
+  ,
+    name: 'Jimmy'
+    phone: '555-4321'
+  ,
+    name: 'Julie'
+    phone: '555-5678'
+  ,
+    name: 'Hailey'
+    phone: '555-8765'
+  ]
 ).directive('switchTheme', ->
   (scope, element, attrs) ->
     platforms = ['ios', 'ios7', 'android']
@@ -128,25 +195,13 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
   (scope, element, attrs) ->
     scope.tapped = ->
       scope.random = Math.floor(Math.random() * 100)
-).controller('DemoDataCtrl', ($scope) ->
+).controller('DemoDataCtrl', ($scope, dummyFriends) ->
   $scope.cells = []
   for i in [0...300]
     $scope.cells.push i*Math.random()
-
-    $scope.friends = [
-      name: 'Sandy'
-      phone: '555-1276'
-    ,
-      name: 'Kirsten'
-      phone: '800-BIG-MARY'
-    ,
-      name: 'Jimmy'
-      phone: '555-4321'
-    ,
-      name: 'Julie'
-      phone: '555-5678'
-    ,
-      name: 'Hailey'
-      phone: '555-8765'
-    ]
+    $scope.friends = dummyFriends;
+).controller('DemoTabbarCtrl', ($state, $scope, dummyFriends) ->
+  $scope.state = $state.current.name.replace('tabbar.','')
+  $scope.friends = dummyFriends.sort ->
+    0.5 - Math.random()
 )
