@@ -48,15 +48,11 @@ module.exports = (grunt) ->
         port: 9000
         hostname: '*'
         livereload: 35729
+        open: 'http://localhost:9000/'
 
-      livereload:
+      server:
         options:
-          open: 'http://localhost:9000/'
           base: ['<%=bp.tmp%>', '<%=bp.app%>', '<%=bp.dist%>']
-
-      dist:
-        options:
-          base: '<%=bp.dist%>'
 
     shell:
       options:
@@ -268,14 +264,14 @@ module.exports = (grunt) ->
         'shell:hooks'
         'clean:server'
         'concurrent:server'
-        'connect:livereload'
+        'connect:server'
         'karma:unit'
         'watch'
       ]
     else
       [
         'build'
-        'connect:dist:keepalive'
+        'connect:server:keepalive'
       ]
 
   grunt.registerTask 'precommit', [
