@@ -1,0 +1,24 @@
+{
+  "maxerr": 500,
+  "bitwise": false,
+  "camelcase": true,
+  "curly": false,
+  "eqeqeq": false,
+  "forin": false,
+  "newcap": true,
+  "plusplus": false,
+  "quotmark": true,
+  "trailing": true,
+  "asi": true,
+  "boss": true,
+  "lastsemic": true,
+  "proto": true,
+  "jquery": true,
+  "devel": false,
+  "globals": {
+    "angular": true,
+    "IScroll": true,
+    "IScrollSticky": true,
+    "_": true
+  }
+}
