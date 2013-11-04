@@ -1,0 +1,29 @@
+@import "ios7/wrapper";
+@import "ios7/tab";
+@import "ios7/icon";
+@import "ios7/type";
+
+bp-tabbar {
+  &:extend(.borderBox);
+  &:extend(.flexbox);
+  .tabbar-wrapper;
+}
+
+bp-tabbar > bp-tab {
+  &:extend(.borderBox);
+  .bp-flexbox(vertical);
+  .tabbar-tab;
+
+  bp-icon {
+    .tabbar-icon;
+  }
+
+  &.bp-tab-active {
+    .tabbar-tab-active;
+  }
+
+  span {
+    .tabbar-label;
+    &:extend(.ellipsis);
+  }
+}
