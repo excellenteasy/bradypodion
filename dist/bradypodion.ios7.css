@@ -6,7 +6,8 @@
 /* Extends */
 .flexbox,
 bp-navbar,
-bp-search {
+bp-search,
+bp-tabbar {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
   -webkit-box-align: center;
@@ -19,6 +20,7 @@ bp-cell > span,
 .bp-cell-subtitle .titles .title,
 .bp-cell-subtitle .titles .subtitle,
 .bp-navbar-text,
+bp-tabbar > bp-tab span,
 bp-table-grouped-header {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -189,8 +191,6 @@ bp-table-grouped-header {
   transition: none;
   -webkit-transform: none;
   transform: none;
-  background-color: transparent !important;
-  background-image: none !important;
 }
 .slide-normal-enter bp-navbar .bp-navbar-text,
 .slide-normal-enter bp-navbar bp-button,
@@ -338,8 +338,6 @@ bp-table-grouped-header {
   transition: none;
   -webkit-transform: none;
   transform: none;
-  background-color: transparent !important;
-  background-image: none !important;
 }
 .slide-reverse-leave bp-navbar .bp-navbar-text,
 .slide-reverse-leave bp-navbar bp-button,
@@ -378,7 +376,9 @@ bp-table-grouped-header {
 [ui-view] {
   display: block;
   position: relative;
+  overflow: hidden;
   -webkit-box-flex: 1;
+  -webkit-box-ordinal-group: 50;
 }
 bp-screen,
 [bp-screen] {
@@ -394,6 +394,9 @@ bp-screen,
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   z-index: 1;
+}
+.bp-content {
+  -webkit-box-flex: 1;
 }
 [ng\:cloak],
 [ng-cloak],
@@ -471,6 +474,8 @@ bp-cell,
 .bp-cell-value2 .value,
 .bp-cell-value2 .label,
 bp-navbar,
+bp-tabbar,
+bp-tabbar > bp-tab,
 bp-table-header,
 bp-table-grouped-header,
 bp-table-grouped-footer {
@@ -488,7 +493,6 @@ bp-table-grouped-footer {
   font-style: normal;
 }
 .bp-icon-search:before,
-bp-search:before,
 bp-search:before {
   content: '\e000';
 }
@@ -497,16 +501,10 @@ bp-search:before {
 .bp-icon-chevron-up:before,
 .bp-icon-chevron-down:before,
 bp-button.bp-button-forward:after,
-bp-button.bp-button-back:before,
-.bp-icon-chevron-left:before,
-.bp-icon-chevron-up:before,
-.bp-icon-chevron-down:before,
-bp-button.bp-button-forward:after,
 bp-button.bp-button-back:before {
   content: '\e001';
 }
 .bp-icon-chevron-left:before,
-bp-button.bp-button-back:before,
 bp-button.bp-button-back:before {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
@@ -578,8 +576,9 @@ bp-table {
 # Default input appearence deactivation
 */
 body {
-  font: 0.4166666666666667% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+  font: 62.5%/150% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   font-weight: lighter;
+  font: -apple-system-body;
 }
 strong,
 b,
@@ -603,6 +602,7 @@ bp-button {
   text-align: center;
   -webkit-text-rendering: optimizeLegibility;
   color: #0069ff;
+  font: -apple-system-body;
 }
 bp-button.bp-button-back:before {
   font-size: 20px;
@@ -644,6 +644,7 @@ bp-cell {
   margin: 0 13px;
   border-bottom: 1px solid transparent;
   border-top: 1px solid #d6d6d6;
+  font: -apple-system-body;
 }
 bp-cell:first-child {
   border: none;
@@ -728,6 +729,34 @@ bp-cell:last-child.active {
   content: '\e002';
   color: #0069ff;
 }
+bp-detail-disclosure {
+  display: block;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #0069ff;
+  color: #0069ff;
+  font-family: Didot, serif;
+  font-weight: bold;
+}
+bp-detail-disclosure:before {
+  content: 'i';
+}
+bp-detail-disclosure:after {
+  position: absolute;
+  content: '';
+  width: 44px;
+  height: 44px;
+  top: -12px;
+  left: -9px;
+}
+bp-detail-disclosure.bp-active {
+  border: 1px solid rgba(0, 105, 255, 0.5);
+  color: rgba(0, 105, 255, 0.5);
+}
 /*
 # Background
 */
@@ -750,6 +779,7 @@ bp-navbar {
   height: 44px;
   padding: 0 8px;
   width: 100%;
+  -webkit-ordinal-group: 10;
 }
 bp-navbar > * {
   margin-top: 0;
@@ -765,6 +795,7 @@ bp-navbar.navbar-small {
   height: 33px;
   padding: 0 8px;
   width: 100%;
+  -webkit-ordinal-group: 10;
 }
 bp-navbar.navbar-small > * {
   margin-top: 0;
@@ -786,16 +817,19 @@ bp-navbar bp-button {
   text-align: center;
   -webkit-text-rendering: optimizeLegibility;
   color: #0069ff;
+  font: -apple-system-body;
   line-height: 1.5;
   display: block;
   -webkit-box-flex: 1;
   color: black;
+  font: -apple-system-headline;
 }
 @media only screen and (orientation: landscape) {
   bp-navbar {
     height: 33px;
     padding: 0 8px;
     width: 100%;
+    -webkit-ordinal-group: 10;
   }
   bp-navbar > * {
     margin-top: 0;
@@ -871,6 +905,45 @@ bp-search input[type=search] {
 bp-search input[type=search]::-webkit-input-placeholder {
   color: #93989E;
 }
+bp-tabbar {
+  height: 50px;
+  width: 100%;
+  background-color: #f8f8f8;
+  background-image: -webkit-linear-gradient(#f2f2f2, #f2f2f2 50%, #c0c0c0 50%);
+  background-image: linear-gradient(#f2f2f2, #f2f2f2 50%, #c0c0c0 50%);
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
+  color: #c2c2c2;
+  -webkit-box-ordinal-group: 90;
+}
+bp-tabbar > bp-tab {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  height: 100%;
+  -webkit-box-flex: 1;
+  color: #929292;
+}
+bp-tabbar > bp-tab bp-icon,
+bp-tabbar > bp-tab bp-button.bp-button-back,
+bp-tabbar > bp-tab bp-search {
+  display: block;
+  height: 32px;
+  font-size: 16px;
+  line-height: 32px;
+}
+bp-tabbar > bp-tab.bp-tab-active {
+  color: #2096ff;
+}
+bp-tabbar > bp-tab span {
+  display: block;
+  height: 15px;
+  font-size: 11px;
+  line-height: 15px;
+  font: -apple-system-caption2;
+}
 bp-table-header {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
@@ -888,6 +961,7 @@ bp-table-header {
   line-height: 25px;
   margin: 0;
   padding: 0 13px;
+  font: -apple-system-headline;
 }
 bp-table-header + bp-cell {
   border: none;
@@ -910,6 +984,7 @@ bp-table-grouped-header {
   margin: 16px 13px 0;
   height: 25px;
   line-height: 25px;
+  font: -apple-system-subheadline;
   text-transform: uppercase;
   color: #4c4c4c;
 }
@@ -923,6 +998,7 @@ bp-table-grouped-footer {
   margin: 5px 13px;
   line-height: 20px;
   color: #7f7f7f;
+  font: -apple-system-footnote;
 }
 .bp-background {
   background-color: #e5e5e5;

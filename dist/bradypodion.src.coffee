@@ -1,6 +1,6 @@
 'use strict'
 ###!
- * Bradypodion – an AngularJS directive library written in CoffeeScript used to build maintainable mobile web apps that don't suck.
+ * Bradypodion - build maintainable mobile web apps that don't suck.
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
 ###
@@ -120,6 +120,29 @@ angular.module('bp.directives').directive 'bpCell', ->
           .attr(
             role: 'listitem')
           .append clone
+
+# # Detail Disclosure
+
+angular.module('bp.directives').directive 'bpDetailDisclosure', deps [
+  'bpConfig'
+  ], (
+  bpConfig
+  ) ->
+  restrict: 'E'
+  link: (scope, element, attrs) ->
+    if bpConfig.platform is 'android'
+      element.attr 'aria-hidden', 'true'
+    else
+      $parent = element.parent()
+
+      unless uniqueId = $parent.attr 'id'
+        uniqueId = _.uniqueId 'bp_'
+        $parent.attr 'id', uniqueId
+
+      element.attr
+        'aria-describedby': uniqueId
+        'aria-label': 'More Info'
+        role: 'button'
 
 # # iScroll
 
@@ -345,6 +368,64 @@ angular.module('bp.directives').directive 'bpSearch', deps [
       element.unbind 'touchmove', preventDefault
       $cancel.unbind 'touchstart', preventDefault
 
+# # Tabbar
+
+angular.module('bp.directives').directive 'bpTabbar', ->
+  restrict: 'E'
+  link: (scope, element, attrs) ->
+    element.attr
+      role: 'tablist'
+
+# # Tab
+
+angular.module('bp.directives').directive 'bpTab', deps [
+  '$state'
+  '$timeout'
+  ], (
+  $state
+  $timeout
+  )->
+  scope: true
+  restrict: 'E'
+  transclude: true
+  template: '<bp-icon></bp-icon>'
+  compile: (elem, attrs, transcludeFn) ->
+    (scope, element, attrs) ->
+      element.attr
+        role: 'tab'
+
+      scope.tabState = attrs.bpState or ''
+
+      # Extract Icon
+      $icon = element.find 'bp-icon'
+      angular.forEach element.attr('class').split(' '), (value) ->
+        if /^bp\-icon\-/.test value
+          $icon.addClass value
+          element.removeClass value
+      # Extract Label
+      transcludeFn scope, (clone) ->
+        element.append clone
+
+      scope.$on '$stateChangeSuccess', ->
+        if $state.includes scope.tabState
+          element
+            .addClass('bp-tab-active')
+            .attr
+              'aria-selected': 'true'
+        else
+          element
+            .removeClass('bp-tab-active')
+            .attr
+              'aria-selected': 'false'
+
+      element.bind 'touchstart', ->
+        $timeout ->
+          element.trigger 'touchend'
+        , 500
+
+      scope.$on '$destroy', ->
+        element.unbind 'touchstart'
+
 # # Table-Header
 
 angular.module('bp.directives').directive 'bpTableHeader', ->
@@ -358,8 +439,11 @@ angular.module('bp.directives').directive 'bpTableHeader', ->
 angular.module('bp.directives').directive 'bpTable', ->
   restrict: 'E'
   link: (scope, element, attrs) ->
-    element.attr
-      role: 'list'
+    role = if element.parents('bp-table').length
+      'group'
+    else
+      'list'
+    element.attr {role}
 
 # # Tap
 # ## Description
@@ -397,7 +481,9 @@ angular.module('bp.directives').directive 'bpTap', deps [
 
     # #### Intelligent Defaults
     # * Apply `bp-no-scroll` to  `bp-button` within `bp-navbar`
-    if element.is('bp-button') and element.parent('bp-navbar')
+    if (element.is('bp-button') and element.parent('bp-navbar')) or
+       # * Apply `bp-no-scroll` to  `bp-detail-disclosure`
+       element.is('bp-detail-disclosure')
       element.attr 'bp-no-scroll', ''
       options.noScroll = yes
     # * Set `bp-bound-margin` to 5 when `bp-cell` is within `bp-iscroll`
@@ -423,7 +509,10 @@ angular.module('bp.directives').directive 'bpTap', deps [
         else
           0
       touch.ongoing = yes
-      element.addClass options.activeClass
+      if $(e.target).attr('bp-tap') and element[0] isnt e.target
+        touch.nestedTap = yes
+      else
+        element.addClass options.activeClass
 
     element.bind 'touchmove', (e) ->
       y =
@@ -443,7 +532,7 @@ angular.module('bp.directives').directive 'bpTap', deps [
       if options.boundMargin and
          (Math.abs(touch.y - y) < options.boundMargin and
          Math.abs(touch.x - x) < options.boundMargin)
-        element.addClass options.activeClass
+        element.addClass options.activeClass unless touch.nestedTap
         touch.ongoing = on
         if options.noScroll
           e.preventDefault()
@@ -452,7 +541,7 @@ angular.module('bp.directives').directive 'bpTap', deps [
         element.removeClass options.activeClass
 
     element.bind 'touchend touchcancel', (e) ->
-      if touch.ongoing and e.type is 'touchend'
+      if touch.ongoing and not touch.nestedTap and e.type is 'touchend'
         scope.$apply $parse(attrs.bpTap), {$event: e, touch}
         element.trigger 'tap', angular.extend {type: 'tap', touch}, e
       touch = {}

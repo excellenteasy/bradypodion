@@ -1,3 +1,27 @@
+<a name="v0.3.0"></a>
+## v0.3.0 (2013-11-05)
+
+
+#### Bug Fixes
+
+* **encoding:** remove unsafe "EN DASH" from source ([080cd73a](http://github.com/excellenteasy/bradypodion/commit/080cd73ab7c71823e1031553ace261de00367a10))
+* **navbar:** give navbar explicit box-ordinal-group ([51faf577](http://github.com/excellenteasy/bradypodion/commit/51faf5773a389b965adce75b973e739fe1775c68))
+* **tabbar:**
+  * make selected tab accesible ([f30d44de](http://github.com/excellenteasy/bradypodion/commit/f30d44deae6f0f7f517d79e53b91c69a93d4694d))
+  * custom tap behavior ([debdc900](http://github.com/excellenteasy/bradypodion/commit/debdc900886fae64b407006b63b17ca5cc377731))
+* **table:** apply role "group" to subtables ([36a3824c](http://github.com/excellenteasy/bradypodion/commit/36a3824cc8a44e5e9ee95b254e5210fc878192f1))
+* **tap:** support nesting ([96e3b72d](http://github.com/excellenteasy/bradypodion/commit/96e3b72d36404748743c35bb75265eb50e5602f3))
+
+
+#### Features
+
+* **detailDisclosure:** initial ([a629a61e](http://github.com/excellenteasy/bradypodion/commit/a629a61e5eef3eaccb3cf1ca1c21ed166342b311))
+* **tabbar:** initial ([c0392383](http://github.com/excellenteasy/bradypodion/commit/c0392383d2b84806bb1a0df8dd95b21f455eb3ec))
+* **typography:** ios7 dynamic type support ([82849638](http://github.com/excellenteasy/bradypodion/commit/8284963831a42c1bbf1cc89db3274c96f97e8dd1))
+* **view:**
+  * introduce content wrapper that takes remaining space ([8843f39e](http://github.com/excellenteasy/bradypodion/commit/8843f39e44b7b486035b741f5d8bef5a295d17a7))
+  * introduce content wrapper that takes remaining space ([904258f9](http://github.com/excellenteasy/bradypodion/commit/904258f9e6f5ef596f7f97b0a437059e59d1f150))
+
 <a name="v0.2.5"></a>
 ### v0.2.5 (2013-09-23)
 

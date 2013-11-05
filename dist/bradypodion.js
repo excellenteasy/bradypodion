@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   /*!
-   * Bradypodion – an AngularJS directive library written in CoffeeScript used to build maintainable mobile web apps that don't suck.
+   * Bradypodion - build maintainable mobile web apps that don't suck.
    * @link https://github.com/excellenteasy/bradypodion
    * @license none
   */
@@ -137,6 +137,29 @@
       }
     };
   });
+
+  angular.module('bp.directives').directive('bpDetailDisclosure', deps(['bpConfig'], function(bpConfig) {
+    return {
+      restrict: 'E',
+      link: function(scope, element, attrs) {
+        var $parent, uniqueId;
+        if (bpConfig.platform === 'android') {
+          return element.attr('aria-hidden', 'true');
+        } else {
+          $parent = element.parent();
+          if (!(uniqueId = $parent.attr('id'))) {
+            uniqueId = _.uniqueId('bp_');
+            $parent.attr('id', uniqueId);
+          }
+          return element.attr({
+            'aria-describedby': uniqueId,
+            'aria-label': 'More Info',
+            role: 'button'
+          });
+        }
+      }
+    };
+  }));
 
   angular.module('bp.directives').directive('bpIscroll', deps(['bpConfig', '$timeout'], function(bpConfig, $timeout) {
     return {
@@ -348,6 +371,64 @@
     };
   }));
 
+  angular.module('bp.directives').directive('bpTabbar', function() {
+    return {
+      restrict: 'E',
+      link: function(scope, element, attrs) {
+        return element.attr({
+          role: 'tablist'
+        });
+      }
+    };
+  });
+
+  angular.module('bp.directives').directive('bpTab', deps(['$state', '$timeout'], function($state, $timeout) {
+    return {
+      scope: true,
+      restrict: 'E',
+      transclude: true,
+      template: '<bp-icon></bp-icon>',
+      compile: function(elem, attrs, transcludeFn) {
+        return function(scope, element, attrs) {
+          var $icon;
+          element.attr({
+            role: 'tab'
+          });
+          scope.tabState = attrs.bpState || '';
+          $icon = element.find('bp-icon');
+          angular.forEach(element.attr('class').split(' '), function(value) {
+            if (/^bp\-icon\-/.test(value)) {
+              $icon.addClass(value);
+              return element.removeClass(value);
+            }
+          });
+          transcludeFn(scope, function(clone) {
+            return element.append(clone);
+          });
+          scope.$on('$stateChangeSuccess', function() {
+            if ($state.includes(scope.tabState)) {
+              return element.addClass('bp-tab-active').attr({
+                'aria-selected': 'true'
+              });
+            } else {
+              return element.removeClass('bp-tab-active').attr({
+                'aria-selected': 'false'
+              });
+            }
+          });
+          element.bind('touchstart', function() {
+            return $timeout(function() {
+              return element.trigger('touchend');
+            }, 500);
+          });
+          return scope.$on('$destroy', function() {
+            return element.unbind('touchstart');
+          });
+        };
+      }
+    };
+  }));
+
   angular.module('bp.directives').directive('bpTableHeader', function() {
     return {
       restrict: 'E',
@@ -363,8 +444,10 @@
     return {
       restrict: 'E',
       link: function(scope, element, attrs) {
+        var role;
+        role = element.parents('bp-table').length ? 'group' : 'list';
         return element.attr({
-          role: 'list'
+          role: role
         });
       }
     };
@@ -385,7 +468,7 @@
           options[key] = attr === '' ? true : attr;
         }
       }
-      if (element.is('bp-button') && element.parent('bp-navbar')) {
+      if ((element.is('bp-button') && element.parent('bp-navbar')) || element.is('bp-detail-disclosure')) {
         element.attr('bp-no-scroll', '');
         options.noScroll = true;
       }
@@ -399,14 +482,20 @@
         touch.y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref = e.originalEvent.changedTouches) != null ? _ref[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
         touch.x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
         touch.ongoing = true;
-        return element.addClass(options.activeClass);
+        if ($(e.target).attr('bp-tap') && element[0] !== e.target) {
+          return touch.nestedTap = true;
+        } else {
+          return element.addClass(options.activeClass);
+        }
       });
       element.bind('touchmove', function(e) {
         var x, y, _ref, _ref1;
         y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref = e.originalEvent.changedTouches) != null ? _ref[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
         x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
         if (options.boundMargin && (Math.abs(touch.y - y) < options.boundMargin && Math.abs(touch.x - x) < options.boundMargin)) {
-          element.addClass(options.activeClass);
+          if (!touch.nestedTap) {
+            element.addClass(options.activeClass);
+          }
           touch.ongoing = true;
           if (options.noScroll) {
             return e.preventDefault();
@@ -417,7 +506,7 @@
         }
       });
       element.bind('touchend touchcancel', function(e) {
-        if (touch.ongoing && e.type === 'touchend') {
+        if (touch.ongoing && !touch.nestedTap && e.type === 'touchend') {
           scope.$apply($parse(attrs.bpTap), {
             $event: e,
             touch: touch
