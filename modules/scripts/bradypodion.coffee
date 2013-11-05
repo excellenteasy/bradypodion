@@ -1,6 +1,6 @@
 'use strict'
 ###!
- * Bradypodion – build maintainable mobile web apps that don't suck.
+ * Bradypodion - build maintainable mobile web apps that don't suck.
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
 ###
