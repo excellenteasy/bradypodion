@@ -10,7 +10,7 @@ dist/
 .tmp/
 build/
 docs/
-coverage/
+test/coverage/
 
 # logs
 *.log

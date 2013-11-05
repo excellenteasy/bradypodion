@@ -28,7 +28,7 @@ module.exports = (grunt) ->
 
       coffeeTest:
         files: ['test/spec/**/*.coffee']
-        tasks: ['coffeelint:test', 'coffee:test', 'karma:unit:run']
+        tasks: ['coffeelint:test', 'karma:unit:run']
 
       gruntfile:
         files: ['Gruntfile.coffee']
@@ -40,8 +40,6 @@ module.exports = (grunt) ->
 
       views:
         files: ['<%=bp.app%>/index.html', '<%=bp.app%>/views/**/*.html']
-
-
 
     connect:
       options:
@@ -85,7 +83,7 @@ module.exports = (grunt) ->
 
       app:
         files:
-          '<%=bp.dist%>/scripts/app.js': '<%=bp.app%>/scripts/app.coffee'
+          '<%=bp.tmp%>/scripts/app.js': '<%=bp.app%>/scripts/app.coffee'
 
       dist:
         options:
@@ -95,12 +93,6 @@ module.exports = (grunt) ->
           '<%=bp.app%>/scripts/*/**/*.coffee'
         ]
         dest: '<%=bp.dist%>/bradypodion.js'
-
-      test:
-        options:
-          join: yes
-        src: [ 'test/spec/**/*.coffee' ]
-        dest: '<%=bp.tmp%>/test/tests.js'
 
     coffeelint:
       options:
@@ -123,22 +115,10 @@ module.exports = (grunt) ->
       gruntfile:
         files: src: ['Gruntfile.coffee']
 
-    # Put files not handled in other tasks here
-    copy:
-      dist:
-        files: [
-          expand: true
-          dot: true
-          cwd: '<%=bp.app%>'
-          dest: '<%=bp.dist%>'
-          src: ['bower_components/**/*', 'index.html']
-        ]
-
     concurrent:
       server: [
         'coffee:app'
         'coffee:dist'
-        'coffee:test'
         'cssbuild'
       ]
       dist: [
@@ -152,7 +132,7 @@ module.exports = (grunt) ->
 
     karma:
       options:
-        configFile: 'karma.conf.js'
+        configFile: 'karma.conf.coffee'
       continuous:
         singleRun: true
         browsers: ['PhantomJS']
@@ -281,7 +261,6 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'test', [
     'clean:server'
-    'coffee:test'
     'build'
     'karma:continuous'
   ]
@@ -290,7 +269,6 @@ module.exports = (grunt) ->
     'clean:dist'
     'coffeelint'
     'concurrent:dist'
-    'copy:dist'
   ]
 
   grunt.registerTask 'default', ['test']
