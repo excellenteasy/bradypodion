@@ -140,6 +140,10 @@ module.exports = (grunt) ->
         background: true
         browsers: ['Chrome']
 
+    coveralls:
+      options:
+        coverage_dir: 'test/coverage'
+
   grunt.registerTask 'cssbuild', ->
     # config
     PLATFORMS = grunt.config.get('bp').platforms

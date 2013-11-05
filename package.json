@@ -51,7 +51,8 @@
     "grunt-concurrent": "~0.4.1",
     "grunt-conventional-changelog": "~1.0.0",
     "grunt-shell": "~0.5.0",
-    "grunt-karma": "~0.6.2"
+    "grunt-karma": "~0.6.2",
+    "grunt-karma-coveralls": "~2.0.2"
   },
   "keywords": [
     "angular",

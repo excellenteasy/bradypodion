@@ -5,6 +5,12 @@ node_js:
 before_script:
   - npm install -g bower grunt-cli
   - bower install
+after_script:
+  - grunt coveralls
+env:
+  global:
+    - COVERALLS_SERVICE_NAME="travis-pro"
+    - secure: "ke17kytjrriZjX0AVPxnsQm6uFR8AZ/ymb7b3wlUNoWc3E2nzyUj+07S9R81oMQGjyfXC6bb3t8+XcVBJAGDPbArCx59sBZKPMHM7hzUJTAb3eQB/ptgMDHneYLYNOqxSyvIHdC40wPoBdB3vlAgew4/31UHDe69RznQTicV5Iw="
 notifications:
   email: false
   hipchat:
