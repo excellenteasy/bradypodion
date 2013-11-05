@@ -226,7 +226,7 @@ module.exports = (grunt) ->
       grunt.fail.fatal "Version has to be greater than #{oldVersion}"
 
     exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
-        grunt dist changelog &&
+        grunt build changelog &&
         git add package.json bower.json &&
         git add -f dist/bradypodion.css &&
         git add -f dist/bradypodion.android.css &&
@@ -239,7 +239,8 @@ module.exports = (grunt) ->
         git commit -m 'v#{newVersion}' &&
         git tag v#{newVersion}",
     (error, stdout, stderr) ->
-      grunt.log.writeln if error then stderr else stdout
+      grunt.log.writeln stderr if stderr
+      grunt.log.writeln stdout if stdout
       done error or {}
 
   grunt.registerTask 'server', (target) ->
