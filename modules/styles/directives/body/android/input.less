@@ -1,5 +1,5 @@
 .form-disable-default(@a:a) {
-  -webkit-appearance: none;
+  .appearance(none);
   background: transparent;
   border: none;
   &:focus {
@@ -13,10 +13,9 @@
   padding: 0 8px;
   height: 30px;
   background-repeat: no-repeat;
-  background-size: 2px 5px, 2px 5px;
+  .background-size(2px 5px, 2px 5px);
   background-position: right bottom, left bottom;
-  //TODO: make gradient cross browser;
-  background-image: -webkit-linear-gradient(#ABABAB, #ABABAB), -webkit-linear-gradient(#ABABAB, #ABABAB);
+  .background-image(linear-gradient(#ABABAB, #ABABAB), linear-gradient(#ABABAB, #ABABAB));
   border-bottom: 2px solid #ABABAB;
 
   &:-webkit-input-placeholder {
@@ -24,7 +23,7 @@
   }
 
   &:focus {
-    background-image: -webkit-linear-gradient(@color, @color), -webkit-linear-gradient(@color, @color);
+    .background-image(linear-gradient(@color, @color), linear-gradient(@color, @color));
     border-bottom: 2px solid @color;
   }
 }

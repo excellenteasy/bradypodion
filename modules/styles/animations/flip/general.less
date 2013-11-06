@@ -1,22 +1,22 @@
 .flip-normal-wrapper {
   background-color: black;
-  -webkit-perspective: 1000;
-  -webkit-perspective-origin: center center;
+  .perspective(1000);
+  .perspective-origin(center center);
 }
 
 .flip-normal-view {
-  -webkit-backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
+  .backface-visibility(hidden);
+  .transform-style(preserve-3d);
 }
 
 .flip-normal-enter, .flip-reverse-enter {
-  -webkit-backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
-  .transform(~"rotateY(180deg)");
+  .backface-visibility(hidden);
+  .transform-style(preserve-3d);
+  .transform(rotateY(180deg));
 }
 
 .flip-normal-leave, .flip-reverse-leave {
-  -webkit-backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
-  .transform(~"rotateY(0deg)");
+  .backface-visibility(hidden);
+  .transform-style(preserve-3d);
+  .transform(rotateY(0deg));
 }
