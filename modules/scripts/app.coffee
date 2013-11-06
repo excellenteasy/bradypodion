@@ -6,7 +6,7 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
   $stateProvider
   ) ->
 
-  bpConfigProvider.setConfig platform: localStorage.getItem('platform') or 'ios7'
+  bpConfigProvider.setConfig platform: localStorage.getItem('platform') or 'ios'
 
   $urlRouterProvider.otherwise '/'
 
@@ -185,10 +185,10 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
   ]
 ).directive('switchTheme', ->
   (scope, element, attrs) ->
-    platforms = ['ios', 'ios7', 'android']
+    platforms = ['ios', 'android']
     scope.toggleTheme = (e) ->
       index = platforms.indexOf(scope.config.platform)
-      scope.config.platform = platforms[++index % 3]
+      scope.config.platform = platforms[++index % 2]
       localStorage.setItem 'platform', scope.config.platform
       location.reload()
 ).directive('demoTapped', (bpConfig) ->

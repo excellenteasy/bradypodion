@@ -4,12 +4,12 @@
     iScroll
     <bp-button bp-tap="to('iscroll-sticky')">Sticky</bp-button>
   </bp-navbar>
-  <div bp-iscroll bp-iscroll-no-scrollbars>
+  <bp-table bp-iscroll bp-iscroll-no-scrollbars>
     <bp-cell class="bp-cell-subtitle" ng-repeat="cell in cells">
       <div class="titles">
         <div class="title">{{$index + 1}}</div>
         <div class="subtitle">{{cell | currency}}</div>
       </div>
     </bp-cell>
-  </div>
+  </bp-table>
 </bp-screen>
