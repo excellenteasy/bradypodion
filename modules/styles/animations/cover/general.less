@@ -6,20 +6,20 @@
   @leavePer:   ~`'@{direction}' === 'normal' ? 0 : '100%'`;
   @leaveIndex: ~`'@{direction}' === 'normal' ? 'inherit' : 1000`;
 
-  .@{name}-@{direction}-enter {
+  .@{name}-@{direction}.ng-enter {
     .transition(~"@{duration} ease-in all");
     .transform(translateY(@enterPer));
     z-index: @enterIndex;
   }
-  .@{name}-@{direction}-enter.@{name}-@{direction}-enter-active {
+  .@{name}-@{direction}.ng-enter.ng-enter-active {
     .transform(translateY(0));
   }
-  .@{name}-@{direction}-leave {
+  .@{name}-@{direction}.ng-leave {
     .transition(~"@{duration} ease-in all");
     .transform(translateY(0));
     z-index: @leaveIndex;
   }
-  .@{name}-@{direction}-leave.@{name}-@{direction}-leave-active {
+  .@{name}-@{direction}.ng-leave.ng-leave-active {
     .transform(translateY(@leavePer));
   }
 }
