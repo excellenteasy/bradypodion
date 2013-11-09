@@ -12,6 +12,6 @@
     "angular-animate": "~1.2.0"
   },
   "devDependencies": {
-    "angular-mocks": "http://code.angularjs.org/1.1.5/angular-mocks.js"
+    "angular-mocks": "1.2.0"
   }
 }

@@ -19,7 +19,7 @@ module.exports = (config) ->
       'modules/bower_components/angular-animate/angular-animate.js'
       'modules/bower_components/angular-ui-router/index.js'
       'dist/bradypodion.js'
-      'modules/bower_components/angular-mocks/index.js'
+      'modules/bower_components/angular-mocks/angular-mocks.js'
       'test/spec/*/*.coffee'
     ]
 
