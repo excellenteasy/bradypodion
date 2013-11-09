@@ -15,7 +15,7 @@ module.exports = (config) ->
       'modules/bower_components/jquery/index.js'
       'modules/bower_components/iscroll/index.js'
       'modules/bower_components/iscroll-sticky/index.js'
-      'modules/bower_components/angular/index.js'
+      'modules/bower_components/angular/angular.js'
       'modules/bower_components/angular-ui-router/index.js'
       'dist/bradypodion.js'
       'modules/bower_components/angular-mocks/index.js'
