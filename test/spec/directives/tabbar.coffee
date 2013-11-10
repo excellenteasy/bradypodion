@@ -4,7 +4,7 @@ describe 'tabbarDirective', ->
   scope   = null
   state   = null
 
-  beforeEach module 'ui.state'
+  beforeEach module 'ui.router'
 
   beforeEach module 'bp'
 

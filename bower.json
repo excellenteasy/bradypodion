@@ -4,7 +4,7 @@
   "dependencies": {
     "angular": "1.2.0",
     "angular-animate": "1.2.0",
-    "angular-ui-router": "https://raw.github.com/excellenteasy/ui-router/284ae20daaa5c3f9d255f27d8a58f7e9451b9aae/release/angular-ui-router.js",
+    "angular-ui-router": "https://rawgithub.com/boennemann/a6c64997acd7f7eff510/raw/09c9a1071f7cf32a90d2852a9d58d69589067823/angular-ui-router.js",
     "iscroll": "5.0.6",
     "iscroll-sticky": "0.1.0",
     "jquery": "2.0.3",

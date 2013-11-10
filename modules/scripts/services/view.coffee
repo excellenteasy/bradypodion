@@ -20,7 +20,7 @@ angular.module('bp.services').service 'bpViewService', deps [
         if urlOrState.charAt(0) is '/'
           urlOrState
         else
-          $state.getOptionsOfState(urlOrState)?.url
+          $state.get(urlOrState)?.url
       else if angular.isObject urlOrState
         if urlOrState.url?
           urlOrState.url

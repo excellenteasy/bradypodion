@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('bradypodionApp', ['bp','ui.state']).config((
+angular.module('bradypodionApp', ['bp','ui.router']).config((
   bpConfigProvider
   $urlRouterProvider
   $stateProvider

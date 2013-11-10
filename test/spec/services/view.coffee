@@ -1,6 +1,6 @@
 describe 'viewService', ->
 
-  beforeEach module 'ui.state'
+  beforeEach module 'ui.router'
   beforeEach module 'bp'
 
   beforeEach module ($stateProvider, $urlRouterProvider) ->
