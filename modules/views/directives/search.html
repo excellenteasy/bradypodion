@@ -1,8 +1,8 @@
-<bp-screen ng-controller="DemoDataCtrl">
-  <bp-navbar>
-    <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
-    Search
-  </bp-navbar>
+<bp-navbar>
+  <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
+  Search
+</bp-navbar>
+<bp-content ng-controller="DemoDataCtrl">
   <bp-search>
     <input type="search" ng-model="searchTerm">
   </bp-search>
@@ -12,4 +12,4 @@
       <div class="value">{{ friend.phone }}</div>
     </bg-cell>
   </div>
-</bp-screen>
+</bp-content>

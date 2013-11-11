@@ -84,6 +84,7 @@ angular.module('bradypodionApp', ['bp','ui.router']).config((
     .state('iscroll',
       url: '/directives/iscroll'
       templateUrl: 'views/directives/iscroll.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('iscroll-sticky',
@@ -149,16 +150,19 @@ angular.module('bradypodionApp', ['bp','ui.router']).config((
     .state('table-grouped',
       url: '/directives/table/grouped'
       templateUrl: 'views/directives/table/grouped.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('table-plain',
       url: '/directives/table/plain'
       templateUrl: 'views/directives/table/plain.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('table-section',
       url: '/directives/table/section'
       templateUrl: 'views/directives/table/section.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('tap',
@@ -196,10 +200,10 @@ angular.module('bradypodionApp', ['bp','ui.router']).config((
     scope.tapped = ->
       scope.random = Math.floor(Math.random() * 100)
 ).controller('DemoDataCtrl', ($scope, dummyFriends) ->
+  $scope.friends = dummyFriends;
   $scope.cells = []
   for i in [0...300]
     $scope.cells.push i*Math.random()
-    $scope.friends = dummyFriends;
 ).controller('DemoTabbarCtrl', ($state, $scope, dummyFriends) ->
   $scope.state = $state.current.name.replace('tabbar.','')
   $scope.friends = dummyFriends.sort ->

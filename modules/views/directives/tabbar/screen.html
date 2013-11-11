@@ -1,11 +1,9 @@
-<bp-screen>
-  <bp-table>
-    <bp-cell>The {{ state }} Tab</bp-cell>
-  </bp-table>
-  <div class='bp-content'>
-    <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
-      <div class="label">{{ friend.name }}</div>
-      <div class="value">{{ friend.phone }}</div>
-    </bp-cell>
-  </div>
-</bp-screen>
+<bp-table>
+  <bp-cell>The {{ state }} Tab</bp-cell>
+</bp-table>
+<div class='bp-content'>
+  <bp-cell ng-repeat="friend in friends" class="bp-cell-value2">
+    <div class="label">{{ friend.name }}</div>
+    <div class="value">{{ friend.phone }}</div>
+  </bp-cell>
+</div>

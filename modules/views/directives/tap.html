@@ -1,22 +1,20 @@
-<bp-screen>
+<bp-navbar>
+  <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
+  Tap
+</bp-navbar>
+<br><br>
+<bp-content bp-iscroll>
   <bp-navbar>
-    <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
-    Tap
+    <bp-button bp-tap="tapped()" demo-tapped>default {{ random }}</bp-button>
   </bp-navbar>
-  <br><br>
-  <div bp-iscroll>
-    <bp-navbar>
-      <bp-button bp-tap="tapped()" demo-tapped>default {{ random }}</bp-button>
-    </bp-navbar>
-    <bp-navbar>
-      <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll>
-        no scroll {{ random }}
-      </bp-button>
-    </bp-navbar>
-    <bp-navbar>
-      <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll bp-bound-margin="100">
-        no scroll bound margin 100 {{ random }}
-      </bp-button>
-    </bp-navbar>
-  </div>
-</bp-screen>
+  <bp-navbar>
+    <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll>
+      no scroll {{ random }}
+    </bp-button>
+  </bp-navbar>
+  <bp-navbar>
+    <bp-button bp-tap="tapped()" demo-tapped bp-no-scroll bp-bound-margin="100">
+      no scroll bound margin 100 {{ random }}
+    </bp-button>
+  </bp-navbar>
+</bp-content>
