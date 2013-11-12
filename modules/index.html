@@ -9,12 +9,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <style>
+    bp-button[switch-theme]:nth-child(n) {
+      z-index: 9999999;
+      border-radius: 22px;
+      background-color: #f8f8f8;
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      width: 44px;
+      height: 44px;
+      bottom: 20px;
+      left: 20px;
+      line-height: 44px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border: 1px solid #c0c0c0;
+      -webkit-transition: 1s ease-in all;
+    }
+    bp-button[switch-theme].bp-active {
+      -webkit-transform: rotate(720deg);
+    }
+    </style>
 </head>
   <body ng-cloak>
-    <bp-navbar>
-      Bradypodion
-      <bp-button bp-tap='toggleTheme()' switch-theme>Toggle Theme</bp-button>
-    </bp-navbar>
+      <bp-button bp-tap='toggleTheme()' switch-theme>⇄</bp-button>
     <bp-screen>
       <div ng-controller="bpViewCtrl" ui-view></div>
     </bp-screen>
