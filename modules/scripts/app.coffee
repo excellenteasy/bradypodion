@@ -100,6 +100,17 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
       templateUrl: 'views/directives/navbar.html'
       transition: 'slide'
     )
+    .state('scroll',
+      url: '/directives/scroll'
+      templateUrl: 'views/directives/scroll.html'
+      transition: 'slide'
+      controller: 'DemoDataCtrl'
+    )
+    .state('scroll-sticky',
+      url: '/directives/scroll/sticky'
+      templateUrl: 'views/directives/scroll/sticky.html'
+      transition: 'slide'
+    )
     .state('search',
       url: '/directives/search'
       templateUrl: 'views/directives/search.html'
