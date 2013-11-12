@@ -173,6 +173,12 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
       templateUrl: 'views/directives/tap.html'
       transition: 'slide'
     )
+    .state('loading-bar',
+      url: '/loading-bar'
+      templateUrl: 'views/loading-bar/index.html'
+      transition: 'slide'
+      controller: 'DemoLoadingCtrl'
+    )
 ).factory('dummyFriends', ->
   [
     name: 'Sandy'
@@ -211,4 +217,8 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
   $scope.state = $state.current.name.replace('tabbar.','')
   $scope.friends = dummyFriends.sort ->
     0.5 - Math.random()
+).controller('DemoLoadingCtrl', ($scope, cfpLoadingBar) ->
+  $scope.start = cfpLoadingBar.start
+  $scope.set = cfpLoadingBar.set
+  $scope.complete = cfpLoadingBar.complete
 )
