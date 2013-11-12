@@ -1,10 +1,13 @@
 'use strict'
 
-angular.module('bradypodionApp', ['bp','ui.router']).config((
+angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']).config((
   bpConfigProvider
   $urlRouterProvider
   $stateProvider
+  cfpLoadingBarProvider
   ) ->
+
+  cfpLoadingBarProvider.includeSpinner = no
 
   bpConfigProvider.setConfig platform: localStorage.getItem('platform') or 'ios'
 
