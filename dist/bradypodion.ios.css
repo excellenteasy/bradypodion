@@ -566,6 +566,11 @@ bp-scroll[bp-scroll-sticky] .bp-content,
 [bp-scroll][bp-scroll-sticky] .bp-content {
   position: relative;
 }
+bp-search {
+  -webkit-box-ordinal-group: 15;
+  -webkit-order: 15;
+  order: 15;
+}
 bp-table {
   -webkit-box-ordinal-group: 50;
   -webkit-order: 50;
