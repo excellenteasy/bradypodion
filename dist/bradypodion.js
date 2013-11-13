@@ -6,7 +6,7 @@
    * @license none
   */
 
-  var deps, flip, inject, module, modules, namespaced;
+  var BpConfig, deps, inject, module, modules, namespaced;
 
   modules = ['animations', 'directives', 'factories', 'controllers', 'services'];
 
@@ -18,6 +18,9 @@
       inject = [];
       if (module === 'controllers') {
         inject.push('bp.services');
+      }
+      if (module === 'animations') {
+        inject.push('ngAnimate');
       }
       angular.module((namespaced = "bp." + module), inject);
       _results.push(namespaced);
@@ -31,68 +34,6 @@
     deps.push(fn);
     return deps;
   };
-
-  flip = function(dir, name, duration) {
-    var sign;
-    if (dir == null) {
-      dir = 'normal';
-    }
-    if (name == null) {
-      name = 'flip';
-    }
-    if (duration == null) {
-      duration = 500;
-    }
-    sign = dir === 'normal' ? '' : '-';
-    angular.module('bp.animations').animation("" + name + "-" + dir + "-enter", deps(['$timeout'], function($timeout) {
-      return {
-        setup: function(element) {
-          var view, wrapper;
-          view = element.parent('[ui-view]').addClass('flip-normal-view').css({
-            transition: "all " + (duration / 2000) + "s ease-in",
-            transform: 'translate3d(0,0,0) rotateY(0deg)'
-          });
-          wrapper = view.parent().addClass('flip-normal-wrapper');
-          return {
-            view: view,
-            wrapper: wrapper
-          };
-        },
-        start: function(element, done, elements) {
-          var width;
-          width = elements.view.outerWidth();
-          elements.view.css({
-            transform: "translate3d(0,0,-" + width + "px) rotateY(" + sign + "90deg)"
-          });
-          $timeout(function() {
-            return elements.view.css({
-              transition: "all " + (duration / 2000) + "s ease-out",
-              transform: "translate3d(0,0,0) rotateY(" + sign + "180deg)"
-            });
-          }, duration / 2);
-          return $timeout(function() {
-            elements.view.removeClass('flip-normal-view').css({
-              transition: '',
-              transform: ''
-            });
-            elements.wrapper.removeClass('flip-normal-wrapper');
-            return done();
-          }, duration);
-        }
-      };
-    }));
-    return angular.module('bp.animations').animation("" + name + "-" + dir + "-leave", deps(['$timeout'], function($timeout) {
-      return {
-        start: function(e, done) {
-          return $timeout(done, duration);
-        }
-      };
-    }));
-  };
-
-  flip();
-
-  flip('reverse');
 
   angular.module('bp.controllers').controller('bpViewCtrl', deps(['bpViewService'], function(bpViewService) {}));
 
@@ -114,9 +55,14 @@
     return {
       restrict: 'E',
       link: function(scope, element, attrs) {
-        return element.attr({
+        var attributes, label;
+        attributes = {
           role: 'button'
-        });
+        };
+        if (element.hasClass('bp-button-back') && !attrs['aria-label']) {
+          attributes['aria-label'] = (label = element.text()) ? "Back to " + label : "Back";
+        }
+        return element.attr(attributes);
       }
     };
   });
@@ -166,12 +112,12 @@
       transclude: true,
       template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
       link: function(scope, element, attrs) {
-        var delay, instanciateIScroll, iscroll, options, transition;
+        var delay, instanciateIScroll, iscroll, options;
         iscroll = {};
         scope.getIScroll = function() {
           return iscroll;
         };
-        delay = element.parents('[ng-animate]').length ? (transition = typeof scope.getFullTransition === "function" ? scope.getFullTransition() : void 0, !transition || transition.split('-')[0] === '' ? 0 : 500) : 0;
+        delay = 0;
         options = angular.extend({
           delay: delay,
           stickyHeadersSelector: 'bp-table-header',
@@ -453,45 +399,107 @@
     };
   });
 
-  angular.module('bp.directives').directive('bpTap', deps(['bpConfig', '$parse'], function(bpConfig, $parse) {
+  angular.module('bp.directives').directive('bpTap', deps(['$parse', 'tapService'], function($parse, tapService) {
     return function(scope, element, attrs) {
-      var attr, key, options, touch;
-      options = angular.extend({
-        noScroll: false,
-        activeClass: 'bp-active',
-        boundMargin: 50,
-        allowClick: false
-      }, bpConfig.tap || {});
-      for (key in options) {
-        attr = attrs["bp" + (key.charAt(0).toUpperCase()) + (key.slice(1))];
-        if (attr != null) {
-          options[key] = attr === '' ? true : attr;
+      var _ref;
+      (_ref = tapService.getInstance()).setup.apply(_ref, arguments);
+      return element.bind('tap', function(e, touch) {
+        scope.$apply($parse(attrs.bpTap), {
+          $event: e,
+          touch: touch
+        });
+        return false;
+      });
+    };
+  }));
+
+  BpConfig = (function() {
+    function BpConfig() {}
+
+    BpConfig.prototype.defaultConfig = {
+      platform: 'ios'
+    };
+
+    BpConfig.prototype.userConfig = {
+      noUserConfig: true
+    };
+
+    BpConfig.prototype.$get = function() {
+      return angular.extend(this.defaultConfig, this.userConfig);
+    };
+
+    BpConfig.prototype.setConfig = function(config) {
+      return this.userConfig = config;
+    };
+
+    return BpConfig;
+
+  })();
+
+  angular.module('bp.factories').provider('bpConfig', BpConfig);
+
+  angular.module('bp.services').service('tapService', deps(['bpConfig'], function(bpConfig) {
+    var TapService;
+    TapService = (function() {
+      function TapService() {}
+
+      TapService.prototype.setup = function(scope, element, attrs, customOptions) {
+        var options, touch,
+          _this = this;
+        options = this._getOptions.apply(this, arguments);
+        touch = {};
+        this.getTouch = function() {
+          return touch;
+        };
+        this.setTouch = function(newTouch) {
+          return touch = newTouch;
+        };
+        if ((!options.allowClick) && 'ontouchstart' in window) {
+          element.bind('click', this.onClick);
         }
-      }
-      if ((element.is('bp-button') && element.parent('bp-navbar')) || element.is('bp-detail-disclosure')) {
-        element.attr('bp-no-scroll', '');
-        options.noScroll = true;
-      }
-      if (element.parents('[bp-iscroll]').length) {
-        element.attr('bp-bound-margin', '5');
-        options.boundMargin = 5;
-      }
-      touch = {};
-      element.bind('touchstart', function(e) {
-        var _ref, _ref1;
-        touch.y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref = e.originalEvent.changedTouches) != null ? _ref[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
-        touch.x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
+        scope.$on('$destroy', function() {
+          return _this.onDestroy(element);
+        });
+        element.bind('touchstart', function(e) {
+          return _this.onTouchstart(e, scope, element, touch, options);
+        });
+        element.bind('touchmove', function(e) {
+          return _this.onTouchmove(e, scope, element, touch, options);
+        });
+        return element.bind('touchend', function(e) {
+          return _this.onTouchend(e, scope, element, touch, options);
+        });
+      };
+
+      TapService.prototype.onClick = function(e) {
+        if (typeof e.preventDefault === "function") {
+          e.preventDefault();
+        }
+        if (typeof e.stopPropagation === "function") {
+          e.stopPropagation();
+        }
+        return typeof e.stopImmediatePropagation === "function" ? e.stopImmediatePropagation() : void 0;
+      };
+
+      TapService.prototype.onDestroy = function(element) {
+        return element.unbind('touchstart touchmove touchend touchcancel click');
+      };
+
+      TapService.prototype.onTouchstart = function(e, scope, element, touch, options) {
+        touch.x = this._getCoordinate(e, true);
+        touch.y = this._getCoordinate(e, false);
         touch.ongoing = true;
         if ($(e.target).attr('bp-tap') && element[0] !== e.target) {
           return touch.nestedTap = true;
         } else {
           return element.addClass(options.activeClass);
         }
-      });
-      element.bind('touchmove', function(e) {
-        var x, y, _ref, _ref1;
-        y = e.originalEvent.pageY ? e.originalEvent.pageY : ((_ref = e.originalEvent.changedTouches) != null ? _ref[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageY : 0;
-        x = e.originalEvent.pageX ? e.originalEvent.pageX : ((_ref1 = e.originalEvent.changedTouches) != null ? _ref1[0] : void 0) != null ? e.originalEvent.changedTouches[0].pageX : 0;
+      };
+
+      TapService.prototype.onTouchmove = function(e, scope, element, touch, options) {
+        var x, y;
+        x = this._getCoordinate(e, true);
+        y = this._getCoordinate(e, false);
         if (options.boundMargin && (Math.abs(touch.y - y) < options.boundMargin && Math.abs(touch.x - x) < options.boundMargin)) {
           if (!touch.nestedTap) {
             element.addClass(options.activeClass);
@@ -504,68 +512,91 @@
           touch.ongoing = false;
           return element.removeClass(options.activeClass);
         }
-      });
-      element.bind('touchend touchcancel', function(e) {
+      };
+
+      TapService.prototype.onTouchend = function(e, scope, element, touch, options) {
         if (touch.ongoing && !touch.nestedTap && e.type === 'touchend') {
-          scope.$apply($parse(attrs.bpTap), {
-            $event: e,
-            touch: touch
-          });
-          element.trigger('tap', angular.extend({
-            type: 'tap',
-            touch: touch
-          }, e));
+          element.trigger('tap', touch);
         }
         touch = {};
         return element.removeClass(options.activeClass);
-      });
-      if ((!options.allowClick) && 'ontouchstart' in window) {
-        element.bind('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          return e.stopImmediatePropagation();
-        });
+      };
+
+      TapService.prototype._getOptions = function(scope, element, attrs, customOptions) {
+        var attr, key, options;
+        options = {
+          activeClass: 'bp-active',
+          allowClick: false,
+          boundMargin: 50,
+          noScroll: false
+        };
+        options = angular.extend(options, bpConfig.tap || {});
+        if ((element.is('bp-button') && element.parent('bp-navbar')) || element.is('bp-detail-disclosure')) {
+          element.attr('bp-no-scroll', '');
+          options.noScroll = true;
+        }
+        if (element.parents('[bp-iscroll]').length) {
+          element.attr('bp-bound-margin', '5');
+          options.boundMargin = 5;
+        }
+        angular.extend(options, customOptions || {});
+        for (key in options) {
+          attr = attrs["bp" + (key.charAt(0).toUpperCase()) + (key.slice(1))];
+          if (attr != null) {
+            options[key] = attr === '' ? true : attr;
+          }
+        }
+        return options;
+      };
+
+      TapService.prototype._getCoordinate = function(e, isX) {
+        var axis, _ref;
+        axis = isX ? 'pageX' : 'pageY';
+        e = e.originalEvent;
+        if (e[axis]) {
+          return e[axis];
+        } else if (((_ref = e.changedTouches) != null ? _ref[0] : void 0) != null) {
+          return e.changedTouches[0][axis];
+        } else {
+          return 0;
+        }
+      };
+
+      return TapService;
+
+    })();
+    return {
+      getInstance: function() {
+        return new TapService;
       }
-      return scope.$on('$destroy', function() {
-        return element.unbind('touchstart touchmove touchend touchcancel click');
-      });
     };
   }));
 
-  angular.module('bp.factories').provider('bpConfig', function() {
-    this.defaultConfig = {
-      platform: 'ios'
-    };
-    this.userConfig = {
-      noUserConfig: true
-    };
-    this.$get = function() {
-      return angular.extend(this.defaultConfig, this.userConfig);
-    };
-    return this.setConfig = function(config) {
-      return this.userConfig = config;
-    };
-  });
-
   angular.module('bp.services').service('bpViewService', deps(['$rootScope', '$state'], function($rootScope, $state) {
-    var direction, transition,
+    var direction, lastTransition, type,
       _this = this;
     direction = 'normal';
-    transition = '';
-    this.to = function(state, stateParams) {
-      if (stateParams == null) {
-        stateParams = {};
+    type = '';
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+      if (!(toState.transition || fromState.transition)) {
+        return direction = type = '';
       }
-      return $state.transitionTo(state, stateParams);
-    };
-    this._getURISegmentsFrom = function(urlOrState) {
-      var url, _ref;
-      url = angular.isString(urlOrState) ? urlOrState.charAt(0) === '/' ? urlOrState : (_ref = $state.getOptionsOfState(urlOrState)) != null ? _ref.url : void 0 : angular.isObject(urlOrState) ? urlOrState.url != null ? urlOrState.url : urlOrState.name != null ? $state.href(urlOrState.name) : void 0 : void 0;
-      url = url.replace(/\/$/, '');
-      return url.split('/');
-    };
+      direction = toParams.direction ? toParams.direction : _this.getDirection(fromState, toState);
+      return type = toParams.transition ? toParams.transition : fromState.name === '' ? '' : direction === 'reverse' ? fromState.transition : toState.transition;
+    });
+    lastTransition = '';
+    $rootScope.$on('$viewContentLoaded', function() {
+      var transition;
+      if (type && direction) {
+        transition = "" + type + "-" + direction;
+        angular.element('[ui-view]').each(function(i, view) {
+          return angular.element(view).removeClass(lastTransition).addClass(transition);
+        });
+        return lastTransition = transition;
+      }
+    });
     this.getDirection = function(from, to) {
-      var dir, fromURI, index, segment, toURI, _i, _len, _ref;
+      var dir, fromSegments, index, segment, toSegments, _i, _len, _ref;
       dir = 'normal';
       if (!to && angular.isObject(from) && from.to) {
         _ref = from, to = _ref.to, from = _ref.from;
@@ -574,40 +605,38 @@
         from = $state.current.url;
       }
       if (from === '^') {
-        return 'none';
+        return '';
       }
-      fromURI = this._getURISegmentsFrom(from);
-      toURI = this._getURISegmentsFrom(to);
-      if (toURI.length < fromURI.length) {
+      fromSegments = this._getURISegments(from);
+      toSegments = this._getURISegments(to);
+      if (toSegments.length < fromSegments.length) {
         dir = 'reverse';
-        for (index = _i = 0, _len = toURI.length; _i < _len; index = ++_i) {
-          segment = toURI[index];
-          if (segment !== fromURI[index]) {
+        for (index = _i = 0, _len = toSegments.length; _i < _len; index = ++_i) {
+          segment = toSegments[index];
+          if (segment !== fromSegments[index]) {
             dir = 'normal';
             break;
           }
         }
         dir;
-      } else if (toURI.length === fromURI.length) {
-        dir = 'none';
+      } else if (toSegments.length === fromSegments.length) {
+        dir = '';
       }
       return dir;
     };
-    this.getFullTransition = function() {
-      return "" + transition + "-" + direction;
+    this._getURISegments = function(urlOrState) {
+      var url, _ref;
+      url = angular.isString(urlOrState) ? urlOrState.charAt(0) === '/' ? urlOrState : (_ref = $state.get(urlOrState)) != null ? _ref.url : void 0 : angular.isObject(urlOrState) ? urlOrState.url != null ? urlOrState.url : urlOrState.name != null ? $state.href(urlOrState.name) : void 0 : void 0;
+      url = url.replace(/\/$/, '');
+      return url.split('/');
     };
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-      if (!(toState.transition && fromState.transition)) {
-        return '';
+    $rootScope.to = function(state, stateParams) {
+      if (stateParams == null) {
+        stateParams = {};
       }
-      if (toParams.direction) {
-        direction = toParams.direction;
-      } else {
-        direction = _this.getDirection(fromState, toState);
-      }
-      return transition = toParams.transition ? toParams.transition : fromState.name === '' ? '' : direction === 'reverse' ? fromState.transition : toState.transition;
-    });
-    return angular.extend($rootScope, this);
+      return $state.transitionTo(state, stateParams);
+    };
+    return this;
   }));
 
 }).call(this);

@@ -1,11 +1,13 @@
 # # Config
-
-angular.module('bp.factories').provider 'bpConfig', ->
-  @defaultConfig =
+class BpConfig
+  defaultConfig:
     platform: 'ios'
-  @userConfig =
+
+  userConfig:
     noUserConfig: yes
 
-  @$get = -> angular.extend @defaultConfig, @userConfig
+  $get: -> angular.extend @defaultConfig, @userConfig
 
-  @setConfig = (config) -> @userConfig = config
+  setConfig: (config) -> @userConfig = config
+
+angular.module('bp.factories').provider 'bpConfig', BpConfig

@@ -1,27 +1,20 @@
 bp-detail-disclosure {
-  position: relative;
-  color: white;
   display: block;
-  background-color: #2563db;
-  border-radius: 100%;
+  .border-radius(100%);
   width: 20px;
   height: 20px;
-  border: 2px solid white;
-  text-shadow: 0 -1px #2563db;
-  box-shadow: 0 1px 2px 1px fade(black,30%), inset 0 12px 0 -4px fade(white,20%);
+  line-height: 20px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid @ui-color;
+  color: @ui-color;
+  font-family: Didot, serif;
+  font-weight: bold;
+
   &:before {
-    font-size: 12px;
-    content: '\e001';
-    font-family: 'bp-system';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 22px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    display: block;
+    content: 'i';
   }
+
   &:after {
     position: absolute;
     content: '';
@@ -30,7 +23,9 @@ bp-detail-disclosure {
     top: -12px;
     left: -9px;
   }
+
   &.bp-active {
-    background-color: #153c84;
+    border: 1px solid fade(@ui-color,50%);
+    color: fade(@ui-color,50%);
   }
 }

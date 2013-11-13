@@ -1,10 +1,9 @@
-<bp-screen ng-init="title = 'Bound title'">
-  <bp-navbar>
-    <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
-    Navbar
-  </bp-navbar>
-  <br>
-  <br>
+<bp-navbar>
+  <bp-button class="bp-button-back bp-button-inverse" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
+  Navbar
+</bp-navbar>
+<bp-content ng-init="title = 'Bound title'">
+  <br><br>
   <bp-navbar>
     {{ title }} for Navbar
     <bp-button bp-tap>Another Button</bp-button>
@@ -27,3 +26,4 @@
     <bp-button bp-tap>Button</bp-button>
     <bp-button bp-tap class="bp-button-back">Back</bp-button>
   </bp-navbar>
+<bp-content>

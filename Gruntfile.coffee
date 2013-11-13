@@ -8,7 +8,7 @@ module.exports = (grunt) ->
       app: 'modules'
       dist: 'dist'
       tmp: '.tmp'
-      platforms: ['android', 'ios', 'ios7']
+      platforms: ['android', 'ios']
 
     watch:
       options:
@@ -127,7 +127,6 @@ module.exports = (grunt) ->
         'cssbuild'
         'cssbuild:android'
         'cssbuild:ios'
-        'cssbuild:ios7'
       ]
 
     karma:
@@ -231,7 +230,6 @@ module.exports = (grunt) ->
         git add -f dist/bradypodion.css &&
         git add -f dist/bradypodion.android.css &&
         git add -f dist/bradypodion.ios.css &&
-        git add -f dist/bradypodion.ios7.css &&
         git add -f dist/bradypodion.js &&
         git add -f dist/bradypodion.js.map &&
         git add -f dist/bradypodion.src.coffee &&

@@ -1,12 +1,15 @@
 'use strict'
 
-angular.module('bradypodionApp', ['bp','ui.state']).config((
+angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']).config((
   bpConfigProvider
   $urlRouterProvider
   $stateProvider
+  cfpLoadingBarProvider
   ) ->
 
-  bpConfigProvider.setConfig platform: localStorage.getItem('platform') or 'ios7'
+  cfpLoadingBarProvider.includeSpinner = no
+
+  bpConfigProvider.setConfig platform: localStorage.getItem('platform') or 'ios'
 
   $urlRouterProvider.otherwise '/'
 
@@ -84,6 +87,7 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
     .state('iscroll',
       url: '/directives/iscroll'
       templateUrl: 'views/directives/iscroll.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('iscroll-sticky',
@@ -94,6 +98,17 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
     .state('navbar',
       url: '/directives/navbar'
       templateUrl: 'views/directives/navbar.html'
+      transition: 'slide'
+    )
+    .state('scroll',
+      url: '/directives/scroll'
+      templateUrl: 'views/directives/scroll.html'
+      transition: 'slide'
+      controller: 'DemoDataCtrl'
+    )
+    .state('scroll-sticky',
+      url: '/directives/scroll/sticky'
+      templateUrl: 'views/directives/scroll/sticky.html'
       transition: 'slide'
     )
     .state('search',
@@ -149,22 +164,31 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
     .state('table-grouped',
       url: '/directives/table/grouped'
       templateUrl: 'views/directives/table/grouped.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('table-plain',
       url: '/directives/table/plain'
       templateUrl: 'views/directives/table/plain.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('table-section',
       url: '/directives/table/section'
       templateUrl: 'views/directives/table/section.html'
+      controller: 'DemoDataCtrl'
       transition: 'slide'
     )
     .state('tap',
       url: '/directives/tap'
       templateUrl: 'views/directives/tap.html'
       transition: 'slide'
+    )
+    .state('loading-bar',
+      url: '/loading-bar'
+      templateUrl: 'views/loading-bar/index.html'
+      transition: 'slide'
+      controller: 'DemoLoadingCtrl'
     )
 ).factory('dummyFriends', ->
   [
@@ -185,10 +209,10 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
   ]
 ).directive('switchTheme', ->
   (scope, element, attrs) ->
-    platforms = ['ios', 'ios7', 'android']
+    platforms = ['ios', 'android']
     scope.toggleTheme = (e) ->
       index = platforms.indexOf(scope.config.platform)
-      scope.config.platform = platforms[++index % 3]
+      scope.config.platform = platforms[++index % 2]
       localStorage.setItem 'platform', scope.config.platform
       location.reload()
 ).directive('demoTapped', (bpConfig) ->
@@ -196,12 +220,16 @@ angular.module('bradypodionApp', ['bp','ui.state']).config((
     scope.tapped = ->
       scope.random = Math.floor(Math.random() * 100)
 ).controller('DemoDataCtrl', ($scope, dummyFriends) ->
+  $scope.friends = dummyFriends;
   $scope.cells = []
   for i in [0...300]
     $scope.cells.push i*Math.random()
-    $scope.friends = dummyFriends;
 ).controller('DemoTabbarCtrl', ($state, $scope, dummyFriends) ->
   $scope.state = $state.current.name.replace('tabbar.','')
   $scope.friends = dummyFriends.sort ->
     0.5 - Math.random()
+).controller('DemoLoadingCtrl', ($scope, cfpLoadingBar) ->
+  $scope.start = cfpLoadingBar.start
+  $scope.set = cfpLoadingBar.set
+  $scope.complete = cfpLoadingBar.complete
 )

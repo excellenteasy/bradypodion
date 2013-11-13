@@ -1,6 +1,6 @@
 describe 'viewService', ->
 
-  beforeEach module 'ui.state'
+  beforeEach module 'ui.router'
   beforeEach module 'bp'
 
   beforeEach module ($stateProvider, $urlRouterProvider) ->
@@ -49,7 +49,7 @@ describe 'viewService', ->
       state.transitionTo 'home'
       expect(viewService.getDirection
         to: 'second'
-      ).toBe 'none'
+      ).toBe ''
 
     it 'should detect reverse direction using state objects', ->
       expect(viewService.getDirection
@@ -90,13 +90,13 @@ describe 'viewService', ->
     it 'should detect none direction using "equal" URLs', ->
       expect(
         viewService.getDirection '/home/third', '/home/second'
-      ).toBe 'none'
+      ).toBe ''
 
     it 'should detect none direction from "^" url', ->
       state.transitionTo 'home'
       expect(viewService.getDirection
         to: '/second'
-      ).toBe 'none'
+      ).toBe ''
 
     it 'should not care about trailing slashes', ->
       expect(viewService.getDirection '/home/', '/home/second').toBe 'normal'

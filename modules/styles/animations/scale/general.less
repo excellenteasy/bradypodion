@@ -4,20 +4,20 @@
   @enter: ~`'@{direction}' === 'normal' ? 0 : 1`;
   @leave: ~`'@{direction}' === 'normal' ? 1 : 0`;
 
-  .@{name}-@{direction}-enter {
+  .@{name}-@{direction}.ng-enter {
     .transition(~"@{duration} ease-in all");
     .transform(scale(@enter));
     z-index: ~`'@{leave}' === '1' ? 1000 : 'inherit'`;
   }
-  .@{name}-@{direction}-enter.@{name}-@{direction}-enter-active {
+  .@{name}-@{direction}.ng-enter.ng-enter-active {
     .transform(scale(1));
   }
-  .@{name}-@{direction}-leave {
+  .@{name}-@{direction}.ng-leave {
     .transition(~"@{duration} ease-in all");
     .transform(scale(1));
     z-index: ~`'@{enter}' === '1' ? 1000 : 'inherit'`;
   }
-  .@{name}-@{direction}-leave.@{name}-@{direction}-leave-active {
+  .@{name}-@{direction}.ng-leave.ng-leave-active {
     .transform(scale(@leave));
   }
 }

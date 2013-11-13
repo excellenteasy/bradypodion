@@ -1,16 +1,17 @@
+/*
+# Size
+Height definitions of the button.
+The width is mostly defined by the length of the text or icon.
+*/
+
 .navbar-size (@size: default) {
   @height: ~`'@{size}' === 'small' ? '33px' : '44px'`;
   height : @height;
-  padding: 0 5px;
+  padding: 0 8px;
   width  : 100%;
-  -webkit-ordinal-group: 10;
+  .order(10);
   > * {
     margin-top   : 0;
     margin-bottom: 0;
-  }
-}
-.navbar-size (small) {
-  .btn {
-    .btn-height(small);
   }
 }

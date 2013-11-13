@@ -1,51 +1,36 @@
 .table-grouped-wrapper() {
-  .border-radius(6px);
-  .box-shadow(~"0 0 0 1px #AEB2B9, 0 2px white");
-
-  margin       : 22px 10px 10px;
+  margin-top: 25px;
+  background-color: white;
+  border-top   : 1px solid #d6d6d6;
+  border-bottom: 1px solid #d6d6d6;
 }
 
 .table-grouped-cell() {
-  background : #F9F9F9;
-  text-shadow  : 1px 1px white, -1px 1px white, 1px -1px white, -1px -1px white;
-
-  border-bottom: 1px solid fade(#c5c5c5,50%);
-  border-top   : 1px solid white;
-
-  &:first-child {
-    border-top             : 1px solid fade(#c5c5c5,50%);
-    border-top-left-radius : 6px;
-    border-top-right-radius: 6px;
-  }
-  &:last-child {
-    border-bottom: none;
-    border-bottom-left-radius : 6px;
-    border-bottom-right-radius: 6px;
-  }
+  margin: 0;
+  padding-right: 13px;
+  padding-left: 13px;
 }
 
 .table-grouped-meta() {
   display    : block;
-  padding    : 0 13px;
-  color      : #4C566C;
-  text-shadow: 0 1px white;
+  font-weight: 400;
+  font-size  : 14px;
 }
 
 .table-grouped-header-specific() {
-  margin     : 16px 10px 0;
+  margin     : 16px 13px 0;
+  height     : 25px;
+  line-height: 25px;
 
-  height     : 22px;
-  line-height: 22px;
-
-  font-size  : 18px;
-  font-weight: bold;
+  font: -apple-system-subheadline;
+  text-transform: uppercase;
+  color: #4c4c4c;
 }
 
 .table-grouped-footer-specific() {
-  margin    : 0 13px 5px;
+  margin     : 5px 13px;
 
   line-height: 20px;
-
-  font-size : 16px;
-  text-align: center;
+  color      : #7f7f7f;
+  font: -apple-system-footnote;
 }

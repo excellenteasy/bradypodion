@@ -8,18 +8,15 @@
     content: @icon;
     color: @iconcolor;
   }
-  &.active:after {
-    color: white;
-  }
 }
 
-.table-element(@icon, @iconcolor, @textcolor) {
-  color: @textcolor;
+.table-element(@icon, @iconcolor, @activecolor) {
   &:after {
+    color: @iconcolor;
     font-size: 0.8em;
     content: @icon;
-  }
-  &.active {
-    color: white;
+    &.active {
+      color: @activecolor;
+    }
   }
 }

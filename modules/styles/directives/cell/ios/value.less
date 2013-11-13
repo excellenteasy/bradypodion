@@ -1,27 +1,29 @@
-.bp-cell-value1-cell-label() {
-  font-weight: bold;
+.bp-cell-label1-cell(@a:a) {
+  // min-width: 50%;
   -webkit-box-flex: 2;
 }
 
-.bp-cell-value1-cell() {
+.bp-cell-value1-cell(@color: #8c8c8c) {
   display: block;
   min-width: 10%;
   max-width: 30%;
   -webkit-box-flex: 1;
-  color           : #7485a6;
+  color           : @color;
   margin-left     : 13px;
   text-align      : right;
+  font-weight: 200;
 }
 
-.bp-cell-value2-cell-label() {
-  color     : #7485a6;
-  font-size : 0.9em;
+.bp-cell-value2-cell-label(@color: @ui-color) {
+  color     : @color;
+  font-size : 0.8em;
   text-align: right;
   width     : 35%;
 }
-.bp-cell-value2-cell() {
+.bp-cell-value2-cell(@a:a) {
   display    : block;
-  font-weight: bold;
   margin-left: 13px;
   width      : 65%;
+  font-weight: 200;
+  color: black;
 }

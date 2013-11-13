@@ -1,16 +1,18 @@
 {
   "name": "bradypodion",
-  "version": "0.3.0",
+  "version": "0.4.0-rc1",
   "dependencies": {
-    "angular": "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.js",
-    "jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js",
-    "lesshat": "https://github.com/excellenteasy/LESSHat.git#v1.2.0",
-    "lodash": "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.js",
-    "angular-ui-router": "https://raw.github.com/excellenteasy/ui-router/284ae20daaa5c3f9d255f27d8a58f7e9451b9aae/release/angular-ui-router.js",
-    "iscroll": "https://rawgithub.com/cubiq/iscroll/v5.0.5/build/iscroll-probe.js",
-    "iscroll-sticky": "https://raw.github.com/excellenteasy/iscroll-sticky/v0.1.0/dist/iscroll-sticky.js"
+    "angular": "1.2.0",
+    "angular-animate": "1.2.0",
+    "angular-ui-router": "https://rawgithub.com/boennemann/a6c64997acd7f7eff510/raw/09c9a1071f7cf32a90d2852a9d58d69589067823/angular-ui-router.js",
+    "iscroll": "5.0.6",
+    "iscroll-sticky": "0.1.0",
+    "jquery": "2.0.3",
+    "lodash": "2.2.1",
+    "lesshat": "https://github.com/csshat/lesshat.git#v2.0.0",
+    "angular-loading-bar": "~0.0.5"
   },
   "devDependencies": {
-    "angular-mocks": "http://code.angularjs.org/1.1.5/angular-mocks.js"
+    "angular-mocks": "1.2.0"
   }
 }

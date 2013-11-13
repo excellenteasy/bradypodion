@@ -1,12 +1,4 @@
 [ui-view] {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  -webkit-box-flex: 1;
-  -webkit-box-ordinal-group: 50;
-}
-
-bp-screen, [bp-screen] {
   position: absolute !important;
   top: 0;
   left: 0;
@@ -14,8 +6,21 @@ bp-screen, [bp-screen] {
   .bp-flexbox(vertical,start,stretch);
   .transform(translate3d(0,0,0));
   z-index: 1;
+  .order(50);
 }
 
-.bp-content {
+bp-screen, [bp-screen] {
+  display: block;
+  position: relative;
+  overflow: hidden;
   -webkit-box-flex: 1;
+  &, > div {
+    .order(50);
+  }
+}
+
+bp-content, .bp-content {
+  display: block;
+  -webkit-box-flex: 1;
+  .order(50);
 }

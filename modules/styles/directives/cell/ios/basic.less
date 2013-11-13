@@ -1,28 +1,26 @@
 .bp-cell-wrapper(@height: @table-cell-height) {
-  background : white;
-  font-size  : 20px;
-  height     : @table-cell-height;
-  line-height: @table-cell-height;
+  background   : white;
+  font-size    : 20px;
+  height       : @table-cell-height;
+  line-height  : @table-cell-height;
 
   list-style   : none;
-  padding      : 0 13px;
-  border-bottom: 1px solid fade(#c5c5c5,50%);
-  border-top   : 1px solid white;
+  margin       : 0 13px;
+  border-bottom: 1px solid transparent;
+  border-top   : 1px solid #d6d6d6;
 
+  font: -apple-system-body;
   &:first-child {
-    border-top: none;
-  }
-  &:last-child {
-    border-bottom: none;
+    border: none;
   }
 }
 
 .bp-cell-active(@active-color: @table-cell-active-color) {
-  @active-color2: darken(saturate(spin(@active-color,10),1%),14%);
-  .gradient(~"linear-gradient(top,@{active-color},@{active-color2})");
-  border: none;
-  color : white;
-  text-shadow: none;
+  background-color: #d6d6d6;
+  padding         : 0 13px;
+  margin          : 0;
+  border-bottom   : 1px solid transparent;
+  box-shadow      : 0 1px #d6d6d6;
 }
 
 .bp-cell-content() {

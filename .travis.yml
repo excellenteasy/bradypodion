@@ -5,7 +5,7 @@ node_js:
 before_script:
   - npm install -g bower grunt-cli
   - bower install
-after_script:
+after_success:
   - grunt coveralls
 env:
   global:

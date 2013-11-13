@@ -14,16 +14,8 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
 
     scope.getIScroll = -> iscroll
 
-    # only use a delay if an animation will be played during transition
-    delay =
-      if element.parents('[ng-animate]').length
-        transition = scope.getFullTransition?()
-        if not transition or transition.split('-')[0] is ''
-          0
-        else
-          500
-      else
-        0
+    # TODO: detect if animation/transition is happening and wait
+    delay = 0
 
     # merge defaults with global user options
     options = angular.extend

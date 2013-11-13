@@ -15,15 +15,21 @@ bp-cell {
   &.@{tap-active} {
     .bp-cell-active;
   }
+  &:last-child {
+    &.active {
+      border-top: none;
+    }
+  }
 }
 
 .bp-cell-value1 {
-  .label {
-    .bp-cell-value1-cell-label;
-  }
   .value {
     .bp-cell-value1-cell;
   }
+  .label {
+    .bp-cell-label1-cell;
+  }
+  // minor tweaks for weird form elements
   select.value {
     -webkit-box-flex: 0;
   }
@@ -37,6 +43,9 @@ bp-cell {
   .label {
     &:extend(.borderBox);
     .bp-cell-value2-cell-label;
+  }
+  input::-webkit-input-placeholder {
+    color: #8c8c8c;
   }
 }
 
@@ -61,12 +70,12 @@ bp-cell {
     &:extend(bp-icon:before);
     &:extend(.bp-icon-system:before);
   }
-  .table-element('\e001', #7F7F7F);
+  .table-element('\e001', #cccccc, #7F7F7F);
 }
 .bp-cell-checkmark {
   &:after {
     &:extend(bp-icon:before);
     &:extend(.bp-icon-system:before);
   }
-  .table-element('\e002', '',#354969);
+  .table-element('\e002', @ui-color);
 }
