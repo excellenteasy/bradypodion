@@ -37,10 +37,10 @@
     </style>
 </head>
   <body ng-cloak>
-      <bp-button bp-tap='toggleTheme()' switch-theme>⇄</bp-button>
     <bp-screen>
       <div ng-controller="bpViewCtrl" ui-view></div>
     </bp-screen>
+    <bp-button bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme">⇄</bp-button>
     <script src="bower_components/lodash/dist/lodash.js"></script>
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/iscroll/build/iscroll-probe.js"></script>
