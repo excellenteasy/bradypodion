@@ -16,6 +16,7 @@ modules = [
 modules = for module in modules
   inject = []
   if module is 'controllers' then inject.push('bp.services')
+  if module is 'animations'  then inject.push('ngAnimate')
   angular.module (namespaced = "bp.#{module}"), inject
   namespaced
 
@@ -25,55 +26,55 @@ deps = (deps, fn) ->
   deps.push fn
   deps
 
-# # Flip
+# # # Flip
 
-flip = (dir = 'normal', name = 'flip', duration = 500) ->
-  sign = if dir is 'normal' then '' else '-'
+# flip = (dir = 'normal', name = 'flip', duration = 500) ->
+#   sign = if dir is 'normal' then '' else '-'
 
-  angular.module('bp.animations').animation "#{name}-#{dir}-enter", deps [
-    '$timeout'
-    ], (
-    $timeout
-    ) ->
-    setup: (element) ->
-      view    = element.parent('[ui-view]')
-        .addClass('flip-normal-view')
-        .css
-          transition: "all #{duration/2000}s ease-in"
-          transform:  'translate3d(0,0,0) rotateY(0deg)'
-      wrapper = view.parent().addClass 'flip-normal-wrapper'
-      { view, wrapper }
+#   angular.module('bp.animations').animation ".#{name}-#{dir}-enter", deps [
+#     '$timeout'
+#     ], (
+#     $timeout
+#     ) ->
+#     setup: (element) ->
+#       view    = element.parent('[ui-view]')
+#         .addClass('flip-normal-view')
+#         .css
+#           transition: "all #{duration/2000}s ease-in"
+#           transform:  'translate3d(0,0,0) rotateY(0deg)'
+#       wrapper = view.parent().addClass 'flip-normal-wrapper'
+#       { view, wrapper }
 
-    start: (element, done, elements) ->
-      width = elements.view.outerWidth()
-      elements.view.css
-        transform: "translate3d(0,0,-#{width}px) rotateY(#{sign}90deg)"
-      $timeout ->
-        elements.view.css
-          transition: "all #{duration/2000}s ease-out"
-          transform:  "translate3d(0,0,0) rotateY(#{sign}180deg)"
+#     start: (element, done, elements) ->
+#       width = elements.view.outerWidth()
+#       elements.view.css
+#         transform: "translate3d(0,0,-#{width}px) rotateY(#{sign}90deg)"
+#       $timeout ->
+#         elements.view.css
+#           transition: "all #{duration/2000}s ease-out"
+#           transform:  "translate3d(0,0,0) rotateY(#{sign}180deg)"
 
-      , duration/2
-      $timeout ->
-        elements.view
-          .removeClass('flip-normal-view')
-          .css
-            transition: ''
-            transform: ''
-        elements.wrapper.removeClass 'flip-normal-wrapper'
-        done()
-      , duration
+#       , duration/2
+#       $timeout ->
+#         elements.view
+#           .removeClass('flip-normal-view')
+#           .css
+#             transition: ''
+#             transform: ''
+#         elements.wrapper.removeClass 'flip-normal-wrapper'
+#         done()
+#       , duration
 
-  angular.module('bp.animations').animation "#{name}-#{dir}-leave", deps [
-    '$timeout'
-    ], (
-    $timeout
-    ) ->
-    start: (e, done) ->
-      $timeout done, duration
+#   angular.module('bp.animations').animation ".#{name}-#{dir}-leave", deps [
+#     '$timeout'
+#     ], (
+#     $timeout
+#     ) ->
+#     start: (e, done) ->
+#       $timeout done, duration
 
-flip()
-flip 'reverse'
+# flip()
+# flip 'reverse'
 
 # # ViewCtrl
 
@@ -104,8 +105,16 @@ angular.module('bp.directives').directive 'body', deps [
 angular.module('bp.directives').directive 'bpButton', ->
   restrict: 'E'
   link: (scope, element, attrs) ->
-    element.attr
+    attributes =
       role: 'button'
+
+    if element.hasClass('bp-button-back') and not attrs['aria-label']
+      attributes['aria-label'] = if label = element.text()
+        "Back to #{label}"
+      else
+        "Back"
+
+    element.attr attributes
 
 # # Cell
 
@@ -160,16 +169,8 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
 
     scope.getIScroll = -> iscroll
 
-    # only use a delay if an animation will be played during transition
-    delay =
-      if element.parents('[ng-animate]').length
-        transition = scope.getFullTransition?()
-        if not transition or transition.split('-')[0] is ''
-          0
-        else
-          500
-      else
-        0
+    # TODO: detect if animation/transition is happening and wait
+    delay = 0
 
     # merge defaults with global user options
     options = angular.extend
@@ -446,89 +447,81 @@ angular.module('bp.directives').directive 'bpTable', ->
     element.attr {role}
 
 # # Tap
-# ## Description
-# The `bpTap` allows you to specify custom behavior when element is tapped.
-# ## Usage
-# as attribute
-# `<ANY bp-tap="{expression}">`
-# ### Parameters
-# * `ngClick` – `{expression}` Expression to evaluate upon tap.
+
 angular.module('bp.directives').directive 'bpTap', deps [
-  'bpConfig'
   '$parse'
+  'tapService'
   ], (
-  bpConfig
   $parse
+  tapService
   ) ->
   (scope, element, attrs) ->
-    # ### Options
-    # You can specify some options as attributes to control the behavior.
-    options = angular.extend
-      # * `bp-no-scroll` – Prevent page scroll when moving after touchstart
-      noScroll: no
-      # * `bp-active-class - `CSS class` - Class to add during tap
-      activeClass: 'bp-active'
-      # * `bp-bound-margin - `int` - Pixels allowed to move to fire tap
-      boundMargin: 50
-      # * `bp-allow-click - Fire click and tap events
-      allowClick: no
-    , bpConfig.tap or {}
+    tapService.getInstance().setup arguments ...
+    element.bind 'tap', (e, touch) ->
+      scope.$apply $parse(attrs.bpTap), {$event: e, touch}
+      false
 
-    for key of options
-      attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
-      if attr?
-        options[key] = if attr is '' then true else attr
+# # Config
+class BpConfig
+  defaultConfig:
+    platform: 'ios'
 
-    # #### Intelligent Defaults
-    # * Apply `bp-no-scroll` to  `bp-button` within `bp-navbar`
-    if (element.is('bp-button') and element.parent('bp-navbar')) or
-       # * Apply `bp-no-scroll` to  `bp-detail-disclosure`
-       element.is('bp-detail-disclosure')
-      element.attr 'bp-no-scroll', ''
-      options.noScroll = yes
-    # * Set `bp-bound-margin` to 5 when `bp-cell` is within `bp-iscroll`
-    if element.parents('[bp-iscroll]').length
-      element.attr 'bp-bound-margin', '5'
-      options.boundMargin = 5
+  userConfig:
+    noUserConfig: yes
 
-    touch = {}
+  $get: -> angular.extend @defaultConfig, @userConfig
 
-    element.bind 'touchstart', (e) ->
-      touch.y =
-        if e.originalEvent.pageY
-          e.originalEvent.pageY
-        else if e.originalEvent.changedTouches?[0]?
-          e.originalEvent.changedTouches[0].pageY
-        else
-          0
-      touch.x =
-        if e.originalEvent.pageX
-          e.originalEvent.pageX
-        else if e.originalEvent.changedTouches?[0]?
-          e.originalEvent.changedTouches[0].pageX
-        else
-          0
+  setConfig: (config) -> @userConfig = config
+
+angular.module('bp.factories').provider 'bpConfig', BpConfig
+
+# Tap Service
+
+angular.module('bp.services').service 'tapService', deps [
+  'bpConfig'
+  ], (
+  bpConfig
+  ) ->
+  class TapService
+    setup: (scope, element, attrs, customOptions) ->
+      options = @_getOptions arguments...
+
+      touch     = {}
+      @getTouch = -> touch
+      @setTouch = (newTouch) -> touch = newTouch
+
+      if (not options.allowClick) and 'ontouchstart' of window
+        element.bind 'click', @onClick
+
+      scope.$on '$destroy', => @onDestroy element
+
+      element.bind 'touchstart', (e) =>
+        @onTouchstart e, scope, element, touch, options
+      element.bind 'touchmove',  (e) =>
+        @onTouchmove  e, scope, element, touch, options
+      element.bind 'touchend',   (e) =>
+        @onTouchend   e, scope, element, touch, options
+
+    onClick: (e) ->
+      e.preventDefault?()
+      e.stopPropagation?()
+      e.stopImmediatePropagation?()
+
+    onDestroy: (element) ->
+      element.unbind 'touchstart touchmove touchend touchcancel click'
+
+    onTouchstart: (e, scope, element, touch, options) ->
+      touch.x = @_getCoordinate e, yes
+      touch.y = @_getCoordinate e, no
       touch.ongoing = yes
       if $(e.target).attr('bp-tap') and element[0] isnt e.target
         touch.nestedTap = yes
       else
         element.addClass options.activeClass
 
-    element.bind 'touchmove', (e) ->
-      y =
-        if e.originalEvent.pageY
-          e.originalEvent.pageY
-        else if e.originalEvent.changedTouches?[0]?
-          e.originalEvent.changedTouches[0].pageY
-        else
-          0
-      x =
-        if e.originalEvent.pageX
-          e.originalEvent.pageX
-        else if e.originalEvent.changedTouches?[0]?
-          e.originalEvent.changedTouches[0].pageX
-        else
-          0
+    onTouchmove: (e, scope, element, touch, options) ->
+      x = @_getCoordinate e, yes
+      y = @_getCoordinate e, no
       if options.boundMargin and
          (Math.abs(touch.y - y) < options.boundMargin and
          Math.abs(touch.x - x) < options.boundMargin)
@@ -540,33 +533,55 @@ angular.module('bp.directives').directive 'bpTap', deps [
         touch.ongoing = no
         element.removeClass options.activeClass
 
-    element.bind 'touchend touchcancel', (e) ->
+    onTouchend: (e, scope, element, touch, options) ->
       if touch.ongoing and not touch.nestedTap and e.type is 'touchend'
-        scope.$apply $parse(attrs.bpTap), {$event: e, touch}
-        element.trigger 'tap', angular.extend {type: 'tap', touch}, e
+        element.trigger 'tap', touch
       touch = {}
       element.removeClass options.activeClass
 
-    if (not options.allowClick) and 'ontouchstart' of window
-      element.bind 'click', (e) ->
-        e.preventDefault()
-        e.stopPropagation()
-        e.stopImmediatePropagation()
+    _getOptions: (scope, element, attrs, customOptions) ->
+      # Default Options
+      options =
+        activeClass: 'bp-active'
+        allowClick:  no
+        boundMargin: 50
+        noScroll:    no
 
-    scope.$on '$destroy', ->
-      element.unbind 'touchstart touchmove touchend touchcancel click'
+      # Global Options
+      options = angular.extend options, bpConfig.tap or {}
 
-# # Config
+      if (element.is('bp-button') and element.parent('bp-navbar')) or
+         element.is('bp-detail-disclosure')
+        element.attr 'bp-no-scroll', ''
+        options.noScroll = yes
 
-angular.module('bp.factories').provider 'bpConfig', ->
-  @defaultConfig =
-    platform: 'ios'
-  @userConfig =
-    noUserConfig: yes
+      if element.parents('[bp-iscroll]').length
+        element.attr 'bp-bound-margin', '5'
+        options.boundMargin = 5
 
-  @$get = -> angular.extend @defaultConfig, @userConfig
+      # Programatic Custom Options
+      angular.extend options, customOptions or {}
 
-  @setConfig = (config) -> @userConfig = config
+      # Element Options
+      for key of options
+        attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
+        if attr?
+          options[key] = if attr is '' then true else attr
+
+      options
+
+    _getCoordinate: (e, isX) ->
+      axis = if isX then 'pageX' else 'pageY'
+      e = e.originalEvent
+      if e[axis]
+        e[axis]
+      else if e.changedTouches?[0]?
+        e.changedTouches[0][axis]
+      else
+        0
+
+  getInstance: ->
+    new TapService
 
 # View Service
 
@@ -577,20 +592,88 @@ angular.module('bp.services').service 'bpViewService', deps [
   $rootScope
   $state
   ) ->
-  direction = 'normal'
-  transition = ''
 
-  @to = (state, stateParams = {}) ->
-    $state.transitionTo state, stateParams
+  # Initial Transition Values
+  direction = 'normal'
+  type = ''
+
+  # Detect transition type and direction before states change
+  $rootScope.$on '$stateChangeStart', (
+    event
+    toState
+    toParams
+    fromState
+    fromParams
+    ) =>
+
+    unless toState.transition or fromState.transition
+      return direction = type = ''
+
+    direction = if toParams.direction
+      # This is only the case if the user writes the parameter manually
+      toParams.direction
+    else
+      @getDirection fromState, toState
+
+    type = if toParams.transition
+      # This is only the case if the user writes the parameter manually
+      toParams.transition
+    else if fromState.name is ''
+      ''
+    else if direction is 'reverse'
+      fromState.transition
+    else
+      toState.transition
+
+  # Store last transition so we can clean up before doing the next one
+  lastTransition = ''
+
+  # Apply transition to view as class when loaded
+  $rootScope.$on '$viewContentLoaded', ->
+    if type and direction
+      transition = "#{type}-#{direction}"
+      angular.element('[ui-view]').each (i, view) ->
+        angular.element(view)
+          .removeClass(lastTransition)
+          .addClass transition
+      lastTransition = transition
+
+  # Flexible API paramaters scope.getDirection parameters...
+  # 1) fromURL, toURL
+  # 2) fromStateName, toStateName
+  # 3) options = {from, to}
+  @getDirection = (from, to) ->
+    dir = 'normal'
+
+    if not to and angular.isObject(from) and from.to
+      {to, from} = from
+
+    from =  $state.current.url unless from
+    return '' if from is '^'
+
+    fromSegments = @_getURISegments from
+    toSegments = @_getURISegments to
+
+    if toSegments.length < fromSegments.length
+      dir = 'reverse'
+      for segment, index in toSegments
+        if segment isnt fromSegments[index]
+          dir = 'normal'
+          break
+      dir
+    else if toSegments.length is fromSegments.length
+      dir = ''
+
+    dir
 
   # returns array of url segments for url or state (name)
-  @_getURISegmentsFrom = (urlOrState) ->
+  @_getURISegments = (urlOrState) ->
     url =
       if angular.isString urlOrState
         if urlOrState.charAt(0) is '/'
           urlOrState
         else
-          $state.getOptionsOfState(urlOrState)?.url
+          $state.get(urlOrState)?.url
       else if angular.isObject urlOrState
         if urlOrState.url?
           urlOrState.url
@@ -602,60 +685,7 @@ angular.module('bp.services').service 'bpViewService', deps [
 
     url.split('/')
 
-  # Flexible API paramaters scope.getDirection parameters...
-  # 1) fromURL, toURL
-  # 2) fromStateName, toStateName
-  # 3) options = {from, to}
-  @getDirection = (from, to) ->
-    dir = 'normal'
+  $rootScope.to = (state, stateParams = {}) ->
+    $state.transitionTo state, stateParams
 
-
-    if not to and angular.isObject(from) and from.to
-      {to, from} = from
-
-    from =  $state.current.url unless from
-    return 'none' if from is '^'
-
-    fromURI = @_getURISegmentsFrom from
-    toURI = @_getURISegmentsFrom to
-
-    if toURI.length < fromURI.length
-      dir = 'reverse'
-      for segment, index in toURI
-        if segment isnt fromURI[index]
-          dir = 'normal'
-          break
-      dir
-    else if toURI.length is fromURI.length
-      dir = 'none'
-    dir
-
-  @getFullTransition = -> "#{transition}-#{direction}"
-
-  $rootScope.$on '$stateChangeStart', (
-    event
-    toState
-    toParams
-    fromState
-    fromParams
-    ) =>
-
-    unless toState.transition and fromState.transition
-      return ''
-
-    if toParams.direction
-      {direction} = toParams
-    else
-      direction = @getDirection fromState, toState
-
-    transition =
-      if toParams.transition
-        toParams.transition
-      else if fromState.name is ''
-        ''
-      else if direction is 'reverse'
-        fromState.transition
-      else
-        toState.transition
-
-  angular.extend $rootScope, this
+  return this

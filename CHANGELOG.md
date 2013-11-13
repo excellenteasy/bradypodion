@@ -1,3 +1,32 @@
+<a name="v0.4.0-rc1"></a>
+### v0.4.0-rc1 (2013-11-13)
+
+
+#### Bug Fixes
+
+* correct viewport for android ([504333ec](http://github.com/excellenteasy/bradypodion/commit/504333ec9b42249094035c940292b8ff4ec7927a))
+* **animaions:** adapt to ng1.2.0 animations ([0db84a22](http://github.com/excellenteasy/bradypodion/commit/0db84a225cf97bfea999ce03ea63af576d58939e))
+* **animate:** ng-animate directive is deprecated w/ ng-1.2 ([98705ea3](http://github.com/excellenteasy/bradypodion/commit/98705ea3e902203e9fe521f160a309530ea12d4e))
+* **animations:** bring back animations ([d5a777a6](http://github.com/excellenteasy/bradypodion/commit/d5a777a6a64a8a72307408fd47c21a0dae3e1e5d))
+* **config:** adapt config to ng-1.2.0 ([af3a0a04](http://github.com/excellenteasy/bradypodion/commit/af3a0a044bd41b47a4c3361c2c48e072311a50e0))
+* **flip:** deprecate till fixed ([ac3fb1f5](http://github.com/excellenteasy/bradypodion/commit/ac3fb1f54b1ef138f71fc90f44213adb48bea49e))
+* **grunt:** only build android and ios ([411f4518](http://github.com/excellenteasy/bradypodion/commit/411f4518db1a8a7cb2e7adf4c41f6ffa805cedf3))
+* **platforms:**
+  * make iOS7 the standard iOS build ([146bcad0](http://github.com/excellenteasy/bradypodion/commit/146bcad040a4db2c3e58db1847f95943ad1a41ce))
+  * remove old iOS styles ([c0f05e7b](http://github.com/excellenteasy/bradypodion/commit/c0f05e7b7a00542cb2c5be566b682321d5fce37f))
+* **screen:** fix view and screen hierachy for ng-1.2 ([91d343b8](http://github.com/excellenteasy/bradypodion/commit/91d343b8570ce410f58db1e49b83c55417fc7410))
+* **typo:** readable base font size ([30ef626e](http://github.com/excellenteasy/bradypodion/commit/30ef626e10faf5c30e014aa8b747be74a9100a08))
+
+
+#### Features
+
+* **a11y:** label back buttons with "Back to XYZ" ([3df5a9f6](http://github.com/excellenteasy/bradypodion/commit/3df5a9f620d1e8a61a19eaf47bbb17146d1c74ca))
+* **iscroll:** style scrollbar for iOS7 ([fe2cc066](http://github.com/excellenteasy/bradypodion/commit/fe2cc066dff9d460b291a7b66c8b6a5320588d02))
+* **loading-bar:** add angular-loading-bar and custom styles ([8ad3b072](http://github.com/excellenteasy/bradypodion/commit/8ad3b072c80bf2694878b56cca487e8db69ca28e))
+* **scroll:** inital css only scroll directive ([0e6700b6](http://github.com/excellenteasy/bradypodion/commit/0e6700b6906f4696f1a1cf4f99dcd38eb909d5f1))
+* **slide:** update slide animation for iOS and ng-1.2 ([e8707289](http://github.com/excellenteasy/bradypodion/commit/e87072898dc2aff331f84a68429ed8736656da23))
+* **view:** update and refactor for ng-1.2 compat ([bb4859ec](http://github.com/excellenteasy/bradypodion/commit/bb4859ec8409025872c410c050a751363b25b5c2))
+
 <a name="v0.3.0"></a>
 ## v0.3.0 (2013-11-05)
 
