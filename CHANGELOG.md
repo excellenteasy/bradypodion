@@ -1,3 +1,11 @@
+<a name="v0.4.0-rc2"></a>
+### v0.4.0-rc2 (2013-11-13)
+
+
+#### Bug Fixes
+
+* **search:** give explicit order after navbar ([efac8f77](http://github.com/excellenteasy/bradypodion/commit/efac8f77960d8ac190b656e0f7949d8a6094e0df))
+
 <a name="v0.4.0-rc1"></a>
 ### v0.4.0-rc1 (2013-11-13)
 
