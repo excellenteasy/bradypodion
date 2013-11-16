@@ -295,6 +295,16 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             $spacer.insertAfter $navbarText
         , 0
 
+# # Scroll
+
+angular.module('bp.directives').directive 'bpScroll', deps [], ->
+  (scope, element, attrs) ->
+    # http://stackoverflow.com/a/18737266/1849359
+    element.bind 'touchstart', ->
+
+    scope.$on '$destroy', ->
+      element.unbind 'touchstart'
+
 # # Search
 
 angular.module('bp.directives').directive 'bpSearch', deps [
@@ -460,6 +470,9 @@ angular.module('bp.directives').directive 'bpTap', deps [
     element.bind 'tap', (e, touch) ->
       scope.$apply $parse(attrs.bpTap), {$event: e, touch}
       false
+
+    scope.$on '$destroy', ->
+      element.unbind 'tap'
 
 # # Config
 class BpConfig

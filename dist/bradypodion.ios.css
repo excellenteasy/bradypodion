@@ -1007,8 +1007,8 @@ bp-table-header {
   background-color: #f8f8f8;
   background-image: -webkit-linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%);
   background-image: linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%);
-  -webkit-background-size: 1px, 1px;
-  background-size: 1px, 1px;
+  -webkit-background-size: 1px 1px;
+  background-size: 1px 1px;
   background-repeat: repeat no-repeat;
   background-position: left top;
   color: black;

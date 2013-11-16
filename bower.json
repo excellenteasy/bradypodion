@@ -1,6 +1,6 @@
 {
   "name": "bradypodion",
-  "version": "0.4.0-rc2",
+  "version": "0.4.0-rc3",
   "dependencies": {
     "angular": "~1.2.1",
     "angular-animate": "~1.2.0",

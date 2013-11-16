@@ -1,3 +1,13 @@
+<a name="v0.4.0-rc3"></a>
+### v0.4.0-rc3 (2013-11-16)
+
+
+#### Bug Fixes
+
+* **scroll:** address ios7 scroll bug ([44f7b22a](http://github.com/excellenteasy/bradypodion/commit/44f7b22a8980812a48c3310167740c5d4a45e725))
+* **search:** give explicit order after navbar ([85b696a2](http://github.com/excellenteasy/bradypodion/commit/85b696a275992b5b1ddb2f84b44f989099e6228e))
+* **tap:** unbind handlers on destroy ([e70800bd](http://github.com/excellenteasy/bradypodion/commit/e70800bddb00fa637efe7281f227468c3f7c370d))
+
 <a name="v0.4.0-rc2"></a>
 ### v0.4.0-rc2 (2013-11-13)
 

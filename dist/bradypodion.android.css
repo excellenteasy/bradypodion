@@ -814,8 +814,8 @@ bp-navbar > * {
   pointer-events: none;
   width: 30px;
   height: 30px;
-  -webkit-background-size: 30px, 30px;
-  background-size: 30px, 30px;
+  -webkit-background-size: 30px 30px;
+  background-size: 30px 30px;
   background-repeat: no-repeat;
   background-image: -webkit-linear-gradient(#a9a9a9, #a9a9a9);
   background-image: linear-gradient(#a9a9a9, #a9a9a9);

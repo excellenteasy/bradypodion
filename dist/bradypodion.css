@@ -870,8 +870,8 @@ bp-table {
   pointer-events: none;
   width: 30px;
   height: 30px;
-  -webkit-background-size: 30px, 30px;
-  background-size: 30px, 30px;
+  -webkit-background-size: 30px 30px;
+  background-size: 30px 30px;
   background-repeat: no-repeat;
   background-image: -webkit-linear-gradient(#a9a9a9, #a9a9a9);
   background-image: linear-gradient(#a9a9a9, #a9a9a9);
@@ -1509,8 +1509,8 @@ alignment of navbar children
   background-color: #f8f8f8;
   background-image: -webkit-linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%);
   background-image: linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%);
-  -webkit-background-size: 1px, 1px;
-  background-size: 1px, 1px;
+  -webkit-background-size: 1px 1px;
+  background-size: 1px 1px;
   background-repeat: repeat no-repeat;
   background-position: left top;
   color: black;

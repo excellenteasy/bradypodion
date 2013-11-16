@@ -244,6 +244,15 @@
     };
   }));
 
+  angular.module('bp.directives').directive('bpScroll', deps([], function() {
+    return function(scope, element, attrs) {
+      element.bind('touchstart', function() {});
+      return scope.$on('$destroy', function() {
+        return element.unbind('touchstart');
+      });
+    };
+  }));
+
   angular.module('bp.directives').directive('bpSearch', deps(['$compile', '$timeout'], function($compile, $timeout) {
     return {
       restrict: 'E',
@@ -403,12 +412,15 @@
     return function(scope, element, attrs) {
       var _ref;
       (_ref = tapService.getInstance()).setup.apply(_ref, arguments);
-      return element.bind('tap', function(e, touch) {
+      element.bind('tap', function(e, touch) {
         scope.$apply($parse(attrs.bpTap), {
           $event: e,
           touch: touch
         });
         return false;
+      });
+      return scope.$on('$destroy', function() {
+        return element.unbind('tap');
       });
     };
   }));
