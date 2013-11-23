@@ -1,7 +1,7 @@
 {
   "name": "bradypodion",
   "description": "Bradypodion is an AngularJS directive library written in CoffeeScript used to build maintainable mobile web apps that don't suck.",
-  "version": "0.4.0-rc3",
+  "version": "0.4.0",
   "private": true,
   "homepage": "https://github.com/excellenteasy/bradypodion",
   "author": "excellenteasy <dev@excellenteasy.com>",
