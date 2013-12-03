@@ -143,71 +143,43 @@ module.exports = (grunt) ->
       options:
         coverage_dir: 'test/coverage'
 
+    less: dist:
+      src: ['<%=bp.dist%>/bradypodion.less']
+      dest: '<%=bp.dist%>/bradypodion.css'
+
   grunt.registerTask 'cssbuild', ->
     # config
-    PLATFORMS = grunt.config.get('bp').platforms
-    styles = grunt.template.process '<%=bp.app%>/styles'
-    template = "#{styles}/bradypodion.less"
-    configs  = "#{styles}/variables/*.less"
-    modules  = "#{styles}/*/*/*.less"
+    platforms   = grunt.config.get('bp').platforms.concat ['general']
+    styles      = grunt.template.process '<%=bp.app%>/styles'
+    template    = "#{styles}/bradypodion.less"
+    configs     = "#{styles}/{variables,mixins}/{ios,android}.less"
+    modules     = "#{styles}/*/*/*.less"
+    fileContent = grunt.file.read template
 
-    # parse task flags
-    platforms = []
-    if @args.length then @args.forEach (arg) ->
-      arg = arg.toLowerCase()
-      index = PLATFORMS.indexOf arg
-      if index >= 0
-        platforms.push arg
-        PLATFORMS.splice index, 1
-    else
-      platforms = PLATFORMS
-      general = yes
+    imports = {}
+    imports[platform] = [] for platform in platforms
 
-    toBeNamespaced = platforms.length > 1
-    fileContent    = grunt.file.read template
-
-    chunks =
-      general: ''
-    chunks[platform] = '' for platform in platforms
-
-    # importer function
     importer = (path) ->
       matches = path.match(/(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/)
       platform = matches[3]
-      if platform in platforms or platform is 'general'
-        chunk = "@import '../../#{matches[1]}';"
-        chunks[platform] += chunk
+      if platform in platforms
+        imports[platform].push matches[1].replace('modules/','')
 
     # import config and modules
     grunt.file.expand(configs).forEach importer
     grunt.file.expand(modules).forEach importer
 
-    # append imports to template and namespace them if necessary
-    for platform, chunk of chunks
-      fileContent += if toBeNamespaced and platform isnt 'general'
-        ".#{platform} {#{chunk}}"
-      else
-        chunk
-
-    filename = if general
-      ''
-    else
-      '.' + platforms.sort().join '.'
+    comment =
+      end: '*/'
+      start: '/*'
+    fileContent = grunt.template.process fileContent, {data: {comment,imports}}
 
     grunt.file.write grunt.template.process(
-      "<%=bp.tmp%>/styles/bradypodion#{filename}.less"
+      "<%=bp.dist%>/bradypodion.less"
     ), fileContent
 
-    # create less task configuration on runtime depending on platforms
-    config =
-      custom:
-        src: ["<%=bp.tmp%>/styles/bradypodion#{filename}.less"]
-        dest: "<%=bp.dist%>/bradypodion#{filename}.css"
-
-    grunt.config.set 'less', config
-
     # compile less
-    grunt.task.run ['less:custom']
+    grunt.task.run ['less:dist']
 
   grunt.registerTask 'release', ->
     done = @async()
@@ -227,9 +199,8 @@ module.exports = (grunt) ->
     exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
         grunt build changelog &&
         git add package.json bower.json &&
+        git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
-        git add -f dist/bradypodion.android.css &&
-        git add -f dist/bradypodion.ios.css &&
         git add -f dist/bradypodion.js &&
         git add -f dist/bradypodion.js.map &&
         git add -f dist/bradypodion.src.coffee &&

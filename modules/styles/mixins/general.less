@@ -1,0 +1,20 @@
+.bp-flexbox(@orient: horizontal, @pack: start, @align: center) {
+  -webkit-box-orient: @orient;
+  -webkit-box-pack  : @pack;
+  -webkit-box-align : @align;
+  display           : -webkit-box;
+}
+
+.flexbox {
+  .bp-flexbox;
+}
+
+.bp-ellipsis(@a:a) {
+  overflow     : hidden;
+  text-overflow: ellipsis;
+  white-space  : nowrap;
+}
+
+.ellipsis {
+  .bp-ellipsis;
+}
