@@ -1,4 +1,4 @@
-.navbar-back(@color: @font-color, @height: @navbar-height) {
+.navbar-back(@color: @android-font-color, @height: @android-navbar-height) {
   .box-shadow(none);
   position   : absolute;
   top        : 0px;
@@ -19,7 +19,7 @@
   }
 }
 
-.navbar-back-active(@color: @highlight-color) {
+.navbar-back-active(@color: @android-highlight-color) {
   @bg-color       : lighten(desaturate(spin(@color, -1deg), 16%), 17%);
   background-color: @bg-color;
 }

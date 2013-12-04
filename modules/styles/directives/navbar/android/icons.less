@@ -1,11 +1,11 @@
-.navbar-icons(@height: @navbar-height, @color: @font-color, @font-size: @font-icon-size) {
+.navbar-icons(@height: @android-navbar-height, @color: @android-font-color, @android-font-size: @android-font-icon-size) {
   color      : fade(@color,60%);
   display    : block;
   width      : @height;
   height     : @height;
   line-height: @height;
   text-align : center;
-  font-size  : @font-size;
+  font-size  : @android-font-size;
   &:last-child {
     margin-right: -(@height/6);
   }
@@ -22,11 +22,11 @@
   // background-position: 12px 12px, 8px 8px;
 }
 
-.navbar-icons-active(@color: @highlight-color) {
+.navbar-icons-active(@color: @android-highlight-color) {
   @bg-color: lighten(desaturate(spin(@color, -1deg), 16%), 17%);
   background-color: @bg-color;
 }
 
-.navbar-icons-disabled(@color: @font-color) {
+.navbar-icons-disabled(@color: @android-font-color) {
   color: fade(@color,30%);
 }

@@ -1,17 +1,17 @@
-.btn-bg (@color: @theme-color) {
+.btn-bg (@color: @android-theme-color) {
   background-color: @color;
   @shadow-color: @color - #101010;
   .box-shadow(~"inset 0 -1px @{shadow-color}");
 }
 
-.btn-bg-active (@color: @highlight-color) {
+.btn-bg-active (@color: @android-highlight-color) {
   background-color: @color;
   @shadow-color: darken(desaturate(@color, 32%), 14%);
   @border-color: lighten(desaturate(spin(@color, -1deg), 16%), 17%);
   .box-shadow(~"inset 0 -1px @{shadow-color}, 0 0 0 2px @{border-color}");
 }
 
-.btn-bg-disabled (@color: @font-color) {
+.btn-bg-disabled (@color: @android-font-color) {
   opacity: 0.7;
   // color: fade(@color,30%);
 }

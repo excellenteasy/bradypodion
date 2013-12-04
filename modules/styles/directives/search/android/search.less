@@ -15,17 +15,17 @@
   .border-radius(0);
 
   &:focus {
-    border-bottom: 2px solid @highlight-color;
+    border-bottom: 2px solid @android-highlight-color;
   }
 }
 
-.table-search-wrapper(@color: @theme-color) {
+.table-search-wrapper(@color: @android-theme-color) {
   &:extend(bp-icon all);
   &:before {
     &:extend(.bp-icon-search:before );
     color       : #ABABAB;
     line-height : 48px;
-    font-size   : @font-icon-size;
+    font-size   : @android-font-icon-size;
     pointer-events: none;
     content     : '\e000';
     position    : absolute;

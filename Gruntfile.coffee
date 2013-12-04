@@ -152,22 +152,17 @@ module.exports = (grunt) ->
     platforms   = grunt.config.get('bp').platforms.concat ['general']
     styles      = grunt.template.process '<%=bp.app%>/styles'
     template    = "#{styles}/bradypodion.less"
-    configs     = "#{styles}/{variables,mixins}/{ios,android}.less"
     modules     = "#{styles}/*/*/*.less"
     fileContent = grunt.file.read template
 
     imports = {}
     imports[platform] = [] for platform in platforms
 
-    importer = (path) ->
+    grunt.file.expand(modules).forEach (path) ->
       matches = path.match(/(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/)
       platform = matches[3]
       if platform in platforms
         imports[platform].push matches[1].replace('modules/','')
-
-    # import config and modules
-    grunt.file.expand(configs).forEach importer
-    grunt.file.expand(modules).forEach importer
 
     comment =
       end: '*/'

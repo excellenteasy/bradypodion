@@ -1,4 +1,4 @@
-.bp-cell-wrapper(@height: @table-cell-height) {
+.bp-cell-wrapper(@height: @android-table-cell-height) {
   color: #333333;
   background : transparent;
   font-size  : 20px;
@@ -11,7 +11,7 @@
   .box-shadow(inset 0 -1px #D9D9D9);
 }
 
-.bp-cell-active(@color: @highlight-color) {
+.bp-cell-active(@color: @android-highlight-color) {
   @bg-color: lighten(desaturate(spin(@color, -1deg), 16%), 17%);
   background-color: @bg-color;
   color : inherit;

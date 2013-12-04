@@ -3,17 +3,15 @@
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
  */
-
 @bp-source-path: "../modules/";
 
 // lesshat
 @import "@{bp-source-path}bower_components/lesshat/build/lesshat";
 
-// config
-@import "@{bp-source-path}styles/variables/general";
-
 // mixins
 @import "@{bp-source-path}styles/mixins/general";
+
+@import "@{bp-source-path}styles/variables/general";
 
 /*<%= comment.end %>
 <% _.forEach(imports.general, function(module) { %>
@@ -21,7 +19,7 @@
 <% }); %>
 <%= comment.start%>*/
 
-.import-ios(@a:0) {
+.import-ios() {
   /*<%= comment.end %>
   <% _.forEach(imports.ios, function(module) { %>
   @import "@{bp-source-path}<%= module %>";
@@ -29,13 +27,14 @@
   <%= comment.start%>*/
 }
 
-.import-android(@a:0) {
+.import-android() {
   /*<%= comment.end %>
   <% _.forEach(imports.android, function(module) { %>
   @import "@{bp-source-path}<%= module %>";
   <% }); %>
   <%= comment.start%>*/
 }
+
 
 .modules(@ios: @ios, @android: @android) when (@ios) and (@android) {
   .ios {
