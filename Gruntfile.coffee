@@ -157,10 +157,11 @@ module.exports = (grunt) ->
       if platform in platforms
         imports[platform].push matches[1].replace('modules/','')
 
-    comment =
-      end: '*/'
-      start: '/*'
-    fileContent = grunt.template.process fileContent, {data: {comment,imports}}
+    grunt.template.addDelimiters 'less', '/*%', '%*/'
+
+    fileContent = grunt.template.process fileContent,
+      data: imports
+      delimiters: 'less'
 
     grunt.file.write grunt.template.process(
       "<%=bp.dist%>/bradypodion.less"

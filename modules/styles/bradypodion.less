@@ -8,31 +8,29 @@
 // lesshat
 @import "@{bp-source-path}bower_components/lesshat/build/lesshat";
 
+// variables
+@import "@{bp-source-path}styles/variables/general";
+
 // mixins
 @import "@{bp-source-path}styles/mixins/general";
 
-@import "@{bp-source-path}styles/variables/general";
-
-/*<%= comment.end %>
-<% _.forEach(imports.general, function(module) { %>
-@import "@{bp-source-path}<%= module %>";
-<% }); %>
-<%= comment.start%>*/
+// modules
+/*% _.forEach(general, function(module) {
+print('@import "@{bp-source-path}'+module+'";\n');
+});%*/
 
 .import-ios() {
-  /*<%= comment.end %>
-  <% _.forEach(imports.ios, function(module) { %>
-  @import "@{bp-source-path}<%= module %>";
-  <% }); %>
-  <%= comment.start%>*/
+
+/*% _.forEach(ios, function(module) {
+print('  @import "@{bp-source-path}'+module+'";\n');
+});%*/
 }
 
 .import-android() {
-  /*<%= comment.end %>
-  <% _.forEach(imports.android, function(module) { %>
-  @import "@{bp-source-path}<%= module %>";
-  <% }); %>
-  <%= comment.start%>*/
+
+/*% _.forEach(android, function(module) {
+print('  @import "@{bp-source-path}'+module+'";\n');
+});%*/
 }
 
 
