@@ -116,17 +116,10 @@ module.exports = (grunt) ->
         files: src: ['Gruntfile.coffee']
 
     concurrent:
-      server: [
+      build: [
         'coffee:app'
         'coffee:dist'
         'cssbuild'
-      ]
-      dist: [
-        'coffee:app'
-        'coffee:dist'
-        'cssbuild'
-        'cssbuild:android'
-        'cssbuild:ios'
       ]
 
     karma:
@@ -212,7 +205,7 @@ module.exports = (grunt) ->
       [
         'shell:hooks'
         'clean:server'
-        'concurrent:server'
+        'concurrent'
         'connect:server'
         'karma:unit'
         'watch'
@@ -237,7 +230,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'clean:dist'
     'coffeelint'
-    'concurrent:dist'
+    'concurrent'
   ]
 
   grunt.registerTask 'default', ['test']
