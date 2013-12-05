@@ -1,18 +1,33 @@
+.bp-ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .bp-flexbox(@orient: horizontal, @pack: start, @align: center) {
   -webkit-box-orient: @orient;
-  -webkit-box-pack  : @pack;
-  -webkit-box-align : @align;
-  display           : -webkit-box;
+  -webkit-box-pack: @pack;
+  -webkit-box-align: @align;
+  display: -webkit-box;
+}
+
+
+// used for extending
+.bp-fullsize {
+  height: 100%;
+  width: 100%;
+}
+
+.borderbox {
+  .box-sizing(border-box);
+}
+
+.contentbox {
+  .box-sizing(content-box);
 }
 
 .flexbox {
   .bp-flexbox;
-}
-
-.bp-ellipsis() {
-  overflow     : hidden;
-  text-overflow: ellipsis;
-  white-space  : nowrap;
 }
 
 .ellipsis {

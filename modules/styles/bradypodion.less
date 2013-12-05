@@ -14,20 +14,23 @@
 // mixins
 @import "@{bp-source-path}styles/mixins/general";
 
+// defaults
+@import "@{bp-source-path}styles/defaults/general";
+
 // modules
 /*% _.forEach(general, function(module) {
 print('@import "@{bp-source-path}'+module+'";\n');
 });%*/
 
 .import-ios() {
-
+@import "@{bp-source-path}styles/defaults/ios";
 /*% _.forEach(ios, function(module) {
 print('  @import "@{bp-source-path}'+module+'";\n');
 });%*/
 }
 
 .import-android() {
-
+@import "@{bp-source-path}styles/defaults/android";
 /*% _.forEach(android, function(module) {
 print('  @import "@{bp-source-path}'+module+'";\n');
 });%*/

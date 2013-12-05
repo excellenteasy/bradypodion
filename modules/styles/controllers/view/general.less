@@ -1,15 +1,10 @@
-[ui-view] {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  .scf-full-size;
-  .bp-flexbox(vertical,start,stretch);
-  .transform(translate3d(0,0,0));
-  z-index: 1;
+.bp-content() {
+  display: block;
+  -webkit-box-flex: 1;
   .order(50);
 }
 
-bp-screen, [bp-screen] {
+.bp-screen() {
   display: block;
   position: relative;
   overflow: hidden;
@@ -19,8 +14,25 @@ bp-screen, [bp-screen] {
   }
 }
 
-bp-content, .bp-content {
-  display: block;
-  -webkit-box-flex: 1;
+.ui-view() {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  .bp-fullsize;
+  .bp-flexbox(vertical,start,stretch);
+  .transform(translate3d(0,0,0));
+  z-index: 1;
   .order(50);
+}
+
+bp-content, .bp-content {
+  .bp-content;
+}
+
+bp-screen, [bp-screen] {
+  .bp-screen;
+}
+
+[ui-view] {
+  .ui-view;
 }

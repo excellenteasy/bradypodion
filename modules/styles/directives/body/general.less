@@ -1,73 +1,16 @@
-@import "general/defaults";
-@import "general/size";
-@import "general/boxsizing";
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
-}
-
-/*
-# Relevant normalize parts
-*/
-audio:not([controls]) {
-    display: none;
-    height: 0;
-}
-
-q {
-    quotes: "\201C" "\201D" "\2018" "\2019";
-}
-
-button,
-input,
-select,
-textarea {
-    font-family: inherit;
-    font-size: 100%;
-    margin: 0;
-}
-
-button,
-input {
-    line-height: normal;
-}
-
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-    .appearance(button);
-}
-/*
-# Defaults
-*/
-html {
-  overflow: hidden;
-  .scf-full-size;
-  -webkit-text-size-adjust: 100%;
-}
-body {
+.bp-body() {
+  .backface-visibility(hidden);
+  .user-select(none);
+  .bp-fullsize;
+  .bp-flexbox(vertical,start,stretch);
+  font-size: 100%;
+  line-height: 150%;
   margin: 0;
   overflow: hidden;
-  .scf-defaults;
-  .scf-full-size;
-  .bp-flexbox(vertical,start,stretch);
-}
-a {
-  display: block;
-  color: inherit;
-  &:link, &:visited {
-    color: inherit;
-    text-decoration: none
-  }
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
-//To be used for extension
-
-.borderBox {
-  .scf-box;
-}
-
-.contentBox {
-  .scf-box(content);
+body {
+  .bp-body;
 }
