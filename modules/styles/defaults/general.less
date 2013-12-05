@@ -1,53 +1,57 @@
-// the mobile relevant parts of normalize.css
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
+.bp-general-defaults() {
 
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
+  // the mobile relevant parts of normalize.css
+  audio:not([controls]) {
+    display: none;
+    height: 0;
+  }
 
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
+  q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+  }
 
-button,
-input {
-  line-height: normal;
-}
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+  }
 
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  .appearance(button);
-}
+  button,
+  input {
+    line-height: normal;
+  }
 
-// angular specific
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
-.ng-cloak, .x-ng-cloak,
-.ng-hide {
-  display: none !important;
-}
+  button,
+  html input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
+    .appearance(button);
+  }
 
-// mobile defaults
-html {
-  .bp-fullsize;
-  overflow: hidden;
-  -webkit-text-size-adjust: 100%;
-}
+  // angular specific
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+  .ng-cloak, .x-ng-cloak,
+  .ng-hide {
+    display: none !important;
+  }
 
-a {
-  display: block;
-  color: inherit;
-  &:link, &:visited {
+  // mobile defaults
+  html {
+    .bp-fullsize;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  a {
+    display: block;
     color: inherit;
-    text-decoration: none;
+    &:link, &:visited {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 }
+

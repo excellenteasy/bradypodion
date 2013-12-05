@@ -1,24 +1,43 @@
-input, select, option {
-  @color: @android-highlight-color;
-  &:extend(.borderbox);
-  .appearance(none);
-  background: transparent;
-  .background-image(linear-gradient(#ABABAB, #ABABAB), linear-gradient(#ABABAB, #ABABAB));
-  background-position: right bottom, left bottom;
-  background-repeat: no-repeat;
-  .background-size(2px 5px, 2px 5px);
-  border: none;
-  border-bottom: 2px solid #ABABAB;
-  display: block;
-  width: 100%;
-  height: 30px;
-  padding: 0 8px;
-  &:focus {
-    .background-image(linear-gradient(@color, @color), linear-gradient(@color, @color));
-    outline: none;
-    border-bottom: 2px solid @color;
+.bp-android-defaults(@default: @android-input-default, @focus: @android-input-focus) {
+  input, select {
+    &:extend(.borderbox);
+    .appearance(none);
+    background: transparent;
+    background-position: right bottom, left bottom;
+    background-repeat: no-repeat;
+    border: none;
+    .border-radius(0);
+    display: block;
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    .box-shadow(inset 0 -2px @default);
   }
-  &:-webkit-input-placeholder {
-    color: #ABABAB;
+  input {
+    .background-size(2px 5px, 2px 5px);
+    .background-image(linear-gradient(@default, @default), linear-gradient(@default, @default));
+    &:focus {
+      .background-image(linear-gradient(@focus, @focus), linear-gradient(@focus, @focus));
+      outline: none;
+      .box-shadow(inset 0 -2px @focus);
+    }
+    &::-webkit-input-placeholder {
+      color: @default;
+    }
+  }
+  select {
+    position: relative;
+    .background-size(12px 12px);
+    .background-image(linear-gradient(135deg, transparent, transparent 50%, @default 50%));
+    &:focus {
+      @lightfocus: lighten(desaturate(spin(@focus, -1deg), 16%), 17%);
+      outline: none;
+      background-color: @lightfocus;
+      .box-shadow(
+        inset 0 -2px @default,
+        0 0 0 6px @lightfocus,
+        0 0 0 8px @focus,
+      );
+    }
   }
 }

@@ -1,6 +1,12 @@
-input, select, option {
-  &:extend(.borderbox);
-  .appearance(none);
-  background: transparent;
-  border: none;
+.bp-ios-defaults() {
+  input, select {
+    &:extend(.borderbox);
+    .appearance(none);
+    background: transparent;
+    border: none;
+    padding: 0;
+    &::-webkit-input-placeholder {
+      color: #8c8c8c;
+    }
+  }
 }

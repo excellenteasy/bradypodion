@@ -1,0 +1,26 @@
+@import 'android';
+@import 'general';
+@import 'ios';
+
+.bp-defaults() {
+  .bp-general-defaults;
+
+  .bp-platforms-defaults() when (@ios) and not (@android) {
+    .bp-ios-defaults;
+  }
+
+  .bp-platforms-defaults() when (@android) and not (@ios) {
+    .bp-android-defaults;
+  }
+
+  .bp-platforms-defaults() when (@ios) and (@android) {
+    .@{ios-name} {
+      .bp-ios-defaults;
+    }
+    .@{android-name}  {
+      .bp-android-defaults;
+    }
+  }
+
+  .bp-platforms-defaults;
+}
