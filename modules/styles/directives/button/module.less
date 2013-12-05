@@ -1,0 +1,27 @@
+@import 'android';
+@import 'ios';
+
+.bp-button(@name:bp-button, @prefix: bp-button) {
+  .bp-platforms-button() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-button(@prefix);
+    }
+  }
+
+  .bp-platforms-button() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-button;
+    }
+  }
+
+  .bp-platforms-button() when (@ios) and (@android) {
+    .@{ios-name} @{name} {
+      .bp-ios-button(@prefix);
+    }
+    .@{android-name} @{name} {
+      .bp-android-button;
+    }
+  }
+
+  .bp-platforms-button;
+}

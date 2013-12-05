@@ -1,18 +1,24 @@
-@import "android/basic";
-@import "android/type";
-@import "android/bg";
+@import 'android/theme';
 
-bp-button:not(bp-icon) {
+.bp-android-button() {
   &:extend(.ellipsis);
-  .btn-basic;
-  .btn-type;
-  .btn-bg;
-
-  &.@{tap-active} {
-    .btn-bg-active;
-  }
+  .bp-android-button-theme;
+  display: block;
+  position: relative;
+  border: none;
+  .border-radius(2px);
+  height: @android-button-height;
+  line-height: @android-button-height;
+  padding: 0 (@android-button-height/4);
+  color: @android-button-color;
+  font-size: @android-font-size;
+  text-align: center;
+  -webkit-text-rendering: optimizeLegibility;
+  background-color: @android-button-background;
+  @shadow-color: @android-button-background - #101010;
+  .box-shadow(~"inset 0 -1px @{shadow-color}");
 
   &.disabled, &[disabled]{
-    .btn-bg-disabled;
+    opacity: 0.7;
   }
 }

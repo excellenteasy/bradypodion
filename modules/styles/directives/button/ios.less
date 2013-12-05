@@ -1,25 +1,39 @@
-@import "ios/basic";
-@import "ios/arrows";
-@import "ios/type";
-@import "ios/extra";
+@import 'ios/theme';
 
-bp-button {
-  .btn-basic;
-  .btn-type;
+.bp-ios-button(@prefix) {
+  .bp-ios-button-theme;
+  border: none;
+  display: block;
+  font-weight: normal;
+  height: @ios-button-height;
+  text-align: center;
+  -webkit-text-rendering: optimizeLegibility;
 
-  &.bp-button-back  {
-    .btn-arrow(back);
+  &.@{prefix}-back  {
+    &:extend(bp-icon all);
+    &:extend(.bp-icon-chevron-left all);
+    &:before {
+      font-size: 20px;
+      line-height: 22px;
+      height: 22px;
+      margin-left: -3px;
+      margin-right: 0px;
+    }
   }
 
-  &.bp-button-forward {
-    .btn-arrow(forward);
+  &.@{prefix}-forward:after {
+    &:extend(bp-icon:before);
+    &:extend(.bp-icon-chevron-right:before);
+    font-size: 20px;
+    line-height: 22px;
+    height: 22px;
+    margin-left: -5px;
+    margin-right: -3px;
   }
 
   &.disabled, &[disabled] {
-    .btn-disabled;
-  }
-
-  &.@{tap-active}:not(.disabled), &.@{tap-active}:not([disabled]) {
-    color: fade(@ios-ui-color, 50%);
+    cursor: default;
+    pointer-events: none;
+    color: #cccccc;
   }
 }

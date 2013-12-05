@@ -1,0 +1,8 @@
+.bp-android-button-theme (@color: @android-button-theme-default) {
+  &.@{tap-active} {
+    background-color: @color;
+    @shadow-color: darken(desaturate(@color, 32%), 14%);
+    @border-color: lighten(desaturate(spin(@color, -1deg), 16%), 17%);
+    .box-shadow(~"inset 0 -1px @{shadow-color}, 0 0 0 2px @{border-color}");
+  }
+}
