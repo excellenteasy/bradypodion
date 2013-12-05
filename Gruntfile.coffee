@@ -142,25 +142,22 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'cssbuild', ->
     # config
-    platforms   = grunt.config.get('bp').platforms.concat ['general']
     styles      = grunt.template.process '<%=bp.app%>/styles'
     template    = "#{styles}/bradypodion.less"
-    modules     = "#{styles}/*/*/*.less"
+    modulePaths = "#{styles}/*/*/*.less"
     fileContent = grunt.file.read template
 
-    imports = {}
-    imports[platform] = [] for platform in platforms
+    modules = []
 
-    grunt.file.expand(modules).forEach (path) ->
+    grunt.file.expand(modulePaths).forEach (path) ->
       matches = path.match(/(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/)
-      platform = matches[3]
-      if platform in platforms
-        imports[platform].push matches[1].replace('modules/','')
+      if matches[3] is 'class'
+        modules.push matches[1].replace('modules/','')
 
     grunt.template.addDelimiters 'less', '/*%', '%*/'
 
     fileContent = grunt.template.process fileContent,
-      data: imports
+      data: {modules}
       delimiters: 'less'
 
     grunt.file.write grunt.template.process(

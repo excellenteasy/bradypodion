@@ -18,40 +18,6 @@
 @import "@{bp-source-path}styles/defaults/general";
 
 // modules
-/*% _.forEach(general, function(module) {
+/*% _.forEach(modules, function(module) {
 print('@import "@{bp-source-path}'+module+'";\n');
 });%*/
-
-.import-ios() {
-@import "@{bp-source-path}styles/defaults/ios";
-/*% _.forEach(ios, function(module) {
-print('  @import "@{bp-source-path}'+module+'";\n');
-});%*/
-}
-
-.import-android() {
-@import "@{bp-source-path}styles/defaults/android";
-/*% _.forEach(android, function(module) {
-print('  @import "@{bp-source-path}'+module+'";\n');
-});%*/
-}
-
-
-.modules(@ios: @ios, @android: @android) when (@ios) and (@android) {
-  .ios {
-    .import-ios;
-  }
-  .android {
-    .import-android;
-  }
-}
-
-.modules(@ios: @ios, @android: @android) when (@ios) and not (@android) {
-  .import-ios;
-}
-
-.modules(@ios: @ios, @android: @android) when not (@ios) and (@android) {
-  .import-android;
-}
-
-.modules;
