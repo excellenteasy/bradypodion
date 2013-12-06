@@ -1,0 +1,33 @@
+@import 'element';
+
+.bp-ios-cell-theme(@prefix; @active:@ios-cell-active-color; @border: @ios-cell-border-color; @highlight:@ios-cell-highlight-color; @secondary:@ios-cell-text-secondary-color; @color: inherit) {
+  .box-shadow(inset 0 1px @border);
+  color: @color;
+
+  &.@{tap-active} {
+    position: relative;
+    z-index: 1000;
+    background-color: @active;
+    .box-shadow(0 1px @border);
+  }
+
+  &.@{prefix}-value1 {
+    .value {
+      color: @secondary;
+    }
+  }
+
+  &.@{prefix}-value2 {
+    .label {
+      color: @highlight;
+    }
+  }
+
+  &.@{prefix}-disclosure {
+    .bp-cell-ios-element('\e001', @active, @secondary);
+  }
+
+  &.@{prefix}-checkmark {
+    .bp-cell-ios-element('\e002', @highlight);
+  }
+}

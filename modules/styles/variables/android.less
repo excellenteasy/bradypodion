@@ -1,17 +1,27 @@
 @android-name: android;
 
 @android-text-color: #333333;
+@android-text-secondary-color: #ABABAB;
 @android-font-size: 18px;
 @android-font-family: Roboto Condensed, sans-serif;
 
 @android-font-color              : #333333;
 @android-theme-color             : #CECECE;
 @android-highlight-color         : #5AC2E9;
+@android-highlight-secondary-color: lighten(desaturate(spin(@android-highlight-color, -1deg), 16%), 17%);
 
 @android-button-height: 40px;
 @android-button-color: @android-text-color;
 @android-button-background: @android-theme-color;
 @android-button-theme-default: @android-highlight-color;
+
+@android-cell-height: 44px;
+@android-cell-font-size: inherit;
+@android-cell-text-color: @android-text-color;
+@android-cell-text-secondary-color: @android-text-secondary-color;
+@android-cell-active-color: @android-highlight-secondary-color;
+@android-cell-border-color: #D9D9D9;
+@android-cell-highlight-color: @android-highlight-color;
 
 @android-input-default: #ABABAB;
 @android-input-focus: @android-highlight-color;
