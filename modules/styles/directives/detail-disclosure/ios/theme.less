@@ -1,0 +1,10 @@
+.bp-ios-detail-disclosure-theme(@color: @ios-detail-disclosure-color) {
+  &:before {
+    border: 1px solid @color;
+    color: @color;
+  }
+  &.@{tap-active}:before {
+    color: fade(@color,50%);
+    border: 1px solid fade(@color,50%);
+  }
+}

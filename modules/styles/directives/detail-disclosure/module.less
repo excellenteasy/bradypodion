@@ -1,0 +1,27 @@
+@import 'android';
+@import 'ios';
+
+.bp-detail-disclosure(@name:bp-detail-disclosure) {
+  .bp-platforms-detail-disclosure() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-detail-disclosure;
+    }
+  }
+
+  .bp-platforms-detail-disclosure() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-detail-disclosure;
+    }
+  }
+
+  .bp-platforms-detail-disclosure() when (@ios) and (@android) {
+    .@{ios-name} @{name} {
+      .bp-ios-detail-disclosure;
+    }
+    .@{android-name} @{name} {
+      .bp-android-detail-disclosure;
+    }
+  }
+
+  .bp-platforms-detail-disclosure;
+}
