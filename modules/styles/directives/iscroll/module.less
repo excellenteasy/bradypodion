@@ -1,0 +1,36 @@
+@import 'android';
+
+.bp-iscroll(@name:bp-iscroll) {
+  .iScrollVerticalScrollbar {
+    width: 2px !important;
+    right: 2px !important;
+  }
+
+  .iScrollIndicator {
+    border: none !important;
+  }
+
+  [@{name}] {
+    position: relative;
+    -webkit-box-flex: 1;
+    overflow: hidden;
+  }
+
+  @{name}-wrapper {
+    position: absolute;
+    display: block;
+    width: 100%;
+  }
+
+  .bp-platforms-iscroll() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-iscroll;
+    }
+  }
+
+  .bp-platforms-iscroll() when (@ios) and (@android) {
+    .bp-android-iscroll;
+  }
+
+  .bp-platforms-iscroll;
+}

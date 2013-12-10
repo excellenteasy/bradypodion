@@ -1,0 +1,27 @@
+@import 'android';
+@import 'ios';
+
+.bp-navbar(@name:bp-navbar, @prefix: bp-navbar) {
+  .bp-platforms-navbar() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-navbar(@prefix);
+    }
+  }
+
+  .bp-platforms-navbar() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-navbar(@prefix);
+    }
+  }
+
+  .bp-platforms-navbar() when (@ios) and (@android) {
+    .@{ios-name} @{name} {
+      .bp-ios-navbar(@prefix);
+    }
+    .@{android-name} @{name} {
+      .bp-android-navbar(@prefix);
+    }
+  }
+
+  .bp-platforms-navbar;
+}

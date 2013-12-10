@@ -1,48 +1,38 @@
-@import "ios/bg";
-@import "ios/size";
-@import "ios/type";
-@import "ios/align";
+@import 'ios/theme';
 
-bp-navbar {
+.bp-ios-navbar(@prefix) {
+  .bp-ios-navbar-theme;
   &:extend(.borderbox);
   &:extend(.flexbox);
-  .navbar-bg;
-  .navbar-size;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left bottom;
+  height: @ios-navbar-height;
+  padding: 0 8px;
+  width: 100%;
+  .order(10);
+
   .before {
-    margin-right: 9px;
+    margin-right: 8px;
   }
   .after {
-    margin-left: 9px;
+    margin-left: 8px;
   }
-  &.navbar-small {
-    .navbar-size(small);
-    .btn {
-      min-width: 33px;
-      height: 33px;
-      line-height: 33px;
-    }
+  .@{prefix}-text {
+    &:extend(.ellipsis);
+    font-size: inherit;
+    text-align: center;
+    display: block;
+    font-weight: bolder;
+    .ios-dynamic-type(-apple-system-headline);
+    -webkit-box-flex: 1;
   }
-  bp-button {
-    min-width: 44px;
-    height: 44px;
-    line-height: 44px;
-  }
-}
-  //Parser throws errors if I put it up. Don't ask why >:(
-.bp-navbar-text {
-  &:extend(.ellipsis);
-  .btn-type(@ios-ui-color);
-  .navbar-text;
-  .navbar-type;
-}
-
-@media only screen and (orientation:landscape) {
-  bp-navbar {
-    .navbar-size(small);
+  @media only screen and (orientation:landscape) and (max-height: 480px) {
+    height: @ios-navbar-height-landscape;
     bp-button {
-      min-width: 33px;
-      height: 33px;
-      line-height: 33px;
+      min-width: @ios-navbar-height-landscape;
+      height: @ios-navbar-height-landscape;
+      line-height: @ios-navbar-height-landscape;
     }
   }
 }
