@@ -2,6 +2,9 @@
 @import 'ios';
 
 .bp-navbar(@name:bp-navbar, @prefix: bp-navbar) {
+  @{name} {
+    .order(10);
+  }
   .bp-platforms-navbar() when (@ios) and not (@android) {
     @{name} {
       .bp-ios-navbar(@prefix);

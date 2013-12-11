@@ -1,18 +1,16 @@
 @android-name: android;
 
+@android-background-color: #EDEDED;
+@android-highlight-color: #5AC2E9;
+@android-highlight-secondary-color: lighten(desaturate(spin(@android-highlight-color, -1deg), 16%), 17%);
 @android-text-color: #333333;
 @android-text-secondary-color: #ABABAB;
 @android-font-size: 17px;
 @android-font-family: Roboto Condensed, Roboto, sans-serif;
 
-@android-font-color              : #333333;
-@android-theme-color             : #CECECE;
-@android-highlight-color         : #5AC2E9;
-@android-highlight-secondary-color: lighten(desaturate(spin(@android-highlight-color, -1deg), 16%), 17%);
-
 @android-button-height: 40px;
 @android-button-color: @android-text-color;
-@android-button-background: @android-theme-color;
+@android-button-background: (@android-background-color - #1f1f1f);
 @android-button-theme-default: @android-highlight-color;
 
 @android-cell-height: 48px;
@@ -27,9 +25,9 @@
 @android-input-focus: @android-highlight-color;
 
 @android-navbar-height: 48px;
-@android-navbar-background: (@android-theme-color + #0f0f0f);
+@android-navbar-background: (@android-background-color - #101010);
 @android-navbar-border: (@android-navbar-background - #0B0B0B);
-@android-navbar-text-color: @android-font-color;
+@android-navbar-text-color: @android-text-color;
 @android-navbar-highlight-color: @android-highlight-color;
 @android-navbar-button-color: @android-highlight-color;
 @android-navbar-app-icon: url(favicon.ico), linear-gradient(darkgray, darkgray);
