@@ -1,0 +1,57 @@
+@import 'android';
+@import 'ios';
+
+.bp-loading-bar(@name:loading-bar) {
+  #@{name} .peg, #@{name}-spinner {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    speak: none !important;
+  }
+
+  #@{name} {
+    pointer-events: none;
+    .transition(0.5s linear all);
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+      opacity: 0;
+    }
+
+    &.ng-enter.ng-enter-active,
+    &.ng-leave {
+      opacity: 1;
+    }
+
+    .bar {
+      .transition(width 500ms);
+      position: fixed;
+      z-index: 99999;
+      left: 0;
+      width: 100%;
+      height: 2px;
+    }
+  }
+  .bp-platforms-loading-bar() when (@ios) and not (@android) {
+    #@{name} {
+      .bp-ios-loading-bar;
+    }
+  }
+
+  .bp-platforms-loading-bar() when (@android) and not (@ios) {
+    #@{name} {
+      .bp-android-loading-bar;
+    }
+  }
+
+  .bp-platforms-loading-bar() when (@ios) and (@android) {
+    .@{ios-name} #@{name} {
+      .bp-ios-loading-bar;
+    }
+    .@{android-name} #@{name} {
+      .bp-android-loading-bar;
+    }
+  }
+
+  .bp-platforms-loading-bar;
+}
