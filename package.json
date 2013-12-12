@@ -44,7 +44,7 @@
     "semver-sync": "~1.2.0",
     "time-grunt": "~0.2.0",
     "grunt-cli": "~0.1.11",
-    "grunt-coffeelint": "0.0.7",
+    "grunt-coffeelint": "~0.0.8",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "0.7.0",
     "grunt-contrib-connect": "~0.5.0",
@@ -54,7 +54,7 @@
     "grunt-conventional-changelog": "~1.0.0",
     "grunt-shell": "~0.6.1",
     "grunt-karma": "~0.6.2",
-    "grunt-karma-coveralls": "~2.1.1"
+    "grunt-karma-coveralls": "~2.2.0"
   },
   "keywords": [
     "angular",
