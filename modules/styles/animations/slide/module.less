@@ -1,7 +1,5 @@
-// # Slide
-
-.bp-slide-normal(@duration: 0.3s, @direction: normal, @name: slide) {
-
+.bp-slide(normal, @duration: 0.3s, @name: slide) {
+  @direction: normal;
   .@{name}-@{direction}.ng-animate {
     clip: auto !important;
   }
@@ -72,8 +70,8 @@
   }
 }
 
-.bp-slide-reverse(@duration: 0.3s, @direction: reverse, @name: slide) {
-
+.bp-slide(reverse, @duration: 0.3s, @name: slide) {
+  @direction: reverse;
   .@{name}-@{direction}.ng-animate {
     clip: auto !important;
   }
@@ -142,6 +140,3 @@
     }
   }
 }
-
-.bp-slide-normal;
-.bp-slide-reverse;
