@@ -1,0 +1,30 @@
+@import 'android';
+@import 'ios';
+
+.bp-search(@name:bp-search) {
+  @{name} {
+    .order(15);
+  }
+  .bp-platforms-search() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-search();
+    }
+  }
+
+  .bp-platforms-search() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-search();
+    }
+  }
+
+  .bp-platforms-search() when (@ios) and (@android) {
+    .@{ios-name} @{name} {
+      .bp-ios-search();
+    }
+    .@{android-name} @{name} {
+      .bp-android-search();
+    }
+  }
+
+  .bp-platforms-search;
+}
