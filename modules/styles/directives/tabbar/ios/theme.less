@@ -1,0 +1,12 @@
+.bp-ios-tabbar-theme(@bg: @ios-tabbar-background; @border: @ios-tabbar-border) {
+  .background-image(linear-gradient(transparent, transparent 50%, @border 50%));
+  background-color: @bg;
+}
+
+.bp-ios-tab-theme(@color: @ios-tab-color; @active: @ios-tab-active-color) {
+  color: @color;
+
+  &.bp-tab-active {
+    color: @active;
+  }
+}
