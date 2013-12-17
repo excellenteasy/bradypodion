@@ -1,4 +1,4 @@
-# Contributing to Bradypodion
+# Contributing to BradyPodion
 
 Adhere to these [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y).
 
@@ -38,14 +38,15 @@ The build process relies on conventions.
 You need to create a new folder within [modules/styles](modules/styles), like so `modules/styles/$modulestype/$modulename`.
 
 There is a special treatment for files within those folders.
-* `general.less`: Contains general styles for your directive.
-* `$platform.less`(android|ios|ios7): Contains platform specific styles.
+* `module.less`: Contains a mixin which is the actual module.
+* `class.less`: Contains the code that actually causes real CSS output (i.e. calls the module's mixin).
+* `$platform.less`(android|ios): Contains platform specific mixins.
 
 NOTE: Platforms will be namespaced whenever you build more than one.
 
 So the rules in this imaginary file (`modules/styles/$modulestype/$modulename/$platform.less`)…
 
-```less
+```css
 bg-button {
   background: green;
 }
