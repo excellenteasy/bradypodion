@@ -1,3 +1,11 @@
+<a name="v0.5.0-alpha.1"></a>
+### v0.5.0-alpha.1 (2013-12-17)
+
+
+#### Bug Fixes
+
+* **slide:** tweak easing function ([3a26fb77](http://github.com/excellenteasy/bradypodion/commit/3a26fb7798a94581a1e627ed7ce03e97a227a637))
+
 <a name="v0.4.0"></a>
 ## v0.4.0 (2013-11-23)
 

@@ -203,7 +203,7 @@
               for (_j = 0, _len1 = buttons.length; _j < _len1; _j++) {
                 $button = buttons[_j];
                 if ($button.hasClass('bp-button-back')) {
-                  $button.insertBefore($navbarText);
+                  $button.insertBefore($navbarText).addClass('before');
                 } else {
                   element.append($button.addClass('after'));
                 }
@@ -277,7 +277,7 @@
             cancelWidth = $cancel.outerWidth();
             inputWidth = element.width() - padding;
             if ($search != null) {
-              $search.css('width', "" + (inputWidth - cancelWidth - padding) + "px");
+              $search.css('width', "" + (inputWidth - cancelWidth) + "px");
             }
             $cancel.show();
             $timeout(function() {

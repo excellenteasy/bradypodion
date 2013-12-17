@@ -3,40 +3,197 @@
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
  */
-/* Extends */
-.flexbox,
-.android bp-navbar,
-.android bp-search,
-.android bp-tabbar,
+.bp-fullsize {
+  height: 100%;
+  width: 100%;
+}
+.borderbox,
+.ios input,
+.ios select,
+.android input,
+.android select,
+.ios bp-cell,
+.ios bp-cell.bp-cell-value2 .value,
+.ios bp-cell.bp-cell-value2 .label,
+.android bp-cell,
 .ios bp-navbar,
+.android bp-navbar,
+.ios bp-tabbar,
+.ios bp-tab,
+.android bp-tabbar,
+.android bp-tab,
+.bp-android-table-header,
+.ios bp-table-grouped-header,
+.ios bp-table-grouped-footer,
+.android bp-table-header,
+.android bp-table-grouped-header,
+.android bp-table-grouped-header,
+.android bp-table-grouped-footer {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.contentbox {
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.flexbox,
+.ios bp-navbar,
+.android bp-navbar,
 .ios bp-search,
-.ios bp-tabbar {
+.android bp-search,
+.ios bp-tabbar,
+.android bp-tabbar {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
   -webkit-box-align: center;
   display: -webkit-box;
 }
 .ellipsis,
-.android bp-button:not(bp-icon),
-.android bp-cell,
-.android bp-cell > div,
-.android bp-cell > span,
-.android .bp-cell-subtitle .titles .title,
-.android .bp-cell-subtitle .titles .subtitle,
-.android .bp-navbar-text,
-.android bp-tabbar > bp-tab span,
-.android bp-table-grouped-header,
+.android bp-button,
 .ios bp-cell,
 .ios bp-cell > div,
 .ios bp-cell > span,
-.ios .bp-cell-subtitle .titles .title,
-.ios .bp-cell-subtitle .titles .subtitle,
-.ios .bp-navbar-text,
-.ios bp-tabbar > bp-tab span,
-.ios bp-table-grouped-header {
+.ios bp-cell > input,
+.ios bp-cell > label,
+.ios bp-cell > select,
+.ios bp-cell.bp-cell-value1 label,
+.ios bp-cell.bp-cell-value1 .label,
+.ios bp-cell.bp-cell-subtitle .titles .title,
+.ios bp-cell.bp-cell-subtitle .titles .subtitle,
+.android bp-cell,
+.android bp-cell > div,
+.android bp-cell > span,
+.android bp-cell > input,
+.android bp-cell > label,
+.android bp-cell.bp-cell-subtitle .titles .title,
+.android bp-cell.bp-cell-subtitle .titles .subtitle,
+.ios bp-navbar .bp-navbar-text,
+.android bp-navbar .bp-navbar-text,
+.ios bp-tab span,
+.android bp-tab span,
+.ios bp-table-grouped-header,
+.android bp-table-grouped-header {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+}
+button,
+input {
+  line-height: normal;
+}
+button,
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="range"] {
+  -webkit-appearance: slider-horizontal;
+  appearance: slider-horizontal;
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide {
+  display: none !important;
+}
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+a {
+  display: block;
+  color: inherit;
+}
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+.ios input,
+.ios select {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.ios input::-webkit-input-placeholder,
+.ios select::-webkit-input-placeholder {
+  color: #8c8c8c;
+}
+.android input,
+.android select {
+  background: transparent;
+  background-position: right bottom, left bottom;
+  background-repeat: no-repeat;
+  border: none;
+  -webkit-border-radius: 0px;
+  -webkit-background-clip: padding-box;
+  border-radius: 0px;
+  background-clip: padding-box;
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+}
+.android input:not([type="range"]) {
+  -webkit-box-shadow: inset 0px -2px #ababab;
+  box-shadow: inset 0px -2px #ababab;
+  -webkit-background-size: 2px 5px, 2px 5px;
+  background-size: 2px 5px, 2px 5px;
+  background-image: -webkit-linear-gradient(#ababab, #ababab), -webkit-linear-gradient(#ababab, #ababab);
+  background-image: linear-gradient(#ababab, #ababab), linear-gradient(#ababab, #ababab);
+}
+.android input:not([type="range"]):focus {
+  background-image: -webkit-linear-gradient(#5ac2e9, #5ac2e9), -webkit-linear-gradient(#5ac2e9, #5ac2e9);
+  background-image: linear-gradient(#5ac2e9, #5ac2e9), linear-gradient(#5ac2e9, #5ac2e9);
+  outline: none;
+  -webkit-box-shadow: inset 0px -2px #5ac2e9;
+  box-shadow: inset 0px -2px #5ac2e9;
+}
+.android input:not([type="range"])::-webkit-input-placeholder {
+  color: #ababab;
+}
+.android select {
+  -webkit-box-shadow: inset 0px -2px #ababab;
+  box-shadow: inset 0px -2px #ababab;
+  -webkit-background-size: 12px 12px;
+  background-size: 12px 12px;
+  background-image: -webkit-linear-gradient(-45deg, transparent, transparent 50%, #ababab 50%);
+  background-image: linear-gradient(135deg, transparent, transparent 50%, #ababab 50%);
+  position: relative;
+}
+.android select:focus {
+  outline: none;
+  background-color: #afdceb;
+  -webkit-box-shadow: inset 0px -2px #ababab, 0px 0px 0px 6px #afdceb, 0px 0px 0px 8px #5ac2e9;
+  box-shadow: inset 0px -2px #ababab, 0px 0px 0px 6px #afdceb, 0px 0px 0px 8px #5ac2e9;
 }
 .cover-normal.ng-enter {
   -webkit-transition: 0.3s ease-in all;
@@ -167,8 +324,8 @@
 }
 .slide-normal.ng-enter {
   z-index: 1000;
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
 }
 .slide-normal.ng-enter > * {
   -webkit-transform: translateX(100%);
@@ -176,18 +333,14 @@
 }
 .slide-normal.ng-enter > bp-navbar .bp-navbar-text,
 .slide-normal.ng-enter > bp-navbar bp-button,
-.slide-normal.ng-enter > bp-navbar bp-icon,
-.slide-normal.ng-enter > bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-normal.ng-enter > bp-navbar .android bp-search,
-.slide-normal.ng-enter > bp-navbar .ios bp-button.bp-button-back,
-.slide-normal.ng-enter > bp-navbar .ios bp-search {
+.slide-normal.ng-enter > bp-navbar bp-icon {
   -webkit-transform: translateX(50%);
   transform: translateX(50%);
   opacity: 0;
 }
 .slide-normal.ng-enter.ng-enter-active > * {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
 }
@@ -198,21 +351,17 @@
 }
 .slide-normal.ng-enter.ng-enter-active bp-navbar .bp-navbar-text,
 .slide-normal.ng-enter.ng-enter-active bp-navbar bp-button,
-.slide-normal.ng-enter.ng-enter-active bp-navbar bp-icon,
-.slide-normal.ng-enter.ng-enter-active bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-normal.ng-enter.ng-enter-active bp-navbar .android bp-search,
-.slide-normal.ng-enter.ng-enter-active bp-navbar .ios bp-button.bp-button-back,
-.slide-normal.ng-enter.ng-enter-active bp-navbar .ios bp-search {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+.slide-normal.ng-enter.ng-enter-active bp-navbar bp-icon {
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
   opacity: 1;
 }
 .slide-normal.ng-leave {
   z-index: inherit;
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
 }
 .slide-normal.ng-leave > * {
   -webkit-filter: brightness(1);
@@ -222,18 +371,14 @@
 }
 .slide-normal.ng-leave > bp-navbar .bp-navbar-text,
 .slide-normal.ng-leave > bp-navbar bp-button,
-.slide-normal.ng-leave > bp-navbar bp-icon,
-.slide-normal.ng-leave > bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-normal.ng-leave > bp-navbar .android bp-search,
-.slide-normal.ng-leave > bp-navbar .ios bp-button.bp-button-back,
-.slide-normal.ng-leave > bp-navbar .ios bp-search {
+.slide-normal.ng-leave > bp-navbar bp-icon {
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
   opacity: 1;
 }
 .slide-normal.ng-leave.ng-leave-active > * {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-filter: brightness(0.9);
   filter: brightness(0.9);
   -webkit-transform: translateX(-30%);
@@ -249,13 +394,9 @@
 }
 .slide-normal.ng-leave.ng-leave-active bp-navbar .bp-navbar-text,
 .slide-normal.ng-leave.ng-leave-active bp-navbar bp-button,
-.slide-normal.ng-leave.ng-leave-active bp-navbar bp-icon,
-.slide-normal.ng-leave.ng-leave-active bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-normal.ng-leave.ng-leave-active bp-navbar .android bp-search,
-.slide-normal.ng-leave.ng-leave-active bp-navbar .ios bp-button.bp-button-back,
-.slide-normal.ng-leave.ng-leave-active bp-navbar .ios bp-search {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+.slide-normal.ng-leave.ng-leave-active bp-navbar bp-icon {
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   opacity: 0;
@@ -265,8 +406,8 @@
 }
 .slide-reverse.ng-enter {
   z-index: inherit;
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
 }
 .slide-reverse.ng-enter > * {
   -webkit-transform: translateX(-30%);
@@ -276,18 +417,14 @@
 }
 .slide-reverse.ng-enter > bp-navbar .bp-navbar-text,
 .slide-reverse.ng-enter > bp-navbar bp-button,
-.slide-reverse.ng-enter > bp-navbar bp-icon,
-.slide-reverse.ng-enter > bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-reverse.ng-enter > bp-navbar .android bp-search,
-.slide-reverse.ng-enter > bp-navbar .ios bp-button.bp-button-back,
-.slide-reverse.ng-enter > bp-navbar .ios bp-search {
+.slide-reverse.ng-enter > bp-navbar bp-icon {
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   opacity: 0;
 }
 .slide-reverse.ng-enter.ng-enter-active > * {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
   -webkit-filter: brightness(1);
@@ -299,25 +436,21 @@
 }
 .slide-reverse.ng-enter.ng-enter-active bp-navbar .bp-navbar-text,
 .slide-reverse.ng-enter.ng-enter-active bp-navbar bp-button,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar bp-icon,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar .android bp-search,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar .ios bp-button.bp-button-back,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar .ios bp-search {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+.slide-reverse.ng-enter.ng-enter-active bp-navbar bp-icon {
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
   opacity: 1;
 }
 .slide-reverse.ng-leave {
   z-index: 1000;
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
 }
 .slide-reverse.ng-leave > * {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
 }
@@ -328,13 +461,9 @@
 }
 .slide-reverse.ng-leave > bp-navbar .bp-navbar-text,
 .slide-reverse.ng-leave > bp-navbar bp-button,
-.slide-reverse.ng-leave > bp-navbar bp-icon,
-.slide-reverse.ng-leave > bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-reverse.ng-leave > bp-navbar .android bp-search,
-.slide-reverse.ng-leave > bp-navbar .ios bp-button.bp-button-back,
-.slide-reverse.ng-leave > bp-navbar .ios bp-search {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+.slide-reverse.ng-leave > bp-navbar bp-icon {
+  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
   opacity: 1;
@@ -349,180 +478,395 @@
 }
 .slide-reverse.ng-leave.ng-leave-active bp-navbar .bp-navbar-text,
 .slide-reverse.ng-leave.ng-leave-active bp-navbar bp-button,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar bp-icon,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar .android bp-search,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar .ios bp-button.bp-button-back,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar .ios bp-search {
+.slide-reverse.ng-leave.ng-leave-active bp-navbar bp-icon {
   -webkit-transform: translateX(50%);
   transform: translateX(50%);
   opacity: 0;
 }
-[ui-view] {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: start;
-  -webkit-box-align: stretch;
-  display: -webkit-box;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  z-index: 1;
-  -webkit-box-ordinal-group: 50;
-  -webkit-order: 50;
-  order: 50;
-}
-bp-screen,
-[bp-screen] {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  -webkit-box-flex: 1;
-}
-bp-screen,
-[bp-screen],
-bp-screen > div,
-[bp-screen] > div {
-  -webkit-box-ordinal-group: 50;
-  -webkit-order: 50;
-  order: 50;
-}
-bp-content,
-.bp-content {
-  display: block;
-  -webkit-box-flex: 1;
-  -webkit-box-ordinal-group: 50;
-  -webkit-order: 50;
-  order: 50;
-}
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
-  display: none !important;
-}
-/*
-# Relevant normalize parts
-*/
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
-button,
-input {
-  line-height: normal;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  appearance: button;
-}
-/*
-# Defaults
-*/
-html {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-  -webkit-text-size-adjust: 100%;
-}
 body {
-  margin: 0;
-  overflow: hidden;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
   -webkit-user-select: none;
+  user-select: none;
   height: 100%;
   width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-pack: start;
   -webkit-box-align: stretch;
   display: -webkit-box;
+  line-height: 150%;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
-a {
+body.ios {
+  color: #000000;
+  font-size: 17px;
+  font-family: HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, sans-serif;
+  font-weight: lighter;
+  font: -apple-system-body;
+}
+body.android {
+  color: #333333;
+  font-size: 17px;
+  font-family: Roboto Condensed, Roboto, sans-serif;
+}
+.ios bp-button {
+  color: #0069ff;
+  border: none;
   display: block;
+  font-weight: normal;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  -webkit-text-rendering: optimizeLegibility;
+}
+.ios bp-button.bp-active {
+  color: rgba(0, 105, 255, 0.5);
+}
+.ios bp-button.bp-button-back:before {
+  display: inline-block;
+  font-size: 20px;
+  margin-left: -3px;
+  margin-right: 0px;
+}
+.ios bp-button.bp-button-forward:after {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 44px;
+  height: 44px;
+  margin-left: -5px;
+  margin-right: -3px;
+}
+.ios bp-button.disabled,
+.ios bp-button[disabled] {
+  cursor: default;
+  pointer-events: none;
+  color: #cccccc;
+}
+.android bp-button {
+  display: block;
+  position: relative;
+  border: none;
+  -webkit-border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  border-radius: 2px;
+  background-clip: padding-box;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  color: #333333;
+  font-size: 17px;
+  text-align: center;
+  -webkit-text-rendering: optimizeLegibility;
+  background-color: #cecece;
+  -webkit-box-shadow: inset 0px -1px #bebebe;
+  box-shadow: inset 0px -1px #bebebe;
+}
+.android bp-button.bp-active {
+  background-color: #5ac2e9;
+  -webkit-box-shadow: inset 0px -1px #4697b6, 0px 0px 0px 2px #afdceb;
+  box-shadow: inset 0px -1px #4697b6, 0px 0px 0px 2px #afdceb;
+}
+.android bp-button.disabled,
+.android bp-button[disabled] {
+  opacity: 0.7;
+}
+.ios bp-cell {
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  -webkit-box-shadow: inset 0px 1px #d6d6d6;
+  box-shadow: inset 0px 1px #d6d6d6;
+  color: inherit;
+  font-size: inherit;
+  height: 44px;
+  line-height: 44px;
+  list-style: none;
+  margin: 0 13px;
+}
+.ios bp-cell.bp-active {
+  position: relative;
+  z-index: 1000;
+  background-color: #d6d6d6;
+  -webkit-box-shadow: 0px 1px #d6d6d6;
+  box-shadow: 0px 1px #d6d6d6;
+}
+.ios bp-cell.bp-cell-value1 .value {
+  color: #8c8c8c;
+}
+.ios bp-cell.bp-cell-value2 .label {
+  color: #0069ff;
+}
+.ios bp-cell.bp-cell-disclosure:after {
+  color: #d6d6d6;
+  font-size: 0.8em;
+  content: '\e001';
+}
+.ios bp-cell.bp-cell-disclosure.bp-active:after {
+  color: #8c8c8c;
+}
+.ios bp-cell.bp-cell-checkmark:after {
+  font-size: 0.8em;
+  content: '\e002';
+  color: #0069ff;
+}
+.ios bp-cell:first-child {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ios bp-cell > div,
+.ios bp-cell > span,
+.ios bp-cell > input,
+.ios bp-cell > label,
+.ios bp-cell > select {
+  display: block;
+  -webkit-box-flex: 1;
+}
+.ios bp-cell.bp-active {
+  padding: 0 13px;
+  margin: 0;
+}
+.ios bp-cell.bp-cell-value1 .value {
+  display: block;
+  max-width: 65%;
+  -webkit-box-flex: 0;
+  margin-left: 8px;
+  text-align: right;
+  font-weight: 200;
+}
+.ios bp-cell.bp-cell-value1 select.value {
+  -webkit-box-flex: 0;
+}
+.ios bp-cell.bp-cell-value1 label,
+.ios bp-cell.bp-cell-value1 .label {
+  max-width: 65%;
+  -webkit-box-flex: 1;
+}
+.ios bp-cell.bp-cell-value2 .value {
+  display: block;
+  margin-left: 8px;
+  width: 65%;
+  font-weight: 200;
+  color: black;
+}
+.ios bp-cell.bp-cell-value2 .label {
+  font-size: 0.8em;
+  text-align: right;
+  width: 35%;
+}
+.ios bp-cell.bp-cell-subtitle .titles {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: start;
+  display: -webkit-box;
+}
+.ios bp-cell.bp-cell-subtitle .titles .title,
+.ios bp-cell.bp-cell-subtitle .titles .subtitle {
+  width: 100%;
+}
+.ios bp-cell.bp-cell-subtitle .titles .title {
+  font-size: 1em;
+  height: 24px;
+  line-height: 26px;
+}
+.ios bp-cell.bp-cell-subtitle .titles .subtitle {
+  font-size: 0.8em;
+  height: 18px;
+  line-height: 14px;
+}
+.android bp-cell {
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  color: inherit;
+  -webkit-box-shadow: inset 0px -1px #d9d9d9;
+  box-shadow: inset 0px -1px #d9d9d9;
+  background: transparent;
+  font-size: inherit;
+  list-style: none;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 8px;
+  margin: 0 16px;
+}
+.android bp-cell.bp-active {
+  background-color: #afdceb;
   color: inherit;
 }
-a:link,
-a:visited {
-  color: inherit;
-  text-decoration: none;
+.android bp-cell .value {
+  color: #ababab;
 }
-.borderBox,
-.android input,
-.android select,
-.android option,
-.android bp-cell,
-.android .bp-cell-value2 .value,
-.android .bp-cell-value2 .label,
-.android bp-navbar,
-.android bp-tabbar,
-.android bp-tabbar > bp-tab,
-.android bp-table-header,
-.android bp-table-grouped-header,
-.android bp-table-grouped-footer,
-.ios input,
-.ios select,
-.ios option,
-.ios bp-cell,
-.ios .bp-cell-value2 .value,
-.ios .bp-cell-value2 .label,
-.ios bp-navbar,
-.ios bp-tabbar,
-.ios bp-tabbar > bp-tab,
-.ios bp-table-header,
-.ios bp-table-grouped-header,
-.ios bp-table-grouped-footer {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+.android bp-cell.bp-cell-subtitle .titles .subtitle {
+  color: #ababab;
 }
-.contentBox {
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
+.android bp-cell > div,
+.android bp-cell > span,
+.android bp-cell > input,
+.android bp-cell > label {
+  display: block;
+  -webkit-box-flex: 1;
+}
+.android bp-cell label,
+.android bp-cell .label {
+  display: block;
+  -webkit-box-flex: 1;
+}
+.android bp-cell .value {
+  display: block;
+  max-width: 65%;
+  -webkit-box-flex: 0;
+  margin-left: 8px;
+  text-align: right;
+}
+.android bp-cell.bp-cell-subtitle .titles {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: start;
+  display: -webkit-box;
+}
+.android bp-cell.bp-cell-subtitle .titles .title,
+.android bp-cell.bp-cell-subtitle .titles .subtitle {
+  width: 100%;
+}
+.android bp-cell.bp-cell-subtitle .titles .title {
+  font-size: 18px;
+  height: 24px;
+  line-height: 24px;
+}
+.android bp-cell.bp-cell-subtitle .titles .subtitle {
+  font-size: 18px;
+  height: 24px;
+  line-height: 24px;
+}
+.android bp-cell.bp-cell-disclosure:after {
+  font-size: 0.8em;
+  content: '\e001';
+  color: #333333;
+}
+.android bp-cell.bp-cell-checkmark:after {
+  font-size: 0.8em;
+  content: '\e002';
+  color: #333333;
+}
+bp-content,
+[bp-content],
+.bp-content,
+bp-table {
+  position: relative;
+  display: block;
+  -webkit-box-flex: 1;
+  -webkit-box-ordinal-group: 50;
+  -webkit-order: 50;
+  order: 50;
+}
+.ios bp-content,
+.ios [bp-content],
+.ios .bp-content,
+.ios bp-table {
+  background-color: #ffffff;
+}
+.android bp-content,
+.android [bp-content],
+.android .bp-content,
+.android bp-table {
+  background-color: #ededed;
+}
+.ios bp-detail-disclosure {
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+.ios bp-detail-disclosure:before {
+  border: 1px solid #0069ff;
+  color: #0069ff;
+}
+.ios bp-detail-disclosure.bp-active:before {
+  color: rgba(0, 105, 255, 0.5);
+  border: 1px solid rgba(0, 105, 255, 0.5);
+}
+.ios bp-detail-disclosure:before {
+  -webkit-border-radius: 100%;
+  -webkit-background-clip: padding-box;
+  border-radius: 100%;
+  background-clip: padding-box;
+  position: absolute;
+  display: block;
+  content: 'i';
+  font-size: 18px;
+  font-family: Didot, serif;
+  font-weight: bold;
+  line-height: 20px;
+  width: 20px;
+  height: 20px;
+  margin: 11px;
+  text-align: center;
+}
+.android bp-detail-disclosure {
+  display: none;
+  visibility: hidden;
+  speak: none;
 }
 @font-face {
   font-family: 'bp-system';
-  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAWkAAsAAAAACBQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAABCAAAAnkAAAMHpxcN9UZGVE0AAAOEAAAAGgAAABxn/1PWR0RFRgAAA6AAAAAcAAAAIAAyAARPUy8yAAADvAAAAEsAAABgLwTbK2NtYXAAAAQIAAAAPQAAAVLgFPLNaGVhZAAABEgAAAAwAAAANvyg8QNoaGVhAAAEeAAAAB4AAAAkA2r/xGhtdHgAAASYAAAAEAAAABAD0gAAbWF4cAAABKgAAAAGAAAABgAFUABuYW1lAAAEsAAAAOgAAAHL0TYnMXBvc3QAAAWYAAAADAAAACAAAwAAeJxVUm1Ik1EYfe7cF7Km1rTQOb9QSxG2+Y0gyVpgRoSsrBhkpaVho3JGkvSjfmi9kYKDkCIEJUxEIimMIgfmIqUEK9K0MEmRCqZB8WLq6XmTBP+c59z3ufec5577ClKrSQhhPFB8otpzKqO2vtZbeYaEigQVynEqOT5E3qaWDCGSQW0JpUS7CZK0Tgw6qUR2ySaNmTrCzEThZuqJMJPerMJm0ioaegqjKIqlNMqt81TvtlqtXJzrxbZW7BvcN45CJBpFk7gmrpNGUVSRQfSptCqnUZJN6mWX7NIZIQZa4oE5e0YkY+cR4Ov+OaDRWgHy3DupAT6tPAS+BL4B73VBYKFHAt7N2xQsG1WwIAkU1pfJO53loLhRN/B4XyTIcXkJWPrDQue9l5RlNqj4QQIoqXcClPLrCsg6lgHaMuhiJvvA82pB6V22/yyQzH4lAVDi0wpg2toJcoaYAP9wIUg/ZAFutU0CryrL2bL+kB7wNLP752QL26e2X5XYJiIVFD7QAIp+fhEUm5kDynoSBcpvmQWWI7aDDvf7gMC5FG70twKzbx+BtsqlrKOc3ZTpBaZu7JFYHatLWmDcvUOhMjARjAGCRdyZLRoGZl6PcYYX1JxhLGf2c5x1Jz/sBYn7ucDHvFZmXbXM8tt4pl13OLEEvmbMTDMfqxvkEdMdwLxuAZQQnGaBkZcclveZpDeCSqt+QzgWu/lmHYvdgNt4UAHTGlDB3WzgxbERpftdgR/Kt5z1RtPakjeX/RPQ8MvflMMhSmv0/PLaPB9WV87yn3BbGbhm6jQwWmUH3kS3g3z+IuC4fwgi7WgDRFbdTo1RdpmkSMkQ+hf5WH61AAAAeJxjYGBgZACCM7aLzoPosw9uNMNoAFYdCIwAAHicY2BkYGDgA2IJBhBgYmAEQhYwBvEYAAR2ADd4nGNgZjzAOIGBlYGDUZnRkoGBwQ5KX2cQYyhmYGBiYGVmgAMBBJMhIM01hcHhAcMHBsaG/wcYNBgbGBwaGBgY4QoUgJARAPw4CzEAeJxjYGBgZoBgGQZGBhDwAfIYwXwWBgMgzQGETCCJB0wfGP7/B7MYICwFJgFGqC4wYGRjQOaOSAAAy6gIsAAAAHicY2BkYGAA4qLAr17x/DZfGbgZDwBFGM4+uNGMoP8fYDzA2ADkcjAwgUQBdtMNi3icY2BkYGBs+H+AQYPxAAPDPwcgCRRBAcwAhBcFLgAAAcAAAAAAAAABwAAAAFIAAAAAUAAABQAAeJyVjjFqw0AQRd/assA4blOYFNsFByS0ijHBTTqD24B9AbMIFZFAUuNzBHwbHyQnyDGSL2VTuAgkC8O8mfnzd4Abzhj6Z5hzF3hEzFPgMUveAkfSvAeeMOMzcMzc3Etpoqk6i2Gr55H8HwKPeeE5cCTNJfCEWz4CxyzMjD07jpRUFCS0nBQdnlfY745lVSTtqe28yqvZT3NLrdVuyI0sPJaclEx5o/jd/nvuWKm/VuTacTzKsq66bd0U3uZpZjf26gzVbpWskzxzkv79+IO6jablcG//b38jB9+0ZV1Zl2b/cPsCIUtKKnicY2BmwAsAAH0ABA==) format('woff'), url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+  src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-.bp-icon-search:before,
-.android bp-search:before,
-.ios bp-search:before {
-  content: '\e000';
+bp-icon:before {
+  display: inline-block;
+  font-family: 'bp-app';
+  font-style: normal;
+  font-size: 1em;
+  line-height: 1em;
+  font-variant: normal;
+  font-weight: normal;
+  text-align: center;
+  text-decoration: inherit;
+  text-transform: none;
+  speak: none;
+  -webkit-box-flex: 0;
+  -webkit-font-smoothing: antialiased;
 }
+.bp-icon-system:before,
+.ios bp-cell.bp-cell-disclosure:after,
+.ios bp-cell.bp-cell-checkmark:after,
+.android bp-cell.bp-cell-disclosure:after,
+.android bp-cell.bp-cell-checkmark:after,
+.bp-icon-search:before,
 .bp-icon-chevron-right:before,
+.bp-icon-check:before,
+.ios bp-button.bp-button-forward:after,
 .bp-icon-chevron-left:before,
 .bp-icon-chevron-up:before,
 .bp-icon-chevron-down:before,
+.ios bp-search:before,
+.android bp-search:before,
+.ios bp-button.bp-button-back:before,
+.android bp-navbar bp-button.bp-button-back:first-child:before {
+  font-family: 'bp-system';
+}
+.bp-icon-search:before,
+.ios bp-search:before,
+.android bp-search:before {
+  content: '\e000';
+}
+.bp-icon-chevron-right:before,
 .ios bp-button.bp-button-forward:after,
-.android bp-navbar bp-button.bp-button-back:first-child:before,
-.ios bp-button.bp-button-back:before {
+.bp-icon-chevron-left:before,
+.bp-icon-chevron-up:before,
+.bp-icon-chevron-down:before,
+.ios bp-button.bp-button-back:before,
+.android bp-navbar bp-button.bp-button-back:first-child:before {
   content: '\e001';
 }
 .bp-icon-chevron-left:before,
-.android bp-navbar bp-button.bp-button-back:first-child:before,
-.ios bp-button.bp-button-back:before {
+.ios bp-button.bp-button-back:before,
+.android bp-navbar bp-button.bp-button-back:first-child:before {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
@@ -537,47 +881,12 @@ a:visited {
 .bp-icon-check:before {
   content: '\e002';
 }
-bp-icon:before,
-.android .bp-cell-disclosure:after,
-.android .bp-cell-checkmark:after,
-.android bp-navbar bp-button.bp-button-back:first-child:before,
-.android bp-search:before,
-.ios bp-button.bp-button-back:before,
-.ios bp-button.bp-button-forward:after,
-.ios .bp-cell-disclosure:after,
-.ios .bp-cell-checkmark:after,
-.ios bp-search:before {
-  display: inline-block;
-  font-family: 'bp-app';
-  font-style: normal;
-  font-size: 1.5em;
-  font-variant: normal;
-  font-weight: normal;
-  margin: 0 0.3em;
-  text-align: center;
-  text-decoration: inherit;
-  text-transform: none;
-  speak: none;
-  -webkit-box-flex: 0;
-  -webkit-font-smoothing: antialiased;
+.iScrollVerticalScrollbar {
+  width: 2px !important;
+  right: 2px !important;
 }
-.bp-icon-system:before,
-.bp-icon-search:before,
-.bp-icon-chevron-right:before,
-.bp-icon-check:before,
-.android .bp-cell-disclosure:after,
-.android .bp-cell-checkmark:after,
-.ios .bp-cell-disclosure:after,
-.ios .bp-cell-checkmark:after,
-.bp-icon-chevron-left:before,
-.bp-icon-chevron-up:before,
-.bp-icon-chevron-down:before,
-.android bp-search:before,
-.ios bp-button.bp-button-forward:after,
-.ios bp-search:before,
-.android bp-navbar bp-button.bp-button-back:first-child:before,
-.ios bp-button.bp-button-back:before {
-  font-family: 'bp-system';
+.iScrollIndicator {
+  border: none !important;
 }
 [bp-iscroll] {
   position: relative;
@@ -589,12 +898,184 @@ bp-iscroll-wrapper {
   display: block;
   width: 100%;
 }
-.iScrollVerticalScrollbar {
-  width: 2px !important;
-  right: 2px !important;
-}
 .iScrollIndicator {
-  border: none !important;
+  border-radius: none !important;
+}
+#loading-bar .peg,
+#loading-bar-spinner {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  speak: none !important;
+}
+#loading-bar {
+  pointer-events: none;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+#loading-bar.ng-enter,
+#loading-bar.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+#loading-bar.ng-enter.ng-enter-active,
+#loading-bar.ng-leave {
+  opacity: 1;
+}
+#loading-bar .bar {
+  -webkit-transition: width 500ms;
+  transition: width 500ms;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+.ios #loading-bar .bar {
+  top: 42px;
+  background-color: #0069ff;
+}
+@media only screen and (orientation: landscape) and (max-height: 480px) {
+  .ios #loading-bar .bar {
+    top: 31px !important;
+  }
+}
+.android #loading-bar .bar {
+  top: 0;
+  background-color: #5ac2e9;
+}
+bp-navbar {
+  -webkit-box-ordinal-group: 10;
+  -webkit-order: 10;
+  order: 10;
+}
+.ios bp-navbar {
+  background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
+  background-image: linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
+  background-color: #f8f8f8;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left bottom;
+  height: 44px;
+  padding: 0 8px;
+  width: 100%;
+}
+.ios bp-navbar .bp-navbar-text {
+  color: inherit;
+}
+.ios bp-navbar .before {
+  margin-right: 8px;
+}
+.ios bp-navbar .after {
+  margin-left: 8px;
+}
+.ios bp-navbar .bp-navbar-text {
+  font-size: inherit;
+  text-align: center;
+  display: block;
+  font-weight: bolder;
+  font: -apple-system-headline;
+  -webkit-box-flex: 1;
+}
+@media only screen and (orientation: landscape) and (max-height: 480px) {
+  .ios bp-navbar {
+    height: 33px;
+  }
+  .ios bp-navbar bp-button {
+    min-width: 33px;
+    height: 33px;
+    line-height: 33px;
+  }
+}
+.android bp-navbar {
+  background: #dddddd;
+  -webkit-box-shadow: inset 0px -2px #d2d2d2, 0px 0px 1px #000000;
+  box-shadow: inset 0px -2px #d2d2d2, 0px 0px 1px #000000;
+  position: relative;
+  height: 48px;
+  padding: 0 8px;
+  width: 100%;
+}
+.android bp-navbar .bp-navbar-text {
+  color: #333333;
+}
+.android bp-navbar[disabled],
+.android bp-navbar.disabled {
+  color: rgba(51, 51, 51, 0.3);
+}
+.android bp-navbar bp-icon {
+  color: rgba(51, 51, 51, 0.6);
+}
+.android bp-navbar bp-icon.bp-active {
+  background-color: #afdceb;
+}
+.android bp-navbar bp-button.bp-button-back:first-child:before {
+  color: rgba(51, 51, 51, 0.6);
+}
+.android bp-navbar bp-button.bp-button-back:first-child.bp-active {
+  background-color: #afdceb;
+}
+.android bp-navbar .bp-navbar-text {
+  overflow: visible;
+  position: relative;
+  font-size: inherit;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 40px;
+  -webkit-box-flex: 1;
+}
+.android bp-navbar .bp-navbar-text:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: -34px;
+  pointer-events: none;
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  -webkit-background-size: 30px 30px;
+  background-size: 30px 30px;
+  background-image: url(favicon.ico), -webkit-linear-gradient(#a9a9a9, #a9a9a9);
+  background-image: url(favicon.ico), linear-gradient(#a9a9a9, #a9a9a9);
+}
+.android bp-navbar bp-icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+}
+.android bp-navbar bp-icon:last-child {
+  margin-right: -8px;
+}
+.android bp-navbar bp-button {
+  margin-left: 8px;
+}
+.android bp-navbar bp-button.bp-button-back:first-child {
+  -webkit-border-radius: 0px;
+  -webkit-background-clip: padding-box;
+  border-radius: 0px;
+  background-clip: padding-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  position: absolute;
+  top: 0px;
+  left: -8px;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+}
+.android bp-navbar bp-button.bp-button-back:first-child:before {
+  -webkit-transform: scale(1, 1.5) rotate(180deg);
+  transform: scale(1, 1.5) rotate(180deg);
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  font-size: 12px;
 }
 bp-scroll,
 [bp-scroll] {
@@ -622,347 +1103,106 @@ bp-search {
   -webkit-order: 15;
   order: 15;
 }
-bp-table {
-  -webkit-box-ordinal-group: 50;
-  -webkit-order: 50;
-  order: 50;
-  display: block;
-  margin: 0;
-  padding: 0;
+.ios bp-search {
+  background: #c9c9c9;
+  overflow: hidden;
+  height: 44px;
+  padding: 0 6px;
+  position: relative;
 }
-#loading-bar {
+.ios bp-search:before {
+  -webkit-transition: left 0.3s ease;
+  transition: left 0.3s ease;
   pointer-events: none;
-  -webkit-transition: 0.5s linear all;
-  transition: 0.5s linear all;
+  color: #8c8c8c;
+  font-size: 14px;
+  line-height: 44px;
+  height: 44px;
+  width: 44px;
+  text-align: center;
+  z-index: 100;
+  position: absolute;
+  left: 50%;
+  margin-left: -38px;
 }
-#loading-bar.ng-enter,
-#loading-bar.ng-leave.ng-leave-active {
+.ios bp-search.focus:before {
+  left: 38px;
+}
+.ios bp-search bp-button {
+  -webkit-opacity: 0;
   opacity: 0;
-}
-#loading-bar.ng-enter.ng-enter-active,
-#loading-bar.ng-leave {
-  opacity: 1;
-}
-#loading-bar .bar {
-  -webkit-transition: width 500ms;
-  transition: width 500ms;
-  position: fixed;
-  z-index: 99999;
-  left: 0;
-  width: 100%;
-  height: 2px;
-}
-#loading-bar .peg,
-#loading-bar-spinner {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  speak: none !important;
-}
-.android {
-  /*
-# Elements
-*/
-}
-.android bp-content,
-.android .bp-content,
-.android bp-table {
-  background-color: #ededed;
-}
-.android body,
-.android {
-  font: 100%/150% Roboto Condensed, sans-serif;
-}
-.android input,
-.android select,
-.android option {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  border: none;
-  width: 100%;
-  display: block;
-  padding: 0 8px;
-  height: 30px;
-  background-repeat: no-repeat;
-  -webkit-background-size: 2px 5px, 2px 5px;
-  background-size: 2px 5px, 2px 5px;
-  background-position: right bottom, left bottom;
-  background-image: -webkit-linear-gradient(#ababab, #ababab), -webkit-linear-gradient(#ababab, #ababab);
-  background-image: linear-gradient(#ababab, #ababab), linear-gradient(#ababab, #ababab);
-  border-bottom: 2px solid #ABABAB;
-}
-.android input:focus,
-.android select:focus,
-.android option:focus {
-  outline: none;
-}
-.android input:-webkit-input-placeholder,
-.android select:-webkit-input-placeholder,
-.android option:-webkit-input-placeholder {
-  color: #ABABAB;
-}
-.android input:focus,
-.android select:focus,
-.android option:focus {
-  background-image: -webkit-linear-gradient(#5ac2e9, #5ac2e9), -webkit-linear-gradient(#5ac2e9, #5ac2e9);
-  background-image: linear-gradient(#5ac2e9, #5ac2e9), linear-gradient(#5ac2e9, #5ac2e9);
-  border-bottom: 2px solid #5ac2e9;
-}
-.android bp-button:not(bp-icon) {
-  -webkit-border-radius: 2px;
-  -webkit-background-clip: padding-box;
-  border-radius: 2px;
-  background-clip: padding-box;
-  display: block;
-  position: relative;
-  border: none;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 10px;
-  color: #333333;
-  font-size: 12px;
-  text-align: center;
-  -webkit-text-rendering: optimizeLegibility;
-  background-color: #cecece;
-  -webkit-box-shadow: inset 0px -1px #bebebe;
-  box-shadow: inset 0px -1px #bebebe;
-}
-.android bp-button:not(bp-icon).bp-active {
-  background-color: #5ac2e9;
-  -webkit-box-shadow: inset 0px -1px #4697b6, 0px 0px 0px 2px #afdceb;
-  box-shadow: inset 0px -1px #4697b6, 0px 0px 0px 2px #afdceb;
-}
-.android bp-button:not(bp-icon).disabled,
-.android bp-button:not(bp-icon)[disabled] {
-  opacity: 0.7;
-}
-.android bp-cell {
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: start;
-  -webkit-box-align: center;
-  display: -webkit-box;
-  color: #333333;
-  background: transparent;
-  font-size: 20px;
-  height: 48px;
-  line-height: 48px;
-  list-style: none;
-  padding: 0 8px;
-  margin: 0 16px;
-  -webkit-box-shadow: inset 0px -1px #d9d9d9;
-  box-shadow: inset 0px -1px #d9d9d9;
-}
-.android bp-cell > div,
-.android bp-cell > span {
-  display: block;
-  -webkit-box-flex: 1;
-}
-.android bp-cell.bp-active {
-  background-color: #afdceb;
-  color: inherit;
-}
-.android .bp-cell-value1 .label {
-  font-weight: bold;
-  -webkit-box-flex: 1;
-}
-.android .bp-cell-value1 .value {
-  display: block;
-  min-width: 10%;
-  max-width: 30%;
-  -webkit-box-flex: 10;
-  color: #ABABAB;
-  margin-left: 13px;
-  text-align: right;
-}
-.android .bp-cell-value1 select.value {
-  width: auto;
-  -webkit-border-radius: 0px;
-  -webkit-background-clip: padding-box;
-  border-radius: 0px;
-  background-clip: padding-box;
-  -webkit-box-flex: 0;
-}
-.android .bp-cell-value2 .value {
-  display: block;
-  font-weight: bold;
-  margin-left: 13px;
-  width: 65%;
-}
-.android .bp-cell-value2 .label {
-  color: #ABABAB;
-  font-size: 0.9em;
-  text-align: right;
-  width: 35%;
-}
-.android .bp-cell-subtitle .titles {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: center;
-  -webkit-box-align: start;
-  display: -webkit-box;
-}
-.android .bp-cell-subtitle .titles .title,
-.android .bp-cell-subtitle .titles .subtitle {
-  width: 100%;
-}
-.android .bp-cell-subtitle .titles .title {
-  font-size: 18px;
-  height: 24px;
-  line-height: 24px;
-}
-.android .bp-cell-subtitle .titles .subtitle {
-  color: #ABABAB;
-  font-size: 18px;
-  height: 24px;
-  line-height: 24px;
-}
-.android .bp-cell-disclosure:after {
-  font-size: 0.8em;
-  content: '\e001';
-  color: #333333;
-}
-.android .bp-cell-checkmark:after {
-  font-size: 0.8em;
-  content: '\e002';
-  color: #333333;
-}
-.android bp-detail-disclosure {
-  display: none;
-  visibility: hidden;
-  speak: none;
-}
-.android .iScrollIndicator {
-  border-radius: none !important;
-}
-.android bp-navbar {
-  position: relative;
-  height: 48px;
-  padding: 0 8px;
-  width: 100%;
-  -webkit-box-ordinal-group: 10;
-  -webkit-order: 10;
-  order: 10;
-  background: #dddddd;
-  -webkit-box-shadow: inset 0px -2px #d2d2d2, 0px 0px 1px black;
-  box-shadow: inset 0px -2px #d2d2d2, 0px 0px 1px black;
-}
-.android bp-navbar > * {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.android .bp-navbar-text {
-  overflow: visible;
-  position: relative;
-  font-size: 18px;
-  color: #333333;
-  display: block;
-  height: 40px;
-  line-height: 40px;
-  margin-left: 40px;
-  -webkit-box-flex: 1;
-}
-.android .bp-navbar-text:before {
-  content: '';
-  display: block;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   position: absolute;
-  top: 5px;
-  left: -34px;
+  right: 6px;
   pointer-events: none;
-  width: 30px;
-  height: 30px;
-  -webkit-background-size: 30px 30px;
-  background-size: 30px 30px;
-  background-repeat: no-repeat;
-  background-image: -webkit-linear-gradient(#a9a9a9, #a9a9a9);
-  background-image: linear-gradient(#a9a9a9, #a9a9a9);
+  speak: none;
+  padding: 0 6px;
 }
-.android bp-navbar bp-icon,
-.android bp-navbar .android bp-navbar bp-button.bp-button-back:first-child,
-.android bp-navbar .android bp-search,
-.android bp-navbar .ios bp-button.bp-button-back,
-.android bp-navbar .ios bp-search {
-  color: rgba(51, 51, 51, 0.6);
+.ios bp-search.focus bp-button {
+  -webkit-transition: all 0.3s linear 0.3s;
+  transition: all 0.3s linear 0.3s;
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+  -webkit-opacity: 1;
+  opacity: 1;
+  speak: normal;
+  pointer-events: auto;
+}
+.ios bp-search input[type=search] {
+  -webkit-border-radius: 6px;
+  -webkit-background-clip: padding-box;
+  border-radius: 6px;
+  background-clip: padding-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: width 0.1s ease 0.3s;
+  transition: width 0.1s ease 0.3s;
+  position: relative;
+  font-size: 14px;
+  background-color: white;
+  border: none;
   display: block;
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
-  text-align: center;
-  font-size: 16px;
-  /*
-    Used to adjust Focal area & proportions as described here
-    http://developer.android.com/design/style/iconography.html
-    Do not use this in production
-  */
+  height: 32px;
+  padding: 0 24px;
+  width: 100%;
 }
-.android bp-navbar bp-icon:last-child,
-.android bp-navbar .android bp-navbar bp-button.bp-button-back:first-child:last-child,
-.android bp-navbar .android bp-search:last-child,
-.android bp-navbar .ios bp-button.bp-button-back:last-child,
-.android bp-navbar .ios bp-search:last-child {
-  margin-right: -8px;
+.ios bp-search input[type=search]::-webkit-input-placeholder {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease,-moz-transform 0.3s ease,-o-transform 0.3s ease,transform 0.3s ease;
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+  color: #8c8c8c;
 }
-.android bp-navbar bp-icon.bp-active,
-.android bp-navbar .android bp-navbar bp-button.bp-button-back:first-child.bp-active,
-.android bp-navbar .android bp-search.bp-active,
-.android bp-navbar .ios bp-button.bp-button-back.bp-active,
-.android bp-navbar .ios bp-search.bp-active {
-  background-color: #afdceb;
+.ios bp-search input[type=search]:focus::-webkit-input-placeholder {
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
 }
-.android bp-navbar bp-icon[disabled],
-.android bp-navbar bp-icon.disabled,
-.android bp-navbar .android bp-navbar bp-button.bp-button-back:first-child[disabled],
-.android bp-navbar .android bp-navbar bp-button.bp-button-back:first-child.disabled,
-.android bp-navbar .android bp-search[disabled],
-.android bp-navbar .android bp-search.disabled,
-.android bp-navbar .ios bp-button.bp-button-back[disabled],
-.android bp-navbar .ios bp-button.bp-button-back.disabled,
-.android bp-navbar .ios bp-search[disabled],
-.android bp-navbar .ios bp-search.disabled {
-  color: rgba(51, 51, 51, 0.3);
-}
-.android bp-navbar bp-button {
-  margin-left: 8px;
-}
-.android bp-navbar bp-button.bp-button-back:first-child {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  position: absolute;
-  top: 0px;
-  left: -8px;
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
-  padding: 0;
-  background: transparent;
-  color: transparent;
-}
-.android bp-navbar bp-button.bp-button-back:first-child:before {
-  position: absolute;
-  left: -2px;
-  font-size: 12px;
-  color: rgba(51, 51, 51, 0.6);
-}
-.android bp-navbar bp-button.bp-button-back:first-child.bp-active {
-  background-color: #afdceb;
+.ios bp-search .focus input[type=search] {
+  -webkit-transition: width 0.3s ease 0.1s;
+  transition: width 0.3s ease 0.1s;
 }
 .android bp-search {
   background: #dddddd;
   -webkit-box-shadow: inset 0px -2px #d2d2d2;
   box-shadow: inset 0px -2px #d2d2d2;
   height: 48px;
-  padding: 0 16px;
+  padding: 0 8px;
   margin: 0;
   position: relative;
   overflow: hidden;
 }
 .android bp-search:before {
-  color: #ABABAB;
-  line-height: 48px;
-  font-size: 16px;
-  pointer-events: none;
-  content: '\e000';
   position: absolute;
-  left: 16px;
+  left: 8px;
+  width: 24px;
+  text-align: center;
+  content: '\e000';
+  pointer-events: none;
+  line-height: 48px;
+  color: #ababab;
 }
 .android bp-search bp-button {
   -webkit-opacity: 0;
@@ -972,13 +1212,14 @@ bp-table {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: absolute;
-  right: 24px;
+  right: 8px;
   top: 4px;
   speak: none;
   pointer-events: none;
 }
 .android bp-search.focus bp-button {
-  -webkit-transform: translateX(0);
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
   -webkit-opacity: 1;
   opacity: 1;
   speak: normal;
@@ -987,62 +1228,83 @@ bp-table {
 .android bp-search input[type=search] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  font-size: 14px;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  display: block;
-  height: 30px;
-  position: relative;
-  padding: 0 13px 0 26px;
-  margin-top: 0;
-  width: 100%;
   -webkit-transition: width 0.3s ease;
   transition: width 0.3s ease;
-  border: none;
-  border-bottom: 2px solid #ABABAB;
-  -webkit-border-radius: 0px;
-  -webkit-background-clip: padding-box;
-  border-radius: 0px;
-  background-clip: padding-box;
+  height: 30px;
+  font-size: 14px;
+  display: block;
+  position: relative;
+  padding: 0 12px 0 24px;
+  margin-top: 0;
+  width: 100%;
 }
-.android bp-search input[type=search]:focus {
-  border-bottom: 2px solid #5ac2e9;
-}
-.android bp-tabbar {
+.ios bp-tabbar {
+  background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
+  background-image: linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
+  background-color: #f8f8f8;
+  -webkit-box-ordinal-group: 90;
+  -webkit-order: 90;
+  order: 90;
   height: 50px;
   width: 100%;
-  background-color: #dddddd;
-  color: #333333;
-  -webkit-box-ordinal-group: 20;
-  -webkit-order: 20;
-  order: 20;
-  -webkit-box-shadow: inset 0px -3px #cecece;
-  box-shadow: inset 0px -3px #cecece;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
 }
-.android bp-tabbar > bp-tab {
+.ios bp-tab {
   -webkit-box-orient: vertical;
   -webkit-box-pack: start;
   -webkit-box-align: center;
   display: -webkit-box;
+  color: #8c8c8c;
+  -webkit-box-flex: 1;
+  height: 100%;
+}
+.ios bp-tab.bp-tab-active {
+  color: #0069ff;
+}
+.ios bp-tab bp-icon {
+  display: block;
+  height: 32px;
+  font-size: 16px;
+  line-height: 32px;
+}
+.ios bp-tab span {
+  display: block;
+  height: 15px;
+  font-size: 11px;
+  line-height: 15px;
+  font: -apple-system-caption2;
+}
+.android bp-tabbar {
+  -webkit-box-ordinal-group: 20;
+  -webkit-order: 20;
+  order: 20;
+  -webkit-box-shadow: inset 0px -3px #d2d2d2;
+  box-shadow: inset 0px -3px #d2d2d2;
+  background-color: #fcfcfc;
+  height: 50px;
+  width: 100%;
+}
+.android bp-tab {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  color: #333333;
   display: block;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   height: 100%;
   -webkit-box-flex: 1;
 }
-.android bp-tabbar > bp-tab bp-icon,
-.android bp-tabbar > bp-tab .android bp-navbar bp-button.bp-button-back:first-child,
-.android bp-tabbar > bp-tab .android bp-search,
-.android bp-tabbar > bp-tab .ios bp-button.bp-button-back,
-.android bp-tabbar > bp-tab .ios bp-search {
-  display: none;
-}
-.android bp-tabbar > bp-tab.bp-tab-active {
-  border-top: 6px solid transparent;
+.android bp-tab.bp-tab-active {
   border-bottom: 6px solid rgba(90, 194, 233, 0.6);
 }
-.android bp-tabbar > bp-tab span {
+.android bp-tab bp-icon {
+  display: none;
+}
+.android bp-tab span {
   display: block;
   width: 100%;
   text-align: center;
@@ -1052,7 +1314,100 @@ bp-table {
   font-size: 11px;
   font-weight: bold;
   text-transform: uppercase;
-  border-right: 1px solid #cecece;
+  border-right: 1px solid #ededed;
+}
+.bp-android-table-header {
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  -webkit-box-shadow: inset 0px -2px #5ac2e9;
+  box-shadow: inset 0px -2px #5ac2e9;
+  background-color: transparent;
+  color: #333333;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 48px;
+  line-height: 48px;
+  margin: 0 16px;
+  padding: 8px 8px 0;
+}
+bp-table {
+  -webkit-box-ordinal-group: 50;
+  -webkit-order: 50;
+  order: 50;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.ios bp-table.bp-table-grouped {
+  background-color: #e5e5e5;
+}
+.ios bp-table.bp-table-grouped bp-table {
+  margin: 25px 0;
+  background-color: white;
+  border-top: 1px solid #d6d6d6;
+  border-bottom: 1px solid #d6d6d6;
+}
+.ios bp-table.bp-table-grouped bp-table + bp-table-grouped-footer {
+  margin-top: -20px;
+}
+.ios bp-table.bp-table-grouped bp-cell {
+  margin: 0;
+  padding-right: 13px;
+  padding-left: 13px;
+}
+.ios bp-table-header {
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  background-image: -webkit-linear-gradient(transparent, transparent 50%, #f2f2f2 50%);
+  background-image: linear-gradient(transparent, transparent 50%, #f2f2f2 50%);
+  background-color: #f8f8f8;
+  color: inherit;
+  -webkit-background-size: 1px 1px;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
+  font-size: inherit;
+  font-weight: bolder;
+  height: 22px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0 13px;
+  font: -apple-system-headline;
+}
+.ios bp-table-header + bp-cell {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ios bp-table-grouped-header {
+  color: #4c4c4c;
+  display: block;
+  font-weight: bolder;
+  font-size: 14px;
+  margin: 16px 13px 0;
+  height: 25px;
+  line-height: 25px;
+  font: -apple-system-subheadline;
+  text-transform: uppercase;
+}
+.ios bp-table-grouped-header + bp-table {
+  margin-top: 0 !important;
+}
+.ios bp-table-grouped-footer {
+  color: #7f7f7f;
+  display: block;
+  font-weight: bolder;
+  font-size: 12px;
+  margin: 0 13px 25px;
+  line-height: 20px;
+  font: -apple-system-footnote;
+}
+.android bp-table.bp-table-grouped bp-table {
+  margin-top: 24px;
 }
 .android bp-table-header {
   -webkit-box-orient: horizontal;
@@ -1061,8 +1416,9 @@ bp-table {
   display: -webkit-box;
   -webkit-box-shadow: inset 0px -2px #5ac2e9;
   box-shadow: inset 0px -2px #5ac2e9;
-  color: #5ac2e9;
-  font-size: 16px;
+  background-color: transparent;
+  color: #333333;
+  font-size: 15px;
   text-transform: uppercase;
   font-weight: bold;
   height: 48px;
@@ -1070,14 +1426,16 @@ bp-table {
   margin: 0 16px;
   padding: 8px 8px 0;
 }
-.android .bp-table-grouped {
-  margin-top: 24px;
-}
 .android bp-table-grouped-header {
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  display: -webkit-box;
   -webkit-box-shadow: inset 0px -2px #5ac2e9;
   box-shadow: inset 0px -2px #5ac2e9;
-  color: #5ac2e9;
-  font-size: 16px;
+  background-color: transparent;
+  color: #333333;
+  font-size: 15px;
   text-transform: uppercase;
   font-weight: bold;
   height: 48px;
@@ -1085,488 +1443,36 @@ bp-table {
   margin: 0 16px;
   padding: 8px 8px 0;
   display: block;
-  background-color: #EDEDED;
   margin: 0;
-  border-left: 16px solid #EDEDED;
-  border-right: 16px solid #EDEDED;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
 }
-.android bp-table-grouped-header + .bp-table-grouped {
+.android bp-table-grouped-header + bp-table {
   margin-top: 0;
 }
 .android bp-table-grouped-footer {
   display: block;
-  background-color: #EDEDED;
   margin: 0;
-  border-left: 16px solid #EDEDED;
-  border-right: 16px solid #EDEDED;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
   text-align: center;
   font-size: 16px;
   padding: 8px 8px 16px;
 }
-.android #loading-bar .bar {
-  top: 46px;
-  background-color: #5ac2e9;
-}
-.ios {
-  /*
-# Default input appearence deactivation
-*/
-  /*
-# Elements
-*/
-  /*
-# Background
-*/
-  /*
-# Size
-Height definitions of the button.
-The width is mostly defined by the length of the text or icon.
-*/
-  /*
-# Align
-alignment of navbar children
-*/
-  /*
-# Search
-*/
-}
-.ios bp-content,
-.ios .bp-content,
-.ios bp-table {
-  background-color: white;
-}
-.ios body,
-.ios {
-  font: 100%/150% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-  font-weight: lighter;
-  font: -apple-system-body;
-}
-.ios strong,
-.ios b {
-  font-family: HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-  font-weight: normal;
-}
-.ios input,
-.ios select,
-.ios option {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  border: none;
-}
-.ios bp-button {
-  border: none;
-  display: block;
-  font-size: 18px;
-  font-weight: normal;
-  text-align: center;
-  -webkit-text-rendering: optimizeLegibility;
-  color: #0069ff;
-  font: -apple-system-body;
-}
-.ios bp-button.bp-button-back:before {
-  font-size: 20px;
-  line-height: 22px;
-  height: 22px;
-  margin-left: -3px;
-  margin-right: 0px;
-}
-.ios bp-button.bp-button-forward:after {
-  font-size: 20px;
-  line-height: 22px;
-  height: 22px;
-  margin-left: -5px;
-  margin-right: -3px;
-}
-.ios bp-button.disabled,
-.ios bp-button[disabled] {
-  cursor: default;
-  pointer-events: none;
-  color: #cccccc;
-}
-.ios bp-button.bp-active:not(.disabled),
-.ios bp-button.bp-active:not([disabled]) {
-  color: rgba(0, 105, 255, 0.5);
-}
-.ios bp-cell {
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: start;
-  -webkit-box-align: center;
-  display: -webkit-box;
-  background: white;
-  font-size: 20px;
-  height: 44px;
-  line-height: 44px;
-  list-style: none;
-  margin: 0 13px;
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid #d6d6d6;
-  font: -apple-system-body;
-}
-.ios bp-cell:first-child {
-  border: none;
-}
-.ios bp-cell > div,
-.ios bp-cell > span {
-  display: block;
-  -webkit-box-flex: 1;
-}
-.ios bp-cell.bp-active {
-  background-color: #d6d6d6;
-  padding: 0 13px;
-  margin: 0;
-  border-bottom: 1px solid transparent;
-  box-shadow: 0 1px #d6d6d6;
-}
-.ios bp-cell:last-child.active {
-  border-top: none;
-}
-.ios .bp-cell-value1 .value {
-  display: block;
-  min-width: 10%;
-  max-width: 30%;
-  -webkit-box-flex: 1;
-  color: #8c8c8c;
-  margin-left: 13px;
-  text-align: right;
-  font-weight: 200;
-}
-.ios .bp-cell-value1 .label {
-  -webkit-box-flex: 2;
-}
-.ios .bp-cell-value1 select.value {
-  -webkit-box-flex: 0;
-}
-.ios .bp-cell-value2 .value {
-  display: block;
-  margin-left: 13px;
-  width: 65%;
-  font-weight: 200;
-  color: black;
-}
-.ios .bp-cell-value2 .label {
-  color: #0069ff;
-  font-size: 0.8em;
-  text-align: right;
-  width: 35%;
-}
-.ios .bp-cell-value2 input::-webkit-input-placeholder {
-  color: #8c8c8c;
-}
-.ios .bp-cell-subtitle .titles {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: center;
-  -webkit-box-align: start;
-  display: -webkit-box;
-}
-.ios .bp-cell-subtitle .titles .title,
-.ios .bp-cell-subtitle .titles .subtitle {
-  width: 100%;
-}
-.ios .bp-cell-subtitle .titles .title {
-  font-size: 1em;
-  height: 24px;
-  line-height: 26px;
-}
-.ios .bp-cell-subtitle .titles .subtitle {
-  font-size: 0.7em;
-  height: 18px;
-  line-height: 14px;
-}
-.ios .bp-cell-disclosure:after {
-  color: #cccccc;
-  font-size: 0.8em;
-  content: '\e001';
-}
-.ios .bp-cell-disclosure:after.active {
-  color: #7f7f7f;
-}
-.ios .bp-cell-checkmark:after {
-  font-size: 0.8em;
-  content: '\e002';
-  color: #0069ff;
-}
-.ios bp-detail-disclosure {
-  display: block;
-  -webkit-border-radius: 100%;
-  -webkit-background-clip: padding-box;
-  border-radius: 100%;
-  background-clip: padding-box;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 18px;
-  text-align: center;
-  border: 1px solid #0069ff;
-  color: #0069ff;
-  font-family: Didot, serif;
-  font-weight: bold;
-}
-.ios bp-detail-disclosure:before {
-  content: 'i';
-}
-.ios bp-detail-disclosure:after {
-  position: absolute;
-  content: '';
-  width: 44px;
-  height: 44px;
-  top: -12px;
-  left: -9px;
-}
-.ios bp-detail-disclosure.bp-active {
-  border: 1px solid rgba(0, 105, 255, 0.5);
-  color: rgba(0, 105, 255, 0.5);
-}
-.ios bp-navbar {
-  background-color: #f8f8f8;
-  background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
-  background-image: linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
-  background-size: 1px 1px;
-  background-repeat: repeat no-repeat;
-  background-position: left bottom;
-  height: 44px;
-  padding: 0 8px;
-  width: 100%;
-  -webkit-box-ordinal-group: 10;
-  -webkit-order: 10;
-  order: 10;
-}
-.ios bp-navbar > * {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.ios bp-navbar .before {
-  margin-right: 9px;
-}
-.ios bp-navbar .after {
-  margin-left: 9px;
-}
-.ios bp-navbar.navbar-small {
-  height: 33px;
-  padding: 0 8px;
-  width: 100%;
-  -webkit-box-ordinal-group: 10;
-  -webkit-order: 10;
-  order: 10;
-}
-.ios bp-navbar.navbar-small > * {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.ios bp-navbar.navbar-small .btn {
-  min-width: 33px;
-  height: 33px;
-  line-height: 33px;
-}
-.ios bp-navbar bp-button {
-  min-width: 44px;
-  height: 44px;
-  line-height: 44px;
-}
-.ios .bp-navbar-text {
-  font-size: 18px;
-  font-weight: normal;
-  text-align: center;
-  -webkit-text-rendering: optimizeLegibility;
-  color: #0069ff;
-  font: -apple-system-body;
-  line-height: 1.5;
-  display: block;
-  -webkit-box-flex: 1;
-  color: black;
-  font: -apple-system-headline;
-}
-@media only screen and (orientation: landscape) {
-  .ios bp-navbar {
-    height: 33px;
-    padding: 0 8px;
-    width: 100%;
-    -webkit-box-ordinal-group: 10;
-    -webkit-order: 10;
-    order: 10;
-  }
-  .ios bp-navbar > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .ios bp-navbar bp-button {
-    min-width: 33px;
-    height: 33px;
-    line-height: 33px;
-  }
-}
-.ios bp-search {
-  overflow: hidden;
-  background-color: #f8f8f8;
-  height: 43px;
-  padding: 0 6px;
-  position: relative;
-}
-.ios bp-search:before {
-  pointer-events: none;
-  color: #93989E;
-  font-size: 16px;
-  line-height: 43px;
-  z-index: 100;
-  position: absolute;
-  left: 13px;
-}
-.ios bp-search bp-button {
-  -webkit-opacity: 0;
-  opacity: 0;
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  height: 43px;
-  line-height: 43px;
-  position: absolute;
-  right: 6px;
-  pointer-events: none;
-  speak: none;
-  padding: 0 6px;
-}
-.ios bp-search.focus bp-button {
-  -webkit-transition: all 0.3s linear 0.02s;
-  transition: all 0.3s linear 0.02s;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  -webkit-opacity: 1;
-  opacity: 1;
-  speak: normal;
-  pointer-events: auto;
-}
-.ios bp-search input[type=search] {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 14px;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: white;
-  -webkit-border-radius: 6px;
-  -webkit-background-clip: padding-box;
-  border-radius: 6px;
-  background-clip: padding-box;
-  border: none;
-  display: block;
-  height: 30px;
-  padding: 0 13px 0 26px;
-  width: 100%;
-  -webkit-transition: width 0.3s ease;
-  transition: width 0.3s ease;
-}
-.ios bp-search input[type=search]::-webkit-input-placeholder {
-  color: #93989E;
-}
-.ios bp-tabbar {
-  height: 50px;
-  width: 100%;
-  background-color: #f8f8f8;
-  background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
-  background-image: linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
-  background-size: 1px 1px;
-  background-repeat: repeat no-repeat;
-  background-position: left top;
-  color: #c2c2c2;
-  -webkit-box-ordinal-group: 90;
-  -webkit-order: 90;
-  order: 90;
-}
-.ios bp-tabbar > bp-tab {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: start;
-  -webkit-box-align: center;
-  display: -webkit-box;
+[ui-view] {
+  position: absolute !important;
+  top: 0;
+  left: 0;
   height: 100%;
-  -webkit-box-flex: 1;
-  color: #929292;
-}
-.ios bp-tabbar > bp-tab bp-icon,
-.ios bp-tabbar > bp-tab .android bp-navbar bp-button.bp-button-back:first-child,
-.ios bp-tabbar > bp-tab .android bp-search,
-.ios bp-tabbar > bp-tab .ios bp-button.bp-button-back,
-.ios bp-tabbar > bp-tab .ios bp-search {
-  display: block;
-  height: 32px;
-  font-size: 16px;
-  line-height: 32px;
-}
-.ios bp-tabbar > bp-tab.bp-tab-active {
-  color: #2096ff;
-}
-.ios bp-tabbar > bp-tab span {
-  display: block;
-  height: 15px;
-  font-size: 11px;
-  line-height: 15px;
-  font: -apple-system-caption2;
-}
-.ios bp-table-header {
-  -webkit-box-orient: horizontal;
+  width: 100%;
+  -webkit-box-orient: vertical;
   -webkit-box-pack: start;
-  -webkit-box-align: center;
+  -webkit-box-align: stretch;
   display: -webkit-box;
-  background-color: #f8f8f8;
-  background-image: -webkit-linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%);
-  background-image: linear-gradient(#d6d6d6, #d6d6d6 50%, #f2f2f2 50%);
-  -webkit-background-size: 1px 1px;
-  background-size: 1px 1px;
-  background-repeat: repeat no-repeat;
-  background-position: left top;
-  color: black;
-  font-size: 18px;
-  height: 25px;
-  line-height: 25px;
-  margin: 0;
-  padding: 0 13px;
-  font: -apple-system-headline;
-}
-.ios bp-table-header + bp-cell {
-  border: none;
-}
-.ios .bp-table-grouped {
-  margin-top: 25px;
-  background-color: white;
-  border-top: 1px solid #d6d6d6;
-  border-bottom: 1px solid #d6d6d6;
-}
-.ios .bp-table-grouped bp-cell {
-  margin: 0;
-  padding-right: 13px;
-  padding-left: 13px;
-}
-.ios bp-table-grouped-header {
-  display: block;
-  font-weight: 400;
-  font-size: 14px;
-  margin: 16px 13px 0;
-  height: 25px;
-  line-height: 25px;
-  font: -apple-system-subheadline;
-  text-transform: uppercase;
-  color: #4c4c4c;
-}
-.ios bp-table-grouped-header + .bp-table-grouped {
-  margin-top: 0;
-}
-.ios bp-table-grouped-footer {
-  display: block;
-  font-weight: 400;
-  font-size: 14px;
-  margin: 5px 13px;
-  line-height: 20px;
-  color: #7f7f7f;
-  font: -apple-system-footnote;
-}
-.ios .bp-background {
-  background-color: #e5e5e5;
-}
-.ios #loading-bar .bar {
-  top: 42px;
-  background-color: #0069ff;
-}
-@media only screen and (orientation: landscape) {
-  .ios #loading-bar .bar {
-    top: 31px !important;
-  }
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  z-index: 1;
+  -webkit-box-ordinal-group: 50;
+  -webkit-order: 50;
+  order: 50;
 }

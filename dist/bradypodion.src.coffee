@@ -261,7 +261,9 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
         if options.noButtonSplit
           for $button in buttons
             if $button.hasClass 'bp-button-back'
-              $button.insertBefore $navbarText
+              $button
+                .insertBefore($navbarText)
+                .addClass 'before'
             else
               element.append $button.addClass('after')
         else
@@ -338,7 +340,7 @@ angular.module('bp.directives').directive 'bpSearch', deps [
       padding = (+(element.css 'padding-right').replace('px',''))
       cancelWidth = $cancel.outerWidth()
       inputWidth = element.width() - (padding)
-      $search?.css 'width', "#{inputWidth - cancelWidth - padding}px"
+      $search?.css 'width', "#{inputWidth - cancelWidth}px"
       $cancel.show()
       $timeout ->
         element.addClass 'focus'
