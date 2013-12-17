@@ -3,25 +3,21 @@
  * @link https://github.com/excellenteasy/bradypodion
  * @license none
  */
-@import "../../modules/bower_components/lesshat/build/lesshat";
-@import "../../modules/styles/variables/general";
+@bp-source-path: "../modules/";
 
-.bp-flexbox(@orient: horizontal, @pack: start, @align: center) {
-  -webkit-box-orient: @orient;
-  -webkit-box-pack  : @pack;
-  -webkit-box-align : @align;
-  display           : -webkit-box;
-}
-.bp-ellipsis(@a:a) {
-  overflow     : hidden;
-  text-overflow: ellipsis;
-  white-space  : nowrap;
-}
+// lesshat
+@import "@{bp-source-path}bower_components/lesshat/build/lesshat";
 
-/* Extends */
-.flexbox {
-  .bp-flexbox;
-}
-.ellipsis {
-  .bp-ellipsis;
-}
+// variables
+@import "@{bp-source-path}styles/variables/general";
+
+// mixins
+@import "@{bp-source-path}styles/mixins/general";
+
+// defaults
+@import "@{bp-source-path}styles/defaults/class";
+
+// modules
+/*% _.forEach(modules, function(module) {
+print('@import "@{bp-source-path}'+module+'";\n');
+});%*/

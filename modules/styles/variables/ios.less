@@ -1,17 +1,49 @@
-@ui-color                        : #0069ff;
+@ios-name: ios;
 
-@switch-tint-color               : #00e464;
+@ios-background-color: white;
+@ios-highlight-color: #0069ff;
+@ios-text-color: black;
+@ios-text-secondary-color: #8c8c8c;
+@ios-font-size: 17px;
+@ios-font-family: HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, sans-serif;
+@ios-dynamic-type: true;
 
-@navbar-height-default           : 44px;
-@navbar-height-small             : 33px;
+@ios-button-height: 44px;
+@ios-button-theme-default: @ios-highlight-color;
 
-@tabbar-icon-color               : #C2C2C2;
-@tabbar-icon-color-active        : #2096FF;
+@ios-cell-height: 44px;
+@ios-cell-font-size: inherit;
+@ios-cell-text-color: @ios-text-color;
+@ios-cell-text-secondary-color: @ios-text-secondary-color;
+@ios-cell-active-color: #d6d6d6;
+@ios-cell-border-color: #d6d6d6;
+@ios-cell-highlight-color: @ios-highlight-color;
 
-@table-cell-active-color         : #058cf5;
-@table-cell-height               : 44px;
-@table-header-height             : 25px;
+@ios-detail-disclosure-color: @ios-highlight-color;
 
-@actionsheet-color               : #4B525E;
-@actionsheet-button-color        : #cdcdcf;
-@actionsheet-button-color-inverse: #2b3038;
+@ios-loading-bar-color: @ios-highlight-color;
+
+@ios-navbar-height: 44px;
+@ios-navbar-height-landscape: 33px;
+@ios-navbar-background: #f8f8f8;
+@ios-navbar-border: #c0c0c0;
+@ios-navbar-text-color: inherit;
+@ios-navbar-button-color: inherit;
+
+@ios-search-height: @ios-navbar-height;
+@ios-search-background: (@ios-navbar-background - #2f2f2f);
+@ios-search-border: (@ios-search-background - #0B0B0B);
+
+@ios-tab-color: @ios-text-secondary-color;
+@ios-tab-active-color: @ios-highlight-color;
+
+@ios-tabbar-height: 50px;
+@ios-tabbar-background: @ios-navbar-background;
+@ios-tabbar-border: @ios-navbar-border;
+
+@ios-table-grouped-background: #e5e5e5;
+
+@ios-table-header-height: (@ios-navbar-height/2);
+@ios-table-header-background: @ios-navbar-background;
+@ios-table-header-border: #f2f2f2;
+@ios-table-header-text-color: @ios-navbar-text-color;

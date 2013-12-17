@@ -1,0 +1,43 @@
+@import 'android';
+@import 'ios';
+
+.bp-tabbar(@name:bp-tabbar; @prefix: bp-tab) {
+  .bp-platforms-tabbar() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-tabbar;
+    }
+    @{prefix} {
+      .bp-ios-tab(@prefix);
+    }
+  }
+
+  .bp-platforms-tabbar() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-tabbar();
+    }
+    @{prefix} {
+      .bp-android-tab(@prefix);
+    }
+  }
+
+  .bp-platforms-tabbar() when (@ios) and (@android) {
+    .@{ios-name} {
+      @{name} {
+        .bp-ios-tabbar;
+      }
+      @{prefix} {
+        .bp-ios-tab(@prefix);
+      }
+    }
+    .@{android-name} {
+      @{name} {
+        .bp-android-tabbar();
+      }
+      @{prefix} {
+        .bp-android-tab(@prefix);
+      }
+    }
+  }
+
+  .bp-platforms-tabbar;
+}

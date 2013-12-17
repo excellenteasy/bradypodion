@@ -1,29 +1,37 @@
-@import "ios/wrapper";
-@import "ios/tab";
-@import "ios/icon";
-@import "ios/type";
+@import 'ios/theme';
 
-bp-tabbar {
-  &:extend(.borderBox);
+.bp-ios-tabbar() {
+  &:extend(.borderbox);
   &:extend(.flexbox);
-  .tabbar-wrapper;
+  .bp-ios-tabbar-theme;
+  .order(90);
+  height: @ios-tabbar-height;
+  width: 100%;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
 }
 
-bp-tabbar > bp-tab {
-  &:extend(.borderBox);
+.bp-ios-tab(@prefix) {
+  &:extend(.borderbox);
   .bp-flexbox(vertical);
-  .tabbar-tab;
+  .bp-ios-tab-theme;
+  -webkit-box-flex: 1;
+  height: 100%;
 
   bp-icon {
-    .tabbar-icon;
-  }
-
-  &.bp-tab-active {
-    .tabbar-tab-active;
+    display: block;
+    height: 32px;
+    font-size: 16px;
+    line-height: 32px;
   }
 
   span {
-    .tabbar-label;
     &:extend(.ellipsis);
+    display: block;
+    height: 15px;
+    font-size: 11px;
+    line-height: 15px;
+    .ios-dynamic-type(-apple-system-caption2);
   }
 }

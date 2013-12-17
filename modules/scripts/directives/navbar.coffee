@@ -46,7 +46,9 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
         if options.noButtonSplit
           for $button in buttons
             if $button.hasClass 'bp-button-back'
-              $button.insertBefore $navbarText
+              $button
+                .insertBefore($navbarText)
+                .addClass 'before'
             else
               element.append $button.addClass('after')
         else

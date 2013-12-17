@@ -1,0 +1,23 @@
+@import 'element';
+
+.bp-android-cell-theme(@prefix; @active:@android-cell-active-color; @border:@android-cell-border-color; @secondary:@android-cell-text-secondary-color; @color: inherit) {
+  color: @color;
+  .box-shadow(inset 0 -1px @border);
+
+  &.@{tap-active} {
+    background-color: @active;
+    color: inherit;
+  }
+
+  .value {
+    color: @secondary;
+  }
+
+  &.@{prefix}-subtitle {
+    .titles {
+      .subtitle {
+        color: @secondary;
+      }
+    }
+  }
+}

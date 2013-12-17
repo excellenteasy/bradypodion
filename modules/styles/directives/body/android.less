@@ -1,11 +1,5 @@
-@import "android/input";
-
-body, & {
-  font: 100%/150% Roboto Condensed, sans-serif;
-}
-
-input, select, option {
-  &:extend(.borderBox);
-  .form-disable-default;
-  .form-enable-native-default;
+.bp-android-body() {
+  color: @android-text-color;
+  font-size: @android-font-size;
+  font-family: @android-font-family;
 }

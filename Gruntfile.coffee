@@ -116,17 +116,10 @@ module.exports = (grunt) ->
         files: src: ['Gruntfile.coffee']
 
     concurrent:
-      server: [
+      build: [
         'coffee:app'
         'coffee:dist'
         'cssbuild'
-      ]
-      dist: [
-        'coffee:app'
-        'coffee:dist'
-        'cssbuild'
-        'cssbuild:android'
-        'cssbuild:ios'
       ]
 
     karma:
@@ -143,71 +136,36 @@ module.exports = (grunt) ->
       options:
         coverage_dir: 'test/coverage'
 
+    less: dist:
+      src: ['<%=bp.dist%>/bradypodion.less']
+      dest: '<%=bp.dist%>/bradypodion.css'
+
   grunt.registerTask 'cssbuild', ->
     # config
-    PLATFORMS = grunt.config.get('bp').platforms
-    styles = grunt.template.process '<%=bp.app%>/styles'
-    template = "#{styles}/bradypodion.less"
-    configs  = "#{styles}/variables/*.less"
-    modules  = "#{styles}/*/*/*.less"
+    styles      = grunt.template.process '<%=bp.app%>/styles'
+    template    = "#{styles}/bradypodion.less"
+    modulePaths = "#{styles}/*/*/*.less"
+    fileContent = grunt.file.read template
 
-    # parse task flags
-    platforms = []
-    if @args.length then @args.forEach (arg) ->
-      arg = arg.toLowerCase()
-      index = PLATFORMS.indexOf arg
-      if index >= 0
-        platforms.push arg
-        PLATFORMS.splice index, 1
-    else
-      platforms = PLATFORMS
-      general = yes
+    modules = []
 
-    toBeNamespaced = platforms.length > 1
-    fileContent    = grunt.file.read template
-
-    chunks =
-      general: ''
-    chunks[platform] = '' for platform in platforms
-
-    # importer function
-    importer = (path) ->
+    grunt.file.expand(modulePaths).forEach (path) ->
       matches = path.match(/(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/)
-      platform = matches[3]
-      if platform in platforms or platform is 'general'
-        chunk = "@import '../../#{matches[1]}';"
-        chunks[platform] += chunk
+      if matches[3] is 'class'
+        modules.push matches[1].replace('modules/','')
 
-    # import config and modules
-    grunt.file.expand(configs).forEach importer
-    grunt.file.expand(modules).forEach importer
+    grunt.template.addDelimiters 'less', '/*%', '%*/'
 
-    # append imports to template and namespace them if necessary
-    for platform, chunk of chunks
-      fileContent += if toBeNamespaced and platform isnt 'general'
-        ".#{platform} {#{chunk}}"
-      else
-        chunk
-
-    filename = if general
-      ''
-    else
-      '.' + platforms.sort().join '.'
+    fileContent = grunt.template.process fileContent,
+      data: {modules}
+      delimiters: 'less'
 
     grunt.file.write grunt.template.process(
-      "<%=bp.tmp%>/styles/bradypodion#{filename}.less"
+      "<%=bp.dist%>/bradypodion.less"
     ), fileContent
 
-    # create less task configuration on runtime depending on platforms
-    config =
-      custom:
-        src: ["<%=bp.tmp%>/styles/bradypodion#{filename}.less"]
-        dest: "<%=bp.dist%>/bradypodion#{filename}.css"
-
-    grunt.config.set 'less', config
-
     # compile less
-    grunt.task.run ['less:custom']
+    grunt.task.run ['less:dist']
 
   grunt.registerTask 'release', ->
     done = @async()
@@ -227,9 +185,8 @@ module.exports = (grunt) ->
     exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
         grunt build changelog &&
         git add package.json bower.json &&
+        git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
-        git add -f dist/bradypodion.android.css &&
-        git add -f dist/bradypodion.ios.css &&
         git add -f dist/bradypodion.js &&
         git add -f dist/bradypodion.js.map &&
         git add -f dist/bradypodion.src.coffee &&
@@ -246,7 +203,7 @@ module.exports = (grunt) ->
       [
         'shell:hooks'
         'clean:server'
-        'concurrent:server'
+        'concurrent'
         'connect:server'
         'karma:unit'
         'watch'
@@ -271,7 +228,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'clean:dist'
     'coffeelint'
-    'concurrent:dist'
+    'concurrent'
   ]
 
   grunt.registerTask 'default', ['test']

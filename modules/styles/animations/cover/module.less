@@ -1,0 +1,23 @@
+.bp-cover (@direction: normal, @name: cover, @duration: 0.3s) {
+  @enterPer:   ~`'@{direction}' === 'normal' ? '100%' : 0`;
+  @enterIndex: ~`'@{direction}' === 'normal' ? 1000 : 'inherit'`;
+  @leavePer:   ~`'@{direction}' === 'normal' ? 0 : '100%'`;
+  @leaveIndex: ~`'@{direction}' === 'normal' ? 'inherit' : 1000`;
+
+  .@{name}-@{direction}.ng-enter {
+    .transition(~"@{duration} ease-in all");
+    .transform(translateY(@enterPer));
+    z-index: @enterIndex;
+  }
+  .@{name}-@{direction}.ng-enter.ng-enter-active {
+    .transform(translateY(0));
+  }
+  .@{name}-@{direction}.ng-leave {
+    .transition(~"@{duration} ease-in all");
+    .transform(translateY(0));
+    z-index: @leaveIndex;
+  }
+  .@{name}-@{direction}.ng-leave.ng-leave-active {
+    .transform(translateY(@leavePer));
+  }
+}

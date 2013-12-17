@@ -1,0 +1,37 @@
+@import 'android/theme';
+@import 'ios/theme';
+
+.bp-content(@name: bp-content) {
+  @{name}, [@{name}], .@{name}, bp-table {
+    position: relative;
+    display: block;
+    -webkit-box-flex: 1;
+    .order(50);
+  }
+  .bp-platforms-content() when (@ios) and not (@android) {
+    @{name}, [@{name}], .@{name}, bp-table {
+      .bp-ios-content-theme;;
+    }
+  }
+
+  .bp-platforms-content() when (@android) and not (@ios) {
+    @{name}, [@{name}], .@{name}, bp-table {
+      .bp-android-content-theme;;
+    }
+  }
+
+  .bp-platforms-content() when (@ios) and (@android) {
+    .@{ios-name} {
+      @{name}, [@{name}], .@{name}, bp-table {
+        .bp-ios-content-theme;
+      }
+    }
+    .@{android-name} {
+      @{name}, [@{name}], .@{name}, bp-table {
+        .bp-android-content-theme;
+      }
+    }
+  }
+
+  .bp-platforms-content;
+}

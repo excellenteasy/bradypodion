@@ -31,7 +31,7 @@ angular.module('bp.directives').directive 'bpSearch', deps [
       padding = (+(element.css 'padding-right').replace('px',''))
       cancelWidth = $cancel.outerWidth()
       inputWidth = element.width() - (padding)
-      $search?.css 'width', "#{inputWidth - cancelWidth - padding}px"
+      $search?.css 'width', "#{inputWidth - cancelWidth}px"
       $cancel.show()
       $timeout ->
         element.addClass 'focus'

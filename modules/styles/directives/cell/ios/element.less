@@ -1,0 +1,24 @@
+.bp-cell-ios-element(...) {
+  &:after{
+    &:extend(.bp-icon-system:before);
+  }
+}
+
+.bp-cell-ios-element(@icon, @iconcolor) {
+  &:after {
+    font-size: 0.8em;
+    content: @icon;
+    color: @iconcolor;
+  }
+}
+
+.bp-cell-ios-element(@icon, @iconcolor, @activecolor) {
+  &:after {
+    color: @iconcolor;
+    font-size: 0.8em;
+    content: @icon;
+  }
+  &.@{tap-active}:after {
+    color: @activecolor;
+  }
+}

@@ -1,0 +1,13 @@
+.bp-cell-android-element(...) {
+  &:after {
+    &:extend(.bp-icon-system:before);
+  }
+}
+
+.bp-cell-android-element(@icon; @iconcolor: @android-text-color) {
+  &:after {
+    font-size: 0.8em;
+    content: @icon;
+    color: @iconcolor;
+  }
+}

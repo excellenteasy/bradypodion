@@ -1,0 +1,43 @@
+.bp-android-defaults(@default: @android-input-default, @focus: @android-input-focus) {
+  input, select {
+    &:extend(.borderbox);
+    background: transparent;
+    background-position: right bottom, left bottom;
+    background-repeat: no-repeat;
+    border: none;
+    .border-radius(0);
+    display: block;
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+  }
+  input:not([type="range"]) {
+    .box-shadow(inset 0 -2px @default);
+    .background-size(2px 5px, 2px 5px);
+    .background-image(linear-gradient(@default, @default), linear-gradient(@default, @default));
+    &:focus {
+      .background-image(linear-gradient(@focus, @focus), linear-gradient(@focus, @focus));
+      outline: none;
+      .box-shadow(inset 0 -2px @focus);
+    }
+    &::-webkit-input-placeholder {
+      color: @default;
+    }
+  }
+  select {
+    .box-shadow(inset 0 -2px @default);
+    .background-size(12px 12px);
+    .background-image(linear-gradient(135deg, transparent, transparent 50%, @default 50%));
+    position: relative;
+    &:focus {
+      @lightfocus: lighten(desaturate(spin(@focus, -1deg), 16%), 17%);
+      outline: none;
+      background-color: @lightfocus;
+      .box-shadow(
+        inset 0 -2px @default,
+        0 0 0 6px @lightfocus,
+        0 0 0 8px @focus,
+      );
+    }
+  }
+}

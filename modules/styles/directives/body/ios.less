@@ -1,17 +1,7 @@
-@import "ios/input";
-
-body, & {
-  font: 100%/150% HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+.bp-ios-body() {
+  color: @ios-text-color;
+  font-size: @ios-font-size;
+  font-family: @ios-font-family;
   font-weight: lighter;
-  font: -apple-system-body;
-}
-
-strong, b {
-  font-family: HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-  font-weight: normal;
-}
-
-input, select, option {
-  &:extend(.borderBox);
-  .form-disable-default;
+  .ios-dynamic-type;
 }

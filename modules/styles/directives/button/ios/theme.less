@@ -1,0 +1,6 @@
+.bp-ios-button-theme(@color: @ios-button-theme-default) when (isColor(@color)) {
+  color: @color;
+  &.@{tap-active} {
+    color: fade(@color, 50%);
+  }
+}

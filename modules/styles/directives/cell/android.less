@@ -1,73 +1,62 @@
-@import 'android/basic';
-@import 'android/elements';
-@import 'android/value';
-@import 'android/subtitle';
+@import 'android/theme';
 
-bp-cell {
-  &:extend(.borderBox);
+.bp-android-cell(@prefix) {
+  &:extend(.borderbox);
   &:extend(.ellipsis);
   .bp-flexbox(horizontal);
-  .bp-cell-wrapper;
-  > div, > span {
+  .bp-android-cell-theme(@prefix);
+  background: transparent;
+  font-size: @android-cell-font-size;
+  list-style: none;
+  @height: @android-cell-height;
+  height: @height;
+  line-height: @height;
+  padding: 0 (@height/6);
+  margin: 0 (@height/3);
+
+  > div, > span, > input, > label {
     &:extend(.ellipsis);
-    .bp-cell-content;
+    display: block;
+    -webkit-box-flex: 1;
   }
-  &.@{tap-active} {
-    .bp-cell-active;
-  }
-}
 
-.bp-cell-value1 {
-  .label {
-    .bp-cell-value1-cell-label;
+  label, .label {
+    display: block;
+    -webkit-box-flex: 1;
   }
   .value {
-    .bp-cell-value1-cell;
-  }
-  // minor tweaks for weird form elements
-  select.value {
-    width: auto;
-    .border-radius(0);
+    display: block;
+    max-width: 65%;
     -webkit-box-flex: 0;
+    margin-left: 8px;
+    text-align: right;
   }
-}
-.bp-cell-value2 {
-  .value {
-    &:extend(.borderBox);
-    .bp-cell-value2-cell;
-  }
-  .label {
-    &:extend(.borderBox);
-    .bp-cell-value2-cell-label;
-  }
-}
-.bp-cell-subtitle {
-  .titles {
-    .bp-flexbox(vertical, center, start);
-    .title, .subtitle {
-      &:extend(.ellipsis);
-      width: 100%;
-    }
-    .title {
-      .bp-cell-subtitle-title;
-    }
-    .subtitle {
-      .bp-cell-subtitle-subtitle;
-    }
-  }
-}
 
-.bp-cell-disclosure {
-  &:after {
-    &:extend(bp-icon:before);
-    &:extend(.bp-icon-system:before);
+  &.@{prefix}-subtitle {
+    .titles {
+      .bp-flexbox(vertical, center, start);
+      .title, .subtitle {
+        &:extend(.ellipsis);
+        width: 100%;
+      }
+      .title {
+        font-size: 18px;
+        height: 24px;
+        line-height: 24px;
+      }
+      .subtitle {
+        font-size: 18px;
+        height: 24px;
+        line-height: 24px;
+      }
+    }
   }
-  .table-element('\e001', #333);
-}
-.bp-cell-checkmark {
-  &:after {
-    &:extend(bp-icon:before);
-    &:extend(.bp-icon-system:before);
+
+  &.@{prefix}-disclosure {
+    .bp-cell-android-element('\e001');
   }
-  .table-element('\e002', #333);
+
+  &.@{prefix}-checkmark {
+    .bp-cell-android-element('\e002');
+  }
 }

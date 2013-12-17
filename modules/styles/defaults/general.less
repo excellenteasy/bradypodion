@@ -1,0 +1,66 @@
+.bp-general-defaults() {
+
+  // the mobile relevant parts of normalize.css
+  audio:not([controls]) {
+    display: none;
+    height: 0;
+  }
+
+  q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+  }
+
+  button,
+  input {
+    line-height: normal;
+  }
+  button,
+  input,
+  select {
+    .appearance(none);
+  }
+
+  input[type="range"] {
+    .appearance(slider-horizontal);
+  }
+
+  button,
+  html input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
+    .appearance(button);
+  }
+
+  // angular specific
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+  .ng-cloak, .x-ng-cloak,
+  .ng-hide {
+    display: none !important;
+  }
+
+  // mobile defaults
+  html {
+    .bp-fullsize;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  a {
+    display: block;
+    color: inherit;
+    &:link, &:visited {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+

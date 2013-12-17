@@ -1,31 +1,24 @@
-bp-detail-disclosure {
+@import 'ios/theme';
+
+.bp-ios-detail-disclosure() {
+  .bp-ios-detail-disclosure-theme;
   display: block;
-  .border-radius(100%);
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 18px;
-  text-align: center;
-  border: 1px solid @ui-color;
-  color: @ui-color;
-  font-family: Didot, serif;
-  font-weight: bold;
+  width: 44px;
+  height: 44px;
 
   &:before {
-    content: 'i';
-  }
-
-  &:after {
+    .border-radius(100%);
     position: absolute;
-    content: '';
-    width:44px;
-    height: 44px;
-    top: -12px;
-    left: -9px;
-  }
-
-  &.bp-active {
-    border: 1px solid fade(@ui-color,50%);
-    color: fade(@ui-color,50%);
+    display: block;
+    content: 'i';
+    font-size: 18px;
+    text-align: center;
+    font-family: Didot, serif;
+    font-weight: bold;
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    margin: 11px;
+    text-align: center;
   }
 }

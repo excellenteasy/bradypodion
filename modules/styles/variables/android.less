@@ -1,16 +1,52 @@
-@font-color              : #333333;
-@theme-color             : #CECECE;
-@highlight-color         : #5AC2E9;
+@android-name: android;
 
-@navbar-height           : 48px;
+@android-background-color: #EDEDED;
+@android-highlight-color: #5AC2E9;
+@android-highlight-secondary-color: lighten(desaturate(spin(@android-highlight-color, -1deg), 16%), 17%);
+@android-text-color: #333333;
+@android-text-secondary-color: #ABABAB;
+@android-font-size: 17px;
+@android-font-family: Roboto Condensed, Roboto, sans-serif;
 
-@button-height           : (@navbar-height - @navbar-height/6);
+@android-button-height: 40px;
+@android-button-color: @android-text-color;
+@android-button-background: (@android-background-color - #1f1f1f);
+@android-button-theme-default: @android-highlight-color;
 
-@table-cell-active-color : @highlight-color;
-@table-cell-height       : @navbar-height;
-@table-header-height     : 25px;
+@android-cell-height: 48px;
+@android-cell-font-size: inherit;
+@android-cell-text-color: @android-text-color;
+@android-cell-text-secondary-color: @android-text-secondary-color;
+@android-cell-active-color: @android-highlight-secondary-color;
+@android-cell-border-color: #D9D9D9;
+@android-cell-highlight-color: @android-highlight-color;
 
-@font-size               : 18px;
-@font-icon-size          : 16px;
+@android-input-default: #ABABAB;
+@android-input-focus: @android-highlight-color;
 
-@font-path               : '../font/';
+@android-loading-bar-color: @android-highlight-color;
+
+@android-navbar-height: 48px;
+@android-navbar-background: (@android-background-color - #101010);
+@android-navbar-border: (@android-navbar-background - #0B0B0B);
+@android-navbar-text-color: @android-text-color;
+@android-navbar-highlight-color: @android-highlight-color;
+@android-navbar-button-color: @android-highlight-color;
+@android-navbar-app-icon: url(favicon.ico), linear-gradient(darkgray, darkgray);
+
+@android-search-height: @android-navbar-height;
+@android-search-background: @android-navbar-background;
+@android-search-border: (@android-search-background - #0B0B0B);
+
+@android-tab-color: @android-text-color;
+@android-tab-active-color: @android-highlight-color;
+
+@android-tabbar-height: 50px;
+@android-tabbar-background: @android-navbar-background;
+@android-tabbar-border: @android-navbar-border;
+
+@android-table-header-font-size: (@android-font-size - 2px);
+@android-table-header-height: @android-cell-height;
+@android-table-header-background: transparent;
+@android-table-header-border: @android-highlight-color;
+@android-table-header-text-color: @android-navbar-text-color;
