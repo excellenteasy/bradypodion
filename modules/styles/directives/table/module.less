@@ -1,0 +1,73 @@
+@import 'android';
+@import 'ios';
+
+.bp-table(@name:bp-table; @prefix: bp-table) {
+  @{name} {
+    .order(50);
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  .bp-platforms-table() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-table(@prefix);
+    }
+    @{prefix}-header {
+      .bp-ios-table-header;
+    }
+    @{prefix}-grouped-header {
+      .bp-ios-table-grouped-header(@prefix);
+    }
+    @{prefix}-grouped-footer {
+      .bp-ios-table-grouped-footer(@prefix);
+    }
+  }
+
+  .bp-platforms-table() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-table(@prefix);
+    }
+    @{prefix}-header {
+      .bp-android-table-header;
+    }
+    @{prefix}-grouped-header {
+      .bp-android-table-grouped-header(@prefix);
+    }
+    @{prefix}-grouped-footer {
+      .bp-android-table-grouped-footer(@prefix);
+    }
+  }
+
+  .bp-platforms-table() when (@ios) and (@android) {
+    .@{ios-name} {
+      @{name} {
+        .bp-ios-table(@prefix);
+      }
+      @{prefix}-header {
+        .bp-ios-table-header;
+      }
+      @{prefix}-grouped-header {
+        .bp-ios-table-grouped-header(@prefix);
+      }
+      @{prefix}-grouped-footer {
+        .bp-ios-table-grouped-footer(@prefix);
+      }
+    }
+    .@{android-name} {
+      @{name} {
+        .bp-android-table(@prefix);
+      }
+      @{prefix}-header {
+        .bp-android-table-header;
+      }
+      @{prefix}-grouped-header {
+        .bp-android-table-grouped-header(@prefix);
+      }
+      @{prefix}-grouped-footer {
+        .bp-android-table-grouped-footer(@prefix);
+      }
+    }
+  }
+
+  .bp-platforms-table;
+}

@@ -1,22 +1,44 @@
-@import 'android/grouped';
+@import 'android/theme';
 
-.bp-table-grouped {
-  margin-top: 24px;
+.bp-android-table(@prefix) {
+  &.@{prefix}-grouped bp-table {
+    margin-top: (@android-table-header-height/2);
+  }
 }
 
-bp-table-grouped-header {
+.bp-android-table-header {
+  &:extend(.borderbox);
+  .bp-flexbox(horizontal);
+  .bp-android-table-header-theme;
+  font-size: @android-table-header-font-size;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: @android-table-header-height;
+  line-height: @android-table-header-height;
+  margin: 0 (@android-table-header-height/3);
+  padding: (@android-table-header-height/6) (@android-table-header-height/6) 0;
+}
+
+.bp-android-table-grouped-header(@prefix) {
   &:extend(.borderbox);
   &:extend(.ellipsis);
-  .table-header-element;
-  .table-grouped-meta;
-  .table-grouped-header-specific;
-  + .bp-table-grouped {
+  .bp-android-table-header;
+  display: block;
+  margin: 0;
+  border-left: (@android-table-header-height/3) solid transparent;
+  border-right: (@android-table-header-height/3) solid transparent;
+  + @{prefix} {
     margin-top: 0;
   }
 }
 
-bp-table-grouped-footer {
+.bp-android-table-grouped-footer(@prefix) {
   &:extend(.borderbox);
-  .table-grouped-meta;
-  .table-grouped-footer-specific;
+  display: block;
+  margin: 0;
+  border-left: (@android-table-header-height/3) solid transparent;
+  border-right: (@android-table-header-height/3) solid transparent;
+  text-align: center;
+  font-size: (@android-table-header-height/3);
+  padding: (@android-table-header-height/6) (@android-table-header-height/6) (@android-table-header-height/3);
 }
