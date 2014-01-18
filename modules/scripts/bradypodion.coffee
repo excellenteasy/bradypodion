@@ -1,8 +1,9 @@
 'use strict'
 ###!
- * Bradypodion - build maintainable mobile web apps that don't suck.
- * @link https://github.com/excellenteasy/bradypodion
- * @license none
+ * Bradypodion - Create post-platform mobile apps with ease.
+ * Copyright 2013 - 2014: excellenteasy GbR, Stephan Bönnemann, David Pfahler
+ * http://bradypodion.io/
+ * BradyPodion is currently in private beta
 ###
 
 modules = [
