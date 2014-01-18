@@ -1,0 +1,10 @@
+/*
+ * Bradypodion v<%= meta.version %>
+ * <%= meta.homepage %>
+ *
+ * Copyright 2013, <%= meta.year %> excellenteasy GbR, Stephan Bönnemann und David Pfahler
+ * <% if (meta.private) { %>Currently in private beta.<% } else { %>Released under the MIT license.<% } %>
+ *
+ * Date: <%= meta.date %>
+ */
+

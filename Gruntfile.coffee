@@ -3,12 +3,32 @@
 module.exports = (grunt) ->
   require('load-grunt-tasks') grunt
   require('time-grunt') grunt
+  pck = grunt.file.readJSON 'package.json'
+
   grunt.initConfig
     bp:
       app: 'modules'
       dist: 'dist'
       tmp: '.tmp'
       platforms: ['android', 'ios']
+
+    meta:
+      date: grunt.template.today 'isoDateTime'
+      homepage: pck.homepage
+      private: pck.private
+      version: pck.version
+      year: grunt.template.today 'yyyy'
+
+    concat:
+      banner:
+        options:
+          stripBanners: true,
+          banner: grunt.file.read 'modules/banner.template'
+        files: [
+          '<%=bp.dist%>/bradypodion.css': '<%=bp.dist%>/bradypodion.css'
+          '<%=bp.dist%>/bradypodion.less': '<%=bp.dist%>/bradypodion.less'
+          '<%=bp.dist%>/bradypodion.js': '<%=bp.dist%>/bradypodion.js'
+        ]
 
     watch:
       options:
@@ -173,7 +193,7 @@ module.exports = (grunt) ->
     {exec} = require 'child_process'
     semver = require 'semver'
 
-    oldVersion = require('./package.json').version
+    oldVersion = pck.version
     newVersion = @args[0]
 
     unless semver.valid newVersion
@@ -183,7 +203,7 @@ module.exports = (grunt) ->
       grunt.fail.fatal "Version has to be greater than #{oldVersion}"
 
     exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
-        grunt build changelog &&
+        grunt build concat:banner changelog &&
         git add package.json bower.json &&
         git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
