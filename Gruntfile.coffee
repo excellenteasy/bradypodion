@@ -198,7 +198,10 @@ module.exports = (grunt) ->
       grunt.log.writeln stdout if stdout
       done error or {}
 
-  grunt.registerTask 'server', (target) ->
+  grunt.registerTask 'server', ->
+    grunt.fail.fatal '`grunt server` is deprecated, use `grunt serve` instead.'
+
+  grunt.registerTask 'serve', (target) ->
     grunt.task.run if target isnt 'dist'
       [
         'shell:hooks'
