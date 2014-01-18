@@ -199,7 +199,7 @@ module.exports = (grunt) ->
       grunt.fail.fatal "Version has to be greater than #{oldVersion}"
 
     exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
-        grunt build concat:banner changelog &&
+        grunt build changelog &&
         git add package.json bower.json &&
         git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
@@ -246,6 +246,7 @@ module.exports = (grunt) ->
     'clean:dist'
     'coffeelint'
     'concurrent'
+    'concat:banner'
   ]
 
   grunt.registerTask 'default', ['test']
