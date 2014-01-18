@@ -137,7 +137,7 @@ module.exports = (grunt) ->
         coverage_dir: 'test/coverage'
 
     less: dist:
-      src: ['<%=bp.dist%>/bradypodion.less']
+      src: ['<%=bp.app%>/styles/build.less']
       dest: '<%=bp.dist%>/bradypodion.css'
 
   grunt.registerTask 'cssbuild', ->
