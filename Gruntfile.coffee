@@ -97,10 +97,6 @@ module.exports = (grunt) ->
       server: '<%=bp.tmp%>/test'
 
     coffee:
-      options:
-        sourceMap: true
-        sourceRoot: ''
-
       app:
         files:
           '<%=bp.tmp%>/scripts/app.js': '<%=bp.app%>/scripts/app.coffee'
@@ -208,8 +204,6 @@ module.exports = (grunt) ->
         git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
         git add -f dist/bradypodion.js &&
-        git add -f dist/bradypodion.js.map &&
-        git add -f dist/bradypodion.src.coffee &&
         git add -f CHANGELOG.md &&
         git commit -m 'v#{newVersion}' &&
         git tag v#{newVersion}",

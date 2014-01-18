@@ -1,11 +1,5 @@
 (function() {
   'use strict';
-  /*!
-   * Bradypodion - build maintainable mobile web apps that don't suck.
-   * @link https://github.com/excellenteasy/bradypodion
-   * @license none
-  */
-
   var BpConfig, deps, inject, module, modules, namespaced;
 
   modules = ['animations', 'directives', 'factories', 'controllers', 'services'];
@@ -653,6 +647,4 @@
 
 }).call(this);
 
-/*
-//@ sourceMappingURL=bradypodion.js.map
-*/
+//# sourceMappingURL=../dist/bradypodion.js.map

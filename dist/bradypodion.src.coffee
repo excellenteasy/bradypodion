@@ -1,9 +1,4 @@
 'use strict'
-###!
- * Bradypodion - build maintainable mobile web apps that don't suck.
- * @link https://github.com/excellenteasy/bradypodion
- * @license none
-###
 
 modules = [
   'animations'
