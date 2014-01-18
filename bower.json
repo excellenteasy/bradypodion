@@ -2,17 +2,17 @@
   "name": "bradypodion",
   "version": "0.5.0-alpha.1",
   "dependencies": {
-    "angular": "1.2.5",
-    "angular-animate": "1.2.5",
+    "angular": "1.2.9",
+    "angular-animate": "1.2.9",
     "angular-ui-router": "https://rawgithub.com/boennemann/a6c64997acd7f7eff510/raw/09c9a1071f7cf32a90d2852a9d58d69589067823/angular-ui-router.js",
-    "iscroll": "~5.0.9",
-    "iscroll-sticky": "~0.1.0",
+    "iscroll": "~5.1.1",
+    "iscroll-sticky": "~0.1.1",
     "jquery": "~2.0.3",
     "lodash": "~2.4.1",
     "lesshat": "~2.0.13",
-    "angular-loading-bar": "~0.1.1"
+    "angular-loading-bar": "~0.2.0"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.5"
+    "angular-mocks": "1.2.9"
   }
 }
