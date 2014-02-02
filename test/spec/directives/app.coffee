@@ -1,15 +1,16 @@
-describe 'bodyDirective', ->
+describe 'appDirective', ->
 
   config  = null
   scope   = null
   element = null
 
+  beforeEach module 'ui.router'
   beforeEach module 'bp'
 
   beforeEach inject ($rootScope, $compile, bpConfig) ->
     config  = bpConfig
     scope   = $rootScope.$new()
-    element = $compile('<body></body>') scope
+    element = $compile('<bp-app></bp-app>') scope
     scope.$apply()
 
   describe 'element', ->

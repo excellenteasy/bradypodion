@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="bradypodionApp">
+<html>
   <head>
     <title>Bradypodion</title>
     <link rel="stylesheet" href="bradypodion.css">
@@ -33,8 +33,8 @@
     }
     </style>
 </head>
-  <body ng-cloak>
-    <div ng-controller="bpViewCtrl" ui-view></div>
+  <body ng-app="bradypodionApp" bp-app ng-cloak>
+    <div ui-view></div>
     <bp-button bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme">⇄</bp-button>
     <script src="bower_components/lodash/dist/lodash.js"></script>
     <script src="bower_components/jquery/jquery.js"></script>
