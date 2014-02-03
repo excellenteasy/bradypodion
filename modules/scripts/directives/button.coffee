@@ -1,7 +1,7 @@
 # # Button
 
 angular.module('bp.directives').directive 'bpButton', ->
-  restrict: 'E'
+  restrict: 'C'
   link: (scope, element, attrs) ->
     attributes =
       role: 'button'

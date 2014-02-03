@@ -73,7 +73,7 @@ angular.module('bp.services').service 'tapService', deps [
       # Global Options
       options = angular.extend options, bpConfig.tap or {}
 
-      if (element.is('bp-button') and element.parent('bp-navbar')) or
+      if (element.is('bp-action') and element.parent('bp-navbar')) or
          element.is('bp-detail-disclosure')
         element.attr 'bp-no-scroll', ''
         options.noScroll = yes
