@@ -5,7 +5,8 @@
     font-weight: normal;
     font-style: normal;
   }
-  @{name}:before {
+  .@{name}:before {
+    content: '\e000';
     display: inline-block;
     font-family: @bp-icon-font-app;
     font-style: normal;
@@ -21,32 +22,34 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .bp-icon-system:before {
+  .bp-icon-system {
     font-family: @bp-icon-font-system;
   }
-  .bp-icon-search:before {
-    &:extend(.bp-icon-system:before);
+  .bp-icon.bp-icon-search:before {
+    &:extend(.bp-icon-system);
     content: '\e000';
   }
-  .bp-icon-chevron-right:before {
-    &:extend(.bp-icon-system:before);
+  .bp-icon.bp-icon-chevron-right:before {
+    &:extend(.bp-icon-system);
     content: '\e001';
   }
-  .bp-icon-chevron-left:before {
-    &:extend(.bp-icon-chevron-right:before);
+  .bp-icon.bp-icon-chevron-left:before {
+    &:extend(.bp-icon-system);
+    content: '\e001';
     .rotate(180deg);
   }
-  .bp-icon-chevron-up:before {
-    &:extend(.bp-icon-chevron-right:before);
+  .bp-icon.bp-icon-chevron-up:before {
+    &:extend(.bp-icon-system);
+    content: '\e001';
     .rotate(270deg);
-
   }
-  .bp-icon-chevron-down:before {
-    &:extend(.bp-icon-chevron-right:before);
+  .bp-icon.bp-icon-chevron-down:before {
+    &:extend(.bp-icon-system);
+    content: '\e001';
     .rotate(90deg);
   }
-  .bp-icon-check:before {
-    &:extend(.bp-icon-system:before);
+  .bp-icon.bp-icon-check:before {
+    &:extend(.bp-icon-system);
     content: '\e002';
   }
 }

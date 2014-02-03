@@ -11,13 +11,8 @@
   padding: 0 8px;
   width: 100%;
 
-  .before {
-    margin-right: 8px;
-  }
-  .after {
-    margin-left: 8px;
-  }
-  .@{prefix}-text {
+  @{prefix}-title {
+    margin: 0 8px;
     &:extend(.ellipsis);
     font-size: inherit;
     text-align: center;
@@ -28,7 +23,7 @@
   }
   @media only screen and (orientation:landscape) and (max-height: 480px) {
     height: @ios-navbar-height-landscape;
-    bp-button {
+    .bp-button {
       min-width: @ios-navbar-height-landscape;
       height: @ios-navbar-height-landscape;
       line-height: @ios-navbar-height-landscape;

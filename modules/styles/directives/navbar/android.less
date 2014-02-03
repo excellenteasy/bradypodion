@@ -10,7 +10,7 @@
   padding: 0 (@height/6);
   width: 100%;
 
-  .@{prefix}-text {
+  @{prefix}-title {
     &:extend(.ellipsis);
     overflow: visible;
     position: relative;
@@ -36,7 +36,7 @@
     }
   }
 
-  bp-icon {
+  .bp-icon {
     display: block;
     width: @height;
     height: @height;
@@ -47,11 +47,11 @@
     }
   }
 
-  bp-button {
+  .bp-button {
     margin-left: (@height/6);
   }
 
-  bp-button.bp-button-back:first-child {
+  .bp-button.bp-button-back:first-child {
     .border-radius(0);
     .box-shadow(none);
     position: absolute;

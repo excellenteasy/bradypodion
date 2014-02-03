@@ -13,7 +13,7 @@
       .transform(translateX(100%));
     }
     > bp-navbar {
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transform(translateX(50%));
         opacity: 0;
       }
@@ -28,7 +28,7 @@
     bp-navbar {
       .transition(none);
       background-color: transparent !important;
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transition(~"@{duration} @{ease} all");
         .transform(translateX(0));
         opacity: 1;
@@ -45,7 +45,7 @@
       .transform(translateX(0));
     }
     > bp-navbar {
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transform(translateX(0));
         opacity: 1;
       }
@@ -62,7 +62,7 @@
       .transition(none);
       .filter(brightness(1));
       .transform(translateX(0));
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transition(~"@{duration} @{ease} all");
         .transform(translateX(-50%));
         opacity: 0;
@@ -87,7 +87,7 @@
       .filter(brightness(0.9));
     }
     > bp-navbar {
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transform(translateX(-50%));
         opacity: 0;
       }
@@ -102,7 +102,7 @@
     }
     bp-navbar {
       .transition(none);
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transition(~"@{duration} @{ease} all");
         .transform(translateX(0));
         opacity: 1;
@@ -121,7 +121,7 @@
     > bp-navbar {
       background-color: transparent !important;
       .transition(none);
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transition(~"@{duration} @{ease} all");
         .transform(translateX(0));
         opacity: 1;
@@ -135,7 +135,7 @@
     }
     bp-navbar {
       .transform(translateX(0));
-      .bp-navbar-text, bp-button, bp-icon {
+      bp-navbar-title, bp-action {
         .transform(translateX(50%));
         opacity: 0;
       }

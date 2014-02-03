@@ -10,15 +10,15 @@
     color: fade(@color,30%);
   }
 
-  bp-icon {
+  .bp-icon {
     color: fade(@color,60%);
   }
 
-  bp-icon.@{tap-active} {
+  .bp-icon.@{tap-active} {
     background-color: lighten(desaturate(spin(@button, -1deg), 16%), 17%);
   }
 
-  bp-button.bp-button-back:first-child {
+  .bp-button.bp-button-back:first-child {
     &:before {
       color: fade(@color ,60%);
     }
