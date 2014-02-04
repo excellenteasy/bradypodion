@@ -37,7 +37,8 @@ angular.module('bp.services').service 'tapService', deps [
       touch.x = @_getCoordinate e, yes
       touch.y = @_getCoordinate e, no
       touch.ongoing = yes
-      if $(e.target).attr('bp-tap') and element[0] isnt e.target
+      $t = $(e.target)
+      if ($t.attr('bp-tap') or $t.attr('bp-sref')) and element[0] isnt e.target
         touch.nestedTap = yes
       else
         element.addClass options.activeClass

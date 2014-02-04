@@ -2,8 +2,16 @@
   <bp-action class="bp-button-back" bp-sref="directives">Directives</bp-action>
 </bp-navbar>
 <bp-table class='bp-content'>
-  <bp-cell bp-tap='to("detail-disclosure-site")'>
+  <bp-cell bp-sref='detail-disclosure-site'>
     Cell
-    <bp-detail-disclosure bp-tap='to("detail-disclosure-detail")'></bp-detail-disclosure>
+    <bp-detail-disclosure bp-sref='detail-disclosure-detail'></bp-detail-disclosure>
+  </bp-cell>
+  <bp-cell bp-sref='detail-disclosure-site'>
+    Cell
+    <bp-detail-disclosure bp-sref='detail-disclosure-detail'></bp-detail-disclosure>
+  </bp-cell>
+  <bp-cell bp-sref='detail-disclosure-site' id='userid'>
+    Cell
+    <bp-detail-disclosure bp-sref='detail-disclosure-detail'></bp-detail-disclosure>
   </bp-cell>
 <bp-table>
