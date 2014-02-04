@@ -1,5 +1,6 @@
 describe 'tapDirective', ->
 
+  beforeEach module 'ui.router'
   beforeEach module 'bp'
 
   scope   = null
@@ -72,10 +73,10 @@ describe 'tapDirective', ->
   # TODO: test allow-click
 
   describe 'intelligent defaults', ->
-    it 'should apply bp-no-scroll attribute to a button inside a navbar', ->
-      html = '<bp-navbar><bp-button bp-tap></bp-button></bp-navbar>'
+    it 'should apply bp-no-scroll attribute to an action inside a navbar', ->
+      html = '<bp-navbar><bp-action bp-tap></bp-action></bp-navbar>'
       element = compile(html) scope
-      expect(element.find('bp-button').attr 'bp-no-scroll').toBe ''
+      expect(element.find('bp-action').attr 'bp-no-scroll').toBe ''
 
     it 'should apply bp-bound-margin=5 attribute to cell inside iscroll', ->
       html = '<div bp-iscroll><bp-cell bp-tap></bp-cell></div>'
