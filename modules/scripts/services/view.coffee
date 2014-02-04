@@ -100,7 +100,4 @@ angular.module('bp.services').service 'bpViewService', deps [
 
     url.split('/')
 
-  $rootScope.to = (state, stateParams = {}) ->
-    $state.transitionTo state, stateParams
-
-  return this
+  this
