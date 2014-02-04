@@ -18,6 +18,8 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
       url: '/'
       templateUrl: 'views/index.html'
       transition: 'fade'
+      data:
+        title: 'BradyPodion'
     )
     .state('animations',
       url: '/animations'
@@ -207,13 +209,13 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
     name: 'Hailey'
     phone: '555-8765'
   ]
-).directive('switchTheme', ->
+).directive('switchTheme', (bpConfig) ->
   (scope, element, attrs) ->
     platforms = ['ios', 'android']
     scope.toggleTheme = (e) ->
-      index = platforms.indexOf(scope.config.platform)
-      scope.config.platform = platforms[++index % 2]
-      localStorage.setItem 'platform', scope.config.platform
+      index = platforms.indexOf(bpConfig.platform)
+      bpConfig.platform = platforms[++index % 2]
+      localStorage.setItem 'platform', bpConfig.platform
       location.reload()
 ).directive('demoTapped', (bpConfig) ->
   (scope, element, attrs) ->

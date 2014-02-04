@@ -1,9 +1,8 @@
 <bp-navbar>
-  <bp-button class="bp-button-back" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
-  Tabbar
+  <bp-action class="bp-button-back" bp-sref="directives">Directives</bp-action>
 </bp-navbar>
 <bp-content>
-  <div ng-controller="bpViewCtrl" ui-view></div>
+  <div ui-view></div>
 </bp-content>
 <bp-tabbar>
   <bp-tab class="bp-icon-search" bp-tap='to(tabState)' bp-state="tabbar.first">First</bp-tab>

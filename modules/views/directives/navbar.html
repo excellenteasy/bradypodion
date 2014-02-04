@@ -1,33 +1,16 @@
 <bp-navbar>
-  <bp-button class="bp-button-back" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
-  Navbar
+  <bp-action class="bp-button-back" bp-sref="directives">Directives</bp-action>
 </bp-navbar>
-<bp-content ng-init="title = 'Bound title'">
+<bp-content>
   <br><br>
-  <bp-navbar>
-    {{ title }} for Navbar
-    <bp-button bp-tap>Another Button</bp-button>
+  <bp-navbar bp-navbar-title='Custom Title'>
+    <bp-action bp-tap>Button</bp-action>
+    <bp-action bp-tap>Button</bp-action>
   </bp-navbar>
   <bp-navbar>
-    <bp-button bp-tap>Single Button</bp-button>
-    still centered
+    <bp-action bp-tap>Button</bp-action>
   </bp-navbar>
-  <bp-navbar>
-    <bp-button bp-tap>Single Button</bp-button>
-    title uses all the remaining space
-  </bp-navbar>
-  <bp-navbar bp-no-center>
-    No Centering
-    <bp-button bp-tap>Single Button</bp-button>
-  </bp-navbar>
-  <bp-navbar bp-no-button-split>
-    No Button Split
-    <bp-button bp-tap>Button</bp-button>
-    <bp-button bp-tap>Button</bp-button>
-    <bp-button bp-tap class="bp-button-back">Back</bp-button>
-  </bp-navbar>
-  <bp-navbar bp-no-button-split>
-    Icons
-    <bp-icon class="bp-icon-search" bp-tap></bp-icon>
+  <bp-navbar bp-navbar-title=''>
+    <bp-action bp-tap>Button</bp-action>
   </bp-navbar>
 <bp-content>

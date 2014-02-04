@@ -1,7 +1,6 @@
 <bp-navbar>
-  <bp-button class="bp-button-back" bp-no-scroll bp-tap="to('directives')">Directives</bp-button>
-  iScroll
-  <bp-button bp-tap="to('iscroll-sticky')">Sticky</bp-button>
+  <bp-action class="bp-button-back" bp-sref="directives">Directives</bp-action>
+  <bp-action bp-sref="iscroll-sticky">Sticky</bp-action>
 </bp-navbar>
 <bp-table bp-iscroll bp-iscroll-no-scrollbars>
   <bp-cell class="bp-cell-subtitle" ng-repeat="cell in cells">
