@@ -123,31 +123,36 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
       templateUrl: 'views/directives/tabbar.html'
       transition: 'slide'
     )
-    .state('tabbar.first',
-      url: '/directives/tabbar/first'
+    .state('first',
+      parent: 'tabbar'
+      url: '/directives/tabbar'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       transition: 'fade'
     )
-    .state('tabbar.second',
+    .state('second'
+      parent: 'tabbar',
       url: '/directives/tabbar/second'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       transition: 'fade'
     )
-    .state('tabbar.third',
+    .state('third',
+      parent: 'tabbar'
       url: '/directives/tabbar/third'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       transition: 'fade'
     )
-    .state('tabbar.fourth',
+    .state('fourth'
+      parent: 'tabbar',
       url: '/directives/tabbar/fourth'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       transition: 'fade'
     )
-    .state('tabbar.fifth',
+    .state('fifth',
+      parent: 'tabbar'
       url: '/directives/tabbar/fifth'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
@@ -227,7 +232,7 @@ angular.module('bradypodionApp', ['bp','ui.router','chieffancypants.loadingBar']
   for i in [0...300]
     $scope.cells.push i*Math.random()
 ).controller('DemoTabbarCtrl', ($state, $scope, dummyFriends) ->
-  $scope.state = $state.current.name.replace('tabbar.','')
+  $scope.state = $state.current.name
   $scope.friends = dummyFriends.sort ->
     0.5 - Math.random()
 ).controller('DemoLoadingCtrl', ($scope, cfpLoadingBar) ->
