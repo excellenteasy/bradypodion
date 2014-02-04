@@ -20,15 +20,11 @@ describe 'tabbarDirective', ->
   beforeEach inject ($rootScope, $compile, $state) ->
     scope = $rootScope.$new()
     state = $state
-    template = '''
+    template = "
     <bp-tabbar>
-      <bp-tab class="bp-icon-search" bp-tap='to(tabState)' bp-state="first">
-        First
-      </bp-tab>
-      <bp-tab class="bp-icon-search" bp-tap='to(tabState)' bp-state="second">
-        Second
-      </bp-tab>
-    </bp-tabbar>'''
+      <bp-tab bp-sref='first' bp-tab-icon='bp-icon-search'></bp-tab>
+      <bp-tab bp-sref='second' bp-tab-icon='bp-icon-search'></bp-tab>
+    </bp-tabbar>"
     element = $compile(template) scope
     scope.$apply()
 
