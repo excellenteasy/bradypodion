@@ -1,4 +1,4 @@
-describe 'buttonDirective', ->
+describe 'actionDirective', ->
 
   scope   = null
   element = null
