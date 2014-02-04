@@ -10,48 +10,54 @@ angular.module('bp.directives').directive 'bpTabbar', ->
 
 angular.module('bp.directives').directive 'bpTab', deps [
   '$state'
+  '$compile'
   '$timeout'
   ], (
   $state
+  $compile
   $timeout
   )->
-  scope: true
   restrict: 'E'
-  transclude: true
-  template: '<bp-icon></bp-icon>'
-  compile: (elem, attrs, transcludeFn) ->
-    (scope, element, attrs) ->
-      element.attr
-        role: 'tab'
+  scope:
+    bpSref: '@'
+    bpTabIcon: '@'
+    bpTabTitle: '@'
+  link: (scope, element, attrs) ->
+    element.attr
+      role: 'tab'
 
-      scope.tabState = attrs.bpState or ''
+    state = $state.get scope.bpSref
+    unless attrs.bpTabTitle?
+      attrs.bpTabTitle =
+        state.data?.title or
+        state.name?.charAt(0).toUpperCase() + state.name?.slice(1)
 
-      # Extract Icon
-      $icon = element.find 'bp-icon'
-      angular.forEach element.attr('class').split(' '), (value) ->
-        if /^bp\-icon\-/.test value
-          $icon.addClass value
-          element.removeClass value
-      # Extract Label
-      transcludeFn scope, (clone) ->
-        element.append clone
+    $icon = $compile("
+      <span class='bp-icon {{bpTabIcon}}'></span>")(scope)
 
-      scope.$on '$stateChangeSuccess', ->
-        if $state.includes scope.tabState
-          element
-            .addClass('bp-tab-active')
-            .attr
-              'aria-selected': 'true'
-        else
-          element
-            .removeClass('bp-tab-active')
-            .attr
-              'aria-selected': 'false'
+    $title = $compile("
+      <span>
+        {{bpTabTitle}}
+      </span>")(scope)
 
-      element.bind 'touchstart', ->
-        $timeout ->
-          element.trigger 'touchend'
-        , 500
+    element.append $icon, $title
 
-      scope.$on '$destroy', ->
-        element.unbind 'touchstart'
+    scope.$on '$stateChangeSuccess', ->
+      if $state.includes scope.bpSref
+        element
+          .addClass('bp-tab-active')
+          .attr
+            'aria-selected': 'true'
+      else
+        element
+          .removeClass('bp-tab-active')
+          .attr
+            'aria-selected': 'false'
+
+    element.bind 'touchstart', ->
+      $timeout ->
+        element.trigger 'touchend'
+      , 500
+
+    scope.$on '$destroy', ->
+      element.unbind 'touchstart'
