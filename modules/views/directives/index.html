@@ -2,7 +2,7 @@
   <bp-action class="bp-button-back" bp-sref="app">Bradypodion</bp-action>
 </bp-navbar>
 <bp-table bp-scroll ng-init="directives = ['button','cell','detail-disclosure','icon','iscroll','navbar','scroll','search','tabbar','table','tap']">
-  <bp-cell ng-repeat='directive in directives' bp-tap="to(directive)">
+  <bp-cell ng-repeat='directive in directives' bp-sref="{{directive}}">
     {{ directive }}
   </bp-cell>
 </bp-table>
