@@ -17,21 +17,21 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
     bpNavbarTitle: '@'
   compile: (elem, attrs, transcludeFn) ->
 
+    getTitleFromState = (state) ->
+      state.data?.title or
+      state.name.charAt(0).toUpperCase() + state.name.slice(1)
+
     ios = if bpConfig.platform is 'android' then no else yes
 
     (scope, element, attrs) ->
+      state = $state.current
 
       element.attr
         role: 'navigation'
 
       transcludeFn scope, (clone) ->
         unless attrs.bpNavbarTitle?
-          attrs.bpNavbarTitle =
-            $state.current.data?.title or
-            (do ->
-            name = $state.current.name
-            name.charAt(0).toUpperCase() + name.slice(1)
-            )
+          attrs.bpNavbarTitle = getTitleFromState state
 
         $title = $compile("
           <bp-navbar-title role='heading'>
@@ -39,6 +39,15 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
           </bp-navbar-title>")(scope)
 
         $actions = clone.filter 'bp-action'
+
+        if state.data?.up? and not attrs.bpNavbarNoUp?
+          upState = $state.get state.data.up
+          upTitle = getTitleFromState upState
+          $up = $compile("
+            <bp-action class='bp-button-back' bp-sref='#{upState.name}'>
+              #{upTitle}
+            </bp-action>") scope
+          $actions = $up.add $actions
 
         if $actions.length <= 2
 
@@ -54,7 +63,7 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             unless scope.navbarTitle then $timeout ->
               difference = $scndAction.outerWidth() - $frstAction.outerWidth()
               if difference isnt 0 and $frstAction.length
-                $spacer = $("
+                $spacer = angular.element("
                   <div style='
                     -webkit-box-flex:10;
                     max-width:#{Math.abs(difference)}px
