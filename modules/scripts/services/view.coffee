@@ -21,7 +21,7 @@ angular.module('bp.services').service 'bpViewService', deps [
     fromParams
     ) =>
 
-    unless toState.transition or fromState.transition
+    unless toState.data?.transition or fromState.data?.transition
       return direction = type = ''
 
     direction = if toParams.direction
@@ -36,9 +36,9 @@ angular.module('bp.services').service 'bpViewService', deps [
     else if fromState.name is ''
       ''
     else if direction is 'reverse'
-      fromState.transition
+      fromState.data?.transition
     else
-      toState.transition
+      toState.data?.transition
 
   # Store last transition so we can clean up before doing the next one
   lastTransition = ''

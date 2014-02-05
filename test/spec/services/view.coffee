@@ -8,13 +8,16 @@ describe 'viewService', ->
     $stateProvider
       .state 'home',
         url: '/home'
-        transition: 'fade'
+        data:
+          transition: 'fade'
       .state 'second',
         url: '/home/second'
-        transition: 'slide'
+        data:
+          transition: 'slide'
       .state 'third',
         url: '/home/second/:third'
-        transition: 'slide'
+        data:
+          transition: 'slide'
     null
 
   viewService = null

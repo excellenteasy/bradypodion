@@ -14,150 +14,151 @@ angular.module('bradypodionApp', ['bp','ui.router']).config((
     .state('app',
       url: '/'
       templateUrl: 'views/index.html'
-      transition: 'fade'
       data:
+        transition: 'fade'
         title: 'BradyPodion'
     )
     .state('animations',
       url: '/animations'
       templateUrl: 'views/animations/index.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'app'
     )
     .state('cover',
       url: '/animations/cover'
       templateUrl: 'views/animations/transition.html'
-      transition: 'cover'
       data:
+        transition: 'cover'
         up: 'animations'
     )
     .state('fade',
       url: '/animations/fade'
       templateUrl: 'views/animations/transition.html'
-      transition: 'fade'
       data:
+        transition: 'fade'
         up: 'animations'
     )
     .state('flip',
       url: '/animations/flip'
       templateUrl: 'views/animations/transition.html'
-      transition: 'flip'
       data:
+        transition: 'flip'
         up: 'animations'
     )
     .state('scale',
       url: '/animations/scale'
       templateUrl: 'views/animations/transition.html'
-      transition: 'scale'
       data:
+        transition: 'scale'
         up: 'animations'
     )
     .state('slide',
       url: '/animations/slide'
       templateUrl: 'views/animations/transition.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'animations'
     )
     .state('directives',
       url: '/directives'
       templateUrl: 'views/directives/index.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'app'
     )
     .state('button',
       url: '/directives/button'
       templateUrl: 'views/directives/button.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('cell',
       url: '/directives/cell'
       templateUrl: 'views/directives/cell.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('detail-disclosure',
       url: '/directives/detail-disclosure'
       templateUrl: 'views/directives/detail-disclosure.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('detail-disclosure-site',
       url: '/directives/detail-disclosure/site'
       templateUrl: 'views/directives/detail-disclosure/site.html'
-      transition: 'cover'
+      data:
+        transition: 'cover'
     )
     .state('detail-disclosure-detail',
       url: '/directives/detail-disclosure/detail'
       templateUrl: 'views/directives/detail-disclosure/detail.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'detail-disclosure'
     )
     .state('icon',
       url: '/directives/icon'
       templateUrl: 'views/directives/icon.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('iscroll',
       url: '/directives/iscroll'
       templateUrl: 'views/directives/iscroll.html'
       controller: 'DemoDataCtrl'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
         title: 'iScroll'
     )
     .state('iscroll-sticky',
       url: '/directives/iscroll/sticky'
       templateUrl: 'views/directives/iscroll/sticky.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'iscroll'
         title: 'iScroll-sticky'
     )
     .state('navbar',
       url: '/directives/navbar'
       templateUrl: 'views/directives/navbar.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('scroll',
       url: '/directives/scroll'
       templateUrl: 'views/directives/scroll.html'
-      transition: 'slide'
       controller: 'DemoDataCtrl'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('scroll-sticky',
       url: '/directives/scroll/sticky'
       templateUrl: 'views/directives/scroll/sticky.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'scroll'
     )
     .state('search',
       url: '/directives/search'
       templateUrl: 'views/directives/search.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('tabbar',
       url: '/directives/tabbar'
       templateUrl: 'views/directives/tabbar.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('first',
@@ -165,81 +166,84 @@ angular.module('bradypodionApp', ['bp','ui.router']).config((
       url: '/directives/tabbar'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
-      transition: 'fade'
       data:
-        up: 'directives'
+        transition: 'fade'
     )
     .state('second'
       parent: 'tabbar',
       url: '/directives/tabbar/second'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
-      transition: 'fade'
+      data:
+        transition: 'fade'
     )
     .state('third',
       parent: 'tabbar'
       url: '/directives/tabbar/third'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
-      transition: 'fade'
+      data:
+        transition: 'fade'
     )
     .state('fourth'
       parent: 'tabbar',
       url: '/directives/tabbar/fourth'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
-      transition: 'fade'
+      data:
+        transition: 'fade'
     )
     .state('fifth',
       parent: 'tabbar'
       url: '/directives/tabbar/fifth'
       templateUrl: 'views/directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
-      transition: 'fade'
+      data:
+        transition: 'fade'
     )
     .state('table-header',
       url: '/directives/table-header'
       templateUrl: 'views/directives/table-header.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('table',
       url: '/directives/table'
       templateUrl: 'views/directives/table.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
     .state('table-grouped',
       url: '/directives/table/grouped'
       templateUrl: 'views/directives/table/grouped.html'
       controller: 'DemoDataCtrl'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'table'
     )
     .state('table-plain',
       url: '/directives/table/plain'
       templateUrl: 'views/directives/table/plain.html'
       controller: 'DemoDataCtrl'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'table'
     )
     .state('table-section',
       url: '/directives/table/section'
       templateUrl: 'views/directives/table/section.html'
       controller: 'DemoDataCtrl'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'table'
     )
     .state('tap',
       url: '/directives/tap'
       templateUrl: 'views/directives/tap.html'
-      transition: 'slide'
       data:
+        transition: 'slide'
         up: 'directives'
     )
 ).factory('dummyFriends', ->
