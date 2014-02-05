@@ -1,6 +1,21 @@
-.bp-ios-button-theme(@color: @ios-button-theme-default) when (isColor(@color)) {
+.bp-ios-button-theme(@color: @ios-button-theme-default, @bg: @ios-navbar-background, @prefix: bp-button) when (isColor(@color)) {
   color: @color;
   &.@{tap-active} {
     color: fade(@color, 50%);
+  }
+  @leg: @ios-button-up-leg;
+  @thick: @ios-button-up-thickness;
+  &.@{prefix}-back ~ @{prefix}-up {
+    opacity: 1;
+    box-shadow: inset @thick -@thick @color,
+                      -@leg   0      @bg,
+                      0       @leg   @bg,
+                      -@leg   @leg   @bg;
+  }
+  &.@{prefix}-back.@{tap-active} ~ @{prefix}-up {
+    box-shadow: inset @thick -@thick fade(@color, 50%),
+                      -@leg   0      @bg,
+                      0       @leg   @bg,
+                      -@leg   @leg   @bg;
   }
 }

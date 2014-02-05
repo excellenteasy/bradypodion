@@ -10,9 +10,29 @@
   text-align: center;
   -webkit-text-rendering: optimizeLegibility;
 
+  &.@{prefix}-back {
+    padding-left: 18px;
+  }
+
   &.disabled, &[disabled] {
     cursor: default;
     pointer-events: none;
     color: #cccccc;
   }
+}
+
+.bp-ios-button-up() {
+  @leg: @ios-button-up-leg;
+  @thick: @ios-button-up-thickness;
+  .rotate(45);
+  position: absolute;
+  display: block;
+  z-index: 1000;
+  pointer-events: none;
+  background: transparent !important;
+  opacity: 0;
+  width: @leg;
+  height: @leg;
+  left: 12px;
+  top: 15px;
 }

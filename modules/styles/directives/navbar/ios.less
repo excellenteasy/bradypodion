@@ -4,6 +4,8 @@
   .bp-ios-navbar-theme;
   &:extend(.borderbox);
   &:extend(.flexbox);
+  position: relative;
+  overflow: hidden;
   background-size: 1px 1px;
   background-repeat: repeat no-repeat;
   background-position: left bottom;
@@ -21,12 +23,19 @@
     .ios-dynamic-type(-apple-system-headline);
     -webkit-box-flex: 1;
   }
+
   @media only screen and (orientation:landscape) and (max-height: 480px) {
     height: @ios-navbar-height-landscape;
+
     .bp-button {
       min-width: @ios-navbar-height-landscape;
       height: @ios-navbar-height-landscape;
       line-height: @ios-navbar-height-landscape;
     }
+
+    bp-button-up {
+      top: 9px;
+    }
+
   }
 }

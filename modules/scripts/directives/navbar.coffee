@@ -30,6 +30,7 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
         role: 'navigation'
 
       transcludeFn scope, (clone) ->
+
         unless attrs.bpNavbarTitle?
           attrs.bpNavbarTitle = getTitleFromState state
 
@@ -48,19 +49,19 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
               upTitle
             }</bp-action>") scope
           $actions = $up.add $actions
+          $arrow = angular.element '<bp-button-up>'
 
         if $actions.length <= 2
-
           $frstAction = $actions.eq 0
           $scndAction = $actions.eq 1
 
           if ios
-
             $actions.addClass 'bp-button'
-            element.append $frstAction, $title, $scndAction
+            element.append $frstAction, $title, $scndAction, $arrow
 
             unless scope.navbarTitle then $timeout ->
               difference = $scndAction.outerWidth() - $frstAction.outerWidth()
+
               if difference isnt 0 and $frstAction.length
                 $spacer = angular.element("
                   <div style='
@@ -74,7 +75,6 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             , 0
 
           else
-
             $actions.each ->
               $action = angular.element this
               $action
@@ -85,7 +85,6 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             element.append $title, $frstAction, $scndAction
 
         else
-
           # TODO: implement Toolbar/Action overflow
           console.warn 'Toolbar/Action overflow implementation missing'
           console.log $actions
