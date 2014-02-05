@@ -50,26 +50,4 @@
   .bp-button {
     margin-left: (@height/6);
   }
-
-  .bp-button.bp-button-back:first-child {
-    .border-radius(0);
-    .box-shadow(none);
-    position: absolute;
-    top: 0px;
-    left: (-@height/6);
-    width: @height;
-    height: @height;
-    line-height: @height;
-    padding: 0;
-    background: transparent;
-    color: transparent;
-    &:extend(.bp-icon-chevron-left all);
-    &:before {
-      .transform(scale(1,1.5), rotate(180deg));
-      display: inline-block;
-      position: absolute;
-      left: 0;
-      font-size: 12px;
-    }
-  }
 }
