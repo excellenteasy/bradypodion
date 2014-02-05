@@ -26,7 +26,7 @@ describe 'navbarDirective', ->
 
     it 'should be applied', ->
       $text = element.find 'bp-navbar-title'
-      expect($text.text().trim()).toBe 'Foo'
+      expect($text.text()).toBe 'Foo'
       expect($text.scope().bpNavbarTitle).toBe 'Foo'
 
   describe 'actions', ->

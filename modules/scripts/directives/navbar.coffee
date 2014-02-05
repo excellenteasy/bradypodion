@@ -34,9 +34,9 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
           attrs.bpNavbarTitle = getTitleFromState state
 
         $title = $compile("
-          <bp-navbar-title role='heading'>
-            {{bpNavbarTitle}}
-          </bp-navbar-title>")(scope)
+          <bp-navbar-title role='heading'>{{
+            bpNavbarTitle
+          }}</bp-navbar-title>") scope
 
         $actions = clone.filter 'bp-action'
 
@@ -44,9 +44,9 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
           upState = $state.get state.data.up
           upTitle = getTitleFromState upState
           $up = $compile("
-            <bp-action class='bp-button-back' bp-sref='#{upState.name}'>
-              #{upTitle}
-            </bp-action>") scope
+            <bp-action class='bp-button-back' bp-sref='#{upState.name}'>#{
+              upTitle
+            }</bp-action>") scope
           $actions = $up.add $actions
 
         if $actions.length <= 2
@@ -58,7 +58,6 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
 
             $actions.addClass 'bp-button'
             element.append $frstAction, $title, $scndAction
-
 
             unless scope.navbarTitle then $timeout ->
               difference = $scndAction.outerWidth() - $frstAction.outerWidth()

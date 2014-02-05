@@ -36,9 +36,9 @@ angular.module('bp.directives').directive 'bpTab', deps [
       <span class='bp-icon {{bpTabIcon}}'></span>")(scope)
 
     $title = $compile("
-      <span>
-        {{bpTabTitle}}
-      </span>")(scope)
+      <span>{{
+        bpTabTitle
+      }}</span>") scope
 
     element.append $icon, $title
 
