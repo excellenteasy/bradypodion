@@ -6,7 +6,7 @@ angular.module('bp.directives').directive 'bpAction', ->
     attributes =
       role: 'button'
 
-    if element.hasClass('bp-button-back') and not attrs['aria-label']
+    if element.hasClass('bp-action-up') and not attrs['aria-label']
       attributes['aria-label'] = if label = element.text()
         "Back to #{label}"
       else

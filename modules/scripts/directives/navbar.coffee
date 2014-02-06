@@ -45,7 +45,7 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
           upState = $state.get state.data.up
           upTitle = getTitleFromState upState
           $up = $compile("
-            <bp-action class='bp-button-back' bp-sref='#{upState.name}'>#{
+            <bp-action class='bp-action-up' bp-sref='#{upState.name}'>#{
               upTitle
             }</bp-action>") scope
           $actions = $up.add $actions if ios
