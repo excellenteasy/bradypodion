@@ -12,28 +12,25 @@
 
   @{prefix}-title {
     &:extend(.ellipsis);
-    overflow: visible;
+    overflow: hidden;
     position: relative;
     font-size: inherit;
     display: block;
     height: (@height / 1.2);
     line-height: (@height / 1.2);
-    margin-left: (@height / 1.2);
     -webkit-box-flex: 1;
-    &:before {
-      @size: (@height / 1.6);
-      content: '';
-      display: block;
-      position: absolute;
-      top: 5px;
-      left: -(@size + @height/12);
-      pointer-events: none;
-      width: @size;
-      height: @size;
-      background-repeat: no-repeat;
-      .background-size(@size @size);
-      .background-image(@android-navbar-app-icon);
-    }
+  }
+
+  @{prefix}-icon {
+    @size: (@height / 1.6);
+    display: block;
+    pointer-events: none;
+    width: @size;
+    height: @size;
+    margin: 0 8px;
+    background-repeat: no-repeat;
+    .background-size(@size @size);
+    .background-image(@android-navbar-app-icon);
   }
 
   .bp-icon {
@@ -44,6 +41,47 @@
     text-align: center;
     &:last-child {
       margin-right: -(@height/6);
+    }
+  }
+
+  .bp-button-back {
+    height: @height;
+    position: relative;
+    width: @height + 4px;
+    margin: 0 4px 0 -8px;
+    background: transparent;
+    &:before {
+      content: none;
+    }
+    div {
+      .scale(1,1.7);
+      position: absolute;
+      z-index: 1000;
+      top: 18px;
+      left: 3px;
+      width: 12px;
+      height: 12px;
+      background: transparent;
+      overflow: hidden;
+      &:before {
+        .rotate(45deg);
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: 4px;
+        @leg: @ios-button-up-leg;
+        @thick: @ios-button-up-thickness;
+        width: @leg;
+        height: @leg;
+        background: transparent;
+        box-shadow: inset @thick -@thick #9a9a9a;
+      }
+    }
+    bp-navbar-icon {
+      position: absolute;
+      top: 9px;
+      left: 16px;
+      margin: 0;
     }
   }
 

@@ -48,7 +48,7 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             <bp-action class='bp-button-back' bp-sref='#{upState.name}'>#{
               upTitle
             }</bp-action>") scope
-          $actions = $up.add $actions
+          $actions = $up.add $actions if ios
           $arrow = angular.element '<bp-button-up>'
 
         if $actions.length <= 2
@@ -75,14 +75,28 @@ angular.module('bp.directives').directive 'bpNavbar', deps [
             , 0
 
           else
-            $actions.each ->
-              $action = angular.element this
+            handleAction = ($action) ->
               $action
                 .attr 'aria-label', $action.text()
                 .text ''
                 .addClass 'bp-icon'
 
-            element.append $title, $frstAction, $scndAction
+            $actions.each ->
+              $action = angular.element this
+              handleAction $action
+
+            handleAction $up if $up
+
+            $icon = angular.element '<bp-navbar-icon>'
+
+            if $up?
+              $up
+                .append '<div>'
+                .append $icon
+
+              element.append $up, $title, $frstAction, $scndAction
+            else
+              element.append $up, $icon, $title, $frstAction, $scndAction
 
         else
           # TODO: implement Toolbar/Action overflow
