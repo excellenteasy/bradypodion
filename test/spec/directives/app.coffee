@@ -17,3 +17,6 @@ describe 'appDirective', ->
     it 'should have default class ios', ->
       expect(element.hasClass 'ios').toBe true
       expect(element.hasClass config.platform).toBe true
+
+    it 'should have ARIA role', ->
+      expect(element.attr 'role' ).toBe 'application'
