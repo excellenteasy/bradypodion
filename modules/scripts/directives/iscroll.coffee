@@ -48,12 +48,5 @@ angular.module('bp.directives').directive 'bpIscroll', deps [
     scope.$on 'bpRefreshIScrollInstances', ->
       scope.getIScroll()?.refresh?()
 
-    scope.$on '$destroy', -> iscroll.destroy()
-
-    scope.$on '$stateChangeStart', ->
+    element.on '$destroy', ->
       iscroll.destroy()
-      element.removeAttr 'bp-iscroll'
-      element.find('bp-iscroll-wrapper').css
-        position: 'static'
-        transform: ''
-        transition: ''
