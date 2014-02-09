@@ -33,15 +33,18 @@ module.exports = (grunt) ->
     watch:
       options:
         livereload: '<%= connect.options.livereload %>'
-      coffee:
+
+      coffeeApp:
+        files: ['<%=bp.app%>/scripts/app.coffee']
+        tasks: ['coffee:app']
+
+      coffeeDist:
         files: [
-          '<%=bp.app%>/scripts/app.coffee'
           '<%=bp.app%>/scripts/bradypodion.coffee'
           '<%=bp.app%>/scripts/*/**/*.coffee'
         ]
         tasks: [
           'coffeelint:build'
-          'coffee:app'
           'coffee:dist'
           'karma:unit:run'
         ]
@@ -60,6 +63,7 @@ module.exports = (grunt) ->
 
       views:
         files: ['<%=bp.app%>/index.html', '<%=bp.app%>/views/**/*.html']
+        tasks: ['coffee:app']
 
     connect:
       options:
@@ -143,10 +147,9 @@ module.exports = (grunt) ->
         configFile: 'karma.conf.coffee'
       continuous:
         singleRun: true
-        browsers: ['PhantomJS']
       unit:
+        port: 9877
         background: true
-        browsers: ['Chrome']
 
     coveralls:
       options:
