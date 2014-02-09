@@ -4,7 +4,6 @@ describe 'appDirective', ->
   scope   = null
   element = null
 
-  beforeEach module 'ui.router'
   beforeEach module 'bp'
 
   beforeEach inject ($rootScope, $compile, bpConfig) ->

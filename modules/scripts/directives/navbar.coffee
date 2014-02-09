@@ -1,6 +1,6 @@
 # # Navbar
 
-angular.module('bp.directives').directive 'bpNavbar', deps [
+angular.module('bp').directive 'bpNavbar', deps [
   'bpConfig'
   '$timeout'
   '$state'

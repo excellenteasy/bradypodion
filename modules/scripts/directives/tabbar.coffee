@@ -1,6 +1,6 @@
 # # Tabbar
 
-angular.module('bp.directives').directive 'bpTabbar', ->
+angular.module('bp').directive 'bpTabbar', ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     element.attr
@@ -8,7 +8,7 @@ angular.module('bp.directives').directive 'bpTabbar', ->
 
 # # Tab
 
-angular.module('bp.directives').directive 'bpTab', deps [
+angular.module('bp').directive 'bpTab', deps [
   '$state'
   '$compile'
   '$timeout'

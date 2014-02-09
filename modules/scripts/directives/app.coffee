@@ -1,6 +1,6 @@
 # # Body
 
-angular.module('bp.directives').directive 'bpApp', deps [
+angular.module('bp').directive 'bpApp', deps [
   '$compile'
   'bpConfig'
   'bpViewService'

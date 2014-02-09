@@ -10,4 +10,4 @@ class BpConfig
 
   setConfig: (config) -> @userConfig = config
 
-angular.module('bp.factories').provider 'bpConfig', BpConfig
+angular.module('bp').provider 'bpConfig', BpConfig

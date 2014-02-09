@@ -1,6 +1,5 @@
 describe 'tapDirective', ->
 
-  beforeEach module 'ui.router'
   beforeEach module 'bp'
 
   scope   = null

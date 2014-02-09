@@ -1,6 +1,6 @@
 # # Detail Disclosure
 
-angular.module('bp.directives').directive 'bpDetailDisclosure', deps [
+angular.module('bp').directive 'bpDetailDisclosure', deps [
   'bpConfig'
   '$rootScope'
   ], (

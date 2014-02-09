@@ -3,7 +3,7 @@
 # flip = (dir = 'normal', name = 'flip', duration = 500) ->
 #   sign = if dir is 'normal' then '' else '-'
 
-#   angular.module('bp.animations').animation ".#{name}-#{dir}-enter", deps [
+#   angular.module('bp').animation ".#{name}-#{dir}-enter", deps [
 #     '$timeout'
 #     ], (
 #     $timeout
@@ -37,7 +37,7 @@
 #         done()
 #       , duration
 
-#   angular.module('bp.animations').animation ".#{name}-#{dir}-leave", deps [
+#   angular.module('bp').animation ".#{name}-#{dir}-leave", deps [
 #     '$timeout'
 #     ], (
 #     $timeout

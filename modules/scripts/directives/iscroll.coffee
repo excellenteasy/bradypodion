@@ -1,6 +1,6 @@
 # # iScroll
 
-angular.module('bp.directives').directive 'bpIscroll', deps [
+angular.module('bp').directive 'bpIscroll', deps [
   'bpConfig'
   '$timeout'
   ], (

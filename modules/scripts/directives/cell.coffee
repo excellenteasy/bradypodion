@@ -1,6 +1,6 @@
 # # Cell
 
-angular.module('bp.directives').directive 'bpCell', ->
+angular.module('bp').directive 'bpCell', ->
   restrict: 'E'
   transclude: true
   compile: (elem, attrs, transcludeFn) ->

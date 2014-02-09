@@ -1,6 +1,6 @@
 # # Tap
 
-angular.module('bp.directives').directive 'bpTap', deps [
+angular.module('bp').directive 'bpTap', deps [
   '$parse'
   'tapService'
   ], (

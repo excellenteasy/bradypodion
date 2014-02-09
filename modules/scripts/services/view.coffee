@@ -1,6 +1,6 @@
 # View Service
 
-angular.module('bp.services').service 'bpViewService', deps [
+angular.module('bp').service 'bpViewService', deps [
   '$rootScope'
   '$state'
   ], (

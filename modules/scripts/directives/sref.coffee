@@ -1,6 +1,6 @@
 # # Sref
 
-angular.module('bp.directives').directive 'bpSref', deps [
+angular.module('bp').directive 'bpSref', deps [
   '$state'
   '$parse'
   'tapService'

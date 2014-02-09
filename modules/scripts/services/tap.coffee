@@ -1,6 +1,6 @@
 # Tap Service
 
-angular.module('bp.services').service 'tapService', deps [
+angular.module('bp').service 'tapService', deps [
   'bpConfig'
   ], (
   bpConfig

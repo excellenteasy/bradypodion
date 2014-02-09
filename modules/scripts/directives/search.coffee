@@ -1,6 +1,6 @@
 # # Search
 
-angular.module('bp.directives').directive 'bpSearch', deps [
+angular.module('bp').directive 'bpSearch', deps [
   '$compile'
   '$timeout'
   ], (
