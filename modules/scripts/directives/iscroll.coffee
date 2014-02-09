@@ -9,44 +9,33 @@ angular.module('bp').directive 'bpIscroll', deps [
   ) ->
   transclude: yes
   template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>'
+  controller: ($scope) ->
+    iscroll = null
+    iscrollsticky = null
+
+    $scope.getIScroll = -> iscroll
+    $scope.getIScrollSticky = -> iscrollsticky
+
+    $scope.setIScroll = (inIscroll, inSticky) ->
+      iscroll = inIscroll
+      iscrollsticky = inSticky
+
   link: (scope, element, attrs) ->
-    iscroll = {}
-
-    scope.getIScroll = -> iscroll
-
-    # TODO: detect if animation/transition is happening and wait
-    delay = 0
-
-    # merge defaults with global user options
+    # TODO: pass in options on a per directive basis
     options = angular.extend
-      delay: delay
-      stickyHeadersSelector: 'bp-table-header'
-      scrollbarsEnabled: yes
-    , bpConfig.iscroll or {}
+      probeType: 3
+      scrollbars: yes
+    , bpConfig.iscroll
 
-    # Scrollbar Y options
-    if attrs.bpIscrollNoScrollbars?
-      options.scrollbarsEnabled = no
+    $timeout ->
+      isc = new IScroll element.get(0), options
 
-    # Sticky Headers Options
-    if attrs.bpIscrollSticky?
-      options.stickyHeadersEnabled  = yes
-      unless attrs.bpIscrollSticky is ''
-        options.stickyHeadersSelector = attrs.bpIscrollSticky
+      if attrs.bpIscrollSticky? and bpConfig.platform isnt 'android'
+        selector = attrs.bpIscrollSticky or 'bp-table-header'
+        iscs = new IScrollSticky isc, selector
 
-    # create IScroll instance on element
-    instanciateIScroll = ->
-      iscroll = new IScroll element[0],
-        probeType: 3
-        scrollbars: options.scrollbarsEnabled
-      if options.stickyHeadersEnabled and bpConfig.platform isnt 'android'
-        new IScrollSticky iscroll, options.stickyHeadersSelector
-
-    # schedule IScroll instantication
-    $timeout instanciateIScroll, options.delay
-
-    scope.$on 'bpRefreshIScrollInstances', ->
-      scope.getIScroll()?.refresh?()
+      scope.setIScroll isc, iscs
+    , 0
 
     element.on '$destroy', ->
-      iscroll.destroy()
+      scope.getIScroll().destroy()
