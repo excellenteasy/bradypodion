@@ -1,13 +1,17 @@
 # # Config
-class BpConfig
-  defaultConfig:
+angular.module('bp').provider 'bpConfig', class BpConfig
+
+  config =
     platform: 'ios'
 
-  userConfig:
-    noUserConfig: yes
+  constructor: ->
+    # Bp is configurable on runtime, but
+    # this could cause an inconsistent app state.
+    # You should know what you're doing.
+    config.setConfig = @setConfig
 
-  $get: -> angular.extend @defaultConfig, @userConfig
+  $get: ->
+    config
 
-  setConfig: (config) -> @userConfig = config
-
-angular.module('bp').provider 'bpConfig', BpConfig
+  setConfig: (inConfig) ->
+    config = angular.extend config, inConfig
