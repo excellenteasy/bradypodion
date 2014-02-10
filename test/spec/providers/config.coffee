@@ -1,38 +1,44 @@
-describe 'configFactory', ->
+describe 'configProvider', ->
 
   describe 'default', ->
-
-    config = null
-    scope  = null
-
     beforeEach module 'bp'
 
-    beforeEach inject ($rootScope, bpConfig) ->
+    it 'should have config', inject ($rootScope, bpConfig) ->
       config = bpConfig
       scope  = $rootScope.$new()
       scope.$apply()
 
-    it 'should have default config', ->
       expect(config.platform).toBe 'ios'
 
-  describe 'user', ->
-
-    config = null
-    scope  = null
+  describe 'provider', ->
 
     object = {foo:1}
 
     beforeEach module 'bp', (bpConfigProvider) ->
       bpConfigProvider.setConfig
-        property: 'random'
+        bar: 'foo'
         object: object
-      null
+      return
 
-    beforeEach inject ($rootScope, bpConfig) ->
+    it 'should be configurable', inject ($rootScope, bpConfig) ->
       config = bpConfig
       scope  = $rootScope.$new()
       scope.$apply()
 
-    it 'should have user config', ->
-      expect(config.property).toBe 'random'
-      expect(config.object).toEqual object
+      expect(config.bar).toBe 'foo'
+      expect(config.object).toBe object
+
+  describe 'runtime', ->
+    beforeEach module 'bp'
+
+    it 'should be configurable', inject ($rootScope, bpConfig) ->
+      config = bpConfig
+      scope  = $rootScope.$new()
+      scope.$apply()
+
+      expect(config.platform).toBe 'ios'
+
+      config.setConfig
+        foo: 'bar'
+
+      expect(config.foo).toBe 'bar'
