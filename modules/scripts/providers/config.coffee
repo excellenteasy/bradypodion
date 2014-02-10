@@ -1,5 +1,5 @@
 # # Config
-angular.module('bp').provider 'bpConfig', class BpConfig
+angular.module('bp').provider 'bpConfig', do -> class BpConfig
 
   config =
     platform: 'ios'
