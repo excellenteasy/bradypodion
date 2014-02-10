@@ -35,21 +35,30 @@ describe 'tabbarDirective', ->
       element.children().each (i,element) ->
         expect($(element).attr 'role' ).toBe 'tab'
 
-    it 'should have `bp-tab-active` class', ->
+    it 'should assign `bp-tab-active` class', inject ($timeout) ->
       $first  = element.find ':first-child'
       $second = element.find ':nth-child(2)'
 
       expect($first.hasClass 'bp-tab-active').toBe true
       expect($second.hasClass 'bp-tab-active').toBe false
 
-      # done = no
-      # runs ->
-      #   scope.$on '$stateChangeError', ->
-      #     done = yes
-      #   state.transitionTo 'second'
+      state.transitionTo 'second'
+      $timeout.flush()
 
-      # waitsFor (-> done), 1000
+      expect($first.hasClass 'bp-tab-active').toBe false
+      expect($second.hasClass 'bp-tab-active').toBe true
 
-      # runs ->
-      #   expect($first.hasClass 'bp-tab-active').toBe false
-      #   expect($second.hasClass 'bp-tab-active').toBe true
+  describe 'events', ->
+    it 'should bind touchstart', ->
+      events = $._data(element.children().get(0)).events
+      expect(events.touchstart?).toBe true
+
+    it 'should change state 500ms after touchstart', inject ($timeout) ->
+      element.children().eq(1).trigger 'touchstart'
+      $timeout.flush()
+      expect(state.$current.name).toBe 'second'
+
+    it 'should unbind touchstart after destroy', ->
+      events = $._data(element.children().get(0)).events
+      scope.$destroy()
+      expect(events.touchstart?).toBe false
