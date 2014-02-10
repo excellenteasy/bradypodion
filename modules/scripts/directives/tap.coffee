@@ -2,13 +2,13 @@
 
 angular.module('bp').directive 'bpTap', deps [
   '$parse'
-  'tapService'
+  'Tap'
   ], (
   $parse
-  tapService
+  Tap
   ) ->
   (scope, element, attrs) ->
-    tapService.getInstance().setup arguments ...
+    new Tap arguments ...
     element.bind 'tap', (e, touch) ->
       scope.$apply $parse(attrs.bpTap), {$event: e, touch}
       false

@@ -1,12 +1,12 @@
-# Tap Service
+# Tap
 
-angular.module('bp').service 'tapService', deps [
+angular.module('bp').factory 'Tap', deps [
   'bpConfig'
   ], (
   bpConfig
   ) ->
-  class TapService
-    setup: (scope, element, attrs, customOptions) ->
+  class Tap
+    constructor: (scope, element, attrs, customOptions) ->
       options = @_getOptions arguments...
 
       touch     = {}
@@ -103,6 +103,3 @@ angular.module('bp').service 'tapService', deps [
         e.changedTouches[0][axis]
       else
         0
-
-  getInstance: ->
-    new TapService

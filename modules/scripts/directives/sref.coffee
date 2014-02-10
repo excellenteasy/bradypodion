@@ -3,14 +3,14 @@
 angular.module('bp').directive 'bpSref', deps [
   '$state'
   '$parse'
-  'tapService'
+  'Tap'
   ], (
   $state
   $parse
-  tapService
+  Tap
   ) ->
   (scope, element, attrs) ->
-    tapService.getInstance().setup arguments ...
+    new Tap arguments ...
     element.bind 'tap', ->
       $state.transitionTo attrs.bpSref
       false
