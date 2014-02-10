@@ -30,10 +30,10 @@ angular.module('bp').directive 'bpTab', deps [
     unless attrs.bpTabTitle?
       attrs.bpTabTitle =
         state.data?.title or
-        state.name?.charAt(0).toUpperCase() + state.name?.slice(1)
+        state.name?.charAt(0).toUpperCase() + state.name?.slice 1
 
     $icon = $compile("
-      <span class='bp-icon {{bpTabIcon}}'></span>")(scope)
+      <span class='bp-icon {{bpTabIcon}}'></span>") scope
 
     $title = $compile("
       <span>{{
@@ -45,14 +45,12 @@ angular.module('bp').directive 'bpTab', deps [
     scope.$on '$stateChangeSuccess', ->
       if $state.includes scope.bpSref
         element
-          .addClass('bp-tab-active')
-          .attr
-            'aria-selected': 'true'
+          .addClass 'bp-tab-active'
+          .attr 'aria-selected', 'true'
       else
         element
-          .removeClass('bp-tab-active')
-          .attr
-            'aria-selected': 'false'
+          .removeClass 'bp-tab-active'
+          .attr 'aria-selected', 'false'
 
     element.bind 'touchstart', ->
       $timeout ->
