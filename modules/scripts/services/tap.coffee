@@ -96,8 +96,8 @@ angular.module('bp').service 'tapService', deps [
 
     _getCoordinate: (e, isX) ->
       axis = if isX then 'pageX' else 'pageY'
-      e = e.originalEvent
-      if e[axis]
+      e = e.originalEvent if e.originalEvent?
+      if e[axis]?
         e[axis]
       else if e.changedTouches?[0]?
         e.changedTouches[0][axis]
