@@ -51,7 +51,7 @@ describe 'tapService', ->
 
       element.trigger e
 
-      expect(tap._getTouch()).toEqual
+      expect(tap.touch).toEqual
         x: 5
         y: 5
         ongoing: yes
@@ -65,14 +65,14 @@ describe 'tapService', ->
 
       element.trigger e
 
-      expect(tap._getTouch()).toEqual
+      expect(tap.touch).toEqual
         x: 5
         y: 5
         ongoing: yes
         nestedTap: yes
 
     it 'should handle touchmove', ->
-      touch = tap._getTouch()
+      touch = tap.touch
 
       element.trigger $.Event 'touchstart',
         pageX: 5
@@ -119,7 +119,7 @@ describe 'tapService', ->
        pageY: 10
 
       expect(element.hasClass 'bp-active').toBe false
-      expect(tap._getTouch()).toEqual {}
+      expect(tap.touch).toEqual {}
       expect(tapped).toBe true
 
   describe 'privates', ->

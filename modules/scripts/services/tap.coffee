@@ -7,24 +7,21 @@ angular.module('bp').factory 'Tap', deps [
   ) ->
   class Tap
 
-    touch = {}
-    element = null
-
-    constructor: (scope, elem, attrs, customOptions) ->
-      element = elem
+    constructor: (scope, @element, attrs, customOptions) ->
+      @touch = {}
       @_setOptions attrs, customOptions
 
       if (not @options.allowClick) and 'ontouchstart' of window
-        element.bind 'click', @onClick
+        @element.bind 'click', @onClick
 
-      element.bind 'touchstart', @onTouchstart
+      @element.bind 'touchstart', @onTouchstart
 
-      element.bind 'touchmove', @onTouchmove
+      @element.bind 'touchmove', @onTouchmove
 
-      element.bind 'touchend touchcancel', @onTouchend
+      @element.bind 'touchend touchcancel', @onTouchend
 
-      scope.$on '$destroy', ->
-        element.unbind 'touchstart touchmove touchend touchcancel click'
+      scope.$on '$destroy', =>
+        @element.unbind 'touchstart touchmove touchend touchcancel click'
 
     onClick: (e) ->
       e.preventDefault()
@@ -33,40 +30,38 @@ angular.module('bp').factory 'Tap', deps [
       return
 
     onTouchstart: (e) =>
-      touch.x = @_getCoordinate e, yes
-      touch.y = @_getCoordinate e, no
-      touch.ongoing = yes
+      @touch.x = @_getCoordinate e, yes
+      @touch.y = @_getCoordinate e, no
+      @touch.ongoing = yes
       $t = $(e.target)
       if ($t.attr('bp-tap')? or $t.attr('bp-sref')?) and
-         element[0] isnt e.target
-        touch.nestedTap = yes
+         @element.get(0) isnt e.target
+        @touch.nestedTap = yes
       else
-        element.addClass @options.activeClass
+        @element.addClass @options.activeClass
       return
 
     onTouchmove: (e) =>
       x = @_getCoordinate e, yes
       y = @_getCoordinate e, no
       if @options.boundMargin? and
-         (Math.abs(touch.y - y) < @options.boundMargin and
-         Math.abs(touch.x - x) < @options.boundMargin)
-        element.addClass @options.activeClass unless touch.nestedTap
-        touch.ongoing = yes
+         (Math.abs(@touch.y - y) < @options.boundMargin and
+         Math.abs(@touch.x - x) < @options.boundMargin)
+        @element.addClass @options.activeClass unless @touch.nestedTap
+        @touch.ongoing = yes
         if @options.noScroll
           e.preventDefault()
       else
-        touch.ongoing = no
-        element.removeClass @options.activeClass
+        @touch.ongoing = no
+        @element.removeClass @options.activeClass
       return
 
     onTouchend: (e) =>
-      if touch.ongoing and not touch.nestedTap and e.type is 'touchend'
-        element.trigger 'tap', touch
-      touch = {}
-      element.removeClass @options.activeClass
+      if @touch.ongoing and not @touch.nestedTap and e.type is 'touchend'
+        @element.trigger 'tap', @touch
+      @touch = {}
+      @element.removeClass @options.activeClass
       return
-
-    _getTouch: -> touch
 
     _setOptions: (attrs = {}, customOptions = {}) ->
       # Default Options
@@ -76,16 +71,16 @@ angular.module('bp').factory 'Tap', deps [
         boundMargin: 50
         noScroll:    no
 
-      # Global Options
+      # Glxwobal Options
       options = angular.extend options, bpConfig.tap or {}
 
-      if (element.is('bp-action') and element.parent('bp-navbar')) or
-         element.is('bp-detail-disclosure')
-        element.attr 'bp-no-scroll', ''
+      if (@element.is('bp-action') and @element.parent('bp-navbar')) or
+         @element.is('bp-detail-disclosure')
+        @element.attr 'bp-no-scroll', ''
         options.noScroll = yes
 
-      if element.parents('[bp-iscroll]').length
-        element.attr 'bp-bound-margin', '5'
+      if @element.parents('[bp-iscroll]').length
+        @element.attr 'bp-bound-margin', '5'
         options.boundMargin = 5
 
       # Programatic Custom Options
