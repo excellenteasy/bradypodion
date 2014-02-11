@@ -17,6 +17,15 @@ describe 'viewService', ->
         url: '/home/second/:third'
         data:
           transition: 'slide'
+      .state 'fourth',
+        url: 'home/foo/bar/fourth'
+        data:
+          transition: 'slide'
+      .state 'fifth',
+        url: 'home/baz/fifth'
+        data:
+          transition: 'slide'
+
     null
 
   viewService = null
@@ -69,6 +78,8 @@ describe 'viewService', ->
         name: 'home'
       ).toBe('reverse')
 
+    it 'should detect normal direction for diverging paths', ->
+      expect(viewService.getDirection 'fourth', 'fifth').toBe 'normal'
 
     # using urls
     it 'should detect normal direction using url strings', ->
