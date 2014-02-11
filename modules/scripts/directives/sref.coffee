@@ -10,7 +10,7 @@ angular.module('bp').directive 'bpSref', deps [
   Tap
   ) ->
   (scope, element, attrs) ->
-    new Tap arguments ...
+    new Tap scope, element, attrs
     element.bind 'tap', ->
       $state.transitionTo attrs.bpSref
       false

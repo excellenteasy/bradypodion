@@ -8,7 +8,7 @@ angular.module('bp').directive 'bpTap', deps [
   Tap
   ) ->
   (scope, element, attrs) ->
-    new Tap arguments ...
+    new Tap scope, element, attrs
     element.bind 'tap', (e, touch) ->
       scope.$apply $parse(attrs.bpTap), {$event: e, touch}
       false
