@@ -7,97 +7,70 @@ angular.module('bp').service 'bpViewService', deps [
   $rootScope
   $state
   ) ->
+  class ViewService
+    constructor: ->
+      @transition = null
+      @lastTransition = null
 
-  # Initial Transition Values
-  direction = 'normal'
-  type = ''
+    listen: ->
+      # Detect transition type and direction before states change
+      $rootScope.$on '$stateChangeStart', @onStateChangeStart
 
-  # Detect transition type and direction before states change
-  $rootScope.$on '$stateChangeStart', (
-    event
-    toState
-    toParams
-    fromState
-    fromParams
-    ) =>
+      # Apply transition to view as class when loaded
+      $rootScope.$on '$viewContentLoaded', @onViewContentLoaded
 
-    unless toState.data?.transition or fromState.data?.transition
-      return direction = type = ''
+    onStateChangeStart: (event, toState, toParams, fromState, fromParams) =>
+      direction = toParams.direction or @getDirection fromState, toState
+      type = toParams.transition or @getType fromState, toState, direction
 
-    direction = if toParams.direction
-      # This is only the case if the user writes the parameter manually
-      toParams.direction
-    else
-      @getDirection fromState, toState
+      @setTransition type, direction
 
-    type = if toParams.transition
-      # This is only the case if the user writes the parameter manually
-      toParams.transition
-    else if fromState.name is ''
-      ''
-    else if direction is 'reverse'
-      fromState.data?.transition
-    else
-      toState.data?.transition
+    onViewContentLoaded: =>
+      $views = angular.element '[ui-view], ui-view'
+      if @transition?
+        $views
+          .removeClass @lastTransition
+          .addClass @transition
+        @lastTransition = @transition
+      else
+        $views.removeClass @lastTransition
 
-  # Store last transition so we can clean up before doing the next one
-  lastTransition = ''
+    setTransition: (type, direction) ->
+      @transition = if type? and direction?
+        "#{type}-#{direction}"
+      else
+        null
 
-  # Apply transition to view as class when loaded
-  $rootScope.$on '$viewContentLoaded', ->
-    if type and direction
-      transition = "#{type}-#{direction}"
-      angular.element('[ui-view]').each (i, view) ->
-        angular.element(view)
-          .removeClass(lastTransition)
-          .addClass transition
-      lastTransition = transition
+    getDirection: (from, to) ->
+      direction = 'normal'
 
-  # Flexible API paramaters scope.getDirection parameters...
-  # 1) fromURL, toURL
-  # 2) fromStateName, toStateName
-  # 3) options = {from, to}
-  @getDirection = (from, to) ->
-    dir = 'normal'
+      return null if from.url is '^'
 
-    if not to and angular.isObject(from) and from.to
-      {to, from} = from
+      fromSegments = @_getURLSegments from
+      toSegments = @_getURLSegments to
 
-    from =  $state.current.url unless from
-    return '' if from is '^'
+      if toSegments.length < fromSegments.length
+        direction = 'reverse'
+        for segment, index in toSegments
+          if segment isnt fromSegments[index]
+            direction = 'normal'
+            break
+        direction
+      else if toSegments.length is fromSegments.length
+        direction = null
 
-    fromSegments = @_getURISegments from
-    toSegments = @_getURISegments to
+      direction
 
-    if toSegments.length < fromSegments.length
-      dir = 'reverse'
-      for segment, index in toSegments
-        if segment isnt fromSegments[index]
-          dir = 'normal'
-          break
-      dir
-    else if toSegments.length is fromSegments.length
-      dir = ''
+    getType: (from, to, direction) ->
+      if direction is 'reverse'
+        from.data?.transition or null
+      else
+        to.data?.transition or null
 
-    dir
+    _getURLSegments: (state) ->
+      url = state.url or ''
+      # remove trailing slashes
+      url = url.replace /\/$/, ''
+      url.split('/')
 
-  # returns array of url segments for url or state (name)
-  @_getURISegments = (urlOrState) ->
-    url =
-      if angular.isString urlOrState
-        if urlOrState.charAt(0) is '/'
-          urlOrState
-        else
-          $state.get(urlOrState)?.url
-      else if angular.isObject urlOrState
-        if urlOrState.url?
-          urlOrState.url
-        else if urlOrState.name?
-          $state.href urlOrState.name
-
-    # remove trailing slashes
-    url = url.replace /\/$/, ''
-
-    url.split('/')
-
-  this
+  new ViewService

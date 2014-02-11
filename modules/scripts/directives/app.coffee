@@ -11,6 +11,7 @@ angular.module('bp').directive 'bpApp', deps [
   ) ->
   restrict: 'AE'
   link: (scope, element, attrs) ->
+    bpViewService.listen()
     element
       .addClass(bpConfig.platform)
       .attr
