@@ -1,6 +1,6 @@
 # Contributing to BradyPodion
 
-Adhere to these [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y).
+Adhere to these [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y) and our [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Prerequisites
 
