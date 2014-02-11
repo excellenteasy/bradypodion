@@ -18,138 +18,121 @@ describe 'viewService', ->
         data:
           transition: 'slide'
       .state 'fourth',
-        url: 'home/foo/bar/fourth'
+        url: '/home/foo/bar/fourth'
         data:
           transition: 'slide'
       .state 'fifth',
-        url: 'home/baz/fifth'
+        url: '/home/baz/fifth'
         data:
           transition: 'slide'
-
-    null
+    return
 
   viewService = null
   state = null
+  scope = null
 
-  beforeEach inject (bpViewService, $state) ->
+  home = second = third = fourth = fifth = null
+
+
+  beforeEach inject ($rootScope, bpViewService, $state) ->
+    scope = $rootScope.$new()
     viewService = bpViewService
     state = $state
+    home = state.get 'home'
+    second = state.get 'second'
+    third = state.get 'third'
+    fourth = state.get 'fourth'
+    fifth = state.get 'fifth'
+
+  describe 'construction', ->
+    it 'should be initted', ->
+      expect(viewService.transition).toBe null
+      expect(viewService.lastTransition).toBe null
+
+  describe 'listen', ->
+    it 'should listen to events', ->
+      spyOn viewService, 'onStateChangeStart'
+      spyOn viewService, 'onViewContentLoaded'
+
+      viewService.listen()
+
+      scope.$emit '$stateChangeStart'
+      scope.$emit '$viewContentLoaded'
+
+      expect(viewService.onStateChangeStart).toHaveBeenCalled()
+      expect(viewService.onViewContentLoaded).toHaveBeenCalled()
+
+  describe 'onStateChangeStart', ->
+    it 'should set transition', ->
+      viewService.onStateChangeStart {}, {},
+        direction: 'foo'
+        transition: 'bar'
+      expect(viewService.transition).toBe 'bar-foo'
+
+      viewService.onStateChangeStart {}, second, {}, home
+      expect(viewService.transition).toBe 'slide-normal'
+
+  describe 'onViewContentLoaded', ->
+    it 'should add and remove classes', ->
+      $views = angular.element '<div ui-view>'
+      angular.element('body').append $views
+      scope.$apply()
+
+      viewService.transition = 'foo'
+      viewService.onViewContentLoaded()
+
+      expect($views.hasClass 'foo').toBe true
+
+      viewService.transition = 'bar'
+      viewService.onViewContentLoaded()
+
+      expect($views.hasClass 'foo').toBe false
+      expect($views.hasClass 'bar').toBe true
+
+      viewService.transition = null
+      viewService.onViewContentLoaded()
+
+      expect($views.hasClass 'foo').toBe false
+      expect($views.hasClass 'bar').toBe false
+
+  describe 'setTransition', ->
+    it 'should set transition', ->
+      viewService.setTransition 'foo', 'bar'
+      expect(viewService.transition).toBe 'foo-bar'
+
+      viewService.setTransition null, 'bar'
+      expect(viewService.transition).toBe null
+
+      viewService.setTransition 'foo', null
+      expect(viewService.transition).toBe null
 
   describe 'getDirection', ->
+    it 'should detect "normal"', ->
+      expect(viewService.getDirection home, second).toBe 'normal'
+      expect(viewService.getDirection fourth, fifth).toBe 'normal'
 
-    # using state names
-    it 'should detect normal direction using state name strings', ->
-      expect(viewService.getDirection 'home', 'second').toBe 'normal'
+    it 'should detect "reverse"', ->
+      expect(viewService.getDirection second, home).toBe 'reverse'
 
-    it 'should detect reverse direction using state name strings', ->
-      expect(viewService.getDirection 'second', 'home').toBe 'reverse'
+    it 'should detect no direction', ->
+      expect(viewService.getDirection third, fifth).toBe null
+      expect(viewService.getDirection {url: '^'}).toBe null
 
-    it 'should detect normal direction using state names in properties', ->
-      expect(viewService.getDirection
-        from: 'home'
-        to: 'second'
-      ).toBe 'normal'
+  describe 'getType', ->
+    it 'should detect "normal" type', ->
+      expect(viewService.getType home, second, 'normal').toBe 'slide'
 
-    it 'should detect reverse direction using state name properties', ->
-      expect(viewService.getDirection
-        from: 'second'
-        to: 'home'
-      ).toBe 'reverse'
+    it 'should detect "reverse" type', ->
+      expect(viewService.getType home, second, 'reverse').toBe 'fade'
 
-    it 'should detect none direction from "^" url', ->
-      state.transitionTo 'home'
-      expect(viewService.getDirection
-        to: 'second'
-      ).toBe ''
+    it 'should detect no type', ->
+      expect(viewService.getType {}, {}, 'reverse').toBe null
+      expect(viewService.getType {}, {}, 'normal').toBe null
 
-    it 'should detect reverse direction using state objects', ->
-      expect(viewService.getDirection
-        name: 'second'
-        url: '/home/second'
-      ,
-        url: '/home'
-        name: 'home'
-      ).toBe('reverse')
-
-    it 'should detect normal direction using state objects without urls', ->
-      expect(viewService.getDirection
-        name: 'second'
-      ,
-        name: 'home'
-      ).toBe('reverse')
-
-    it 'should detect normal direction for diverging paths', ->
-      expect(viewService.getDirection 'fourth', 'fifth').toBe 'normal'
-
-    # using urls
-    it 'should detect normal direction using url strings', ->
-      expect(viewService.getDirection '/home', '/home/second').toBe 'normal'
-
-    it 'should detect reverse direction using url strings', ->
-      expect(viewService.getDirection '/home/second', '/home').toBe 'reverse'
-
-    it 'should detect normal direction using urls in properties', ->
-      expect(viewService.getDirection
-        from: '/home'
-        to: '/home/second'
-      ).toBe 'normal'
-
-    it 'should detect reverse direction using urls in properties', ->
-      expect(viewService.getDirection
-        from: '/home/second'
-        to: '/home'
-      ).toBe 'reverse'
-
-    it 'should detect none direction using "equal" URLs', ->
-      expect(
-        viewService.getDirection '/home/third', '/home/second'
-      ).toBe ''
-
-    it 'should detect none direction from "^" url', ->
-      state.transitionTo 'home'
-      expect(viewService.getDirection
-        to: '/second'
-      ).toBe ''
-
-    it 'should not care about trailing slashes', ->
-      expect(viewService.getDirection '/home/', '/home/second').toBe 'normal'
-      expect(viewService.getDirection '/home', '/home/second/').toBe 'normal'
-      expect(viewService.getDirection '/home/', '/home/second/').toBe 'normal'
-
-    # back button detection edge case
-    it 'should detect reverse direction in paramzartized URLs (1)', ->
-      expect(viewService.getDirection
-        from: 'third'
-        to: 'second'
-      ).toBe 'reverse'
-
-    it 'should detect reverse direction in paramzartized URLs (2)', ->
-      expect(viewService.getDirection
-        from: '/home/second/:third'
-        to: 'second'
-      ).toBe 'reverse'
-
-    # jumping levels
-    it 'should detect reverse directions when jumping back to /home', ->
-      expect(viewService.getDirection
-        from: '/home/second/:third'
-        to: '/home'
-      ).toBe 'reverse'
-
-    it 'should detect reverse directions when jumping back to state home', ->
-      expect(viewService.getDirection
-        from: 'third'
-        to: 'home'
-      ).toBe 'reverse'
-
-    it 'should detect normal directions when jumping from home to third', ->
-      expect(viewService.getDirection
-        from: 'home'
-        to: 'third'
-      ).toBe 'normal'
-
-    it 'should detect normal directions when jumping from /home to third', ->
-      expect(viewService.getDirection
-        from: '/home'
-        to: '/home/second/:third'
-      ).toBe 'normal'
+  describe '_getURLSegments', ->
+    it 'should return correct array', ->
+      fn = viewService._getURLSegments
+      expect(fn home)  .toEqual ['', 'home']
+      expect(fn second).toEqual ['', 'home', 'second']
+      expect(fn third) .toEqual ['', 'home', 'second', ':third']
+      expect(fn {})    .toEqual ['']
