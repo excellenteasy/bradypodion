@@ -1,5 +1,6 @@
 {
   "name": "bradypodion",
+  "license": "MIT",
   "version": "0.5.0-alpha.2",
   "dependencies": {
     "angular": "1.2.10",

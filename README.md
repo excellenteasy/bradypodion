@@ -15,9 +15,8 @@ See [Contributing](CONTRIBUTING.md)
 See [Changelog](CHANGELOG.md)
 
 ## License
-BradyPodion will be MIT licensed *soon*.
-
-Copyright (c) 2013 Stephan Bönnemann, David Pfahler
+BradyPodion is [MIT](LICENSE) licensed.
+Copyright (c) 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
 
 ## Authors
 | [![twitter/boennemann](http://gravatar.com/avatar/29e45e7e0bf9561770aae5818f139c80?s=70)](https://twitter.com/boennemann "Follow @boennemann on Twitter") | [![twitter/davidpfahler](http://gravatar.com/avatar/bd6985f75d8c77a4847ce288adebeb82?s=70)](https://twitter.com/davidpfahler "Follow @davidpfahler on Twitter") |
