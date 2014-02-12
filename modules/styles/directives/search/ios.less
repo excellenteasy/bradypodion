@@ -1,77 +1,111 @@
 @import "ios/theme";
 
 .bp-ios-search() {
-  @padding: 6px;
+  @space: 6px;
   &:extend(.flexbox);
   .bp-ios-search-theme;
   overflow: hidden;
   height: @ios-search-height;
-  padding: 0 @padding;
   position: relative;
 
-  &:before {
-    &:extend(.bp-icon-search:before );
-    .transition(left 0.3s ease);
-    pointer-events: none;
-    color: @ios-text-secondary-color;
-    font-size: 14px;
-    line-height: @ios-search-height;
-    height: @ios-search-height;
-    width: @ios-search-height;
-    text-align: center;
-    z-index: 100;
+  bp-search-bg-left, bp-search-bg-right {
+    display: block;
+    .box-sizing(border-box);
     position: absolute;
-    left: 50%;
-    margin-left: -(@ios-search-height - @padding);
+    top: @space;
+    background-color: white;
+    height: (@ios-search-height - 2*@space);
   }
 
-  &.focus:before {
-    left: (@ios-search-height - @padding);
+  bp-search-bg-left {
+    .border-radius(@space);
+    left: 0;
+    margin-left: @space;
+    width: 65%;
   }
 
-  bp-button {
+  bp-search-bg-right {
+    .translateX(0);
+    .transition(all 0.3s ease);
+    .border-top-right-radius(@space);
+    .border-bottom-right-radius(@space);
+    right: 0;
+    margin-right: @space;
+    width: 35%;
+  }
+
+  &.focus bp-search-bg-right {
+    .translateX(-100%);
+  }
+
+  input[type=search] {
+    .placeholder(transparent);
+    .appearance(searchfield);
+    border: none;
+    background: transparent;
+    position: relative;
+    z-index: 100;
+    color: black;
+    display: block;
+    margin: @space;
+    padding-right: @space;
+    padding-left: (3*@space);
+    height: (@ios-search-height - 2*@space);
+    width: 65%;
+  }
+
+  &.focus input[type=search]:valid ~ bp-search-placeholder span {
+    display: none;
+  }
+
+  .bp-button {
     .opacity(0);
-    .transform(translateX(100%));
+    .translateX(100%);
     .transition(all 0.3s ease);
     position: absolute;
-    right: @padding;
+    right: 0;
     pointer-events: none;
     speak: none;
-    padding: 0 @padding;
+    padding-left: (2*@space);
+    padding-right: (2*@space);
   }
 
-  &.focus bp-button {
-    .transition(all 0.3s linear 0.3s);
-    .transform(translateX(0));
+  &.focus .bp-button {
     .opacity(1);
+    .translateX(0);
     speak: normal;
     pointer-events: auto;
   }
 
-  input[type=search] {
-    .border-radius(@padding);
-    .box-sizing(border-box);
-    .transition(width 0.1s ease 0.3s);
-    position: relative;
-    font-size: 14px;
-    background-color: white;
-    border: none;
-    display: block;
-    height: (@ios-search-height - 2*@padding);
-    padding: 0 (4 * @padding);
-    width: 100%;
-    &::-webkit-input-placeholder {
-      .transition(transform 0.3s ease);
-      .transform(translateX(50%));
-      color: @ios-text-secondary-color;
-    }
-
-    &:focus::-webkit-input-placeholder {
-      .transform(translateX(0));
-    }
+  bp-search-placeholder {
+    font-size: 13px;
+    .ios-dynamic-type(-apple-system-footnote);
+    color: gray;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    line-height: @ios-search-height;
+    padding: 0 (2*@space);
+    text-align: center;
   }
 
-  .focus input[type=search] {
-    .transition(width 0.3s ease 0.1s);
+  &.focus bp-search-placeholder {
+    text-align: left;
+  }
+
+  bp-search-tap {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.focus bp-search-tap {
+    pointer-events: none;
   }
 }
