@@ -1,6 +1,8 @@
 # Contributing to BradyPodion
 
-Adhere to these [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y) and our [code of conduct](CODE_OF_CONDUCT.md).
+* Sign our [Contributor License Agreement](CONTRIBUTOR_LICENSE_AGREEMENTS.md).
+* Adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
+* Adhere to these [Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y) 
 
 ## Prerequisites
 
