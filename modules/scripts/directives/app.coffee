@@ -3,15 +3,15 @@
 angular.module('bp').directive 'bpApp', deps [
   '$compile'
   'bpConfig'
-  'bpViewService'
+  'bpView'
   ], (
   $compile
   bpConfig
-  bpViewService
+  bpView
   ) ->
   restrict: 'AE'
   link: (scope, element, attrs) ->
-    bpViewService.listen()
+    bpView.listen()
     element
       .addClass(bpConfig.platform)
       .attr

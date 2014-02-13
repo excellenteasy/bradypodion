@@ -6,10 +6,10 @@ describe 'tapService', ->
   element = null
   tap     = null
 
-  beforeEach inject ($rootScope, $compile, Tap) ->
+  beforeEach inject ($rootScope, $compile, BpTap) ->
     scope   = $rootScope.$new()
     element = $compile('<div>A</div>') scope
-    tap     = new Tap scope, element
+    tap     = new BpTap scope, element
     scope.$apply()
 
   describe 'events', ->
@@ -140,7 +140,7 @@ describe 'tapService', ->
       e = changedTouches: [pageY: 4]
       expect(tap._getCoordinate(e)).toBe 4
 
-    it 'should determine options', inject (Tap) ->
+    it 'should determine options', inject (BpTap) ->
 
       tap._setOptions()
 
@@ -174,7 +174,7 @@ describe 'tapService', ->
 
       element2 = parents2.find 'bp-action'
 
-      tap2 = new Tap scope, element2
+      tap2 = new BpTap scope, element2
 
       tap2._setOptions()
 

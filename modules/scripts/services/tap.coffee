@@ -1,11 +1,11 @@
 # Tap
 
-angular.module('bp').factory 'Tap', deps [
+angular.module('bp').factory 'BpTap', deps [
   'bpConfig'
   ], (
   bpConfig
   ) ->
-  class Tap
+  class BpTap
 
     constructor: (scope, @element, attrs, customOptions) ->
       @touch = {}

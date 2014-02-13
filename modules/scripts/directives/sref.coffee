@@ -3,14 +3,14 @@
 angular.module('bp').directive 'bpSref', deps [
   '$state'
   '$parse'
-  'Tap'
+  'BpTap'
   ], (
   $state
   $parse
-  Tap
+  BpTap
   ) ->
   (scope, element, attrs) ->
-    new Tap scope, element, attrs
+    new BpTap scope, element, attrs
     element.bind 'tap', ->
       $state.transitionTo attrs.bpSref
       false

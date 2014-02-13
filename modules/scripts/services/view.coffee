@@ -1,13 +1,13 @@
 # View Service
 
-angular.module('bp').service 'bpViewService', deps [
+angular.module('bp').service 'bpView', deps [
   '$rootScope'
   '$state'
   ], (
   $rootScope
   $state
   ) ->
-  class ViewService
+  class BpView
     constructor: ->
       @transition = null
       @lastTransition = null
@@ -73,4 +73,4 @@ angular.module('bp').service 'bpViewService', deps [
       url = url.replace /\/$/, ''
       url.split('/')
 
-  new ViewService
+  new BpView

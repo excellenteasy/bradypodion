@@ -34,9 +34,9 @@ describe 'viewService', ->
   home = second = third = fourth = fifth = null
 
 
-  beforeEach inject ($rootScope, bpViewService, $state) ->
+  beforeEach inject ($rootScope, bpView, $state) ->
     scope = $rootScope.$new()
-    viewService = bpViewService
+    viewService = bpView
     state = $state
     home = state.get 'home'
     second = state.get 'second'

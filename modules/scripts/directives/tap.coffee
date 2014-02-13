@@ -2,13 +2,13 @@
 
 angular.module('bp').directive 'bpTap', deps [
   '$parse'
-  'Tap'
+  'BpTap'
   ], (
   $parse
-  Tap
+  BpTap
   ) ->
   (scope, element, attrs) ->
-    new Tap scope, element, attrs
+    new BpTap scope, element, attrs
     element.bind 'tap', (e, touch) ->
       scope.$apply $parse(attrs.bpTap), {$event: e, touch}
       false

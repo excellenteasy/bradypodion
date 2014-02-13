@@ -4,13 +4,13 @@ angular.module('bp').directive 'bpSearch', deps [
   '$compile'
   '$timeout'
   '$window'
-  'Tap'
+  'BpTap'
   'bpConfig'
   ], (
   $compile
   $timeout
   $window
-  Tap
+  BpTap
   bpConfig
   ) ->
   restrict: 'E'
@@ -39,8 +39,8 @@ angular.module('bp').directive 'bpSearch', deps [
     unless childScope.placeholder?
       childScope.placeholder = 'Search'
 
-    new Tap childScope, $cancel, {} if ios
-    new Tap childScope, $tapLayer, {}
+    new BpTap childScope, $cancel, {} if ios
+    new BpTap childScope, $tapLayer, {}
 
     element
       .attr 'role','search'
