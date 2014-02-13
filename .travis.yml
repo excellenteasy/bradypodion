@@ -15,5 +15,9 @@ env:
     - secure: "ke17kytjrriZjX0AVPxnsQm6uFR8AZ/ymb7b3wlUNoWc3E2nzyUj+07S9R81oMQGjyfXC6bb3t8+XcVBJAGDPbArCx59sBZKPMHM7hzUJTAb3eQB/ptgMDHneYLYNOqxSyvIHdC40wPoBdB3vlAgew4/31UHDe69RznQTicV5Iw="
 notifications:
   email: false
+  webhooks:
+    urls:
+      secure: "jyVHUjWUMJyWMzp3kCPm0D8OaBgaJGivVwNcvOR2l+6yxEMntQKNSiEBnY/A7e09y3shWTQCwzyJcZbnphno32nJiWhgy7V2CMbKzh1ruKgL34OW7+5Cqt6KrL5P4YRiW+2RDrp1E3Gjzv74ag/TtmWVZY+unJKWdDUV4pTHufg="
+    on_start: true
   hipchat:
     secure: "tjVNZJhelIBNYD2wG9GPe5o5TV+kZv5fr+U1QunLM+SmQi66hYRHIh6LDFn8\nu6X7pDESihRXnOT4cBYCIDqG2MT9s1Kti5zdfwUN2w1HTJgK+V0+/Ccs+Z7V\noPAnvv0Q9Am+Do6tTu9coex3S5AEOr/xNgJQf6CU2lHIZvElM5k="
