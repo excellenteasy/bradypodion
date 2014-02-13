@@ -5,36 +5,41 @@ angular.module('bp').directive 'bpSearch', deps [
   '$timeout'
   '$window'
   'Tap'
+  'bpConfig'
   ], (
   $compile
   $timeout
   $window
   Tap
+  bpConfig
   ) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
+    ios = bpConfig.platform is 'ios'
     childScope = scope.$new yes
 
-    # set input placeholder to "Search" if not already set
-    childScope.placeholder = $search?.attr 'placeholder'
-    if !childScope.placeholder? or /^\s*$/.test childScope.placeholder
-      childScope.placeholder = 'Search'
+    if ios
+      $bgLeft = angular.element '<bp-search-bg-left>'
+      $bgRight = angular.element '<bp-search-bg-right>'
+      $cancel = $compile(
+        '<bp-action class="bp-button">Cancel</bp-action>') childScope
 
-    $bgLeft = angular.element '<bp-search-bg-left>'
-    $bgRight = angular.element '<bp-search-bg-right>'
     $placeholder = $compile(
       '<bp-search-placeholder>
         <bp-action class="bp-icon bp-icon-search"></bp-action>
         <span>{{ placeholder }}</span>
       </bp-search-placeholder>') childScope
-    $cancel = $compile(
-      '<bp-action class="bp-button">Cancel</bp-action>') childScope
     $tapLayer = angular.element '<bp-search-tap>'
     $search = element.find('input').attr
       'required': 'required'
       'type': 'search'
 
-    new Tap childScope, $cancel, {}
+    # set input placeholder to "Search" if not already set
+    childScope.placeholder = $search.attr 'placeholder'
+    unless childScope.placeholder?
+      childScope.placeholder = 'Search'
+
+    new Tap childScope, $cancel, {} if ios
     new Tap childScope, $tapLayer, {}
 
     element
@@ -42,31 +47,35 @@ angular.module('bp').directive 'bpSearch', deps [
       .prepend $bgLeft, $bgRight
       .append $placeholder, $cancel, $tapLayer
 
-    cancelWidth = null
-    $timeout ->
-      width = element.outerWidth()
-      cancelWidth = $cancel.outerWidth()
-      iconWidth = $placeholder.find('.bp-icon').outerWidth()
-      inputWidth = width - cancelWidth - 6
-      $bgLeft.css 'width', inputWidth
-      $bgRight.css 'width', cancelWidth
-      $search.css
-        'width': inputWidth
-        'padding-left': 1.5 * iconWidth
-    , 50 # have to wait a bit for the icon font to load
+    if ios
+      cancelWidth = null
+      $timeout ->
+        width = element.outerWidth()
+        cancelWidth = $cancel.outerWidth()
+        iconWidth = $placeholder.find('.bp-icon').outerWidth()
+        inputWidth = width - cancelWidth - 6
+        $bgLeft.css 'width', inputWidth
+        $bgRight.css 'width', cancelWidth
+        $search.css
+          'width': inputWidth
+          'padding-left': 1.5 * iconWidth
+      , 50 # have to wait a bit for the icon font to load
 
-    childScope.onResize = ->
-      inputWidth = element.outerWidth() - cancelWidth
-      $bgLeft.css 'width', inputWidth
+      childScope.onResize = ->
+        inputWidth = element.outerWidth() - cancelWidth
+        $bgLeft.css 'width', inputWidth
+      childScope.onCancel = ->
+        element.removeClass 'focus'
+        $search
+          .val ''
+          .trigger 'input'
+          .trigger('blur', programatic: yes)
+
     childScope.onBlur = (e, extra = {}) ->
-      if not $search.val() and not extra.programatic
+      if not ios
+        element.removeClass 'focus'
+      else if not $search.val() and not extra.programatic
         $cancel.trigger 'tap'
-    childScope.onCancel = ->
-      element.removeClass 'focus'
-      $search
-        .val ''
-        .trigger 'input'
-        .trigger('blur', programatic: yes)
     childScope.onFocus = ->
       $search.focus()
       $timeout ->
@@ -76,13 +85,14 @@ angular.module('bp').directive 'bpSearch', deps [
       e.stopPropagation()
       e.stopImmediatePropagation()
 
-    angular
-      .element $window
-      .bind 'resize orientationchange', childScope.onResize
+    if ios
+      angular
+        .element $window
+        .bind 'resize orientationchange', childScope.onResize
+
+      $cancel.bind 'tap', childScope.onCancel
 
     $search.bind 'blur', childScope.onBlur
-
-    $cancel.bind 'tap', childScope.onCancel
 
     $tapLayer.bind 'tap', childScope.onFocus
 
@@ -91,7 +101,8 @@ angular.module('bp').directive 'bpSearch', deps [
 
     scope.$on '$destroy', ->
       childScope.$destroy()
-      angular.element($window).unbind 'resize orientationchange'
+      if ios
+        angular.element($window).unbind 'resize orientationchange'
+        $cancel.unbind 'tap'
       $search.unbind 'blur'
-      $cancel.unbind 'tap'
       $tapLayer.unbind 'tap click touchstart touchmove touchend'
