@@ -7,18 +7,14 @@ describe 'cellDirective', ->
 
   beforeEach inject ($rootScope, $compile) ->
     scope   = $rootScope.$new()
-    element = $compile('<bp-cell>{{ label }}</bp-cell>') scope
+    element = $compile('<bp-cell>Yo</bp-cell>') scope
     scope.$apply()
 
   describe 'element', ->
-    it 'should have correct label', ->
-      scope.label = 'foo'
-      scope.$apply()
-      expect(element.text()).toBe scope.label
-
-      scope.label = 'bar'
-      scope.$apply()
-      expect(element.text()).toBe scope.label
-
     it 'should have ARIA role', ->
       expect(element.attr 'role' ).toBe 'listitem'
+
+  describe 'label', ->
+    it 'should be wrapped in span', ->
+      expect(element.find('span').length).toBe 1
+

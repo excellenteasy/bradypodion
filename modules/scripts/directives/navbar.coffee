@@ -1,83 +1,104 @@
 # # Navbar
 
-angular.module('bp.directives').directive 'bpNavbar', deps [
+angular.module('bp').directive 'bpNavbar', deps [
   'bpConfig'
   '$timeout'
+  '$state'
   '$compile'
   ], (
   bpConfig
   $timeout
+  $state
   $compile
   ) ->
   restrict: 'E'
   transclude: true
-  template: '<div class="bp-navbar-text" role="heading"></div>'
+  scope:
+    bpNavbarTitle: '@'
   compile: (elem, attrs, transcludeFn) ->
+
+    getTitleFromState = (state) ->
+      state.data?.title or
+      state.name.charAt(0).toUpperCase() + state.name.slice(1)
+
+    ios = if bpConfig.platform is 'android' then no else yes
+
     (scope, element, attrs) ->
-
-      options = angular.extend
-        noCenter:      if bpConfig.platform is 'android' then yes else no
-        noButtonSplit: if bpConfig.platform is 'android' then yes else no
-      , bpConfig.navbar or {}
-
-      for key of options
-        attr = attrs["bp#{key.charAt(0).toUpperCase()}#{key.slice(1)}"]
-        if attr? then options[key] = (if attr is '' then true else attr)
+      state = $state.current
 
       element.attr
         role: 'navigation'
+
       transcludeFn scope, (clone) ->
-        $navbarText = element.find('.bp-navbar-text')
-        placedButtons = 0
-        buttons = []
 
-        navbarText = $navbarText.text()
-        for child in clone
-          $child = angular.element(child)
-          if $child.is('bp-button') or $child.is('bp-icon')
-            buttons.push($child)
-          else if $child.context.nodeName is '#text' or
-                  $child.is('span.ng-scope')
-            navbarText += ' ' + $child.text().trim()
+        unless attrs.bpNavbarTitle?
+          attrs.bpNavbarTitle = getTitleFromState state
 
-        # Trim leading and trailing whitespace
-        $compile($navbarText.text navbarText.trim()) scope
+        $title = $compile("
+          <bp-navbar-title role='heading'>{{
+            bpNavbarTitle
+          }}</bp-navbar-title>") scope
 
-        if options.noButtonSplit
-          for $button in buttons
-            if $button.hasClass 'bp-button-back'
-              $button
-                .insertBefore($navbarText)
-                .addClass 'before'
+        $actions = clone.filter 'bp-action'
+
+        if state.data?.up? and not attrs.bpNavbarNoUp?
+          upState = $state.get state.data.up
+          upTitle = getTitleFromState upState
+          $up = $compile("
+            <bp-action class='bp-action-up' bp-sref='#{upState.name}'>#{
+              upTitle
+            }</bp-action>") scope
+          $actions = $up.add $actions if ios
+          $arrow = angular.element '<bp-button-up>'
+
+        if $actions.length <= 2
+          $frstAction = $actions.eq 0
+          $scndAction = $actions.eq 1
+
+          if ios
+            $actions.addClass 'bp-button'
+            element.append $frstAction, $title, $scndAction, $arrow
+
+            unless scope.navbarTitle then $timeout ->
+              difference = $scndAction.outerWidth() - $frstAction.outerWidth()
+
+              if difference isnt 0 and $frstAction.length
+                $spacer = angular.element("
+                  <div style='
+                    -webkit-box-flex:10;
+                    max-width:#{Math.abs(difference)}px
+                  '>")
+                if difference > 0
+                  $spacer.insertBefore $title
+                else if difference < 0
+                  $spacer.insertAfter $title
+            , 0
+
+          else
+            handleAction = ($action) ->
+              $action
+                .attr 'aria-label', $action.text()
+                .text ''
+                .addClass 'bp-icon'
+
+            $actions.each ->
+              $action = angular.element this
+              handleAction $action
+
+            handleAction $up if $up
+
+            $icon = angular.element '<bp-navbar-icon>'
+
+            if $up?
+              $up
+                .append '<div>'
+                .append $icon
+
+              element.append $up, $title, $frstAction, $scndAction
             else
-              element.append $button.addClass('after')
+              element.append $up, $icon, $title, $frstAction, $scndAction
+
         else
-          for $button, i in buttons
-            if (i+1) <= Math.round(buttons.length/2)
-              $button
-                .addClass('before')
-                .insertBefore $navbarText
-            else
-              element.append $button.addClass('after')
-
-        if not options.noCenter and
-           not /^\s*$/.test $navbarText.text() then $timeout ->
-          beforeWidth = 0
-          afterWidth  = 0
-          elem.find('.after').each ->
-            afterWidth += $(this).outerWidth()
-          elem.find('.before').each ->
-            beforeWidth += $(this).outerWidth()
-
-          difference = afterWidth - beforeWidth
-          $spacer = $("
-            <div style='
-              -webkit-box-flex:10;
-              max-width:#{Math.abs(difference)}px
-            '>")
-
-          if difference > 0
-            $spacer.insertBefore $navbarText
-          else if difference < 0
-            $spacer.insertAfter $navbarText
-        , 0
+          # TODO: implement Toolbar/Action overflow
+          console.warn 'Toolbar/Action overflow implementation missing'
+          console.log $actions

@@ -11,7 +11,6 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
-      'modules/bower_components/lodash/dist/lodash.js'
       'modules/bower_components/jquery/jquery.js'
       'modules/bower_components/iscroll/build/iscroll-probe.js'
       'modules/bower_components/iscroll-sticky/dist/iscroll-sticky.js'
@@ -57,7 +56,7 @@ module.exports = (config) ->
     # - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
     # - PhantomJS
     # - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-    browsers: ['Chrome']
+    browsers: ['PhantomJS']
 
     # If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000

@@ -1,6 +1,6 @@
 # # Table
 
-angular.module('bp.directives').directive 'bpTable', ->
+angular.module('bp').directive 'bpTable', ->
   restrict: 'E'
   link: (scope, element, attrs) ->
     role = if element.parents('bp-table').length

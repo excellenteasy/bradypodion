@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="bradypodionApp">
+<html>
   <head>
     <title>Bradypodion</title>
     <link rel="stylesheet" href="bradypodion.css">
@@ -9,8 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
     <style>
-    bp-button[switch-theme]:nth-child(n) {
+    .bp-icon:before {
+      font-family: FontAwesome;
+    }
+    .bp-button[switch-theme]:nth-child(n) {
       z-index: 9999999;
       border-radius: 22px;
       background-color: #f8f8f8;
@@ -28,22 +32,20 @@
       border: 1px solid #c0c0c0;
       -webkit-transition: 1s ease-in all;
     }
-    bp-button[switch-theme].bp-active {
+    .bp-button[switch-theme].bp-active {
       -webkit-transform: rotate(720deg);
     }
     </style>
 </head>
-  <body ng-cloak>
-    <div ng-controller="bpViewCtrl" ui-view></div>
-    <bp-button bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme">⇄</bp-button>
-    <script src="bower_components/lodash/dist/lodash.js"></script>
+  <body ng-app="bradypodionApp" bp-app ng-cloak>
+    <div ui-view></div>
+    <bp-action class='bp-button' bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme">⇄</bp-action>
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/iscroll/build/iscroll-probe.js"></script>
     <script src="bower_components/iscroll-sticky/dist/iscroll-sticky.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bradypodion.js"></script>
     <script src="scripts/app.js"></script>
   </body>

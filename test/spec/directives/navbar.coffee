@@ -7,12 +7,9 @@ describe 'navbarDirective', ->
 
   beforeEach inject ($rootScope, $compile) ->
     scope = $rootScope.$new()
-    template = "<bp-navbar>
-        <bp-button class='one'>Title</bp-button>
-        {{ label }}
-        <bp-button class='two'>Other</bp-button>
-        Bar
-        <bp-button class='three'>Three</bp-button>
+    template = "<bp-navbar bp-navbar-title='Foo'>
+        <bp-action class='one'>Title</bp-action>
+        <bp-action class='two'>Other</bp-action>
       </bp-navbar>"
     element = $compile(template) scope
     scope.$apply()
@@ -21,23 +18,19 @@ describe 'navbarDirective', ->
     it 'should have ARIA role', ->
       expect(element.attr 'role' ).toBe 'navigation'
 
-  describe 'text', ->
+  describe 'title', ->
     it 'should have ARIA role', ->
-      $text = element.find '.bp-navbar-text'
+      $text = element.find 'bp-navbar-title'
       expect($text.attr 'role' ).toBe 'heading'
 
-    it 'should be compiled', ->
-      $text = element.find '.bp-navbar-text'
-      expect($text.text()).toBe ' Bar'
-      scope.label = 'Foo'
-      scope.$apply()
-      $text = element.find '.bp-navbar-text'
-      expect($text.text()).toBe 'Foo Bar'
+    it 'should be applied', ->
+      $text = element.find 'bp-navbar-title'
+      expect($text.text()).toBe 'Foo'
+      expect($text.scope().bpNavbarTitle).toBe 'Foo'
 
-  describe 'buttons', ->
-    it 'should have correct order', ->
-      $buttons = element.children('bp-button')
-      expect($buttons.length).toBe 3
-      expect($buttons.filter('.one').hasClass 'before' ).toBe true
-      expect($buttons.filter('.two').hasClass 'before' ).toBe true
-      expect($buttons.filter('.three').hasClass 'after' ).toBe true
+  describe 'actions', ->
+    it 'should have correct type', ->
+      $actions = element.find('bp-action')
+      expect($actions.length).toBe 2
+      expect($actions.eq(0).is '.bp-button.one' ).toBe true
+      expect($actions.eq(1).is '.bp-button.two' ).toBe true

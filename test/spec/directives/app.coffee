@@ -1,4 +1,4 @@
-describe 'bodyDirective', ->
+describe 'appDirective', ->
 
   config  = null
   scope   = null
@@ -9,10 +9,13 @@ describe 'bodyDirective', ->
   beforeEach inject ($rootScope, $compile, bpConfig) ->
     config  = bpConfig
     scope   = $rootScope.$new()
-    element = $compile('<body></body>') scope
+    element = $compile('<bp-app></bp-app>') scope
     scope.$apply()
 
   describe 'element', ->
     it 'should have default class ios', ->
       expect(element.hasClass 'ios').toBe true
       expect(element.hasClass config.platform).toBe true
+
+    it 'should have ARIA role', ->
+      expect(element.attr 'role' ).toBe 'application'

@@ -1,9 +1,11 @@
 # # Detail Disclosure
 
-angular.module('bp.directives').directive 'bpDetailDisclosure', deps [
+angular.module('bp').directive 'bpDetailDisclosure', deps [
   'bpConfig'
+  '$rootScope'
   ], (
   bpConfig
+  $rootScope
   ) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
@@ -13,7 +15,8 @@ angular.module('bp.directives').directive 'bpDetailDisclosure', deps [
       $parent = element.parent()
 
       unless uniqueId = $parent.attr 'id'
-        uniqueId = _.uniqueId 'bp_'
+        unless $rootScope._uniqueId? then $rootScope._uniqueId = 0
+        uniqueId = 'bp_' + $rootScope._uniqueId++
         $parent.attr 'id', uniqueId
 
       element.attr

@@ -1,73 +1,108 @@
 # # Search
 
-angular.module('bp.directives').directive 'bpSearch', deps [
+angular.module('bp').directive 'bpSearch', deps [
   '$compile'
   '$timeout'
+  '$window'
+  'BpTap'
+  'bpConfig'
   ], (
   $compile
   $timeout
+  $window
+  BpTap
+  bpConfig
   ) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
-    $cancel = $compile(
-      '<bp-button bp-tap="cancel()" bp-no-scroll>Cancel</bp-button>'
-      ) scope
-    $search = element.find 'input'
-    element
-      .attr('role','search')
-      .append $cancel.hide()
+    ios = bpConfig.platform is 'ios'
+    childScope = scope.$new yes
+
+    if ios
+      $bgLeft = angular.element '<bp-search-bg-left>'
+      $bgRight = angular.element '<bp-search-bg-right>'
+      $cancel = $compile(
+        '<bp-action class="bp-button">Cancel</bp-action>') childScope
+
+    $placeholder = $compile(
+      '<bp-search-placeholder>
+        <bp-action class="bp-icon bp-icon-search"></bp-action>
+        <span>{{ placeholder }}</span>
+      </bp-search-placeholder>') childScope
+    $tapLayer = angular.element '<bp-search-tap>'
+    $search = element.find('input').attr
+      'required': 'required'
+      'type': 'search'
 
     # set input placeholder to "Search" if not already set
-    placeholder = $search?.attr 'placeholder'
-    if !placeholder? or /^\s*$/.test placeholder
-      $search?.attr 'placeholder', 'Search'
+    childScope.placeholder = $search.attr 'placeholder'
+    unless childScope.placeholder?
+      childScope.placeholder = 'Search'
 
-    # helper to prevent event default
-    preventDefault = (e) ->
-      e.preventDefault?()
+    new BpTap childScope, $cancel, {} if ios
+    new BpTap childScope, $tapLayer, {}
 
-    $search?.bind 'focus', ->
-      # bring in cancel button; shrink input
-      padding = (+(element.css 'padding-right').replace('px',''))
-      cancelWidth = $cancel.outerWidth()
-      inputWidth = element.width() - (padding)
-      $search?.css 'width', "#{inputWidth - cancelWidth}px"
-      $cancel.show()
+    element
+      .attr 'role','search'
+      .prepend $bgLeft, $bgRight
+      .append $placeholder, $cancel, $tapLayer
+
+    if ios
+      cancelWidth = null
+      $timeout ->
+        width = element.outerWidth()
+        cancelWidth = $cancel.outerWidth()
+        iconWidth = $placeholder.find('.bp-icon').outerWidth()
+        inputWidth = width - cancelWidth - 6
+        $bgLeft.css 'width', inputWidth
+        $bgRight.css 'width', cancelWidth
+        $search.css
+          'width': inputWidth
+          'padding-left': 1.5 * iconWidth
+      , 50 # have to wait a bit for the icon font to load
+
+      childScope.onResize = ->
+        inputWidth = element.outerWidth() - cancelWidth
+        $bgLeft.css 'width', inputWidth
+      childScope.onCancel = ->
+        element.removeClass 'focus'
+        $search
+          .val ''
+          .trigger 'input'
+          .trigger('blur', programatic: yes)
+
+    childScope.onBlur = (e, extra = {}) ->
+      if not ios
+        element.removeClass 'focus'
+      else if not $search.val() and not extra.programatic
+        $cancel.trigger 'tap'
+    childScope.onFocus = ->
+      $search.focus()
       $timeout ->
         element.addClass 'focus'
-        scope.$emit 'bpTextDidBeginEditing'
       , 0
+    childScope.stopPropagation = (e) ->
+      e.stopPropagation()
+      e.stopImmediatePropagation()
 
-      # scroll out UI before search
-      if element.prev().length
-        element.bind 'touchmove', preventDefault
-        $timeout ->
-          window.scrollTo 0, element.prev().outerHeight()
-        , 0
+    if ios
+      angular
+        .element $window
+        .bind 'resize orientationchange', childScope.onResize
 
-    # move out cancel button and grow input
-    scope.cancel = ->
-      if $search?.is ':focus'
-        $search.blur()
-        scope.$emit 'bpTextDidEndEditing'
-      scope.searchTerm = ''
-      $search?.css 'width', ''
-      element.removeClass 'focus'
-      $timeout ->
-        $cancel.hide()
-      , 500
+      $cancel.bind 'tap', childScope.onCancel
 
-    $search?.bind 'blur', (e) ->
-      # cancel on blur  if no searchterm is present
-      if !scope.searchTerm? or /^\s*$/.test scope.searchTerm
-        scope.cancel()
-      element.unbind 'touchmove', preventDefault
+    $search.bind 'blur', childScope.onBlur
 
-    # prevents blurring the input automatically
-    # so we can fire it at the right time i.e. tap/touchend
-    $cancel.bind 'touchstart', preventDefault
+    $tapLayer.bind 'tap', childScope.onFocus
+
+    $tapLayer
+      .bind 'click touchstart touchmove touchend', childScope.stopPropagation
 
     scope.$on '$destroy', ->
-      $search?.unbind 'focus blur'
-      element.unbind 'touchmove', preventDefault
-      $cancel.unbind 'touchstart', preventDefault
+      childScope.$destroy()
+      if ios
+        angular.element($window).unbind 'resize orientationchange'
+        $cancel.unbind 'tap'
+      $search.unbind 'blur'
+      $tapLayer.unbind 'tap click touchstart touchmove touchend'
