@@ -11,7 +11,7 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
-      'modules/bower_components/jquery/jquery.js'
+      'modules/bower_components/jquery/dist/jquery.js'
       'modules/bower_components/iscroll/build/iscroll-probe.js'
       'modules/bower_components/iscroll-sticky/dist/iscroll-sticky.js'
       'modules/bower_components/angular/angular.js'
