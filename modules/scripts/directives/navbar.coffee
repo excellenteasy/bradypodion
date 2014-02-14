@@ -15,14 +15,13 @@ angular.module('bp').directive 'bpNavbar', deps [
   transclude: true
   scope:
     bpNavbarTitle: '@'
-  compile: (elem, attrs, transcludeFn) ->
-
-    getTitleFromState = (state) ->
+  controller: ($scope) ->
+    $scope.getTitleFromState = (state) ->
       state.data?.title or
       state.name.charAt(0).toUpperCase() + state.name.slice(1)
 
+  compile: (elem, attrs, transcludeFn) ->
     ios = if bpConfig.platform is 'android' then no else yes
-
     (scope, element, attrs) ->
       state = $state.current
 
@@ -30,9 +29,8 @@ angular.module('bp').directive 'bpNavbar', deps [
         role: 'navigation'
 
       transcludeFn scope, (clone) ->
-
         unless attrs.bpNavbarTitle?
-          attrs.bpNavbarTitle = getTitleFromState state
+          attrs.bpNavbarTitle = scope.getTitleFromState state
 
         $title = $compile("
           <bp-navbar-title role='heading'>{{
@@ -43,7 +41,7 @@ angular.module('bp').directive 'bpNavbar', deps [
 
         if state.data?.up? and not attrs.bpNavbarNoUp?
           upState = $state.get state.data.up
-          upTitle = getTitleFromState upState
+          upTitle = scope.getTitleFromState upState
           $up = $compile("
             <bp-action class='bp-action-up' bp-sref='#{upState.name}'>#{
               upTitle
@@ -61,17 +59,15 @@ angular.module('bp').directive 'bpNavbar', deps [
 
             unless scope.navbarTitle then $timeout ->
               difference = $scndAction.outerWidth() - $frstAction.outerWidth()
-
               if difference isnt 0 and $frstAction.length
                 $spacer = angular.element("
                   <div style='
                     -webkit-box-flex:10;
                     max-width:#{Math.abs(difference)}px
                   '>")
-                if difference > 0
-                  $spacer.insertBefore $title
-                else if difference < 0
-                  $spacer.insertAfter $title
+                $spacer[if difference > 0
+                  'insertBefore'
+                else 'insertAfter'] $title
             , 0
 
           else
@@ -96,9 +92,7 @@ angular.module('bp').directive 'bpNavbar', deps [
 
               element.append $up, $title, $frstAction, $scndAction
             else
-              element.append $up, $icon, $title, $frstAction, $scndAction
+              element.append $icon, $title, $frstAction, $scndAction
 
-        else
-          # TODO: implement Toolbar/Action overflow
-          console.warn 'Toolbar/Action overflow implementation missing'
-          console.log $actions
+        # else
+        # TODO: implement Toolbar/Action overflow
