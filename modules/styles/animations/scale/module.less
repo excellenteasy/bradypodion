@@ -3,19 +3,19 @@
   @leave: ~`'@{direction}' === 'normal' ? 1 : 0`;
 
   .@{name}-@{direction}.ng-enter {
-    .transition(~"@{duration} ease-in all");
-    .transform(scale(@enter));
+    .transition(all @duration ease-in);
+    .scale(@enter);
     z-index: ~`'@{leave}' === '1' ? 1000 : 'inherit'`;
   }
   .@{name}-@{direction}.ng-enter.ng-enter-active {
-    .transform(scale(1));
+    .scale(1);
   }
   .@{name}-@{direction}.ng-leave {
-    .transition(~"@{duration} ease-in all");
-    .transform(scale(1));
+    .transition(all @duration ease-in);
+    .scale(1);
     z-index: ~`'@{enter}' === '1' ? 1000 : 'inherit'`;
   }
   .@{name}-@{direction}.ng-leave.ng-leave-active {
-    .transform(scale(@leave));
+    .scale(@leave);
   }
 }
