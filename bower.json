@@ -2,8 +2,8 @@
   "name": "bradypodion",
   "version": "0.5.0-alpha.2",
   "dependencies": {
-    "angular": "1.2.10",
-    "angular-animate": "1.2.10",
+    "angular": "1.2.13",
+    "angular-animate": "1.2.13",
     "angular-ui-router": "0.2.8-bowratic-tedium",
     "iscroll": "~5.1.1",
     "iscroll-sticky": "~0.1.1",
@@ -11,6 +11,6 @@
     "lesshat": "~2.0.15"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.10"
+    "angular-mocks": "1.2.13"
   }
 }
