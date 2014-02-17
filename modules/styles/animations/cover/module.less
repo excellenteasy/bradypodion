@@ -1,23 +1,28 @@
-.bp-cover (@direction: normal, @name: cover, @duration: 0.3s) {
-  @enterPer:   ~`'@{direction}' === 'normal' ? '100%' : 0`;
-  @enterIndex: ~`'@{direction}' === 'normal' ? 1000 : 'inherit'`;
-  @leavePer:   ~`'@{direction}' === 'normal' ? 0 : '100%'`;
-  @leaveIndex: ~`'@{direction}' === 'normal' ? 'inherit' : 1000`;
+.bp-cover(normal, @duration: 0.3s, @name: cover) {
+  .keyframes(~'@{name}-normal-enter, 0%{ transform: translateY(100%) } 100%{ transform: translateY(0) }');
+  .keyframes(~'@{name}-normal-leave, 0%{ transform: translateY(0) } 100%{ transform: translateY(0) }');
 
-  .@{name}-@{direction}.ng-enter {
-    .transition(~"@{duration} ease-in all");
-    .transform(translateY(@enterPer));
-    z-index: @enterIndex;
+  .@{name}-normal.ng-enter {
+    .animation(cover-normal-enter, @duration, ease-in);
+    z-index: 1000;
   }
-  .@{name}-@{direction}.ng-enter.ng-enter-active {
-    .transform(translateY(0));
-  }
-  .@{name}-@{direction}.ng-leave {
-    .transition(~"@{duration} ease-in all");
-    .transform(translateY(0));
-    z-index: @leaveIndex;
-  }
-  .@{name}-@{direction}.ng-leave.ng-leave-active {
-    .transform(translateY(@leavePer));
+  .@{name}-normal.ng-leave {
+    z-index: inherit;
+    .animation(cover-normal-leave, @duration, ease-in);
   }
 }
+
+.bp-cover(reverse, @duration: 0.3s, @name: cover) {
+  .keyframes(~'@{name}-reverse-enter, 0%{ transform: translateY(0) } 100%{ transform: translateY(0) }');
+  .keyframes(~'@{name}-reverse-leave, 0%{ transform: translateY(0) } 100%{ transform: translateY(100%) }');
+
+  .@{name}-reverse.ng-enter {
+    z-index: inherit;
+    .animation(cover-reverse-enter, @duration, ease-in);
+  }
+  .@{name}-reverse.ng-leave {
+    z-index: 1000;
+    .animation(cover-reverse-leave, @duration, ease-in);
+  }
+}
+
