@@ -19,6 +19,12 @@ angular.module('bp').directive 'bpNavbar', deps [
     $scope.getTitleFromState = (state) ->
       state.data?.title or
       state.name.charAt(0).toUpperCase() + state.name.slice(1)
+    $scope.convertActionToIcon = ($action) ->
+      $action
+        .attr 'aria-label', $action.text()
+        .text ''
+        .removeClass 'bp-button'
+        .addClass 'bp-icon'
 
   compile: (elem, attrs, transcludeFn) ->
     ios = if bpConfig.platform is 'android' then no else yes
@@ -54,7 +60,13 @@ angular.module('bp').directive 'bpNavbar', deps [
           $scndAction = $actions.eq 1
 
           if ios
-            $actions.addClass 'bp-button'
+            $actions.each ->
+              $action = angular.element this
+              if $action.hasClass 'bp-icon'
+                scope.convertActionToIcon $action
+              else
+                $action.addClass 'bp-button'
+
             element.append $frstAction, $title, $scndAction, $arrow
 
             unless scope.navbarTitle then $timeout ->
@@ -71,17 +83,11 @@ angular.module('bp').directive 'bpNavbar', deps [
             , 0
 
           else
-            handleAction = ($action) ->
-              $action
-                .attr 'aria-label', $action.text()
-                .text ''
-                .addClass 'bp-icon'
-
             $actions.each ->
               $action = angular.element this
-              handleAction $action
+              scope.convertActionToIcon $action
 
-            handleAction $up if $up
+            scope.convertActionToIcon $up if $up
 
             $icon = angular.element '<bp-navbar-icon>'
 
