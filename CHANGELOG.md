@@ -1,3 +1,54 @@
+<a name="v0.5.0-alpha.3"></a>
+### v0.5.0-alpha.3 (2014-02-17)
+
+
+#### Bug Fixes
+
+* remove whitespace from templates ([27e95a4c](http://github.com/excellenteasy/bradypodion/commit/27e95a4c3e44b4c58f1163b45b384c891fca38c7))
+* **action:** remove buggy back label magic ([4bd0ccac](http://github.com/excellenteasy/bradypodion/commit/4bd0ccac75a897f3267a9b801527f7fffb34125e))
+* **back-button:** deprecate old styles ([1a52aa50](http://github.com/excellenteasy/bradypodion/commit/1a52aa5066baccde6e7d43bfde8474bb87f115e9))
+* **button:** no icon artifact for ios buttons ([7aff1ab4](http://github.com/excellenteasy/bradypodion/commit/7aff1ab4dc8b2b38fe5e6467950cf853e0379d9c))
+* **controllers:** remove artifacts from remove viewCtrl ([8e15e295](http://github.com/excellenteasy/bradypodion/commit/8e15e295f1663b2dcb77a2924d4fec7f9e3c8af3))
+* **cover:** now with css animation ([0eeea6a0](http://github.com/excellenteasy/bradypodion/commit/0eeea6a00a68c25968f3cac95cdfbfdc6fb94f0b))
+* **icon:** reduce embedded icons and make them optional ([68ea8f09](http://github.com/excellenteasy/bradypodion/commit/68ea8f09e2ffad6c70871d7c6d81a0c33d0dfad0))
+* **iscroll:** don't destroy iscroll until transition ends ([68ebf22f](http://github.com/excellenteasy/bradypodion/commit/68ebf22fe3c48f1e69fca1278754755348978772))
+* **navbar:**
+  * adapt css selectors to new names ([51103481](http://github.com/excellenteasy/bradypodion/commit/5110348174c39159b64357f2f0958c38920f265e))
+  * new navbar concept ([bb0ae110](http://github.com/excellenteasy/bradypodion/commit/bb0ae110f325bddf19228c876a412f77927a63f0))
+* **search:**
+  * android ([4c4b39fb](http://github.com/excellenteasy/bradypodion/commit/4c4b39fbdbd4f415f0c45a5d482dedce8f254985))
+  * new ios implementation and styles ([46254e2d](http://github.com/excellenteasy/bradypodion/commit/46254e2d74bd6f8b2be680aadaa7d9c7599e29eb))
+* **sref:** fix nestedTap ([fb4dcb3c](http://github.com/excellenteasy/bradypodion/commit/fb4dcb3c2d3637056bdd09c977f6d19c3524c29e))
+* **tabbar:** fix styles ([6f31b81e](http://github.com/excellenteasy/bradypodion/commit/6f31b81e6e3f58616c51dd9ae9486e084e43fa05))
+* **tap:**
+  * encapsulation for element ([ba16497e](http://github.com/excellenteasy/bradypodion/commit/ba16497ef974c544c778b24799a9b762859ccc90))
+  * better fallback for getCoordinates ([d9f84764](http://github.com/excellenteasy/bradypodion/commit/d9f84764e0804b91d8bcc2d63a8952052f8bb431))
+* **up:** consistent renaming ([24db5e16](http://github.com/excellenteasy/bradypodion/commit/24db5e168ac11009741b3a61a1de9f001af1bd45))
+* **view:**
+  * store transition type in data object ([6a1bed0a](http://github.com/excellenteasy/bradypodion/commit/6a1bed0ad66e86594a8695a3303b1ba9e3022b0c))
+  * deprecate global `to` method. use sref instead ([fe74633b](http://github.com/excellenteasy/bradypodion/commit/fe74633bd0726bc918fccf3984c8bf3456337f9b))
+
+
+#### Features
+
+* **bpSref:** similiar to ui-sref, but tap enabled ([0e8ad880](http://github.com/excellenteasy/bradypodion/commit/0e8ad880d0617db458cd3daee8cab4faf0950524))
+* **button:**
+  * new android up button ([9abb0da4](http://github.com/excellenteasy/bradypodion/commit/9abb0da4dc82a5a4118ee6b6467d369b5371fc3c))
+  * new ios up button ([b63a0c4a](http://github.com/excellenteasy/bradypodion/commit/b63a0c4ae75ac2e4500c9c45e03633321dd5c34e))
+* **config:** configurable on runtime ([7667ac7c](http://github.com/excellenteasy/bradypodion/commit/7667ac7c470f72d170fd3f0f752bb03256149174))
+* **navbar:** inject up button from state ([ba46277f](http://github.com/excellenteasy/bradypodion/commit/ba46277ff140b4e39c2918de5cd59a9bcda53691))
+* **tabbar:** now based on bp-sref ([316ef554](http://github.com/excellenteasy/bradypodion/commit/316ef554063fac9067337cea89799eeb3deb14c2))
+
+
+#### Breaking Changes
+
+* bpNavbar attributes `no-center` and `no-button-split` deprecated.
+`bp-button` and `bp-icon` renamed to `bp-action.bp-button` and `bp-action.bp-icon`.
+ ([bb0ae110](http://github.com/excellenteasy/bradypodion/commit/bb0ae110f325bddf19228c876a412f77927a63f0))
+* You have to add a `bp-app` element or attribute. Body alone won't suffice.
+There is no more viewController.
+ ([dd3d2cc2](http://github.com/excellenteasy/bradypodion/commit/dd3d2cc2ecb1f84a3f4fafd82f982bb1adda6853))
+
 <a name="v0.5.0-alpha.2"></a>
 ### v0.5.0-alpha.2 (2014-01-18)
 
