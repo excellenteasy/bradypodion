@@ -34,7 +34,7 @@ describe 'navbarDirective', ->
 
 
     describe 'controller', ->
-      it 'getTitleFromState', inject ($controller) ->
+      it 'should getTitleFromState', ->
         childScope = title.scope()
         stateTitle = childScope.getTitleFromState
           data: title: 'Foo'
@@ -46,6 +46,15 @@ describe 'navbarDirective', ->
           name: 'Buz'
           data: title: 'Baz'
         expect(stateTitle).toBe 'Baz'
+
+      it 'should convertActionToIcon', ->
+        childScope = title.scope()
+        $action = angular.element '<bp-action class="bp-button">Yo</bp-action>'
+        childScope.convertActionToIcon $action
+        expect($action.text()).toBe ''
+        expect($action.hasClass 'bp-button').toBe false
+        expect($action.hasClass 'bp-icon').toBe true
+        expect($action.attr 'aria-label').toBe 'Yo'
 
     describe 'element', ->
       it 'should have ARIA role', ->
@@ -74,6 +83,16 @@ describe 'navbarDirective', ->
         expect($spacer.attr 'style').toMatch /flex/
         expect(element.children().get 2).toBe $spacer.get 0
         element.detach()
+
+      it 'should allow icons in navbar', inject ($compile) ->
+        element2 = $compile("
+          <bp-navbar bp-navbar-no-up bp-navbar-title>
+            <bp-action class='bp-icon'>Action</bp-action>
+          </bp-navbar>") scope
+        $icon = element2.find('bp-action')
+        expect($icon.hasClass 'bp-button').toBe false
+        expect($icon.hasClass 'bp-icon').toBe true
+        expect($icon.attr 'aria-label').toBe 'Action'
 
   describe 'android', ->
     scope   = null

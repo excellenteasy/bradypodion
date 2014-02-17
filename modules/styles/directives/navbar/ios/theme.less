@@ -7,4 +7,10 @@
   .bp-button {
     .bp-ios-button-theme(@button);
   }
+  .bp-icon {
+    color: @button;
+    &.@{tap-active} {
+      color: fade(@button, 50%);
+    }
+  }
 }
