@@ -246,6 +246,14 @@ angular.module('bradypodionApp', ['bp']).config((
         transition: 'slide'
         up: 'directives'
     )
+    .state('toolbar',
+      url: '/directives/toolbar'
+      templateUrl: 'views/directives/toolbar.html'
+      data:
+        transition: 'slide'
+        up: 'directives'
+    )
+
 ).factory('dummyFriends', ->
   [
     name: 'Sandy'
@@ -266,6 +274,10 @@ angular.module('bradypodionApp', ['bp']).config((
 ).directive('switchTheme', (bpConfig) ->
   (scope, element, attrs) ->
     platforms = ['ios', 'android']
+    element.addClass  if bpConfig.platform is 'ios'
+      'fa-android'
+    else
+      'fa-apple'
     scope.toggleTheme = (e) ->
       index = platforms.indexOf(bpConfig.platform)
       bpConfig.platform = platforms[++index % 2]

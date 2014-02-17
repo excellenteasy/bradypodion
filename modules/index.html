@@ -14,7 +14,8 @@
     .bp-icon:before {
       font-family: FontAwesome;
     }
-    .bp-button[switch-theme]:nth-child(n) {
+    #switch:nth-child(n) {
+      color: #333;
       z-index: 9999999;
       border-radius: 22px;
       background-color: #f8f8f8;
@@ -23,7 +24,7 @@
       padding: 0;
       width: 44px;
       height: 44px;
-      bottom: 20px;
+      bottom: 60px;
       left: 20px;
       line-height: 44px;
       text-align: center;
@@ -32,14 +33,14 @@
       border: 1px solid #c0c0c0;
       -webkit-transition: 1s ease-in all;
     }
-    .bp-button[switch-theme].bp-active {
-      -webkit-transform: rotate(720deg);
+    #switch.bp-active {
+      color: rgba(51,51,51,0.5);
     }
     </style>
 </head>
   <body ng-app="bradypodionApp" bp-app ng-cloak>
     <div ui-view></div>
-    <bp-action class='bp-button' bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme">⇄</bp-action>
+    <bp-action id='switch' class='bp-icon' bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme"></bp-action>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/iscroll/build/iscroll-probe.js"></script>
     <script src="bower_components/iscroll-sticky/dist/iscroll-sticky.js"></script>
