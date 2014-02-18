@@ -1,0 +1,30 @@
+@import 'android';
+@import 'ios';
+
+.bp-action-overflow(@name:bp-action-overflow, @prefix: bp-action-overflow) {
+  @{name} {
+    .order(80);
+  }
+  .bp-platforms-action-overflow() when (@ios) and not (@android) {
+    @{name} {
+      .bp-ios-action-overflow;
+    }
+  }
+
+  .bp-platforms-action-overflow() when (@android) and not (@ios) {
+    @{name} {
+      .bp-android-action-overflow(@prefix);
+    }
+  }
+
+  .bp-platforms-action-overflow() when (@ios) and (@android) {
+    .@{ios-name} @{name} {
+      .bp-ios-action-overflow;
+    }
+    .@{android-name} @{name} {
+      .bp-android-action-overflow(@prefix);
+    }
+  }
+
+  .bp-platforms-action-overflow;
+}

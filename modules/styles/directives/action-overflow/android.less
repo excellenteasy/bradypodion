@@ -1,0 +1,44 @@
+@import 'android/theme';
+
+.bp-android-action-overflow(@prefix) {
+  .bp-android-action-overflow-theme;
+  display: block;
+  width: @android-navbar-height;
+  height: @android-navbar-height;
+  position: relative;
+  &:before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+  }
+  &:after {
+    position: absolute;
+    display: block;
+    content: '';
+    top: 13px;
+    left: 21px;
+    width: 6px;
+    height: 6px;
+  }
+  @{prefix}-menu {
+    .box-shadow(0 0 6px fade(black,50%));
+    display: none;
+    position: absolute;
+    right: 6px;
+    top: 100%;
+    .bp-button {
+      &:before { content: '' }
+      .border-radius(0);
+      text-align: left;
+      min-width: (3*@android-navbar-height);
+    }
+    &.ng-animate {
+      display: block;
+    }
+    &.bp-action-overflow-open {
+      display: block;
+    }
+  }
+}
