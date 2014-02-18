@@ -13,104 +13,104 @@ angular.module('bradypodionApp', ['bp']).config((
   $stateProvider
     .state('app',
       url: '/'
-      templateUrl: 'views/index.html'
+      templateUrl: 'table.html'
       data:
         transition: 'fade'
         title: 'BradyPodion'
     )
     .state('animations',
       url: '/animations'
-      templateUrl: 'views/animations/index.html'
+      templateUrl: 'animations/index.html'
       data:
         transition: 'slide'
         up: 'app'
     )
     .state('cover',
       url: '/animations/cover'
-      templateUrl: 'views/animations/transition.html'
+      templateUrl: 'animations/transition.html'
       data:
         transition: 'cover'
         up: 'animations'
     )
     .state('fade',
       url: '/animations/fade'
-      templateUrl: 'views/animations/transition.html'
+      templateUrl: 'animations/transition.html'
       data:
         transition: 'fade'
         up: 'animations'
     )
     .state('flip',
       url: '/animations/flip'
-      templateUrl: 'views/animations/transition.html'
+      templateUrl: 'animations/transition.html'
       data:
         transition: 'flip'
         up: 'animations'
     )
     .state('scale',
       url: '/animations/scale'
-      templateUrl: 'views/animations/transition.html'
+      templateUrl: 'animations/transition.html'
       data:
         transition: 'scale'
         up: 'animations'
     )
     .state('slide',
       url: '/animations/slide'
-      templateUrl: 'views/animations/transition.html'
+      templateUrl: 'animations/transition.html'
       data:
         transition: 'slide'
         up: 'animations'
     )
     .state('directives',
       url: '/directives'
-      templateUrl: 'views/directives/index.html'
+      templateUrl: 'directives/index.html'
       data:
         transition: 'slide'
         up: 'app'
     )
     .state('button',
       url: '/directives/button'
-      templateUrl: 'views/directives/button.html'
+      templateUrl: 'directives/button.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('cell',
       url: '/directives/cell'
-      templateUrl: 'views/directives/cell.html'
+      templateUrl: 'directives/cell.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('detail-disclosure',
       url: '/directives/detail-disclosure'
-      templateUrl: 'views/directives/detail-disclosure.html'
+      templateUrl: 'directives/detail-disclosure.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('detail-disclosure-site',
       url: '/directives/detail-disclosure/site'
-      templateUrl: 'views/directives/detail-disclosure/site.html'
+      templateUrl: 'directives/detail-disclosure/site.html'
       data:
         transition: 'cover'
     )
     .state('detail-disclosure-detail',
       url: '/directives/detail-disclosure/detail'
-      templateUrl: 'views/directives/detail-disclosure/detail.html'
+      templateUrl: 'directives/detail-disclosure/detail.html'
       data:
         transition: 'slide'
         up: 'detail-disclosure'
     )
     .state('icon',
       url: '/directives/icon'
-      templateUrl: 'views/directives/icon.html'
+      templateUrl: 'directives/icon.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('iscroll',
       url: '/directives/iscroll'
-      templateUrl: 'views/directives/iscroll.html'
+      templateUrl: 'directives/iscroll.html'
       controller: 'DemoDataCtrl'
       data:
         transition: 'slide'
@@ -119,7 +119,7 @@ angular.module('bradypodionApp', ['bp']).config((
     )
     .state('iscroll-sticky',
       url: '/directives/iscroll/sticky'
-      templateUrl: 'views/directives/iscroll/sticky.html'
+      templateUrl: 'directives/iscroll/sticky.html'
       data:
         transition: 'slide'
         up: 'iscroll'
@@ -127,14 +127,14 @@ angular.module('bradypodionApp', ['bp']).config((
     )
     .state('navbar',
       url: '/directives/navbar'
-      templateUrl: 'views/directives/navbar.html'
+      templateUrl: 'directives/navbar.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('scroll',
       url: '/directives/scroll'
-      templateUrl: 'views/directives/scroll.html'
+      templateUrl: 'directives/scroll.html'
       controller: 'DemoDataCtrl'
       data:
         transition: 'slide'
@@ -142,21 +142,21 @@ angular.module('bradypodionApp', ['bp']).config((
     )
     .state('scroll-sticky',
       url: '/directives/scroll/sticky'
-      templateUrl: 'views/directives/scroll/sticky.html'
+      templateUrl: 'directives/scroll/sticky.html'
       data:
         transition: 'slide'
         up: 'scroll'
     )
     .state('search',
       url: '/directives/search'
-      templateUrl: 'views/directives/search.html'
+      templateUrl: 'directives/search.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('tabbar',
       url: '/directives/tabbar'
-      templateUrl: 'views/directives/tabbar.html'
+      templateUrl: 'directives/tabbar.html'
       data:
         transition: 'slide'
         up: 'directives'
@@ -164,7 +164,7 @@ angular.module('bradypodionApp', ['bp']).config((
     .state('first',
       parent: 'tabbar'
       url: '/directives/tabbar'
-      templateUrl: 'views/directives/tabbar/screen.html'
+      templateUrl: 'directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       data:
         transition: 'fade'
@@ -172,7 +172,7 @@ angular.module('bradypodionApp', ['bp']).config((
     .state('second'
       parent: 'tabbar',
       url: '/directives/tabbar/second'
-      templateUrl: 'views/directives/tabbar/screen.html'
+      templateUrl: 'directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       data:
         transition: 'fade'
@@ -180,7 +180,7 @@ angular.module('bradypodionApp', ['bp']).config((
     .state('third',
       parent: 'tabbar'
       url: '/directives/tabbar/third'
-      templateUrl: 'views/directives/tabbar/screen.html'
+      templateUrl: 'directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       data:
         transition: 'fade'
@@ -188,7 +188,7 @@ angular.module('bradypodionApp', ['bp']).config((
     .state('fourth'
       parent: 'tabbar',
       url: '/directives/tabbar/fourth'
-      templateUrl: 'views/directives/tabbar/screen.html'
+      templateUrl: 'directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       data:
         transition: 'fade'
@@ -196,28 +196,28 @@ angular.module('bradypodionApp', ['bp']).config((
     .state('fifth',
       parent: 'tabbar'
       url: '/directives/tabbar/fifth'
-      templateUrl: 'views/directives/tabbar/screen.html'
+      templateUrl: 'directives/tabbar/screen.html'
       controller: 'DemoTabbarCtrl'
       data:
         transition: 'fade'
     )
     .state('table-header',
       url: '/directives/table-header'
-      templateUrl: 'views/directives/table-header.html'
+      templateUrl: 'directives/table-header.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('table',
       url: '/directives/table'
-      templateUrl: 'views/directives/table.html'
+      templateUrl: 'directives/table.html'
       data:
         transition: 'slide'
         up: 'directives'
     )
     .state('table-grouped',
       url: '/directives/table/grouped'
-      templateUrl: 'views/directives/table/grouped.html'
+      templateUrl: 'directives/table/grouped.html'
       controller: 'DemoDataCtrl'
       data:
         transition: 'slide'
@@ -225,7 +225,7 @@ angular.module('bradypodionApp', ['bp']).config((
     )
     .state('table-plain',
       url: '/directives/table/plain'
-      templateUrl: 'views/directives/table/plain.html'
+      templateUrl: 'directives/table/plain.html'
       controller: 'DemoDataCtrl'
       data:
         transition: 'slide'
@@ -233,7 +233,7 @@ angular.module('bradypodionApp', ['bp']).config((
     )
     .state('table-section',
       url: '/directives/table/section'
-      templateUrl: 'views/directives/table/section.html'
+      templateUrl: 'directives/table/section.html'
       controller: 'DemoDataCtrl'
       data:
         transition: 'slide'
@@ -241,7 +241,7 @@ angular.module('bradypodionApp', ['bp']).config((
     )
     .state('tap',
       url: '/directives/tap'
-      templateUrl: 'views/directives/tap.html'
+      templateUrl: 'directives/tap.html'
       data:
         transition: 'slide'
         up: 'directives'
