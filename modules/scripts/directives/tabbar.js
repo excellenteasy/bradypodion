@@ -30,8 +30,8 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
           attrs.bpTabTitle = state.name.charAt(0).toUpperCase() + state.name.slice(1);
         }
       }
-      $icon = $compile("<span class='bp-icon {{bpTabIcon}}'></span>")(scope);
-      $title = $compile("<span>{{ bpTabTitle }}</span>")(scope);
+      $icon = $compile('<span class="bp-icon {{bpTabIcon}}"></span>')(scope);
+      $title = $compile('<span>{{ bpTabTitle }}</span>')(scope);
       element.append($icon, $title);
       scope.$on('$stateChangeSuccess', function() {
         if ($state.includes(scope.bpSref)) {

@@ -13,8 +13,8 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
       $placeholder = $compile('<bp-search-placeholder> <bp-action class="bp-icon bp-icon-search"></bp-action> <span>{{ placeholder }}</span> </bp-search-placeholder>')(childScope);
       $tapLayer = angular.element('<bp-search-tap>');
       $search = element.find('input').attr({
-        'required': 'required',
-        'type': 'search'
+        required: 'required',
+        type: 'search'
       });
       childScope.placeholder = $search.attr('placeholder');
       if (childScope.placeholder == null) {
@@ -36,7 +36,7 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
           $bgLeft.css('width', inputWidth);
           $bgRight.css('width', cancelWidth);
           $search.css({
-            'width': inputWidth,
+            width: inputWidth,
             'padding-left': 1.5 * iconWidth
           });
         }, 50);

@@ -33,7 +33,7 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
               $action.attr('role', 'menu-item').addClass('bp-button');
             });
             $menu = angular.element('<bp-action-overflow-menu>').attr({
-              'role': 'menu',
+              role: 'menu',
               'aria-hidden': 'true'
             }).append($actions);
             $$window = angular.element($window);

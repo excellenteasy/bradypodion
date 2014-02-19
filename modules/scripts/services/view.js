@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
 
 angular.module('bp').service('bpView', function($rootScope, $state) {
   var BpView;
@@ -35,7 +35,7 @@ angular.module('bp').service('bpView', function($rootScope, $state) {
 
     BpView.prototype.setTransition = function(type, direction) {
       if (type != null && direction != null) {
-        this.transition = type + "-" + direction;
+        this.transition = type + '-' + direction;
       } else {
         this.transition = null;
       }

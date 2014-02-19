@@ -32,12 +32,12 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
           if (attrs.bpNavbarTitle == null) {
             attrs.bpNavbarTitle = scope.getTitleFromState(state);
           }
-          $title = $compile("<bp-navbar-title role='heading'>{{ bpNavbarTitle }}</bp-navbar-title>")(scope);
+          $title = $compile('<bp-navbar-title role="heading">{{ bpNavbarTitle }}</bp-navbar-title>')(scope);
           $actions = clone.filter('bp-action');
           if ((((_ref = state.data) != null ? _ref.up : void 0) != null) && (attrs.bpNavbarNoUp == null)) {
             upState = $state.get(state.data.up);
             upTitle = scope.getTitleFromState(upState);
-            $up = $compile("<bp-action class='bp-action-up' bp-sref='" + upState.name + "'>" + upTitle + "</bp-action>")(scope);
+            $up = $compile('<bp-action class="bp-action-up" bp-sref="' + upState.name + '">' + upTitle + '</bp-action>')(scope);
             if (ios) {
               $actions = $up.add($actions);
             }
@@ -62,7 +62,7 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
                   var $spacer, difference;
                   difference = $scndAction.outerWidth() - $frstAction.outerWidth();
                   if (difference !== 0 && $frstAction.length) {
-                    $spacer = angular.element("<div style=' -webkit-box-flex:10; max-width:" + (Math.abs(difference)) + "px '>");
+                    $spacer = angular.element('<div style="-webkit-box-flex:10; max-width:' + (Math.abs(difference)) + 'px ">');
                     $spacer[difference > 0 ? 'insertBefore' : 'insertAfter']($title);
                   }
                 }, 0);

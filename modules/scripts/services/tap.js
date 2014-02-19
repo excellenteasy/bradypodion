@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
 
 angular.module('bp').factory('BpTap', function(bpConfig) {
   var BpTap;
@@ -26,7 +26,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
     BpTap.prototype.onClick = function(e) {
       e.preventDefault();
       e.stopPropagation();
-      if (typeof e.stopImmediatePropagation === "function") {
+      if (angular.isFunction(e.stopImmediatePropagation)) {
         e.stopImmediatePropagation();
       }
     };
@@ -95,7 +95,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       }
       angular.extend(options, customOptions);
       for (key in options) {
-        attr = attrs["bp" + (key.charAt(0).toUpperCase()) + (key.slice(1))];
+        attr = attrs['bp' + (key.charAt(0).toUpperCase()) + (key.slice(1))];
         if (attr != null) {
           options[key] = attr === '' ? true : attr;
         }
