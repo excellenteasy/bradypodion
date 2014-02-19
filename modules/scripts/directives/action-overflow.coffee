@@ -67,3 +67,8 @@ angular.module('bp').directive 'bpActionOverflow', deps [
               open = false
               # prevent tap from happening on the icon again
               element.trigger 'touchcancel'
+
+          scope.$on '$destroy', ->
+            element.unbind 'tap'
+            $actions.unbind 'touchstart'
+            $$window.unbind 'touchstart'
