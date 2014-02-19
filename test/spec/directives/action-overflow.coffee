@@ -60,6 +60,19 @@ describe 'action overflow', ->
         $$window.trigger 'touchstart'
         expect(scope.close).toHaveBeenCalled()
 
+      it 'should unbind after destroy', inject ($window) ->
+        $menu = element.find('bp-action-overflow-menu')
+        $actions = $menu.children()
+
+        events = $._data(element.get(0)).events
+        actionEvents = $._data($actions.get(0)).events
+        windowEvents = $._data($window).events
+
+        scope.$destroy()
+        expect(events.tap?).toBe false
+        expect(actionEvents.touchstart?).toBe false
+        expect(windowEvents.touchstart?).toBe false
+
     describe 'controller', ->
       it 'should open menu', ->
         $menu = element.find('bp-action-overflow-menu')
