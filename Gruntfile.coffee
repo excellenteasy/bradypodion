@@ -38,6 +38,10 @@ module.exports = (grunt) ->
           '<%=bp.dist%>/bradypodion.js': [
             '<%=bp.app%>/scripts/bradypodion.js'
             '<%=bp.app%>/scripts/*/**/*.js'
+            '!<%=bp.app%>/scripts/directives/iscroll.js'
+          ]
+          '<%=bp.dist%>/bradypodion-iscroll.js': [
+            '<%=bp.app%>/scripts/directives/iscroll.js'
           ]
         ]
 
@@ -195,6 +199,7 @@ module.exports = (grunt) ->
         git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
         git add -f dist/bradypodion.js &&
+        git add -f dist/bradypodion-iscroll.js &&
         git add -f CHANGELOG.md &&
         git commit -m 'v#{newVersion}' &&
         git tag v#{newVersion}",

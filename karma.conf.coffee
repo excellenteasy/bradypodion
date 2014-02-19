@@ -18,6 +18,7 @@ module.exports = (config) ->
       'modules/bower_components/angular-animate/angular-animate.js'
       'modules/bower_components/angular-ui-router/release/angular-ui-router.js'
       'dist/bradypodion.js'
+      'dist/bradypodion-iscroll.js'
       'modules/bower_components/angular-mocks/angular-mocks.js'
       'test/spec/*/*.coffee'
     ]
@@ -26,7 +27,7 @@ module.exports = (config) ->
     # possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['progress', 'coverage']
     preprocessors:
-      'dist/bradypodion.js': ['coverage']
+      'dist/*.js': ['coverage']
       'test/spec/*/*.coffee': ['coffee']
 
     coverageReporter:
