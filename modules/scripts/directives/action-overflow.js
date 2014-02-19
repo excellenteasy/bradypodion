@@ -4,67 +4,67 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
     transclude: true,
     controller: function($scope, $animate) {
       $scope.open = function($menu) {
-        $menu.attr('aria-hidden', 'false');
-        $animate.addClass($menu, 'bp-action-overflow-open');
-      };
+        $menu.attr('aria-hidden', 'false')
+        $animate.addClass($menu, 'bp-action-overflow-open')
+      }
       $scope.close = function($menu) {
-        $menu.attr('aria-hidden', 'true');
-        $animate.removeClass($menu, 'bp-action-overflow-open');
-      };
+        $menu.attr('aria-hidden', 'true')
+        $animate.removeClass($menu, 'bp-action-overflow-open')
+      }
     },
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs) {
-        var open;
+        var open
         if (bpConfig.platform === 'ios') {
-          element.attr('aria-hidden', 'true');
+          element.attr('aria-hidden', 'true')
         } else {
           element.attr({
             role: 'button',
             'aria-has-popup': 'true'
-          });
-          new BpTap(scope, element, attrs);
-          open = false;
+          })
+          new BpTap(scope, element, attrs)
+          open = false
           transcludeFn(scope, function(clone) {
-            var $$window, $actions, $menu;
-            $actions = clone.filter('bp-action');
+            var $$window, $actions, $menu
+            $actions = clone.filter('bp-action')
             $actions.each(function() {
-              var $action;
-              $action = angular.element(this);
-              $action.attr('role', 'menu-item').addClass('bp-button');
-            });
+              var $action
+              $action = angular.element(this)
+              $action.attr('role', 'menu-item').addClass('bp-button')
+            })
             $menu = angular.element('<bp-action-overflow-menu>').attr({
               role: 'menu',
               'aria-hidden': 'true'
-            }).append($actions);
-            $$window = angular.element($window);
-            element.append($menu);
+            }).append($actions)
+            $$window = angular.element($window)
+            element.append($menu)
             element.on('tap', function() {
               if (open) {
-                scope.close($menu);
-                open = false;
+                scope.close($menu)
+                open = false
               } else {
-                scope.open($menu);
-                open = true;
+                scope.open($menu)
+                open = true
               }
-            });
+            })
             $actions.on('touchstart', function(e) {
-              e.stopPropagation();
-            });
+              e.stopPropagation()
+            })
             $$window.on('touchstart', function() {
               if (open) {
-                scope.close($menu);
-                open = false;
-                element.trigger('touchcancel');
+                scope.close($menu)
+                open = false
+                element.trigger('touchcancel')
               }
-            });
+            })
             scope.$on('$destroy', function() {
-              element.unbind('tap');
-              $actions.unbind('touchstart');
-              $$window.unbind('touchstart');
-            });
-          });
+              element.unbind('tap')
+              $actions.unbind('touchstart')
+              $$window.unbind('touchstart')
+            })
+          })
         }
-      };
+      }
     }
-  };
-});
+  }
+})

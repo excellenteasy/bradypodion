@@ -7,9 +7,9 @@ angular.module('bp').directive('bpCell', function() {
         transcludeFn(scope, function(clone) {
           element.attr({
             role: 'listitem'
-          }).append(clone);
-        });
-      };
+          }).append(clone)
+        })
+      }
     }
-  };
-});
+  }
+})

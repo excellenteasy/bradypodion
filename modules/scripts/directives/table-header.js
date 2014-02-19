@@ -4,7 +4,7 @@ angular.module('bp').directive('bpTableHeader', function() {
     link: function(scope, element) {
       element.attr({
         role: 'heading'
-      });
+      })
     }
-  };
-});
+  }
+})

@@ -2,92 +2,92 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
   return {
     restrict: 'E',
     link: function(scope, element) {
-      var $bgLeft, $bgRight, $cancel, $placeholder, $search, $tapLayer, cancelWidth, childScope, ios;
-      ios = bpConfig.platform === 'ios';
-      childScope = scope.$new(true);
+      var $bgLeft, $bgRight, $cancel, $placeholder, $search, $tapLayer, cancelWidth, childScope, ios
+      ios = bpConfig.platform === 'ios'
+      childScope = scope.$new(true)
       if (ios) {
-        $bgLeft = angular.element('<bp-search-bg-left>');
-        $bgRight = angular.element('<bp-search-bg-right>');
-        $cancel = $compile('<bp-action class="bp-button">Cancel</bp-action>')(childScope);
+        $bgLeft = angular.element('<bp-search-bg-left>')
+        $bgRight = angular.element('<bp-search-bg-right>')
+        $cancel = $compile('<bp-action class="bp-button">Cancel</bp-action>')(childScope)
       }
-      $placeholder = $compile('<bp-search-placeholder> <bp-action class="bp-icon bp-icon-search"></bp-action> <span>{{ placeholder }}</span> </bp-search-placeholder>')(childScope);
-      $tapLayer = angular.element('<bp-search-tap>');
+      $placeholder = $compile('<bp-search-placeholder> <bp-action class="bp-icon bp-icon-search"></bp-action> <span>{{ placeholder }}</span> </bp-search-placeholder>')(childScope)
+      $tapLayer = angular.element('<bp-search-tap>')
       $search = element.find('input').attr({
         required: 'required',
         type: 'search'
-      });
-      childScope.placeholder = $search.attr('placeholder');
+      })
+      childScope.placeholder = $search.attr('placeholder')
       if (childScope.placeholder == null) {
-        childScope.placeholder = 'Search';
+        childScope.placeholder = 'Search'
       }
       if (ios) {
-        new BpTap(childScope, $cancel, {});
+        new BpTap(childScope, $cancel, {})
       }
-      new BpTap(childScope, $tapLayer, {});
-      element.attr('role', 'search').prepend($bgLeft, $bgRight).append($placeholder, $cancel, $tapLayer);
+      new BpTap(childScope, $tapLayer, {})
+      element.attr('role', 'search').prepend($bgLeft, $bgRight).append($placeholder, $cancel, $tapLayer)
       if (ios) {
-        cancelWidth = null;
+        cancelWidth = null
         $timeout(function() {
-          var iconWidth, inputWidth, width;
-          width = element.outerWidth();
-          cancelWidth = $cancel.outerWidth();
-          iconWidth = $placeholder.find('.bp-icon').outerWidth();
-          inputWidth = width - cancelWidth - 6;
-          $bgLeft.css('width', inputWidth);
-          $bgRight.css('width', cancelWidth);
+          var iconWidth, inputWidth, width
+          width = element.outerWidth()
+          cancelWidth = $cancel.outerWidth()
+          iconWidth = $placeholder.find('.bp-icon').outerWidth()
+          inputWidth = width - cancelWidth - 6
+          $bgLeft.css('width', inputWidth)
+          $bgRight.css('width', cancelWidth)
           $search.css({
             width: inputWidth,
             'padding-left': 1.5 * iconWidth
-          });
-        }, 50);
+          })
+        }, 50)
         childScope.onResize = function() {
-          var inputWidth;
-          inputWidth = element.outerWidth() - cancelWidth;
-          $bgLeft.css('width', inputWidth);
-        };
+          var inputWidth
+          inputWidth = element.outerWidth() - cancelWidth
+          $bgLeft.css('width', inputWidth)
+        }
         childScope.onCancel = function() {
-          element.removeClass('focus');
+          element.removeClass('focus')
           $search.val('').trigger('input').trigger('blur', {
             programatic: true
-          });
-        };
+          })
+        }
       }
       childScope.onBlur = function(e, extra) {
         if (extra == null) {
-          extra = {};
+          extra = {}
         }
         if (!ios) {
-          element.removeClass('focus');
+          element.removeClass('focus')
         } else if (!$search.val() && !extra.programatic) {
-          $cancel.trigger('tap');
+          $cancel.trigger('tap')
         }
-      };
-      childScope.onFocus = function() {
-        $search.focus();
-        $timeout(function() {
-          element.addClass('focus');
-        }, 0);
-      };
-      childScope.stopPropagation = function(e) {
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-      };
-      if (ios) {
-        angular.element($window).bind('resize orientationchange', childScope.onResize);
-        $cancel.bind('tap', childScope.onCancel);
       }
-      $search.bind('blur', childScope.onBlur);
-      $tapLayer.bind('tap', childScope.onFocus);
-      $tapLayer.bind('click touchstart touchmove touchend', childScope.stopPropagation);
+      childScope.onFocus = function() {
+        $search.focus()
+        $timeout(function() {
+          element.addClass('focus')
+        }, 0)
+      }
+      childScope.stopPropagation = function(e) {
+        e.stopPropagation()
+        e.stopImmediatePropagation()
+      }
+      if (ios) {
+        angular.element($window).bind('resize orientationchange', childScope.onResize)
+        $cancel.bind('tap', childScope.onCancel)
+      }
+      $search.bind('blur', childScope.onBlur)
+      $tapLayer.bind('tap', childScope.onFocus)
+      $tapLayer.bind('click touchstart touchmove touchend', childScope.stopPropagation)
       scope.$on('$destroy', function() {
-        childScope.$destroy();
+        childScope.$destroy()
         if (ios) {
-          angular.element($window).unbind('resize orientationchange');
-          $cancel.unbind('tap');
+          angular.element($window).unbind('resize orientationchange')
+          $cancel.unbind('tap')
         }
-        $search.unbind('blur');
-        $tapLayer.unbind('tap click touchstart touchmove touchend');
-      });
+        $search.unbind('blur')
+        $tapLayer.unbind('tap click touchstart touchmove touchend')
+      })
     }
-  };
-});
+  }
+})

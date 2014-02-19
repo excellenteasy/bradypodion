@@ -1,88 +1,88 @@
-var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
+var __bind = function(fn, me) { return function() { return fn.apply(me, arguments)  }  }
 
 angular.module('bp').service('bpView', function($rootScope) {
-  var BpView;
+  var BpView
   BpView = (function() {
     function BpView() {
-      this.onViewContentLoaded = __bind(this.onViewContentLoaded, this);
-      this.onStateChangeStart = __bind(this.onStateChangeStart, this);
-      this.transition = null;
-      this.lastTransition = null;
+      this.onViewContentLoaded = __bind(this.onViewContentLoaded, this)
+      this.onStateChangeStart = __bind(this.onStateChangeStart, this)
+      this.transition = null
+      this.lastTransition = null
     }
 
     BpView.prototype.listen = function() {
-      $rootScope.$on('$stateChangeStart', this.onStateChangeStart);
-      $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded);
-    };
+      $rootScope.$on('$stateChangeStart', this.onStateChangeStart)
+      $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded)
+    }
 
     BpView.prototype.onStateChangeStart = function(event, toState, toParams, fromState) {
-      var direction, type;
-      direction = toParams.direction || this.getDirection(fromState, toState);
-      type = toParams.transition || this.getType(fromState, toState, direction);
-      this.setTransition(type, direction);
-    };
+      var direction, type
+      direction = toParams.direction || this.getDirection(fromState, toState)
+      type = toParams.transition || this.getType(fromState, toState, direction)
+      this.setTransition(type, direction)
+    }
 
     BpView.prototype.onViewContentLoaded = function() {
-      var $views;
-      $views = angular.element('[ui-view], ui-view');
+      var $views
+      $views = angular.element('[ui-view], ui-view')
       if (this.transition != null) {
-        $views.removeClass(this.lastTransition).addClass(this.transition);
-        this.lastTransition = this.transition;
+        $views.removeClass(this.lastTransition).addClass(this.transition)
+        this.lastTransition = this.transition
       } else {
-        $views.removeClass(this.lastTransition);
+        $views.removeClass(this.lastTransition)
       }
-    };
+    }
 
     BpView.prototype.setTransition = function(type, direction) {
       if (type != null && direction != null) {
-        this.transition = type + '-' + direction;
+        this.transition = type + '-' + direction
       } else {
-        this.transition = null;
+        this.transition = null
       }
-    };
+    }
 
     BpView.prototype.getDirection = function(from, to) {
-      var direction, fromSegments, index, segment, toSegments, _i, _len;
-      direction = 'normal';
+      var direction, fromSegments, index, segment, toSegments, _i, _len
+      direction = 'normal'
       if (from.url === '^') {
-        return null;
+        return null
       }
-      fromSegments = this._getURLSegments(from);
-      toSegments = this._getURLSegments(to);
+      fromSegments = this._getURLSegments(from)
+      toSegments = this._getURLSegments(to)
       if (toSegments.length < fromSegments.length) {
-        direction = 'reverse';
+        direction = 'reverse'
         for (index = _i = 0, _len = toSegments.length; _i < _len; index = ++_i) {
-          segment = toSegments[index];
+          segment = toSegments[index]
           if (segment !== fromSegments[index]) {
-            direction = 'normal';
-            break;
+            direction = 'normal'
+            break
           }
         }
-        direction;
+        direction
       } else if (toSegments.length === fromSegments.length) {
-        direction = null;
+        direction = null
       }
-      return direction;
-    };
+      return direction
+    }
 
     BpView.prototype.getType = function(from, to, direction) {
-      var _ref, _ref1;
+      var _ref, _ref1
       if (direction === 'reverse') {
-        return ((_ref = from.data) != null ? _ref.transition : void 0) || null;
+        return ((_ref = from.data) != null ? _ref.transition : void 0) || null
       } else {
-        return ((_ref1 = to.data) != null ? _ref1.transition : void 0) || null;
+        return ((_ref1 = to.data) != null ? _ref1.transition : void 0) || null
       }
-    };
+    }
 
     BpView.prototype._getURLSegments = function(state) {
-      var url;
-      url = state.url || '';
-      url = url.replace(/\/$/, '');
-      return url.split('/');
-    };
+      var url
+      url = state.url || ''
+      url = url.replace(/\/$/, '')
+      return url.split('/')
+    }
 
-    return BpView;
+    return BpView
 
-  })();
-  return new BpView();
-});
+  })()
+  return new BpView()
+})

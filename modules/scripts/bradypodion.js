@@ -1,1 +1,1 @@
-angular.module('bp', ['ngAnimate', 'ui.router']);
+angular.module('bp', ['ngAnimate', 'ui.router'])
