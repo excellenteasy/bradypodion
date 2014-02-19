@@ -7,4 +7,5 @@
  *
  * Date: <%= meta.date %>
  */
-
+(function() {
+'use strict'
