@@ -9,6 +9,7 @@ module.exports = (grunt) ->
     bp:
       app: 'modules'
       dist: 'dist'
+      demo: 'demo'
       tmp: '.tmp'
       platforms: ['android', 'ios']
 
@@ -35,7 +36,7 @@ module.exports = (grunt) ->
         livereload: '<%= connect.options.livereload %>'
 
       coffeeApp:
-        files: ['<%=bp.app%>/scripts/app.coffee']
+        files: ['<%=bp.demo%>/app.coffee']
         tasks: ['coffee:app']
 
       coffeeDist:
@@ -62,7 +63,7 @@ module.exports = (grunt) ->
         tasks: ['cssbuild']
 
       views:
-        files: ['<%=bp.app%>/index.html', '<%=bp.app%>/views/**/*.html']
+        files: ['<%=bp.demo%>/**/*.html']
         tasks: ['coffee:app']
 
     connect:
@@ -74,7 +75,12 @@ module.exports = (grunt) ->
 
       server:
         options:
-          base: ['<%=bp.tmp%>', '<%=bp.app%>', '<%=bp.dist%>']
+          base: [
+            '<%=bp.tmp%>'
+            '<%=bp.app%>'
+            '<%=bp.dist%>'
+            '<%=bp.demo%>'
+          ]
 
     shell:
       options:
@@ -103,7 +109,7 @@ module.exports = (grunt) ->
     coffee:
       app:
         files:
-          '<%=bp.tmp%>/scripts/app.js': '<%=bp.app%>/scripts/app.coffee'
+          '<%=bp.tmp%>/scripts/app.js': '<%=bp.demo%>/app.coffee'
 
       dist:
         options:
