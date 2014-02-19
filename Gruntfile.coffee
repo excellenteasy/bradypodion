@@ -50,6 +50,11 @@ module.exports = (grunt) ->
       options: jshintrc: yes
       all: ['<%=bp.app%>/scripts/bradypodion.js', '<%=bp.app%>/scripts/*/**/*.js']
 
+    jscs:
+      src: ['modules/scripts/**/*.js']
+      options:
+        config: ".jscs.json"
+
     watch:
       options:
         livereload: '<%= connect.options.livereload %>'
@@ -121,6 +126,8 @@ module.exports = (grunt) ->
       build: [
         'concat:dist'
         'cssbuild'
+        'jshint'
+        'jscs'
       ]
 
     karma:
@@ -217,6 +224,8 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'precommit', [
     'shell:semver'
+    'jshint'
+    'jscs'
   ]
 
   grunt.registerTask 'test', [

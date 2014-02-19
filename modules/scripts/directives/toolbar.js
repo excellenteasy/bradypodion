@@ -3,22 +3,22 @@ angular.module('bp').directive('bpToolbar', function(bpConfig) {
     restrict: 'E',
     transclude: true,
     compile: function(elem, attrs, transcludeFn) {
-      return function(scope, element, attrs) {
+      return function(scope, element) {
         if (bpConfig.platform === 'android') {
-          return element.attr('aria-hidden', 'true');
+          element.attr('aria-hidden', 'true');
         } else {
           element.attr({
             role: 'toolbar'
           });
-          return transcludeFn(scope, function(clone) {
+          transcludeFn(scope, function(clone) {
             var $actions;
             $actions = clone.filter('bp-action');
             $actions.each(function() {
               var $action;
               $action = angular.element(this);
-              return $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
+              $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
             });
-            return element.append($actions);
+            element.append($actions);
           });
         }
       };

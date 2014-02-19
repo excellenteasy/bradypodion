@@ -1,8 +1,8 @@
 angular.module('bp').directive('bpScroll', function() {
-  return function(scope, element, attrs) {
+  return function(scope, element) {
     element.bind('touchstart', function() {});
-    return scope.$on('$destroy', function() {
-      return element.unbind('touchstart');
+    scope.$on('$destroy', function() {
+      element.unbind('touchstart');
     });
   };
 });

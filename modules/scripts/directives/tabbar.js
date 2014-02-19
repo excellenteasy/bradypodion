@@ -1,8 +1,8 @@
 angular.module('bp').directive('bpTabbar', function() {
   return {
     restrict: 'E',
-    link: function(scope, element, attrs) {
-      return element.attr({
+    link: function(scope, element) {
+      element.attr({
         role: 'tablist'
       });
     }
@@ -18,31 +18,35 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
       bpTabTitle: '@'
     },
     link: function(scope, element, attrs) {
-      var $icon, $title, state, _ref, _ref1, _ref2;
+      var $icon, $title, state;
       element.attr({
         role: 'tab'
       });
       state = $state.get(scope.bpSref);
       if (attrs.bpTabTitle == null) {
-        attrs.bpTabTitle = ((_ref = state.data) != null ? _ref.title : void 0) || ((_ref1 = state.name) != null ? _ref1.charAt(0).toUpperCase() : void 0) + ((_ref2 = state.name) != null ? _ref2.slice(1) : void 0);
+        if (state.data && state.data.title) {
+          attrs.bpTabTitle = state.data.title;
+        } else if (state.name) {
+          attrs.bpTabTitle = state.name.charAt(0).toUpperCase() + state.name.slice(1);
+        }
       }
-      $icon = $compile("<span class='bp-icon {{bpTabIcon}}'></span>")(scope);
-      $title = $compile("<span>{{ bpTabTitle }}</span>")(scope);
+      $icon = $compile('<span class="bp-icon {{bpTabIcon}}"></span>')(scope);
+      $title = $compile('<span>{{ bpTabTitle }}</span>')(scope);
       element.append($icon, $title);
       scope.$on('$stateChangeSuccess', function() {
         if ($state.includes(scope.bpSref)) {
-          return element.addClass('bp-tab-active').attr('aria-selected', 'true');
+          element.addClass('bp-tab-active').attr('aria-selected', 'true');
         } else {
-          return element.removeClass('bp-tab-active').attr('aria-selected', 'false');
+          element.removeClass('bp-tab-active').attr('aria-selected', 'false');
         }
       });
       element.bind('touchstart', function() {
-        return $timeout(function() {
-          return element.trigger('touchend');
+        $timeout(function() {
+          element.trigger('touchend');
         }, 500);
       });
-      return scope.$on('$destroy', function() {
-        return element.unbind('touchstart');
+      scope.$on('$destroy', function() {
+        element.unbind('touchstart');
       });
     }
   };

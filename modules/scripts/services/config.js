@@ -16,7 +16,7 @@ angular.module('bp').provider('bpConfig', (function() {
     };
 
     BpConfig.prototype.setConfig = function(inConfig) {
-      return config = angular.extend(config, inConfig);
+      config = angular.extend(config, inConfig);
     };
 
     return BpConfig;

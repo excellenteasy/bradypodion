@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
 
 angular.module('bp').factory('BpTap', function(bpConfig) {
   var BpTap;
@@ -18,7 +18,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       this.element.bind('touchend touchcancel', this.onTouchend);
       scope.$on('$destroy', (function(_this) {
         return function() {
-          return _this.element.unbind('touchstart touchmove touchend touchcancel click');
+          _this.element.unbind('touchstart touchmove touchend touchcancel click');
         };
       })(this));
     }
@@ -26,7 +26,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
     BpTap.prototype.onClick = function(e) {
       e.preventDefault();
       e.stopPropagation();
-      if (typeof e.stopImmediatePropagation === "function") {
+      if (angular.isFunction(e.stopImmediatePropagation)) {
         e.stopImmediatePropagation();
       }
     };
@@ -36,7 +36,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       this.touch.x = this._getCoordinate(e, true);
       this.touch.y = this._getCoordinate(e, false);
       this.touch.ongoing = true;
-      $t = $(e.target);
+      $t = angular.element(e.target);
       if ((($t.attr('bp-tap') != null) || ($t.attr('bp-sref') != null)) && this.element.get(0) !== e.target) {
         this.touch.nestedTap = true;
       } else {
@@ -95,12 +95,12 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       }
       angular.extend(options, customOptions);
       for (key in options) {
-        attr = attrs["bp" + (key.charAt(0).toUpperCase()) + (key.slice(1))];
+        attr = attrs['bp' + (key.charAt(0).toUpperCase()) + (key.slice(1))];
         if (attr != null) {
           options[key] = attr === '' ? true : attr;
         }
       }
-      return this.options = options;
+      this.options = options;
     };
 
     BpTap.prototype._getCoordinate = function(e, isX) {

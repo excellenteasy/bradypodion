@@ -11,7 +11,11 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
         return ((_ref = state.data) != null ? _ref.title : void 0) || state.name.charAt(0).toUpperCase() + state.name.slice(1);
       };
       return $scope.convertActionToIcon = function($action) {
-        return $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
+        $action
+          .attr('aria-label', $action.text())
+          .text('')
+          .removeClass('bp-button')
+          .addClass('bp-icon');
       };
     },
     compile: function(elem, attrs, transcludeFn) {
@@ -23,17 +27,17 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
         element.attr({
           role: 'navigation'
         });
-        return transcludeFn(scope, function(clone) {
+        transcludeFn(scope, function(clone) {
           var $actions, $arrow, $frstAction, $icon, $scndAction, $title, $up, upState, upTitle, _ref;
           if (attrs.bpNavbarTitle == null) {
             attrs.bpNavbarTitle = scope.getTitleFromState(state);
           }
-          $title = $compile("<bp-navbar-title role='heading'>{{ bpNavbarTitle }}</bp-navbar-title>")(scope);
+          $title = $compile('<bp-navbar-title role="heading">{{ bpNavbarTitle }}</bp-navbar-title>')(scope);
           $actions = clone.filter('bp-action');
           if ((((_ref = state.data) != null ? _ref.up : void 0) != null) && (attrs.bpNavbarNoUp == null)) {
             upState = $state.get(state.data.up);
             upTitle = scope.getTitleFromState(upState);
-            $up = $compile("<bp-action class='bp-action-up' bp-sref='" + upState.name + "'>" + upTitle + "</bp-action>")(scope);
+            $up = $compile('<bp-action class="bp-action-up" bp-sref="' + upState.name + '">' + upTitle + '</bp-action>')(scope);
             if (ios) {
               $actions = $up.add($actions);
             }
@@ -47,19 +51,19 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
                 var $action;
                 $action = angular.element(this);
                 if ($action.hasClass('bp-icon')) {
-                  return scope.convertActionToIcon($action);
+                  scope.convertActionToIcon($action);
                 } else {
-                  return $action.addClass('bp-button');
+                  $action.addClass('bp-button');
                 }
               });
               element.append($frstAction, $title, $scndAction, $arrow);
               if (!scope.navbarTitle) {
-                return $timeout(function() {
+                $timeout(function() {
                   var $spacer, difference;
                   difference = $scndAction.outerWidth() - $frstAction.outerWidth();
                   if (difference !== 0 && $frstAction.length) {
-                    $spacer = angular.element("<div style=' -webkit-box-flex:10; max-width:" + (Math.abs(difference)) + "px '>");
-                    return $spacer[difference > 0 ? 'insertBefore' : 'insertAfter']($title);
+                    $spacer = angular.element('<div style="-webkit-box-flex:10; max-width:' + (Math.abs(difference)) + 'px ">');
+                    $spacer[difference > 0 ? 'insertBefore' : 'insertAfter']($title);
                   }
                 }, 0);
               }
@@ -67,7 +71,7 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
               $actions.each(function() {
                 var $action;
                 $action = angular.element(this);
-                return scope.convertActionToIcon($action);
+                scope.convertActionToIcon($action);
               });
               if ($up) {
                 scope.convertActionToIcon($up);
@@ -75,9 +79,9 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
               $icon = angular.element('<bp-navbar-icon>');
               if ($up != null) {
                 $up.append('<div>').append($icon);
-                return element.append($up, $title, $frstAction, $scndAction);
+                element.append($up, $title, $frstAction, $scndAction);
               } else {
-                return element.append($icon, $title, $frstAction, $scndAction);
+                element.append($icon, $title, $frstAction, $scndAction);
               }
             }
           }

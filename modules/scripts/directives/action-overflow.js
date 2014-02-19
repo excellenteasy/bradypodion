@@ -5,18 +5,18 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
     controller: function($scope, $animate) {
       $scope.open = function($menu) {
         $menu.attr('aria-hidden', 'false');
-        return $animate.addClass($menu, 'bp-action-overflow-open');
+        $animate.addClass($menu, 'bp-action-overflow-open');
       };
-      return $scope.close = function($menu) {
+      $scope.close = function($menu) {
         $menu.attr('aria-hidden', 'true');
-        return $animate.removeClass($menu, 'bp-action-overflow-open');
+        $animate.removeClass($menu, 'bp-action-overflow-open');
       };
     },
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs) {
         var open;
         if (bpConfig.platform === 'ios') {
-          return element.attr('aria-hidden', 'true');
+          element.attr('aria-hidden', 'true');
         } else {
           element.attr({
             role: 'button',
@@ -24,16 +24,16 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
           });
           new BpTap(scope, element, attrs);
           open = false;
-          return transcludeFn(scope, function(clone) {
+          transcludeFn(scope, function(clone) {
             var $$window, $actions, $menu;
             $actions = clone.filter('bp-action');
             $actions.each(function() {
               var $action;
               $action = angular.element(this);
-              return $action.attr('role', 'menu-item').addClass('bp-button');
+              $action.attr('role', 'menu-item').addClass('bp-button');
             });
             $menu = angular.element('<bp-action-overflow-menu>').attr({
-              'role': 'menu',
+              role: 'menu',
               'aria-hidden': 'true'
             }).append($actions);
             $$window = angular.element($window);
@@ -41,26 +41,26 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
             element.on('tap', function() {
               if (open) {
                 scope.close($menu);
-                return open = false;
+                open = false;
               } else {
                 scope.open($menu);
-                return open = true;
+                open = true;
               }
             });
             $actions.on('touchstart', function(e) {
-              return e.stopPropagation();
+              e.stopPropagation();
             });
-            $$window.on('touchstart', function(e) {
+            $$window.on('touchstart', function() {
               if (open) {
                 scope.close($menu);
                 open = false;
-                return element.trigger('touchcancel');
+                element.trigger('touchcancel');
               }
             });
-            return scope.$on('$destroy', function() {
+            scope.$on('$destroy', function() {
               element.unbind('tap');
               $actions.unbind('touchstart');
-              return $$window.unbind('touchstart');
+              $$window.unbind('touchstart');
             });
           });
         }
