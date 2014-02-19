@@ -1,0 +1,23 @@
+{
+  "bitwise": true,
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "trailing": true,
+  "maxlen": 200,
+  "boss": true,
+  "eqnull": true,
+  "expr": true,
+  "laxbreak": true,
+  "loopfunc": true,
+  "sub": true,
+  "undef": true,
+  "browser": true,
+  "globals": {
+    "$": true,
+    "angular": true,
+    "IScroll": true,
+    "IScrollSticky": true
+  }
+}

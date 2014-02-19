@@ -46,6 +46,10 @@ module.exports = (grunt) ->
         src: ['<%=bp.dist%>/bradypodion.js']
         dest: '<%=bp.dist%>/bradypodion.js'
 
+    jshint:
+      options: jshintrc: yes
+      all: ['<%=bp.app%>/scripts/bradypodion.js', '<%=bp.app%>/scripts/*/**/*.js']
+
     watch:
       options:
         livereload: '<%= connect.options.livereload %>'
