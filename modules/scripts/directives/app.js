@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpApp', deps(['$compile', 'bpConfig', 'bpView'], function($compile, bpConfig, bpView) {
+angular.module('bp').directive('bpApp', function($compile, bpConfig, bpView) {
   return {
     restrict: 'AE',
     link: function(scope, element, attrs) {
@@ -8,4 +8,4 @@ angular.module('bp').directive('bpApp', deps(['$compile', 'bpConfig', 'bpView'],
       });
     }
   };
-}));
+});

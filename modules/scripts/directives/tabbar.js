@@ -9,7 +9,7 @@ angular.module('bp').directive('bpTabbar', function() {
   };
 });
 
-angular.module('bp').directive('bpTab', deps(['$state', '$compile', '$timeout'], function($state, $compile, $timeout) {
+angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
   return {
     restrict: 'E',
     scope: {
@@ -46,4 +46,4 @@ angular.module('bp').directive('bpTab', deps(['$state', '$compile', '$timeout'],
       });
     }
   };
-}));
+});

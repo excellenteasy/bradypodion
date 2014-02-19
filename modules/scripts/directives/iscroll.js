@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpIscroll', deps(['bpConfig', '$timeout'], function(bpConfig, $timeout) {
+angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
   return {
     transclude: true,
     template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
@@ -37,4 +37,4 @@ angular.module('bp').directive('bpIscroll', deps(['bpConfig', '$timeout'], funct
       });
     }
   };
-}));
+});

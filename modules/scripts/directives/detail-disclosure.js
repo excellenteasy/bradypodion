@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpDetailDisclosure', deps(['bpConfig', '$rootScope'], function(bpConfig, $rootScope) {
+angular.module('bp').directive('bpDetailDisclosure', function(bpConfig, $rootScope) {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {
@@ -22,4 +22,4 @@ angular.module('bp').directive('bpDetailDisclosure', deps(['bpConfig', '$rootSco
       }
     }
   };
-}));
+});

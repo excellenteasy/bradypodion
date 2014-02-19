@@ -1,6 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-angular.module('bp').service('bpView', deps(['$rootScope', '$state'], function($rootScope, $state) {
+angular.module('bp').service('bpView', function($rootScope, $state) {
   var BpView;
   BpView = (function() {
     function BpView() {
@@ -81,4 +81,4 @@ angular.module('bp').service('bpView', deps(['$rootScope', '$state'], function($
 
   })();
   return new BpView;
-}));
+});

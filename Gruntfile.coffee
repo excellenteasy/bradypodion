@@ -41,6 +41,11 @@ module.exports = (grunt) ->
           ]
         ]
 
+    ngmin:
+      dist:
+        src: ['<%=bp.dist%>/bradypodion.js']
+        dest: '<%=bp.dist%>/bradypodion.js'
+
     watch:
       options:
         livereload: '<%= connect.options.livereload %>'
@@ -54,7 +59,7 @@ module.exports = (grunt) ->
           '<%=bp.app%>/scripts/bradypodion.js'
           '<%=bp.app%>/scripts/*/**/*.js'
         ]
-        tasks: [ 'concat:dist', 'karma:unit:run' ]
+        tasks: [ 'concat:dist', 'ngmin', 'karma:unit:run' ]
 
       coffeeTest:
         files: ['test/spec/**/*.coffee']
@@ -219,6 +224,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'clean:dist'
     'concurrent'
+    'ngmin'
     'concat:banner'
   ]
 

@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpActionOverflow', deps(['$window', 'bpConfig', 'BpTap'], function($window, bpConfig, BpTap) {
+angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, BpTap) {
   return {
     restrict: 'E',
     transclude: true,
@@ -67,4 +67,4 @@ angular.module('bp').directive('bpActionOverflow', deps(['$window', 'bpConfig', 
       };
     }
   };
-}));
+});

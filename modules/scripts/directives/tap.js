@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpTap', deps(['$parse', 'BpTap'], function($parse, BpTap) {
+angular.module('bp').directive('bpTap', function($parse, BpTap) {
   return function(scope, element, attrs) {
     new BpTap(scope, element, attrs);
     element.bind('tap', function(e, touch) {
@@ -12,4 +12,4 @@ angular.module('bp').directive('bpTap', deps(['$parse', 'BpTap'], function($pars
       return element.unbind('tap');
     });
   };
-}));
+});

@@ -1,6 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-angular.module('bp').factory('BpTap', deps(['bpConfig'], function(bpConfig) {
+angular.module('bp').factory('BpTap', function(bpConfig) {
   var BpTap;
   return BpTap = (function() {
     function BpTap(scope, element, attrs, customOptions) {
@@ -121,4 +121,4 @@ angular.module('bp').factory('BpTap', deps(['bpConfig'], function(bpConfig) {
     return BpTap;
 
   })();
-}));
+});

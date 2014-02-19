@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpNavbar', deps(['bpConfig', '$timeout', '$state', '$compile'], function(bpConfig, $timeout, $state, $compile) {
+angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, $compile) {
   return {
     restrict: 'E',
     transclude: true,
@@ -85,4 +85,4 @@ angular.module('bp').directive('bpNavbar', deps(['bpConfig', '$timeout', '$state
       };
     }
   };
-}));
+});

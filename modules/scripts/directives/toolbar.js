@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpToolbar', deps(['bpConfig'], function(bpConfig) {
+angular.module('bp').directive('bpToolbar', function(bpConfig) {
   return {
     restrict: 'E',
     transclude: true,
@@ -24,4 +24,4 @@ angular.module('bp').directive('bpToolbar', deps(['bpConfig'], function(bpConfig
       };
     }
   };
-}));
+});

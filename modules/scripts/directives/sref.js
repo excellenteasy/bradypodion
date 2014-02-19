@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpSref', deps(['$state', '$parse', 'BpTap'], function($state, $parse, BpTap) {
+angular.module('bp').directive('bpSref', function($state, $parse, BpTap) {
   return function(scope, element, attrs) {
     new BpTap(scope, element, attrs);
     element.bind('tap', function() {
@@ -9,4 +9,4 @@ angular.module('bp').directive('bpSref', deps(['$state', '$parse', 'BpTap'], fun
       return element.unbind('tap');
     });
   };
-}));
+});

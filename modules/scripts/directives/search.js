@@ -1,4 +1,4 @@
-angular.module('bp').directive('bpSearch', deps(['$compile', '$timeout', '$window', 'BpTap', 'bpConfig'], function($compile, $timeout, $window, BpTap, bpConfig) {
+angular.module('bp').directive('bpSearch', function($compile, $timeout, $window, BpTap, bpConfig) {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {
@@ -90,4 +90,4 @@ angular.module('bp').directive('bpSearch', deps(['$compile', '$timeout', '$windo
       });
     }
   };
-}));
+});
