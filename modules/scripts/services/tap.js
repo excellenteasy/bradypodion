@@ -36,7 +36,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       this.touch.x = this._getCoordinate(e, true);
       this.touch.y = this._getCoordinate(e, false);
       this.touch.ongoing = true;
-      $t = $(e.target);
+      $t = angular.element(e.target);
       if ((($t.attr('bp-tap') != null) || ($t.attr('bp-sref') != null)) && this.element.get(0) !== e.target) {
         this.touch.nestedTap = true;
       } else {

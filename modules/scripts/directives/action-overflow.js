@@ -50,7 +50,7 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
             $actions.on('touchstart', function(e) {
               e.stopPropagation();
             });
-            $$window.on('touchstart', function(e) {
+            $$window.on('touchstart', function() {
               if (open) {
                 scope.close($menu);
                 open = false;

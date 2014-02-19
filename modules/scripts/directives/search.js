@@ -1,7 +1,7 @@
 angular.module('bp').directive('bpSearch', function($compile, $timeout, $window, BpTap, bpConfig) {
   return {
     restrict: 'E',
-    link: function(scope, element, attrs) {
+    link: function(scope, element) {
       var $bgLeft, $bgRight, $cancel, $placeholder, $search, $tapLayer, cancelWidth, childScope, ios;
       ios = bpConfig.platform === 'ios';
       childScope = scope.$new(true);

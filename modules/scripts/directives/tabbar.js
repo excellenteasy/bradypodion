@@ -1,7 +1,7 @@
 angular.module('bp').directive('bpTabbar', function() {
   return {
     restrict: 'E',
-    link: function(scope, element, attrs) {
+    link: function(scope, element) {
       element.attr({
         role: 'tablist'
       });
@@ -18,7 +18,7 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
       bpTabTitle: '@'
     },
     link: function(scope, element, attrs) {
-      var $icon, $title, state, _ref, _ref1, _ref2;
+      var $icon, $title, state;
       element.attr({
         role: 'tab'
       });

@@ -1,6 +1,6 @@
 var __bind = function(fn, me) { return function() { return fn.apply(me, arguments); }; };
 
-angular.module('bp').service('bpView', function($rootScope, $state) {
+angular.module('bp').service('bpView', function($rootScope) {
   var BpView;
   BpView = (function() {
     function BpView() {
@@ -15,7 +15,7 @@ angular.module('bp').service('bpView', function($rootScope, $state) {
       $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded);
     };
 
-    BpView.prototype.onStateChangeStart = function(event, toState, toParams, fromState, fromParams) {
+    BpView.prototype.onStateChangeStart = function(event, toState, toParams, fromState) {
       var direction, type;
       direction = toParams.direction || this.getDirection(fromState, toState);
       type = toParams.transition || this.getType(fromState, toState, direction);

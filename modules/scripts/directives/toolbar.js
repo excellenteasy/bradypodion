@@ -3,7 +3,7 @@ angular.module('bp').directive('bpToolbar', function(bpConfig) {
     restrict: 'E',
     transclude: true,
     compile: function(elem, attrs, transcludeFn) {
-      return function(scope, element, attrs) {
+      return function(scope, element) {
         if (bpConfig.platform === 'android') {
           element.attr('aria-hidden', 'true');
         } else {
