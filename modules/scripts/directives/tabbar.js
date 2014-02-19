@@ -24,7 +24,11 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
       });
       state = $state.get(scope.bpSref);
       if (attrs.bpTabTitle == null) {
-        attrs.bpTabTitle = ((_ref = state.data) != null ? _ref.title : void 0) || ((_ref1 = state.name) != null ? _ref1.charAt(0).toUpperCase() : void 0) + ((_ref2 = state.name) != null ? _ref2.slice(1) : void 0);
+        if (state.data && state.data.title) {
+          attrs.bpTabTitle = state.data.title;
+        } else if (state.name) {
+          attrs.bpTabTitle = state.name.charAt(0).toUpperCase() + state.name.slice(1);
+        }
       }
       $icon = $compile("<span class='bp-icon {{bpTabIcon}}'></span>")(scope);
       $title = $compile("<span>{{ bpTabTitle }}</span>")(scope);
