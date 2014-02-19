@@ -80,5 +80,5 @@ angular.module('bp').service('bpView', function($rootScope, $state) {
     return BpView;
 
   })();
-  return new BpView;
+  return new BpView();
 });
