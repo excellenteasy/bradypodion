@@ -34,7 +34,11 @@ angular.module('bp').service('bpView', function($rootScope, $state) {
     };
 
     BpView.prototype.setTransition = function(type, direction) {
-      this.transition = (type != null) && (direction != null) ? "" + type + "-" + direction : null;
+      if (type != null && direction != null) {
+        this.transition = type + "-" + direction;
+      } else {
+        this.transition = null;
+      }
     };
 
     BpView.prototype.getDirection = function(from, to) {
