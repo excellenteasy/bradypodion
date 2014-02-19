@@ -35,7 +35,7 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
           inputWidth = width - cancelWidth - 6;
           $bgLeft.css('width', inputWidth);
           $bgRight.css('width', cancelWidth);
-          return $search.css({
+          $search.css({
             'width': inputWidth,
             'padding-left': 1.5 * iconWidth
           });
@@ -43,11 +43,11 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
         childScope.onResize = function() {
           var inputWidth;
           inputWidth = element.outerWidth() - cancelWidth;
-          return $bgLeft.css('width', inputWidth);
+          $bgLeft.css('width', inputWidth);
         };
         childScope.onCancel = function() {
           element.removeClass('focus');
-          return $search.val('').trigger('input').trigger('blur', {
+          $search.val('').trigger('input').trigger('blur', {
             programatic: true
           });
         };
@@ -57,20 +57,20 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
           extra = {};
         }
         if (!ios) {
-          return element.removeClass('focus');
+          element.removeClass('focus');
         } else if (!$search.val() && !extra.programatic) {
-          return $cancel.trigger('tap');
+          $cancel.trigger('tap');
         }
       };
       childScope.onFocus = function() {
         $search.focus();
-        return $timeout(function() {
-          return element.addClass('focus');
+        $timeout(function() {
+          element.addClass('focus');
         }, 0);
       };
       childScope.stopPropagation = function(e) {
         e.stopPropagation();
-        return e.stopImmediatePropagation();
+        e.stopImmediatePropagation();
       };
       if (ios) {
         angular.element($window).bind('resize orientationchange', childScope.onResize);
@@ -79,14 +79,14 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
       $search.bind('blur', childScope.onBlur);
       $tapLayer.bind('tap', childScope.onFocus);
       $tapLayer.bind('click touchstart touchmove touchend', childScope.stopPropagation);
-      return scope.$on('$destroy', function() {
+      scope.$on('$destroy', function() {
         childScope.$destroy();
         if (ios) {
           angular.element($window).unbind('resize orientationchange');
           $cancel.unbind('tap');
         }
         $search.unbind('blur');
-        return $tapLayer.unbind('tap click touchstart touchmove touchend');
+        $tapLayer.unbind('tap click touchstart touchmove touchend');
       });
     }
   };

@@ -12,9 +12,9 @@ angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
       $scope.getIScrollSticky = function() {
         return iscrollsticky;
       };
-      return $scope.setIScroll = function(inIscroll, inSticky) {
+      $scope.setIScroll = function(inIscroll, inSticky) {
         iscroll = inIscroll;
-        return iscrollsticky = inSticky;
+        iscrollsticky = inSticky;
       };
     },
     link: function(scope, element, attrs) {
@@ -30,10 +30,10 @@ angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
           selector = attrs.bpIscrollSticky || 'bp-table-header';
           iscs = new IScrollSticky(isc, selector);
         }
-        return scope.setIScroll(isc, iscs);
+        scope.setIScroll(isc, iscs);
       }, 0);
-      return element.on('$destroy', function() {
-        return scope.getIScroll().destroy();
+      element.on('$destroy', function() {
+        scope.getIScroll().destroy();
       });
     }
   };

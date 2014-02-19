@@ -12,14 +12,14 @@ angular.module('bp').service('bpView', function($rootScope, $state) {
 
     BpView.prototype.listen = function() {
       $rootScope.$on('$stateChangeStart', this.onStateChangeStart);
-      return $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded);
+      $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded);
     };
 
     BpView.prototype.onStateChangeStart = function(event, toState, toParams, fromState, fromParams) {
       var direction, type;
       direction = toParams.direction || this.getDirection(fromState, toState);
       type = toParams.transition || this.getType(fromState, toState, direction);
-      return this.setTransition(type, direction);
+      this.setTransition(type, direction);
     };
 
     BpView.prototype.onViewContentLoaded = function() {
@@ -27,14 +27,14 @@ angular.module('bp').service('bpView', function($rootScope, $state) {
       $views = angular.element('[ui-view], ui-view');
       if (this.transition != null) {
         $views.removeClass(this.lastTransition).addClass(this.transition);
-        return this.lastTransition = this.transition;
+        this.lastTransition = this.transition;
       } else {
-        return $views.removeClass(this.lastTransition);
+        $views.removeClass(this.lastTransition);
       }
     };
 
     BpView.prototype.setTransition = function(type, direction) {
-      return this.transition = (type != null) && (direction != null) ? "" + type + "-" + direction : null;
+      this.transition = (type != null) && (direction != null) ? "" + type + "-" + direction : null;
     };
 
     BpView.prototype.getDirection = function(from, to) {

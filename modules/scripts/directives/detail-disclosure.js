@@ -4,7 +4,7 @@ angular.module('bp').directive('bpDetailDisclosure', function(bpConfig, $rootSco
     link: function(scope, element, attrs) {
       var $parent, uniqueId;
       if (bpConfig.platform === 'android') {
-        return element.attr('aria-hidden', 'true');
+        element.attr('aria-hidden', 'true');
       } else {
         $parent = element.parent();
         if (!(uniqueId = $parent.attr('id'))) {
@@ -14,7 +14,7 @@ angular.module('bp').directive('bpDetailDisclosure', function(bpConfig, $rootSco
           uniqueId = 'bp_' + $rootScope._uniqueId++;
           $parent.attr('id', uniqueId);
         }
-        return element.attr({
+        element.attr({
           'aria-describedby': uniqueId,
           'aria-label': 'More Info',
           role: 'button'

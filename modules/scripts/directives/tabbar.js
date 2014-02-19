@@ -2,7 +2,7 @@ angular.module('bp').directive('bpTabbar', function() {
   return {
     restrict: 'E',
     link: function(scope, element, attrs) {
-      return element.attr({
+      element.attr({
         role: 'tablist'
       });
     }
@@ -35,18 +35,18 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
       element.append($icon, $title);
       scope.$on('$stateChangeSuccess', function() {
         if ($state.includes(scope.bpSref)) {
-          return element.addClass('bp-tab-active').attr('aria-selected', 'true');
+          element.addClass('bp-tab-active').attr('aria-selected', 'true');
         } else {
-          return element.removeClass('bp-tab-active').attr('aria-selected', 'false');
+          element.removeClass('bp-tab-active').attr('aria-selected', 'false');
         }
       });
       element.bind('touchstart', function() {
-        return $timeout(function() {
-          return element.trigger('touchend');
+        $timeout(function() {
+          element.trigger('touchend');
         }, 500);
       });
-      return scope.$on('$destroy', function() {
-        return element.unbind('touchstart');
+      scope.$on('$destroy', function() {
+        element.unbind('touchstart');
       });
     }
   };

@@ -5,8 +5,8 @@ angular.module('bp').directive('bpSref', function($state, $parse, BpTap) {
       $state.transitionTo(attrs.bpSref);
       return false;
     });
-    return scope.$on('$destroy', function() {
-      return element.unbind('tap');
+    scope.$on('$destroy', function() {
+      element.unbind('tap');
     });
   };
 });

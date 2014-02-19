@@ -18,7 +18,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       this.element.bind('touchend touchcancel', this.onTouchend);
       scope.$on('$destroy', (function(_this) {
         return function() {
-          return _this.element.unbind('touchstart touchmove touchend touchcancel click');
+          _this.element.unbind('touchstart touchmove touchend touchcancel click');
         };
       })(this));
     }
@@ -100,7 +100,7 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
           options[key] = attr === '' ? true : attr;
         }
       }
-      return this.options = options;
+      this.options = options;
     };
 
     BpTap.prototype._getCoordinate = function(e, isX) {

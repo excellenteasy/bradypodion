@@ -4,7 +4,7 @@ angular.module('bp').directive('bpTable', function() {
     link: function(scope, element, attrs) {
       var role;
       role = element.parents('bp-table').length ? 'group' : 'list';
-      return element.attr({
+      element.attr({
         role: role
       });
     }

@@ -4,8 +4,8 @@ angular.module('bp').directive('bpCell', function() {
     transclude: true,
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs) {
-        return transcludeFn(scope, function(clone) {
-          return element.attr({
+        transcludeFn(scope, function(clone) {
+          element.attr({
             role: 'listitem'
           }).append(clone);
         });
