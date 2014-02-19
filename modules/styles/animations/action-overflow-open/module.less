@@ -1,0 +1,20 @@
+.bp-action-overflow-open(@duration: 0.1s, @name: bp-action-overflow-open) {
+  .@{name}-add {
+    .transition(all @duration ease-out);
+    .opacity(0);
+    .scale(0.9);
+  }
+  .@{name}-add-active {
+    .opacity(1);
+    .scale(1);
+  }
+  .@{name}-remove {
+    .transition(all @duration ease-out);
+    .opacity(1);
+    .scale(1);
+  }
+  .@{name}-remove-active {
+    .opacity(0);
+    .scale(0.9);
+  }
+}

@@ -1,0 +1,9 @@
+.bp-android-action-overflow-theme(@bg: @android-navbar-background; @border: @android-navbar-border; @color: @android-navbar-text-color; @button:@android-navbar-button-color; @prefix: bp-navbar) {
+  &:after {
+    .box-shadow(0 8px fade(@color,60%), 0 16px fade(@color,60%));
+    background-color: fade(@color,60%);
+  }
+  &.@{tap-active}:before {
+    background-color: lighten(desaturate(spin(@button, -1deg), 16%), 17%);
+  }
+}

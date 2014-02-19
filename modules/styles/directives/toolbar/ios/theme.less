@@ -1,0 +1,10 @@
+.bp-ios-toolbar-theme(@bg: @ios-navbar-background; @border: @ios-navbar-border; @color: @ios-navbar-text-color; @icon:@ios-navbar-button-color) {
+  .background-image(linear-gradient(transparent, transparent 50%, @border 50%));
+  background-color: @bg;
+  .bp-icon {
+    color: @icon;
+    &.@{tap-active} {
+      color: fade(@icon, 50%);
+    }
+  }
+}

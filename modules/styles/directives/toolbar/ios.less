@@ -1,0 +1,21 @@
+@import 'ios/theme';
+
+.bp-ios-toolbar(@prefix) {
+  .bp-ios-toolbar-theme;
+  &:extend(.borderbox);
+  &:extend(.flexbox);
+  position: relative;
+  overflow: hidden;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
+  height: @ios-navbar-height;
+  width: 100%;
+  bp-action {
+    height: @ios-navbar-height;
+    line-height: @ios-navbar-height;
+    display: block;
+    text-align: center;
+    -webkit-box-flex: 1;
+  }
+}
