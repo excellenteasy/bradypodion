@@ -38,19 +38,26 @@ angular.module('bp').service('bpView', function($rootScope) {
       return null
     }
 
-    var direction = null
-    var fromSegs  = this._getURLSegments(from)
-    var toSegs    = this._getURLSegments(to)
-    var fromLen   = fromSegs.length
-    var toLen     = toSegs.length
-    var diff      = toLen - fromLen
+    if (angular.isObject(to.data) && to.data.up === from.name) {
+      return 'normal'
+    }
+
+    if (angular.isObject(from.data) && from.data.up === to.name) {
+      return 'reverse'
+    }
+
+    var fromSegs = this._getURLSegments(from)
+    var toSegs   = this._getURLSegments(to)
+    var fromLen  = fromSegs.length
+    var toLen    = toSegs.length
+    var diff     = toLen - fromLen
 
     if (diff > 0 && angular.equals(fromSegs, toSegs.slice(0,toLen - diff))) {
-      direction = 'normal'
+      return 'normal'
     } else if (diff < 0 && angular.equals(toSegs, fromSegs.slice(0, fromLen  + diff))) {
-      direction = 'reverse'
+      return 'reverse'
     }
-    return direction
+    return null
   }
 
   BpView.prototype.getType = function(from, to, direction) {
