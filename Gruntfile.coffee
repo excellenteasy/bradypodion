@@ -32,7 +32,8 @@ module.exports = (grunt) ->
       dist:
         options:
           stripBanners: true,
-          banner: grunt.file.read 'modules/banner.template'
+          banner: grunt.file.read('modules/banner.template') +
+                  grunt.file.read 'modules/header.template'
           footer: grunt.file.read 'modules/footer.template'
         files: [
           '<%=bp.dist%>/bradypodion.js': [
