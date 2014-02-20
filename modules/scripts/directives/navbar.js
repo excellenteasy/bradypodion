@@ -37,8 +37,11 @@ angular.module('bp')
             attrs.bpNavbarTitle = scope.getTitleFromState(state)
           }
 
-          var $title = $compile('<bp-navbar-title role="heading">' +
-            '{{ bpNavbarTitle }}</bp-navbar-title>')(scope)
+          var $title = $compile(angular.element('<bp-navbar-title>')
+            .attr({
+              role: 'heading',
+              'ng-bind': 'bpNavbarTitle'
+            }))(scope)
           var $actions = clone.filter('bp-action')
 
           if (angular.isObject(state.data) &&
@@ -48,8 +51,10 @@ angular.module('bp')
             var upState = $state.get(state.data.up)
             var upTitle = scope.getTitleFromState(upState)
             $arrow = angular.element('<bp-button-up>')
-            $up = $compile('<bp-action class="bp-action-up" bp-sref="' +
-              upState.name + '">' + upTitle + '</bp-action>')(scope)
+            $up = $compile(angular.element('<bp-action>')
+              .addClass('bp-action-up')
+              .attr('bp-sref', upState.name)
+              .text(upTitle))(scope)
 
             if (ios) {
               $actions = $up.add($actions)
@@ -73,12 +78,13 @@ angular.module('bp')
 
             if (!scope.navbarTitle) {
               $timeout(function() {
-                var difference = $scndAction.outerWidth() - $frstAction.outerWidth()
+                var diff = $scndAction.outerWidth() - $frstAction.outerWidth()
 
-                if (difference !== 0 && $frstAction.length) {
-                  var $spacer = angular.element('<div style="-webkit-box-flex:10  max-width:' +
-                    (Math.abs(difference)) + 'px ">')
-                  $spacer[difference > 0 ? 'insertBefore' : 'insertAfter']($title)
+                if (diff !== 0 && $frstAction.length) {
+                  angular.element('<div>').css({
+                      '-webkit-box-flex': '10',
+                      'max-width': Math.abs(diff)
+                    })[diff > 0 ? 'insertBefore' : 'insertAfter']($title)
                 }
               }, 0)
             }
