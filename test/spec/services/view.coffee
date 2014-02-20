@@ -44,11 +44,6 @@ describe 'viewService', ->
     fourth = state.get 'fourth'
     fifth = state.get 'fifth'
 
-  describe 'construction', ->
-    it 'should be initted', ->
-      expect(viewService.transition).toBe null
-      expect(viewService.lastTransition).toBe null
-
   describe 'listen', ->
     it 'should listen to events', ->
       spyOn viewService, 'onStateChangeStart'

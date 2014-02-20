@@ -1,11 +1,7 @@
-var __bind = function(fn, me) { return function() { return fn.apply(me, arguments)  }  }
-
 angular.module('bp').service('bpView', function($rootScope) {
   function BpView() {
-    this.onViewContentLoaded = __bind(this.onViewContentLoaded, this)
-    this.onStateChangeStart = __bind(this.onStateChangeStart, this)
-    this.transition = null
-    this.lastTransition = null
+    this.onViewContentLoaded  = angular.bind(this, this.onViewContentLoaded)
+    this.onStateChangeStart   = angular.bind(this, this.onStateChangeStart)
   }
 
   BpView.prototype.listen = function() {
@@ -14,15 +10,13 @@ angular.module('bp').service('bpView', function($rootScope) {
   }
 
   BpView.prototype.onStateChangeStart = function(event, toState, toParams, fromState) {
-    var direction, type
-    direction = toParams.direction || this.getDirection(fromState, toState)
-    type = toParams.transition || this.getType(fromState, toState, direction)
+    var direction = toParams.direction || this.getDirection(fromState, toState)
+    var type = toParams.transition || this.getType(fromState, toState, direction)
     this.setTransition(type, direction)
   }
 
   BpView.prototype.onViewContentLoaded = function() {
-    var $views
-    $views = angular.element('[ui-view], ui-view')
+    var $views = angular.element('[ui-view], ui-view')
     if (this.transition != null) {
       $views.removeClass(this.lastTransition).addClass(this.transition)
       this.lastTransition = this.transition
@@ -40,23 +34,22 @@ angular.module('bp').service('bpView', function($rootScope) {
   }
 
   BpView.prototype.getDirection = function(from, to) {
-    var direction, fromSegments, index, segment, toSegments, _i, _len
-    direction = 'normal'
     if (from.url === '^') {
       return null
     }
-    fromSegments = this._getURLSegments(from)
-    toSegments = this._getURLSegments(to)
+
+    var direction     = 'normal'
+    var fromSegments  = this._getURLSegments(from)
+    var toSegments    = this._getURLSegments(to)
+
     if (toSegments.length < fromSegments.length) {
       direction = 'reverse'
-      for (index = _i = 0, _len = toSegments.length; _i < _len; index = ++_i) {
-        segment = toSegments[index]
-        if (segment !== fromSegments[index]) {
+      for (var index = 0; index < toSegments.length; index++) {
+        if (toSegments[index] !== fromSegments[index]) {
           direction = 'normal'
           break
         }
       }
-      direction
     } else if (toSegments.length === fromSegments.length) {
       direction = null
     }
@@ -64,19 +57,22 @@ angular.module('bp').service('bpView', function($rootScope) {
   }
 
   BpView.prototype.getType = function(from, to, direction) {
-    var _ref, _ref1
     if (direction === 'reverse') {
-      return ((_ref = from.data) != null ? _ref.transition : void 0) || null
+      if (angular.isObject(from.data)) {
+        return from.data.transition || null
+      }
     } else {
-      return ((_ref1 = to.data) != null ? _ref1.transition : void 0) || null
+      if (angular.isObject(to.data)) {
+        return to.data.transition || null
+      }
     }
+    return null
   }
 
   BpView.prototype._getURLSegments = function(state) {
-    var url
-    url = state.url || ''
-    url = url.replace(/\/$/, '')
-    return url.split('/')
+    return (state.url || '')
+      .replace(/\/$/, '')
+      .split('/')
   }
 
   return new BpView()
