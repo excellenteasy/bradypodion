@@ -94,6 +94,16 @@ describe 'navbarDirective', ->
         expect($icon.hasClass 'bp-icon').toBe true
         expect($icon.attr 'aria-label').toBe 'Action'
 
+      it 'should spawn toolbar', inject ($compile) ->
+        element3 = $compile("
+          <bp-navbar>
+            <bp-action>First</bp-action>
+            <bp-action>Second</bp-action>
+            <bp-action>Third</bp-action>
+          </bp-navbar>") scope
+        expect(element3.next().is 'bp-toolbar').toBe true
+        expect(element3.next().children().length).toBe 3
+
   describe 'android', ->
     scope   = null
     state   = null
@@ -146,5 +156,15 @@ describe 'navbarDirective', ->
           <bp-navbar>
             <bp-action>Action</bp-action>
           </bp-navbar>") scope
-        expect(element.children().length).toBe 3
-        expect(element.find('bp-navbar-icon').length).toBe 1
+        expect(element2.children().length).toBe 3
+        expect(element2.find('bp-navbar-icon').length).toBe 1
+
+      it 'should spawn action overflow', ->
+        element3 = compile("
+          <bp-navbar>
+            <bp-action>First</bp-action>
+            <bp-action>Second</bp-action>
+            <bp-action>Third</bp-action>
+          </bp-navbar>") scope
+        expect(element3.children().length).toBe 5
+        expect(element3.find('bp-action-overflow').length).toBe 1

@@ -1,4 +1,5 @@
-angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, $compile) {
+angular.module('bp')
+  .directive('bpNavbar', function(bpConfig, $timeout, $state, $compile) {
   return {
     restrict: 'E',
     transclude: true,
@@ -7,82 +8,120 @@ angular.module('bp').directive('bpNavbar', function(bpConfig, $timeout, $state, 
     },
     controller: function($scope) {
       $scope.getTitleFromState = function(state) {
-        var _ref
-        return ((_ref = state.data) != null ? _ref.title : void 0) || state.name.charAt(0).toUpperCase() + state.name.slice(1)
+        if (angular.isObject(state.data) &&
+          angular.isString(state.data.title)) {
+
+          return state.data.title
+        } else {
+          return state.name.charAt(0).toUpperCase() + state.name.slice(1)
+        }
       }
       return $scope.convertActionToIcon = function($action) {
-        $action
-          .attr('aria-label', $action.text())
-          .text('')
-          .removeClass('bp-button')
-          .addClass('bp-icon')
+        if (angular.isElement($action)) {
+          $action
+            .attr('aria-label', $action.text())
+            .text('')
+            .removeClass('bp-button')
+            .addClass('bp-icon')
+        }
       }
     },
     compile: function(elem, attrs, transcludeFn) {
-      var ios
-      ios = bpConfig.platform === 'android' ? false : true
+      var ios = bpConfig.platform === 'android' ? false : true
+
       return function(scope, element, attrs) {
-        var state
-        state = $state.current
-        element.attr({
-          role: 'navigation'
-        })
+        var state = $state.current
+        element.attr('role', 'navigation')
+
         transcludeFn(scope, function(clone) {
-          var $actions, $arrow, $frstAction, $icon, $scndAction, $title, $up, upState, upTitle, _ref
-          if (attrs.bpNavbarTitle == null) {
+          var $arrow, $frstAction, $scndAction, $toolbar, $up
+
+          if (angular.isUndefined(attrs.bpNavbarTitle)) {
             attrs.bpNavbarTitle = scope.getTitleFromState(state)
           }
-          $title = $compile('<bp-navbar-title role="heading">{{ bpNavbarTitle }}</bp-navbar-title>')(scope)
-          $actions = clone.filter('bp-action')
-          if ((((_ref = state.data) != null ? _ref.up : void 0) != null) && (attrs.bpNavbarNoUp == null)) {
-            upState = $state.get(state.data.up)
-            upTitle = scope.getTitleFromState(upState)
-            $up = $compile('<bp-action class="bp-action-up" bp-sref="' + upState.name + '">' + upTitle + '</bp-action>')(scope)
-            if (ios) {
-              $actions = $up.add($actions)
-            }
+
+          var $title = $compile(angular.element('<bp-navbar-title>')
+            .attr({
+              role: 'heading',
+              'ng-bind': 'bpNavbarTitle'
+            }))(scope)
+
+          var $actions = clone.filter('bp-action')
+
+          if (angular.isObject(state.data) &&
+            angular.isString(state.data.up) &&
+            !angular.isDefined(attrs.bpNavbarNoUp)) {
+
+            var upState = $state.get(state.data.up)
+            var upTitle = scope.getTitleFromState(upState)
             $arrow = angular.element('<bp-button-up>')
+            $up = $compile(angular.element('<bp-action>')
+              .addClass('bp-action-up')
+              .attr('bp-sref', upState.name)
+              .text(upTitle))(scope)
           }
-          if ($actions.length <= 2) {
-            $frstAction = $actions.eq(0)
-            $scndAction = $actions.eq(1)
-            if (ios) {
+
+          if (ios) {
+            if ($actions.length > 2) {
+              $frstAction = $up.addClass('bp-button')
               $actions.each(function() {
-                var $action
-                $action = angular.element(this)
+                scope.convertActionToIcon(angular.element(this))
+              })
+              $toolbar = angular.element('<bp-toolbar>').append($actions)
+            } else {
+              if (angular.isElement($up)) {
+                $actions = $up.add($actions)
+              }
+              $frstAction = $actions.eq(0)
+              $scndAction = $actions.eq(1)
+
+              $actions.each(function() {
+                var $action = angular.element(this)
                 if ($action.hasClass('bp-icon')) {
                   scope.convertActionToIcon($action)
                 } else {
                   $action.addClass('bp-button')
                 }
               })
-              element.append($frstAction, $title, $scndAction, $arrow)
-              if (!scope.navbarTitle) {
-                $timeout(function() {
-                  var $spacer, difference
-                  difference = $scndAction.outerWidth() - $frstAction.outerWidth()
-                  if (difference !== 0 && $frstAction.length) {
-                    $spacer = angular.element('<div style="-webkit-box-flex:10  max-width:' + (Math.abs(difference)) + 'px ">')
-                    $spacer[difference > 0 ? 'insertBefore' : 'insertAfter']($title)
-                  }
-                }, 0)
-              }
+            }
+
+            element
+              .append($frstAction, $title, $scndAction, $arrow)
+              .after($toolbar)
+
+            if (!scope.navbarTitle) {
+              $timeout(function() {
+                var frstW = angular.isElement($scndAction) ? $scndAction.outerWidth() : 0
+                var scndW = angular.isElement($frstAction) ? $frstAction.outerWidth() : 0
+                var diff  = frstW - scndW
+
+                if (diff !== 0 && $frstAction.length) {
+                  angular.element('<div>').css({
+                      '-webkit-box-flex': '10',
+                      'max-width': Math.abs(diff)
+                    })[diff > 0 ? 'insertBefore' : 'insertAfter']($title)
+                }
+              }, 0)
+            }
+          } else {
+            var $icon = angular.element('<bp-navbar-icon>')
+
+            $frstAction = $actions.eq(0)
+            $scndAction = $actions.eq(1)
+            scope.convertActionToIcon($frstAction)
+            scope.convertActionToIcon($scndAction)
+            scope.convertActionToIcon($up)
+
+            if ($actions.length > 2) {
+              $toolbar = $compile(angular.element('<bp-action-overflow>')
+                .append($actions.not($frstAction).not($scndAction)))(scope)
+            }
+
+            if (angular.isElement($up)) {
+              $up.append('<div>', $icon)
+              element.append($up, $title, $frstAction, $scndAction, $toolbar)
             } else {
-              $actions.each(function() {
-                var $action
-                $action = angular.element(this)
-                scope.convertActionToIcon($action)
-              })
-              if ($up) {
-                scope.convertActionToIcon($up)
-              }
-              $icon = angular.element('<bp-navbar-icon>')
-              if ($up != null) {
-                $up.append('<div>').append($icon)
-                element.append($up, $title, $frstAction, $scndAction)
-              } else {
-                element.append($icon, $title, $frstAction, $scndAction)
-              }
+              element.append($icon, $title, $frstAction, $scndAction, $toolbar)
             }
           }
         })
