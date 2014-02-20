@@ -47,8 +47,11 @@ module.exports = (grunt) ->
 
     ngmin:
       dist:
-        src: ['<%=bp.dist%>/bradypodion.js']
-        dest: '<%=bp.dist%>/bradypodion.js'
+        files: [
+          expand: yes
+          src: '<%=bp.dist%>/*.js'
+          ext: '.js'
+        ]
 
     jshint:
       options: jshintrc: yes
