@@ -38,20 +38,25 @@ angular.module('bp').service('bpView', function($rootScope) {
       return null
     }
 
-    var direction     = 'normal'
+    var direction     = null
     var fromSegments  = this._getURLSegments(from)
     var toSegments    = this._getURLSegments(to)
+    var fromLength    = fromSegments.length
+    var toLength      = toSegments.length
 
-    if (toSegments.length < fromSegments.length) {
-      direction = 'reverse'
-      for (var index = 0; index < toSegments.length; index++) {
-        if (toSegments[index] !== fromSegments[index]) {
-          direction = 'normal'
-          break
-        }
+    // If new url has one segment more than the old url and all but the last
+    // (additional new) segment are the same, the direction should be 'normal'.
+    if (toLength === fromLength + 1) {
+      if (fromSegments.join('') === toSegments.slice(0,toLength - 1).join('')) {
+        direction = 'normal'
       }
-    } else if (toSegments.length === fromSegments.length) {
-      direction = null
+    }
+    // If new url has one segment fewer than old url and all but the last
+    // (additional old) segment are the same, the direction should be 'reversed'.
+    if (toLength === fromLength - 1) {
+      if (toSegments.join('') === fromSegments.slice(0, fromLength - 1).join('')) {
+        direction = 'reverse'
+      }
     }
     return direction
   }
