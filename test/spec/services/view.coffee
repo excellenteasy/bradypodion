@@ -25,6 +25,8 @@ describe 'viewService', ->
         url: '/home/baz/fifth'
         data:
           transition: 'slide'
+      .state 'faroff',
+        url: '/home/second/foo/bar/baz'
       .state 'alien',
         url: '/crazy/route'
     return
@@ -33,7 +35,7 @@ describe 'viewService', ->
   state = null
   scope = null
 
-  home = second = third = fourth = fifth = alien = null
+  home = second = third = fourth = fifth = alien = faroff = null
 
 
   beforeEach inject ($rootScope, bpView, $state) ->
@@ -46,6 +48,8 @@ describe 'viewService', ->
     fourth = state.get 'fourth'
     fifth = state.get 'fifth'
     alien = state.get 'alien'
+    faroff = state.get 'faroff'
+
 
   describe 'listen', ->
     it 'should listen to events', ->
@@ -108,9 +112,11 @@ describe 'viewService', ->
     it 'should detect "normal"', ->
       expect(viewService.getDirection home, second).toBe 'normal'
       expect(viewService.getDirection second, third).toBe 'normal'
+      expect(viewService.getDirection home, faroff).toBe 'normal'
 
     it 'should detect "reverse"', ->
       expect(viewService.getDirection second, home).toBe 'reverse'
+      expect(viewService.getDirection faroff, home).toBe 'reverse'
 
     it 'should detect no direction', ->
       expect(viewService.getDirection fourth, fifth).toBe null
