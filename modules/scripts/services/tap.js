@@ -1,5 +1,3 @@
-// var __bind = function(fn, me) { return function() { return fn.apply(me, arguments)  }  }
-
 angular.module('bp').factory('BpTap', function(bpConfig) {
   function BpTap(scope, element, attrs, customOptions) {
     this.element      = element
@@ -38,7 +36,10 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
     this.touch.ongoing  = true
     $t                  = angular.element(e.target)
 
-    if ((($t.attr('bp-tap') != null) || ($t.attr('bp-sref') != null)) && this.element.get(0) !== e.target) {
+    if ((($t.attr('bp-tap') != null) ||
+      ($t.attr('bp-sref') != null)) &&
+      this.element.get(0) !== e.target) {
+
       this.touch.nestedTap = true
     } else {
       this.element.addClass(this.options.activeClass)
@@ -50,7 +51,10 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
     x = this._getCoordinate(e, true)
     y = this._getCoordinate(e, false)
 
-    if ((this.options.boundMargin != null) && (Math.abs(this.touch.y - y) < this.options.boundMargin && Math.abs(this.touch.x - x) < this.options.boundMargin)) {
+    if ((this.options.boundMargin != null) &&
+      (Math.abs(this.touch.y - y) < this.options.boundMargin &&
+        Math.abs(this.touch.x - x) < this.options.boundMargin)) {
+
       if (!this.touch.nestedTap) {
         this.element.addClass(this.options.activeClass)
       }
@@ -75,8 +79,6 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
   }
 
   BpTap.prototype._setOptions = function(attrs, customOptions) {
-    var attr, key, options
-
     if (attrs == null) {
       attrs = {}
     }
@@ -84,15 +86,17 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
       customOptions = {}
     }
 
-    options = {
+    var options = angular.extend({
       activeClass: 'bp-active',
       allowClick: false,
       boundMargin: 50,
       noScroll: false
-    }
-    options = angular.extend(options, bpConfig.tap || {})
+    }, bpConfig.tap || {})
 
-    if ((this.element.is('bp-action') && this.element.parent('bp-navbar')) || this.element.is('bp-detail-disclosure')) {
+    if ((this.element.is('bp-action') &&
+      this.element.parent('bp-navbar')) ||
+      this.element.is('bp-detail-disclosure')) {
+
       this.element.attr('bp-no-scroll', '')
       options.noScroll = true
     }
@@ -104,8 +108,8 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
 
     angular.extend(options, customOptions)
 
-    for (key in options) {
-      attr = attrs['bp' + (key.charAt(0).toUpperCase()) + (key.slice(1))]
+    for (var key in options) {
+      var attr = attrs['bp' + (key.charAt(0).toUpperCase()) + (key.slice(1))]
       if (attr != null) {
         options[key] = attr === '' ? true : attr
       }
@@ -124,7 +128,9 @@ angular.module('bp').factory('BpTap', function(bpConfig) {
 
     if (e[axis] != null) {
       return e[axis]
-    } else if (angular.isObject(e.changedTouches) && angular.isObject(e.changedTouches[0])) {
+    } else if (angular.isObject(e.changedTouches) &&
+      angular.isObject(e.changedTouches[0])) {
+
       return e.changedTouches[0][axis]
     } else {
       return 0

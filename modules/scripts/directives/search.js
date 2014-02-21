@@ -1,38 +1,65 @@
-angular.module('bp').directive('bpSearch', function($compile, $timeout, $window, BpTap, bpConfig) {
+angular.module('bp').directive('bpSearch', function(
+  $compile,
+  $timeout,
+  $window,
+  BpTap,
+  bpConfig) {
+
   return {
     restrict: 'E',
     link: function(scope, element) {
-      var $bgLeft, $bgRight, $cancel, $placeholder, $search, $tapLayer, cancelWidth, childScope, ios
-      ios = bpConfig.platform === 'ios'
-      childScope = scope.$new(true)
+      var ios = bpConfig.platform === 'ios'
+      var childScope = scope.$new(true)
+
+      var $bgLeft, $bgRight, $cancel
       if (ios) {
         $bgLeft = angular.element('<bp-search-bg-left>')
         $bgRight = angular.element('<bp-search-bg-right>')
-        $cancel = $compile('<bp-action class="bp-button">Cancel</bp-action>')(childScope)
+        $cancel = $compile(angular.element('<bp-action>')
+          .addClass('bp-button')
+          .text('Cancel'))(childScope)
       }
-      $placeholder = $compile('<bp-search-placeholder> <bp-action class="bp-icon bp-icon-search"></bp-action> <span>{{ placeholder }}</span> </bp-search-placeholder>')(childScope)
-      $tapLayer = angular.element('<bp-search-tap>')
-      $search = element.find('input').attr({
+
+      var $placeholder = $compile(angular.element('<bp-search-placeholder>')
+        .append(
+          angular.element('<bp-action>')
+            .addClass('bp-icon bp-icon-search')
+        )
+        .append(
+          angular.element('<span>')
+            .attr('ng-bind', 'placeholder')
+        )
+      )(childScope)
+
+      var $tapLayer = angular.element('<bp-search-tap>')
+      var $search = element.find('input').attr({
         required: 'required',
         type: 'search'
       })
+
       childScope.placeholder = $search.attr('placeholder')
       if (childScope.placeholder == null) {
         childScope.placeholder = 'Search'
       }
+
       if (ios) {
         new BpTap(childScope, $cancel, {})
       }
       new BpTap(childScope, $tapLayer, {})
-      element.attr('role', 'search').prepend($bgLeft, $bgRight).append($placeholder, $cancel, $tapLayer)
+
+      element
+        .attr('role', 'search')
+        .prepend($bgLeft, $bgRight)
+        .append($placeholder, $cancel, $tapLayer)
+
       if (ios) {
-        cancelWidth = null
+        var cancelWidth
         $timeout(function() {
-          var iconWidth, inputWidth, width
-          width = element.outerWidth()
+          var width = element.outerWidth()
           cancelWidth = $cancel.outerWidth()
-          iconWidth = $placeholder.find('.bp-icon').outerWidth()
-          inputWidth = width - cancelWidth - 6
+          var inputWidth = width - cancelWidth - 6
+          var iconWidth = $placeholder.find('.bp-icon').outerWidth()
+
           $bgLeft.css('width', inputWidth)
           $bgRight.css('width', cancelWidth)
           $search.css({
@@ -40,11 +67,12 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
             'padding-left': 1.5 * iconWidth
           })
         }, 50)
+
         childScope.onResize = function() {
-          var inputWidth
-          inputWidth = element.outerWidth() - cancelWidth
+          var inputWidth = element.outerWidth() - cancelWidth
           $bgLeft.css('width', inputWidth)
         }
+
         childScope.onCancel = function() {
           element.removeClass('focus')
           $search.val('').trigger('input').trigger('blur', {
@@ -52,6 +80,7 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
           })
         }
       }
+
       childScope.onBlur = function(e, extra) {
         if (extra == null) {
           extra = {}
@@ -62,23 +91,30 @@ angular.module('bp').directive('bpSearch', function($compile, $timeout, $window,
           $cancel.trigger('tap')
         }
       }
+
       childScope.onFocus = function() {
         $search.focus()
         $timeout(function() {
           element.addClass('focus')
         }, 0)
       }
+
       childScope.stopPropagation = function(e) {
         e.stopPropagation()
         e.stopImmediatePropagation()
       }
+
       if (ios) {
-        angular.element($window).bind('resize orientationchange', childScope.onResize)
+        angular.element($window)
+          .bind('resize orientationchange', childScope.onResize)
         $cancel.bind('tap', childScope.onCancel)
       }
+
       $search.bind('blur', childScope.onBlur)
-      $tapLayer.bind('tap', childScope.onFocus)
-      $tapLayer.bind('click touchstart touchmove touchend', childScope.stopPropagation)
+      $tapLayer
+        .bind('tap', childScope.onFocus)
+        .bind('click touchstart touchmove touchend', childScope.stopPropagation)
+
       scope.$on('$destroy', function() {
         childScope.$destroy()
         if (ios) {

@@ -1,4 +1,7 @@
-angular.module('bp').directive('bpDetailDisclosure', function(bpConfig, $rootScope) {
+angular.module('bp').directive('bpDetailDisclosure', function(
+  bpConfig,
+  $rootScope) {
+
   return {
     restrict: 'E',
     link: function(scope, element) {

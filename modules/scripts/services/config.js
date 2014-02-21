@@ -1,6 +1,5 @@
 angular.module('bp').provider('bpConfig', (function() {
-  var config
-  config = {
+  var config = {
     platform: 'ios'
   }
 

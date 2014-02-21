@@ -1,4 +1,8 @@
-angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, BpTap) {
+angular.module('bp').directive('bpActionOverflow', function(
+  $window,
+  bpConfig,
+  BpTap) {
+
   return {
     restrict: 'E',
     transclude: true,
@@ -14,7 +18,6 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
     },
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs) {
-        var open
         if (bpConfig.platform === 'ios') {
           element.attr('aria-hidden', 'true')
         } else {
@@ -22,21 +25,25 @@ angular.module('bp').directive('bpActionOverflow', function($window, bpConfig, B
             role: 'button',
             'aria-has-popup': 'true'
           })
+
           new BpTap(scope, element, attrs)
-          open = false
+          var open = false
+
           transcludeFn(scope, function(clone) {
-            var $$window, $actions, $menu
-            $actions = clone.filter('bp-action')
+            var $actions = clone.filter('bp-action')
             $actions.each(function() {
-              var $action
-              $action = angular.element(this)
-              $action.attr('role', 'menu-item').addClass('bp-button')
+              var $action = angular.element(this)
+              $action
+                .attr('role', 'menu-item')
+                .addClass('bp-button')
             })
-            $menu = angular.element('<bp-action-overflow-menu>').attr({
-              role: 'menu',
-              'aria-hidden': 'true'
-            }).append($actions)
-            $$window = angular.element($window)
+            var $menu = angular.element('<bp-action-overflow-menu>')
+              .attr({
+                role: 'menu',
+                'aria-hidden': 'true'
+              }).append($actions)
+
+            var $$window = angular.element($window)
             element.append($menu)
             element.on('tap', function() {
               if (open) {

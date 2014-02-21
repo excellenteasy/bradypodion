@@ -14,9 +14,12 @@ angular.module('bp').directive('bpToolbar', function(bpConfig) {
             var $actions
             $actions = clone.filter('bp-action')
             $actions.each(function() {
-              var $action
-              $action = angular.element(this)
-              $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon')
+              var $action = angular.element(this)
+              $action
+                .attr('aria-label', $action.text())
+                .text('')
+                .removeClass('bp-button')
+                .addClass('bp-icon')
             })
             element.append($actions)
           })

@@ -9,16 +9,27 @@ angular.module('bp').service('bpView', function($rootScope) {
     $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded)
   }
 
-  BpView.prototype.onStateChangeStart = function(event, toState, toParams, fromState) {
-    var direction = toParams.direction || this.getDirection(fromState, toState)
-    var type = toParams.transition || this.getType(fromState, toState, direction)
+  BpView.prototype.onStateChangeStart = function(
+    event,
+    toState,
+    toParams,
+    fromState) {
+
+    var direction = toParams.direction ||
+      this.getDirection(fromState, toState)
+
+    var type = toParams.transition ||
+      this.getType(fromState, toState, direction)
+
     this.setTransition(type, direction)
   }
 
   BpView.prototype.onViewContentLoaded = function() {
     var $views = angular.element('[ui-view], ui-view')
     if (this.transition != null) {
-      $views.removeClass(this.lastTransition).addClass(this.transition)
+      $views
+        .removeClass(this.lastTransition)
+        .addClass(this.transition)
       this.lastTransition = this.transition
     } else {
       $views.removeClass(this.lastTransition)
@@ -54,7 +65,9 @@ angular.module('bp').service('bpView', function($rootScope) {
 
     if (diff > 0 && angular.equals(fromSegs, toSegs.slice(0,toLen - diff))) {
       return 'normal'
-    } else if (diff < 0 && angular.equals(toSegs, fromSegs.slice(0, fromLen  + diff))) {
+    } else if (diff < 0 &&
+      angular.equals(toSegs, fromSegs.slice(0, fromLen  + diff))) {
+
       return 'reverse'
     }
     return null
