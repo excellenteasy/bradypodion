@@ -20,7 +20,7 @@ module.exports = (config) ->
       'dist/bradypodion.js'
       'dist/bradypodion-iscroll.js'
       'modules/bower_components/angular-mocks/angular-mocks.js'
-      'test/spec/*/*.coffee'
+      'test/spec/*/*.js'
     ]
 
     # test results reporter to use
@@ -28,7 +28,6 @@ module.exports = (config) ->
     reporters: ['progress', 'coverage']
     preprocessors:
       'dist/*.js': ['coverage']
-      'test/spec/*/*.coffee': ['coffee']
 
     coverageReporter:
       type : 'lcov'

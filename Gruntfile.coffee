@@ -78,8 +78,8 @@ module.exports = (grunt) ->
         ]
         tasks: [ 'concat:dist', 'ngmin', 'karma:unit:run' ]
 
-      coffeeTest:
-        files: ['test/spec/**/*.coffee']
+      tests:
+        files: ['test/spec/**/*.js']
         tasks: ['karma:unit:run']
 
       styles:
