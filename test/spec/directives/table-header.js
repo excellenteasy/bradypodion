@@ -1,16 +1,17 @@
 describe('tableHeaderDirective', function() {
-  var element, scope;
-  beforeEach(module('bp'));
-  scope = null;
-  element = null;
+  var element, scope
+
+  beforeEach(module('bp'))
+
   beforeEach(inject(function($rootScope, $compile) {
-    scope = $rootScope.$new();
-    element = $compile('<bp-table-header>A</bp-table-header>')(scope);
-    return scope.$apply();
-  }));
-  return describe('element', function() {
-    return it('should have the role "heading"', function() {
-      return expect(element.attr('role')).toBe('heading');
-    });
-  });
-});
+    scope = $rootScope.$new()
+    element = $compile('<bp-table-header>A</bp-table-header>')(scope)
+    scope.$apply()
+  }))
+
+  describe('element', function() {
+    it('should have the role "heading"', function() {
+      expect(element.attr('role')).toBe('heading')
+    })
+  })
+})
