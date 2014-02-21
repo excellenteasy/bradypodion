@@ -145,7 +145,7 @@ describe 'searchDirective', ->
 
       it 'should execute handlers correctly', inject ($timeout) ->
         childScope = $cancel.scope()
-
+        $timeout.flush()
         $bgLeft.css 'width', ''
         childScope.onResize()
         expect($bgLeft.attr 'style').toMatch /width/

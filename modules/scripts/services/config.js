@@ -1,25 +1,20 @@
 angular.module('bp').provider('bpConfig', (function() {
-  var BpConfig
-  return BpConfig = (function() {
-    var config
+  var config = {
+    platform: 'ios'
+  }
 
-    config = {
-      platform: 'ios'
-    }
+  function BpConfig() {
+    config.setConfig = this.setConfig
+  }
 
-    function BpConfig() {
-      config.setConfig = this.setConfig
-    }
+  BpConfig.prototype.$get = function() {
+    return config
+  }
 
-    BpConfig.prototype.$get = function() {
-      return config
-    }
+  BpConfig.prototype.setConfig = function(inConfig) {
+    config = angular.extend(config, inConfig)
+  }
 
-    BpConfig.prototype.setConfig = function(inConfig) {
-      config = angular.extend(config, inConfig)
-    }
+  return BpConfig
 
-    return BpConfig
-
-  })()
 })())

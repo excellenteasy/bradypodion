@@ -24,10 +24,12 @@ angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
         scrollbars: true
       }, bpConfig.iscroll)
       $timeout(function() {
-        var isc, iscs, selector
-        isc = new IScroll(element.get(0), options)
-        if ((attrs.bpIscrollSticky != null) && bpConfig.platform !== 'android') {
-          selector = attrs.bpIscrollSticky || 'bp-table-header'
+        var iscs
+        var isc = new IScroll(element.get(0), options)
+        if ((attrs.bpIscrollSticky != null) &&
+          bpConfig.platform !== 'android') {
+
+          var selector = attrs.bpIscrollSticky || 'bp-table-header'
           iscs = new IScrollSticky(isc, selector)
         }
         scope.setIScroll(isc, iscs)

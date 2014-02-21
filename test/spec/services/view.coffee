@@ -25,13 +25,20 @@ describe 'viewService', ->
         url: '/home/baz/fifth'
         data:
           transition: 'slide'
+      .state 'faroff',
+        url: '/home/second/foo/bar/baz'
+      .state 'alien',
+        url: '/crazy/route'
+      .state 'up',
+        url: '/whatever'
+        data: up: 'home'
     return
 
   viewService = null
   state = null
   scope = null
 
-  home = second = third = fourth = fifth = null
+  home = second = third = fourth = fifth = alien = faroff = up =null
 
 
   beforeEach inject ($rootScope, bpView, $state) ->
@@ -43,11 +50,10 @@ describe 'viewService', ->
     third = state.get 'third'
     fourth = state.get 'fourth'
     fifth = state.get 'fifth'
+    alien = state.get 'alien'
+    faroff = state.get 'faroff'
+    up = state.get 'up'
 
-  describe 'construction', ->
-    it 'should be initted', ->
-      expect(viewService.transition).toBe null
-      expect(viewService.lastTransition).toBe null
 
   describe 'listen', ->
     it 'should listen to events', ->
@@ -109,14 +115,23 @@ describe 'viewService', ->
   describe 'getDirection', ->
     it 'should detect "normal"', ->
       expect(viewService.getDirection home, second).toBe 'normal'
-      expect(viewService.getDirection fourth, fifth).toBe 'normal'
+      expect(viewService.getDirection second, third).toBe 'normal'
+      expect(viewService.getDirection home, faroff).toBe 'normal'
+      expect(viewService.getDirection home, up).toBe 'normal'
 
     it 'should detect "reverse"', ->
       expect(viewService.getDirection second, home).toBe 'reverse'
+      expect(viewService.getDirection faroff, home).toBe 'reverse'
+      expect(viewService.getDirection up, home).toBe 'reverse'
 
     it 'should detect no direction', ->
+      expect(viewService.getDirection fourth, fifth).toBe null
       expect(viewService.getDirection third, fifth).toBe null
       expect(viewService.getDirection {url: '^'}).toBe null
+      expect(viewService.getDirection alien, second).toBe null
+      expect(viewService.getDirection alien, fifth).toBe null
+      expect(viewService.getDirection third, fifth).toBe null
+      expect(viewService.getDirection home, alien).toBe null
 
   describe 'getType', ->
     it 'should detect "normal" type', ->

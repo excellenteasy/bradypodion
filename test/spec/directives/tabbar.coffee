@@ -13,6 +13,8 @@ describe 'tabbarDirective', ->
         url: '/first'
       .state 'second',
         url: '/second'
+        data:
+          title: 'Custom'
     null
 
   beforeEach inject ($rootScope, $compile, $state) ->
@@ -31,6 +33,10 @@ describe 'tabbarDirective', ->
       expect(element.attr 'role' ).toBe 'tablist'
 
   describe 'tab elements', ->
+    it 'should have correct name', ->
+      expect(element.children().eq(0).text()).toBe 'First'
+      expect(element.children().eq(1).text()).toBe 'Custom'
+
     it 'should have ARIA role', ->
       element.children().each (i,element) ->
         expect($(element).attr 'role' ).toBe 'tab'
