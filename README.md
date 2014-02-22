@@ -24,4 +24,4 @@ Copyright (c) 2013 Stephan Bönnemann, David Pfahler
 |---|---|
 | [Stephan Bönnemann](http://boennemann.me/) | David Pfahler |
 
-An [excellenteasy](https://excellenteasy.com) product.
+An [excellenteasy](https://excellenteasy.com) project.
