@@ -1,6 +1,6 @@
 describe('action overflow', function() {
   describe('android', function() {
-    var element, parent, scope
+    var element, scope
 
     beforeEach(module('bp', function(bpConfigProvider) {
       bpConfigProvider.setConfig({
@@ -105,7 +105,7 @@ describe('action overflow', function() {
       scope.$apply()
     }))
 
-    it("shouldn't exist", function() {
+    it('should not exist', function() {
       expect(element.attr('aria-hidden')).toBe('true')
     })
   })

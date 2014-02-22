@@ -31,7 +31,7 @@ describe('searchDirective', function() {
       })
     })
     describe('events', function() {
-      it('should bind and unbind events', inject(function($window) {
+      it('should bind and unbind events', function() {
         var searchEvents = $._data($search.get(0)).events
         var tapLayerEvents = $._data($tapLayer.get(0)).events
         expect(searchEvents.blur != null).toBe(true)
@@ -47,7 +47,7 @@ describe('searchDirective', function() {
         expect(tapLayerEvents.touchstart != null).toBe(false)
         expect(tapLayerEvents.touchmove != null).toBe(false)
         expect(tapLayerEvents.touchend != null).toBe(false)
-      }))
+      })
 
       it('should execute handlers correctly', inject(function($timeout) {
         var childScope = $placeholder.scope()

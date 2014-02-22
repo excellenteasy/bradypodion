@@ -15,13 +15,13 @@ describe('toolbar', function() {
       scope.$apply()
     }))
 
-    it("shouldn't exist", function() {
+    it('should not exist', function() {
       expect(config.platform).toBe('android')
       expect(element.attr('aria-hidden')).toBe('true')
     })
   })
   describe('ios', function() {
-    var element, parent, scope
+    var element, scope
 
     beforeEach(module('bp', function(bpConfigProvider) {
       bpConfigProvider.setConfig({

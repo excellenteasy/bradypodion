@@ -5,7 +5,7 @@ describe('actionDirective', function() {
 
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new()
-    element = $compile("<bp-action class='bp-button bp-action-up'> {{ label }} </bp-action>")(scope)
+    element = $compile('<bp-action class="bp-button bp-action-up"> {{ label }} </bp-action>')(scope)
     scope.$apply()
   }))
 
