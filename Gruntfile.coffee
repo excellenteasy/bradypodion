@@ -10,6 +10,7 @@ module.exports = (grunt) ->
       app: 'modules'
       dist: 'dist'
       demo: 'demo'
+      test: 'test'
       tmp: '.tmp'
       platforms: ['android', 'ios']
 
@@ -55,13 +56,19 @@ module.exports = (grunt) ->
         ]
 
     jshint:
-      options: jshintrc: yes
-      all: ['<%=bp.app%>/scripts/bradypodion.js', '<%=bp.app%>/scripts/*/**/*.js']
+      all:
+        options: jshintrc: yes
+        src: ['<%=bp.app%>/scripts/**/*.js']
+      test:
+        options: do ->
+          options = grunt.file.readJSON '.jshintrc'
+          options.undef = no
+          options
+        src: ['<%=bp.test%>/spec/**/*.js']
 
     jscs:
-      src: ['modules/scripts/**/*.js']
-      options:
-        config: ".jscs.json"
+      options: config: ".jscs.json"
+      all: ['<%=bp.app%>/scripts/**/*.js', '<%=bp.test%>/spec/**/*.js']
 
     watch:
       options:
