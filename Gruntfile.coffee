@@ -89,13 +89,16 @@ module.exports = (grunt) ->
         files: ['test/spec/**/*.js']
         tasks: ['karma:unit:run']
 
-      styles:
+      less:
+        options: livereload: off
         files: ['<%=bp.app%>/styles/**/*.less']
         tasks: ['cssbuild']
 
+      css:
+        files: ['<%=bp.dist%>/bradypodion.css']
+
       views:
         files: ['<%=bp.demo%>/**/*.html']
-        tasks: []
 
     connect:
       options:
