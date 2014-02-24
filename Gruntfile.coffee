@@ -144,8 +144,6 @@ module.exports = (grunt) ->
       build: [
         'concat:dist'
         'cssbuild'
-        'jshint'
-        'jscs'
       ]
 
     karma:
@@ -250,6 +248,8 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', [
     'clean:server'
     'build'
+    'jshint'
+    'jscs'
     'karma:continuous'
   ]
 
