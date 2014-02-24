@@ -107,6 +107,15 @@ describe('navbarDirective', function() {
         expect(element3.next().is('bp-toolbar')).toBe(true)
         expect(element3.next().children().length).toBe(3)
       }))
+
+      it('should remove toolbar on destroy', inject(function($compile) {
+        var element4 = angular.element('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> </bp-navbar>')
+        angular.element('body').append(element4)
+        $compile(element4)(scope)
+        expect($.contains(document, element4.next().get(0))).toBe(true)
+        element4.trigger('$destroy')
+        expect($.contains(document, element4.next().get(0))).toBe(false)
+      }))
     })
   })
   describe('android', function() {

@@ -36,10 +36,24 @@
     #switch.bp-active {
       color: rgba(51,51,51,0.5);
     }
+
+    [bp-iscroll] {
+      position: relative;
+      -webkit-box-flex: 1;
+      overflow: hidden;
+    }
+
+    bp-iscroll-wrapper {
+      position: absolute;
+      display: block;
+      width: 100%;
+    }
     </style>
 </head>
-  <body ng-app="bradypodionApp" bp-app ng-cloak>
-    <div ui-view></div>
+  <body ng-app="bradypodionApp" bp-app bp-navigation ng-cloak>
+    <ui-view-wrapper>
+      <div ui-view></div>
+    </ui-view-wrapper>
     <bp-action id='switch' class='bp-icon' bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme"></bp-action>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/iscroll/build/iscroll-probe.js"></script>

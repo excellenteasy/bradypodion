@@ -16,7 +16,7 @@ angular.module('bp')
           return state.name.charAt(0).toUpperCase() + state.name.slice(1)
         }
       }
-      return $scope.convertActionToIcon = function($action) {
+      $scope.convertActionToIcon = function($action) {
         if (angular.isElement($action)) {
           $action
             .attr('aria-label', $action.text())
@@ -63,7 +63,10 @@ angular.module('bp')
 
           if (ios) {
             if ($actions.length > 2) {
-              $frstAction = $up.addClass('bp-button')
+              if (angular.isElement($up)) {
+                $frstAction = $up.addClass('bp-button')
+              }
+
               $actions.each(function() {
                 scope.convertActionToIcon(angular.element(this))
               })
@@ -88,6 +91,12 @@ angular.module('bp')
             element
               .append($frstAction, $title, $scndAction, $arrow)
               .after($toolbar)
+
+            if (angular.isElement($toolbar)) {
+              element.on('$destroy', function() {
+                $toolbar.remove()
+              })
+            }
 
             if (!scope.navbarTitle) {
               $timeout(function() {

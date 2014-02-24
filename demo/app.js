@@ -242,7 +242,7 @@
       }
     }).state('toolbar', {
       url: '/directives/toolbar',
-      templateUrl: 'views/directives/toolbar.html',
+      templateUrl: 'directives/toolbar.html',
       data: {
         transition: 'slide',
         up: 'directives'
