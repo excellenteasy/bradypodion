@@ -16,5 +16,5 @@ notifications:
   email: false
   webhooks:
     urls:
-      secure: "jyVHUjWUMJyWMzp3kCPm0D8OaBgaJGivVwNcvOR2l+6yxEMntQKNSiEBnY/A7e09y3shWTQCwzyJcZbnphno32nJiWhgy7V2CMbKzh1ruKgL34OW7+5Cqt6KrL5P4YRiW+2RDrp1E3Gjzv74ag/TtmWVZY+unJKWdDUV4pTHufg="
+      secure: "Z/bvJxxsKGb1jk2liw/SnllFQXotK8N/YU+5e4OrXzK9mWKUikm35C0EZEghUd2DUo2EgF3XtZse4h4W2QRySE3lNz5iKlk5eF8NMBdgZlmR0ZqP4x9xAgkr9u6Bk7TrDBLaOSbSjI2IaCmlcGcTVd4zkSYHTC7xPvRPqke+xpA="
     on_start: true
