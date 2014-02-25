@@ -1,5 +1,5 @@
 angular.module('bp')
-  .directive('bpNavigation', function($state, $compile) {
+  .directive('bpNavigation', function($state, $compile, $animate, bpView, bpConfig) {
     return {
       controller: function($scope) {
         $scope.bpNavbarConfig = {}
@@ -21,19 +21,34 @@ angular.module('bp')
         }
       },
       link: function(scope, element) {
-        var $oldNavbar = angular.element()
-        scope.$on('$stateChangeSuccess', function(event, toState) {
+        var $wrapper = angular.element('<bp-navbar-wrapper>')
+        var $oldNavbar
+
+        element.prepend($wrapper)
+
+        scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
           var $navbar = angular.element()
           var navbarConfig = scope.bpNavbarConfig[toState.name] || {}
+          var direction = bpView.getDirection(fromState,toState)
           if (!navbarConfig.noNavbar) {
             $navbar = angular.element('<bp-navbar>')
               .append(navbarConfig.$actions)
               .attr(navbarConfig.attrs || {})
           }
-          element.prepend($navbar)
           $compile($navbar)(scope)
-          $oldNavbar.remove()
-          $oldNavbar = $navbar
+          if (bpConfig.platform === 'ios' && angular.isElement($oldNavbar)) {
+            var animation = 'bp-navbar-' + direction
+            $animate.enter($navbar.addClass(animation),$wrapper);
+            $animate.leave($oldNavbar.addClass(animation), function() {
+              $oldNavbar = $navbar.removeClass(animation)
+            })
+          } else {
+            $wrapper.append($navbar)
+            if (angular.isElement($oldNavbar)) {
+              $oldNavbar.remove()
+            }
+            $oldNavbar = $navbar
+          }
         })
       }
     }
