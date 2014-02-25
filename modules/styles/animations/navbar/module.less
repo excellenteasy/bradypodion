@@ -1,0 +1,84 @@
+.bp-navbar-animation(@duration: 0.65s) {
+  @ease: cubic-bezier(0.23,1,0.32,1);
+  .bp-navbar-normal {
+    &.ng-enter {
+      .transition(all @duration @ease);
+      z-index: 100;
+      background-color: transparent;
+      bp-navbar-title, bp-button-up, bp-action {
+        opacity: 0;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(50%));
+      }
+    }
+    &.ng-enter.ng-enter-active {
+      bp-navbar-title, bp-button-up, bp-action {
+        .transition(all @duration @ease);
+        opacity: 1;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(0));
+      }
+    }
+    &.ng-leave {
+      .transition(all @duration @ease);
+      bp-navbar-title, bp-button-up, bp-action {
+        opacity: 1;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(0));
+      }
+    }
+    &.ng-leave.ng-leave-active {
+      bp-navbar-title, bp-button-up, bp-action {
+        .transition(all @duration @ease);
+        opacity: 0;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(-50%));
+      }
+    }
+  }
+
+  .bp-navbar-reverse {
+    &.ng-enter {
+      .transition(all @duration @ease);
+      z-index: 100;
+      background-color: transparent;
+      bp-navbar-title, bp-button-up, bp-action {
+        opacity: 0;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(-50%));
+      }
+    }
+    &.ng-enter.ng-enter-active {
+      bp-navbar-title, bp-button-up, bp-action {
+        .transition(all @duration @ease);
+        opacity: 1;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(0));
+      }
+    }
+    &.ng-leave {
+      .transition(all @duration @ease);
+      bp-navbar-title, bp-button-up, bp-action {
+        opacity: 1;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(0));
+      }
+    }
+    &.ng-leave.ng-leave-active {
+      bp-navbar-title, bp-button-up, bp-action {
+        .transition(all @duration @ease);
+        opacity: 0;
+      }
+      bp-navbar-title, bp-action:first-child {
+        .transform(translateX(50%));
+      }
+    }
+  }
+}

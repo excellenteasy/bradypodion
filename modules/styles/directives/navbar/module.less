@@ -2,9 +2,20 @@
 @import 'ios';
 
 .bp-navbar(@name:bp-navbar, @prefix: bp-navbar) {
+  @{name}-wrapper {
+    display: block;
+    position: relative;
+    height: 44px;
+    width: 100%;
+    @{name} {
+      position: absolute !important;
+    }
+  }
+
   @{name} {
     .order(10);
   }
+
   .bp-platforms-navbar() when (@ios) and not (@android) {
     @{name} {
       .bp-ios-navbar(@prefix);
