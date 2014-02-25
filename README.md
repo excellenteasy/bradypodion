@@ -4,7 +4,7 @@
 > Create [post-platform](http://bradypodion.io/#postplatform) mobile apps with ease
 
 The repository provides a [prebuilt bradypodion version](dist).
-There is no documentation available yet, so stick to the [demos](modules/views).
+There is no documentation available yet, so stick to the [demo](demo).
 
 To get the latest BradyPodion news subscribe to our [newsletter](http://bradypodion.io/#emaillist) and follow [@bradypodionjs](https://twitter.com/bradypodionjs) on Twitter.
 
