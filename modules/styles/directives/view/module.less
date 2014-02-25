@@ -1,12 +1,17 @@
 .bp-view(@name: ui-view) {
-  [@{name}] {
+  @{name}, [@{name}] {
     position: absolute !important;
     top: 0;
     left: 0;
-    .bp-fullsize;
+    &:extend(.bp-fullsize);
     .bp-flexbox(vertical,start,stretch);
     .transform(translate3d(0,0,0));
     z-index: 1;
+  }
+  @{name}-wrapper {
+    .bp-flexbox(vertical,start,stretch);
     .order(50);
+    position: relative;
+    -webkit-box-flex: 1;
   }
 }

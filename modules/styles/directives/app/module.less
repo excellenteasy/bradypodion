@@ -1,0 +1,36 @@
+@import 'android';
+@import 'general';
+@import 'ios';
+
+.bp-app(@name:bp-app) {
+  @{name},[@{name}] {
+    .bp-general-app;
+  }
+
+  .bp-platforms-app() when (@ios) and not (@android) {
+    @{name},[@{name}] {
+      .bp-ios-app;
+    }
+  }
+
+  .bp-platforms-app() when (@android) and not (@ios) {
+    @{name},[@{name}] {
+      .bp-android-app;
+    }
+  }
+
+  .bp-platforms-app() when (@ios) and (@android) {
+    @{name}, [@{name}]  {
+      &.@{ios-name} {
+        .bp-ios-app;
+      }
+    }
+    @{name}, [@{name}]  {
+      &.@{android-name}  {
+        .bp-android-app;
+      }
+    }
+  }
+
+  .bp-platforms-app;
+}

@@ -11,24 +11,23 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
-      'modules/bower_components/lodash/dist/lodash.js'
-      'modules/bower_components/jquery/jquery.js'
+      'modules/bower_components/jquery/dist/jquery.js'
       'modules/bower_components/iscroll/build/iscroll-probe.js'
       'modules/bower_components/iscroll-sticky/dist/iscroll-sticky.js'
       'modules/bower_components/angular/angular.js'
       'modules/bower_components/angular-animate/angular-animate.js'
       'modules/bower_components/angular-ui-router/release/angular-ui-router.js'
       'dist/bradypodion.js'
+      'dist/bradypodion-iscroll.js'
       'modules/bower_components/angular-mocks/angular-mocks.js'
-      'test/spec/*/*.coffee'
+      'test/spec/*/*.js'
     ]
 
     # test results reporter to use
     # possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['progress', 'coverage']
     preprocessors:
-      'dist/bradypodion.js': ['coverage']
-      'test/spec/*/*.coffee': ['coffee']
+      'dist/*.js': ['coverage']
 
     coverageReporter:
       type : 'lcov'
@@ -57,7 +56,7 @@ module.exports = (config) ->
     # - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
     # - PhantomJS
     # - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-    browsers: ['Chrome']
+    browsers: ['PhantomJS']
 
     # If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000

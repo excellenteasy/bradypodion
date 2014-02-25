@@ -3,22 +3,31 @@
 
 .bp-button(@name:bp-button, @prefix: bp-button) {
   .bp-platforms-button() when (@ios) and not (@android) {
-    @{name} {
+    .@{name} {
       .bp-ios-button(@prefix);
+    }
+    @{name}-up {
+      .bp-ios-button-up();
     }
   }
 
   .bp-platforms-button() when (@android) and not (@ios) {
-    @{name} {
+    .@{name} {
       .bp-android-button;
     }
   }
 
   .bp-platforms-button() when (@ios) and (@android) {
-    .@{ios-name} @{name} {
-      .bp-ios-button(@prefix);
+    .@{ios-name} {
+      .@{name} {
+        .bp-ios-button(@prefix);
+      }
+      @{name}-up {
+        .bp-ios-button-up();
+      }
     }
-    .@{android-name} @{name} {
+
+    .@{android-name} .@{name} {
       .bp-android-button;
     }
   }

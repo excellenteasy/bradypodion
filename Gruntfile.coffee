@@ -9,6 +9,8 @@ module.exports = (grunt) ->
     bp:
       app: 'modules'
       dist: 'dist'
+      demo: 'demo'
+      test: 'test'
       tmp: '.tmp'
       platforms: ['android', 'ios']
 
@@ -27,39 +29,76 @@ module.exports = (grunt) ->
         files: [
           '<%=bp.dist%>/bradypodion.css': '<%=bp.dist%>/bradypodion.css'
           '<%=bp.dist%>/bradypodion.less': '<%=bp.dist%>/bradypodion.less'
-          '<%=bp.dist%>/bradypodion.js': '<%=bp.dist%>/bradypodion.js'
         ]
+      dist:
+        options:
+          stripBanners: true,
+          banner: grunt.file.read('modules/banner.template') +
+                  grunt.file.read 'modules/header.template'
+          footer: grunt.file.read 'modules/footer.template'
+        files: [
+          '<%=bp.dist%>/bradypodion.js': [
+            '<%=bp.app%>/scripts/bradypodion.js'
+            '<%=bp.app%>/scripts/*/**/*.js'
+            '!<%=bp.app%>/scripts/directives/iscroll.js'
+          ]
+          '<%=bp.dist%>/bradypodion-iscroll.js': [
+            '<%=bp.app%>/scripts/directives/iscroll.js'
+          ]
+        ]
+
+    ngmin:
+      dist:
+        files: [
+          expand: yes
+          src: '<%=bp.dist%>/*.js'
+          ext: '.js'
+        ]
+
+    jshint:
+      all:
+        options: jshintrc: yes
+        src: ['<%=bp.app%>/scripts/**/*.js']
+      test:
+        options: do ->
+          options = grunt.file.readJSON '.jshintrc'
+          options.undef = no
+          options
+        src: ['<%=bp.test%>/spec/**/*.js']
+
+    jscs:
+      options: config: ".jscs.json"
+      all: ['<%=bp.app%>/scripts/**/*.js', '<%=bp.test%>/spec/**/*.js']
 
     watch:
       options:
         livereload: '<%= connect.options.livereload %>'
-      coffee:
+
+      app:
+        files: ['<%=bp.demo%>/app.js']
+        tasks: []
+
+      dist:
         files: [
-          '<%=bp.app%>/scripts/app.coffee'
-          '<%=bp.app%>/scripts/bradypodion.coffee'
-          '<%=bp.app%>/scripts/*/**/*.coffee'
+          '<%=bp.app%>/scripts/bradypodion.js'
+          '<%=bp.app%>/scripts/*/**/*.js'
         ]
-        tasks: [
-          'coffeelint:build'
-          'coffee:app'
-          'coffee:dist'
-          'karma:unit:run'
-        ]
+        tasks: [ 'concat:dist', 'ngmin', 'karma:unit:run' ]
 
-      coffeeTest:
-        files: ['test/spec/**/*.coffee']
-        tasks: ['coffeelint:test', 'karma:unit:run']
+      tests:
+        files: ['test/spec/**/*.js']
+        tasks: ['karma:unit:run']
 
-      gruntfile:
-        files: ['Gruntfile.coffee']
-        tasks: ['coffeelint:gruntfile']
-
-      styles:
+      less:
+        options: livereload: off
         files: ['<%=bp.app%>/styles/**/*.less']
         tasks: ['cssbuild']
 
+      css:
+        files: ['<%=bp.dist%>/bradypodion.css']
+
       views:
-        files: ['<%=bp.app%>/index.html', '<%=bp.app%>/views/**/*.html']
+        files: ['<%=bp.demo%>/**/*.html']
 
     connect:
       options:
@@ -70,7 +109,12 @@ module.exports = (grunt) ->
 
       server:
         options:
-          base: ['<%=bp.tmp%>', '<%=bp.app%>', '<%=bp.dist%>']
+          base: [
+            '<%=bp.tmp%>'
+            '<%=bp.app%>'
+            '<%=bp.dist%>'
+            '<%=bp.demo%>'
+          ]
 
     shell:
       options:
@@ -96,45 +140,9 @@ module.exports = (grunt) ->
 
       server: '<%=bp.tmp%>/test'
 
-    coffee:
-      app:
-        files:
-          '<%=bp.tmp%>/scripts/app.js': '<%=bp.app%>/scripts/app.coffee'
-
-      dist:
-        options:
-          join: yes
-        src: [
-          '<%=bp.app%>/scripts/bradypodion.coffee'
-          '<%=bp.app%>/scripts/*/**/*.coffee'
-        ]
-        dest: '<%=bp.dist%>/bradypodion.js'
-
-    coffeelint:
-      options:
-        newlines_after_classes:
-          level: 'error'
-        no_empty_param_list:
-          level: 'error'
-        no_stand_alone_at:
-          level: 'error'
-      build:
-        files: src: [
-          '<%=bp.app%>/scripts/bradypodion.coffee'
-          '<%=bp.app%>/scripts/*/**/*.coffee'
-        ]
-        max_line_length:
-          value: 79
-          level: 'error'
-      test:
-        files: src: 'test/spec/**/*.coffee'
-      gruntfile:
-        files: src: ['Gruntfile.coffee']
-
     concurrent:
       build: [
-        'coffee:app'
-        'coffee:dist'
+        'concat:dist'
         'cssbuild'
       ]
 
@@ -143,10 +151,9 @@ module.exports = (grunt) ->
         configFile: 'karma.conf.coffee'
       continuous:
         singleRun: true
-        browsers: ['PhantomJS']
       unit:
+        port: 9877
         background: true
-        browsers: ['Chrome']
 
     coveralls:
       options:
@@ -204,6 +211,7 @@ module.exports = (grunt) ->
         git add -f dist/bradypodion.less &&
         git add -f dist/bradypodion.css &&
         git add -f dist/bradypodion.js &&
+        git add -f dist/bradypodion-iscroll.js &&
         git add -f CHANGELOG.md &&
         git commit -m 'v#{newVersion}' &&
         git tag v#{newVersion}",
@@ -233,19 +241,22 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'precommit', [
     'shell:semver'
-    'coffeelint'
+    'jshint'
+    'jscs'
   ]
 
   grunt.registerTask 'test', [
     'clean:server'
     'build'
+    'jshint'
+    'jscs'
     'karma:continuous'
   ]
 
   grunt.registerTask 'build', [
     'clean:dist'
-    'coffeelint'
     'concurrent'
+    'ngmin'
     'concat:banner'
   ]
 

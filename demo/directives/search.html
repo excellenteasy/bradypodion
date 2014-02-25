@@ -1,0 +1,11 @@
+<bp-content ng-controller="DemoDataCtrl">
+  <bp-search>
+    <input ng-model="searchTerm">
+  </bp-search>
+  <div>
+    <bp-cell ng-repeat='friend in friends | filter:searchTerm' class='bp-cell-value2'>
+      <div class="label">{{ friend.name }}</div>
+      <div class="value">{{ friend.phone }}</div>
+    </bg-cell>
+  </div>
+</bp-content>

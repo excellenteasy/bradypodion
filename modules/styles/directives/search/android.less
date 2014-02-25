@@ -1,53 +1,57 @@
 @import "android/theme";
 
 .bp-android-search() {
+  @space: @android-search-height/6;
   &:extend(.flexbox);
   .bp-android-search-theme;
   height: @android-search-height;
-  padding: 0 (@android-search-height/6);
+  padding: 0 @space;
   margin: 0;
   position: relative;
   overflow: hidden;
 
-  &:before {
-    &:extend(.bp-icon-search:before);
+  bp-search-bg {
+    display: block;
+    .box-sizing(border-box);
     position: absolute;
-    left: (@android-search-height/6);
-    width: (@android-search-height/2);
-    text-align: center;
-    content: '\e000';
-    pointer-events: none;
-    line-height: @android-search-height;
-    color: @android-text-secondary-color;
-  }
-
-  bp-button {
-    .opacity(0);
-    .transform(translateX(100%));
-    .transition(all 0.3s ease);
-    position: absolute;
-    right: (@android-search-height/6);
-    top: ((@android-search-height - @android-button-height)/2);
-    speak: none;
-    pointer-events: none;
-  }
-
-  &.focus bp-button {
-    .translateX(0);
-    .opacity(1);
-    speak: normal;
-    pointer-events: auto;
+    top: @space;
+    right: @space;
+    bottom: @space;
+    left: @space;
+    background-color: white;
   }
 
   input[type=search] {
-    .box-sizing(border-box);
-    .transition(width 0.3s ease);
-    height: 30px;
-    font-size: 14px;
+    .placeholder(transparent);
     display: block;
-    position: relative;
-    padding: 0 (@android-search-height/4) 0 (@android-navbar-height/2);
-    margin-top: 0;
-    width: 100%;
+    -webkit-box-flex: 1;
+  }
+
+  &.focus input[type=search]:valid ~ bp-search-placeholder {
+    display: none;
+  }
+
+  bp-search-placeholder {
+    color: @android-input-default;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    line-height: @android-search-height;
+    padding-right: 2*@space;
+    padding-left: (2*@space+2px);
+  }
+
+  bp-search-tap {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.focus bp-search-tap {
+    pointer-events: none;
   }
 }

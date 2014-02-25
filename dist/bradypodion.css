@@ -1,11 +1,11 @@
-/*
- * Bradypodion v0.5.0-alpha.2
- * http://bradypodion
+/*!
+ * Bradypodion v0.5.0-alpha.3
+ * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Currently in private beta.
  *
- * Date: 2014-01-18T22:20:46
+ * Date: 2014-02-17T14:07:21
  */
 
 .bp-fullsize {
@@ -54,7 +54,7 @@
   display: -webkit-box;
 }
 .ellipsis,
-.android bp-button,
+.android .bp-button,
 .ios bp-cell,
 .ios bp-cell > div,
 .ios bp-cell > span,
@@ -72,8 +72,8 @@
 .android bp-cell > label,
 .android bp-cell.bp-cell-subtitle .titles .title,
 .android bp-cell.bp-cell-subtitle .titles .subtitle,
-.ios bp-navbar .bp-navbar-text,
-.android bp-navbar .bp-navbar-text,
+.ios bp-navbar bp-navbar-title,
+.android bp-navbar bp-navbar-title,
 .ios bp-tab span,
 .android bp-tab span,
 .ios bp-table-grouped-header,
@@ -158,9 +158,9 @@ a:visited {
   background-position: right bottom, left bottom;
   background-repeat: no-repeat;
   border: none;
-  -webkit-border-radius: 0px;
+  -webkit-border-radius: 0;
   -webkit-background-clip: padding-box;
-  border-radius: 0px;
+  border-radius: 0;
   background-clip: padding-box;
   display: block;
   width: 100%;
@@ -168,8 +168,8 @@ a:visited {
   padding: 0 8px;
 }
 .android input:not([type="range"]) {
-  -webkit-box-shadow: inset 0px -2px #ababab;
-  box-shadow: inset 0px -2px #ababab;
+  -webkit-box-shadow: inset 0 -2px #ababab;
+  box-shadow: inset 0 -2px #ababab;
   -webkit-background-size: 2px 5px, 2px 5px;
   background-size: 2px 5px, 2px 5px;
   background-image: -webkit-linear-gradient(#ababab, #ababab), -webkit-linear-gradient(#ababab, #ababab);
@@ -179,15 +179,15 @@ a:visited {
   background-image: -webkit-linear-gradient(#5ac2e9, #5ac2e9), -webkit-linear-gradient(#5ac2e9, #5ac2e9);
   background-image: linear-gradient(#5ac2e9, #5ac2e9), linear-gradient(#5ac2e9, #5ac2e9);
   outline: none;
-  -webkit-box-shadow: inset 0px -2px #5ac2e9;
-  box-shadow: inset 0px -2px #5ac2e9;
+  -webkit-box-shadow: inset 0 -2px #5ac2e9;
+  box-shadow: inset 0 -2px #5ac2e9;
 }
 .android input:not([type="range"])::-webkit-input-placeholder {
   color: #ababab;
 }
 .android select {
-  -webkit-box-shadow: inset 0px -2px #ababab;
-  box-shadow: inset 0px -2px #ababab;
+  -webkit-box-shadow: inset 0 -2px #ababab;
+  box-shadow: inset 0 -2px #ababab;
   -webkit-background-size: 12px 12px;
   background-size: 12px 12px;
   background-image: -webkit-linear-gradient(-45deg, transparent, transparent 50%, #ababab 50%);
@@ -197,52 +197,56 @@ a:visited {
 .android select:focus {
   outline: none;
   background-color: #afdceb;
-  -webkit-box-shadow: inset 0px -2px #ababab, 0px 0px 0px 6px #afdceb, 0px 0px 0px 8px #5ac2e9;
-  box-shadow: inset 0px -2px #ababab, 0px 0px 0px 6px #afdceb, 0px 0px 0px 8px #5ac2e9;
+  -webkit-box-shadow: inset 0 -2px #ababab, 0 0 0 6px #afdceb, 0 0 0 8px #5ac2e9;
+  box-shadow: inset 0 -2px #ababab, 0 0 0 6px #afdceb, 0 0 0 8px #5ac2e9;
+}
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes cover-normal-enter{ 0%{ -webkit-transform: translateY(100%) } 100%{ -webkit-transform: translateY(0) }}
+@-moz-keyframes cover-normal-enter{ 0%{ -moz-transform: translateY(100%) } 100%{ -moz-transform: translateY(0) }}
+@-o-keyframes cover-normal-enter{ 0%{ -o-transform: translateY(100%) } 100%{ -o-transform: translateY(0) }}
+@keyframes cover-normal-enter{ 0%{-webkit-transform: translateY(100%);-moz-transform: translateY(100%);-ms-transform: translateY(100%);transform: translateY(100%);} 100%{-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0);};
+}
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes cover-normal-leave{ 0%{ -webkit-transform: translateY(0) } 100%{ -webkit-transform: translateY(0) }}
+@-moz-keyframes cover-normal-leave{ 0%{ -moz-transform: translateY(0) } 100%{ -moz-transform: translateY(0) }}
+@-o-keyframes cover-normal-leave{ 0%{ -o-transform: translateY(0) } 100%{ -o-transform: translateY(0) }}
+@keyframes cover-normal-leave{ 0%{-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0);} 100%{-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0);};
 }
 .cover-normal.ng-enter {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
-  -webkit-transform: translateY(100%);
-  transform: translateY(100%);
+  -webkit-animation: cover-normal-enter 0.3s ease-in;
+  animation: cover-normal-enter 0.3s ease-in;
   z-index: 1000;
-}
-.cover-normal.ng-enter.ng-enter-active {
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
 }
 .cover-normal.ng-leave {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
   z-index: inherit;
+  -webkit-animation: cover-normal-leave 0.3s ease-in;
+  animation: cover-normal-leave 0.3s ease-in;
 }
-.cover-normal.ng-leave.ng-leave-active {
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes cover-reverse-enter{ 0%{ -webkit-transform: translateY(0) } 100%{ -webkit-transform: translateY(0) }}
+@-moz-keyframes cover-reverse-enter{ 0%{ -moz-transform: translateY(0) } 100%{ -moz-transform: translateY(0) }}
+@-o-keyframes cover-reverse-enter{ 0%{ -o-transform: translateY(0) } 100%{ -o-transform: translateY(0) }}
+@keyframes cover-reverse-enter{ 0%{-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0);} 100%{-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0);};
+}
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes cover-reverse-leave{ 0%{ -webkit-transform: translateY(0) } 100%{ -webkit-transform: translateY(100%) }}
+@-moz-keyframes cover-reverse-leave{ 0%{ -moz-transform: translateY(0) } 100%{ -moz-transform: translateY(100%) }}
+@-o-keyframes cover-reverse-leave{ 0%{ -o-transform: translateY(0) } 100%{ -o-transform: translateY(100%) }}
+@keyframes cover-reverse-leave{ 0%{-webkit-transform: translateY(0);-moz-transform: translateY(0);-ms-transform: translateY(0);transform: translateY(0);} 100%{-webkit-transform: translateY(100%);-moz-transform: translateY(100%);-ms-transform: translateY(100%);transform: translateY(100%);};
 }
 .cover-reverse.ng-enter {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
   z-index: inherit;
-}
-.cover-reverse.ng-enter.ng-enter-active {
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
+  -webkit-animation: cover-reverse-enter 0.3s ease-in;
+  animation: cover-reverse-enter 0.3s ease-in;
 }
 .cover-reverse.ng-leave {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px);
   z-index: 1000;
-}
-.cover-reverse.ng-leave.ng-leave-active {
-  -webkit-transform: translateY(100%);
-  transform: translateY(100%);
+  -webkit-animation: cover-reverse-leave 0.3s ease-in;
+  animation: cover-reverse-leave 0.3s ease-in;
 }
 .fade-normal.ng-enter {
   -webkit-transition: 0.3s linear all;
@@ -281,8 +285,8 @@ a:visited {
   opacity: 0;
 }
 .scale-normal.ng-enter {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
   -webkit-transform: scale(0);
   transform: scale(0);
   z-index: 1000;
@@ -292,8 +296,8 @@ a:visited {
   transform: scale(1);
 }
 .scale-normal.ng-leave {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
   -webkit-transform: scale(1);
   transform: scale(1);
   z-index: inherit;
@@ -303,8 +307,8 @@ a:visited {
   transform: scale(1);
 }
 .scale-reverse.ng-enter {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
   -webkit-transform: scale(1);
   transform: scale(1);
   z-index: inherit;
@@ -314,8 +318,8 @@ a:visited {
   transform: scale(1);
 }
 .scale-reverse.ng-leave {
-  -webkit-transition: 0.3s ease-in all;
-  transition: 0.3s ease-in all;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
   -webkit-transform: scale(1);
   transform: scale(1);
   z-index: 1000;
@@ -324,171 +328,56 @@ a:visited {
   -webkit-transform: scale(0);
   transform: scale(0);
 }
-.slide-normal.ng-animate {
-  clip: auto !important;
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes slide-normal-enter{ 0%{ -webkit-transform: translateX(100%) } 100%{ -webkit-transform: translateX(0) }}
+@-moz-keyframes slide-normal-enter{ 0%{ -moz-transform: translateX(100%) } 100%{ -moz-transform: translateX(0) }}
+@-o-keyframes slide-normal-enter{ 0%{ -o-transform: translateX(100%) } 100%{ -o-transform: translateX(0) }}
+@keyframes slide-normal-enter{ 0%{-webkit-transform: translateX(100%);-moz-transform: translateX(100%);-ms-transform: translateX(100%);transform: translateX(100%);} 100%{-webkit-transform: translateX(0);-moz-transform: translateX(0);-ms-transform: translateX(0);transform: translateX(0);};
+}
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes slide-normal-leave{ 0%{ -webkit-transform: translateX(0); -webkit-filter: brightness(1) } 100%{ -webkit-transform: translateX(-30%); -webkit-filter: brightness(0.9) }}
+@-moz-keyframes slide-normal-leave{ 0%{ -moz-transform: translateX(0); -moz-filter: brightness(1) } 100%{ -moz-transform: translateX(-30%); -moz-filter: brightness(0.9) }}
+@-o-keyframes slide-normal-leave{ 0%{ -o-transform: translateX(0); -o-filter: brightness(1) } 100%{ -o-transform: translateX(-30%); -o-filter: brightness(0.9) }}
+@keyframes slide-normal-leave{ 0%{-webkit-transform: translateX(0);-moz-transform: translateX(0);-ms-transform: translateX(0);transform: translateX(0);-webkit-filter: brightness(1);-moz-filter: brightness(1);-ms-filter: brightness(1);filter: brightness(1);} 100%{-webkit-transform: translateX(-30%);-moz-transform: translateX(-30%);-ms-transform: translateX(-30%);transform: translateX(-30%);-webkit-filter: brightness(0.9);-moz-filter: brightness(0.9);-ms-filter: brightness(0.9);filter: brightness(0.9);};
 }
 .slide-normal.ng-enter {
   z-index: 1000;
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-}
-.slide-normal.ng-enter > * {
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-}
-.slide-normal.ng-enter > bp-navbar .bp-navbar-text,
-.slide-normal.ng-enter > bp-navbar bp-button,
-.slide-normal.ng-enter > bp-navbar bp-icon {
-  -webkit-transform: translateX(50%);
-  transform: translateX(50%);
-  opacity: 0;
-}
-.slide-normal.ng-enter.ng-enter-active > * {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-}
-.slide-normal.ng-enter.ng-enter-active bp-navbar {
-  -webkit-transition: none;
-  transition: none;
-  background-color: transparent !important;
-}
-.slide-normal.ng-enter.ng-enter-active bp-navbar .bp-navbar-text,
-.slide-normal.ng-enter.ng-enter-active bp-navbar bp-button,
-.slide-normal.ng-enter.ng-enter-active bp-navbar bp-icon {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  opacity: 1;
+  -webkit-animation: slide-normal-enter 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: slide-normal-enter 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slide-normal.ng-leave {
   z-index: inherit;
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  -webkit-animation: slide-normal-leave 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: slide-normal-leave 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.slide-normal.ng-leave > * {
-  -webkit-filter: brightness(1);
-  filter: brightness(1);
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes slide-reverse-leave{ 0%{ -webkit-transform: translateX(0) } 100%{ -webkit-transform: translateX(100%) }}
+@-moz-keyframes slide-reverse-leave{ 0%{ -moz-transform: translateX(0) } 100%{ -moz-transform: translateX(100%) }}
+@-o-keyframes slide-reverse-leave{ 0%{ -o-transform: translateX(0) } 100%{ -o-transform: translateX(100%) }}
+@keyframes slide-reverse-leave{ 0%{-webkit-transform: translateX(0);-moz-transform: translateX(0);-ms-transform: translateX(0);transform: translateX(0);} 100%{-webkit-transform: translateX(100%);-moz-transform: translateX(100%);-ms-transform: translateX(100%);transform: translateX(100%);};
 }
-.slide-normal.ng-leave > bp-navbar .bp-navbar-text,
-.slide-normal.ng-leave > bp-navbar bp-button,
-.slide-normal.ng-leave > bp-navbar bp-icon {
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  opacity: 1;
-}
-.slide-normal.ng-leave.ng-leave-active > * {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-filter: brightness(0.9);
-  filter: brightness(0.9);
-  -webkit-transform: translateX(-30%);
-  transform: translateX(-30%);
-}
-.slide-normal.ng-leave.ng-leave-active bp-navbar {
-  -webkit-transition: none;
-  transition: none;
-  -webkit-filter: brightness(1);
-  filter: brightness(1);
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-}
-.slide-normal.ng-leave.ng-leave-active bp-navbar .bp-navbar-text,
-.slide-normal.ng-leave.ng-leave-active bp-navbar bp-button,
-.slide-normal.ng-leave.ng-leave-active bp-navbar bp-icon {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  opacity: 0;
-}
-.slide-reverse.ng-animate {
-  clip: auto !important;
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes slide-reverse-enter{ 0%{ -webkit-transform: translateX(-30%); -webkit-filter: brightness(0.9) } 100%{ -webkit-transform: translateX(0); -webkit-filter: brightness(1) }}
+@-moz-keyframes slide-reverse-enter{ 0%{ -moz-transform: translateX(-30%); -moz-filter: brightness(0.9) } 100%{ -moz-transform: translateX(0); -moz-filter: brightness(1) }}
+@-o-keyframes slide-reverse-enter{ 0%{ -o-transform: translateX(-30%); -o-filter: brightness(0.9) } 100%{ -o-transform: translateX(0); -o-filter: brightness(1) }}
+@keyframes slide-reverse-enter{ 0%{-webkit-transform: translateX(-30%);-moz-transform: translateX(-30%);-ms-transform: translateX(-30%);transform: translateX(-30%);-webkit-filter: brightness(0.9);-moz-filter: brightness(0.9);-ms-filter: brightness(0.9);filter: brightness(0.9);} 100%{-webkit-transform: translateX(0);-moz-transform: translateX(0);-ms-transform: translateX(0);transform: translateX(0);-webkit-filter: brightness(1);-moz-filter: brightness(1);-ms-filter: brightness(1);filter: brightness(1);};
 }
 .slide-reverse.ng-enter {
   z-index: inherit;
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-}
-.slide-reverse.ng-enter > * {
-  -webkit-transform: translateX(-30%);
-  transform: translateX(-30%);
-  -webkit-filter: brightness(0.9);
-  filter: brightness(0.9);
-}
-.slide-reverse.ng-enter > bp-navbar .bp-navbar-text,
-.slide-reverse.ng-enter > bp-navbar bp-button,
-.slide-reverse.ng-enter > bp-navbar bp-icon {
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  opacity: 0;
-}
-.slide-reverse.ng-enter.ng-enter-active > * {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  -webkit-filter: brightness(1);
-  filter: brightness(1);
-}
-.slide-reverse.ng-enter.ng-enter-active bp-navbar {
-  -webkit-transition: none;
-  transition: none;
-}
-.slide-reverse.ng-enter.ng-enter-active bp-navbar .bp-navbar-text,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar bp-button,
-.slide-reverse.ng-enter.ng-enter-active bp-navbar bp-icon {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  opacity: 1;
+  -webkit-animation: slide-reverse-enter 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: slide-reverse-enter 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slide-reverse.ng-leave {
   z-index: 1000;
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
+  -webkit-animation: slide-reverse-leave 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: slide-reverse-leave 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.slide-reverse.ng-leave > * {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-}
-.slide-reverse.ng-leave > bp-navbar {
-  background-color: transparent !important;
-  -webkit-transition: none;
-  transition: none;
-}
-.slide-reverse.ng-leave > bp-navbar .bp-navbar-text,
-.slide-reverse.ng-leave > bp-navbar bp-button,
-.slide-reverse.ng-leave > bp-navbar bp-icon {
-  -webkit-transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  transition: 0.65s cubic-bezier(0.23, 1, 0.32, 1) all;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  opacity: 1;
-}
-.slide-reverse.ng-leave.ng-leave-active > * {
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-}
-.slide-reverse.ng-leave.ng-leave-active bp-navbar {
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-}
-.slide-reverse.ng-leave.ng-leave-active bp-navbar .bp-navbar-text,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar bp-button,
-.slide-reverse.ng-leave.ng-leave-active bp-navbar bp-icon {
-  -webkit-transform: translateX(50%);
-  transform: translateX(50%);
-  opacity: 0;
-}
-body {
+bp-app,
+[bp-app] {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-user-select: none;
@@ -506,19 +395,21 @@ body {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 }
-body.ios {
+bp-app.ios,
+[bp-app].ios {
   color: #000000;
   font-size: 17px;
   font-family: HelveticaNeue-Light, HelveticaNeue, Helvetica Neue, Helvetica, sans-serif;
   font-weight: lighter;
   font: -apple-system-body;
 }
-body.android {
+bp-app.android,
+[bp-app].android {
   color: #333333;
   font-size: 17px;
   font-family: Roboto Condensed, Roboto, sans-serif;
 }
-.ios bp-button {
+.ios .bp-button {
   color: #0069ff;
   border: none;
   display: block;
@@ -528,30 +419,43 @@ body.android {
   text-align: center;
   -webkit-text-rendering: optimizeLegibility;
 }
-.ios bp-button.bp-active {
+.ios .bp-button.bp-active {
   color: rgba(0, 105, 255, 0.5);
 }
-.ios bp-button.bp-button-back:before {
-  display: inline-block;
-  font-size: 20px;
-  margin-left: -3px;
-  margin-right: 0px;
+.ios .bp-button.bp-action-up ~ bp-button-up {
+  opacity: 1;
+  box-shadow: inset 3px -3px #0069ff, -15px 0 #f8f8f8, 0 15px #f8f8f8, -15px 15px #f8f8f8;
 }
-.ios bp-button.bp-button-forward:after {
-  display: inline-block;
-  font-size: 20px;
-  line-height: 44px;
-  height: 44px;
-  margin-left: -5px;
-  margin-right: -3px;
+.ios .bp-button.bp-action-up.bp-active ~ bp-button-up {
+  box-shadow: inset 3px -3px rgba(0, 105, 255, 0.5), -15px 0 #f8f8f8, 0 15px #f8f8f8, -15px 15px #f8f8f8;
 }
-.ios bp-button.disabled,
-.ios bp-button[disabled] {
+.ios .bp-button:before {
+  content: none;
+}
+.ios .bp-button.bp-action-up {
+  padding-left: 18px;
+}
+.ios .bp-button.disabled,
+.ios .bp-button[disabled] {
   cursor: default;
   pointer-events: none;
   color: #cccccc;
 }
-.android bp-button {
+.ios bp-button-up {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  display: block;
+  z-index: 1000;
+  pointer-events: none;
+  background: transparent !important;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 12px;
+  top: 15px;
+}
+.android .bp-button {
   display: block;
   position: relative;
   border: none;
@@ -567,16 +471,16 @@ body.android {
   text-align: center;
   -webkit-text-rendering: optimizeLegibility;
   background-color: #cecece;
-  -webkit-box-shadow: inset 0px -1px #bebebe;
-  box-shadow: inset 0px -1px #bebebe;
+  -webkit-box-shadow: inset 0 -1px #bebebe;
+  box-shadow: inset 0 -1px #bebebe;
 }
-.android bp-button.bp-active {
+.android .bp-button.bp-active {
   background-color: #5ac2e9;
-  -webkit-box-shadow: inset 0px -1px #4697b6, 0px 0px 0px 2px #afdceb;
-  box-shadow: inset 0px -1px #4697b6, 0px 0px 0px 2px #afdceb;
+  -webkit-box-shadow: inset 0 -1px #4697b6, 0 0 0 2px #afdceb;
+  box-shadow: inset 0 -1px #4697b6, 0 0 0 2px #afdceb;
 }
-.android bp-button.disabled,
-.android bp-button[disabled] {
+.android .bp-button.disabled,
+.android .bp-button[disabled] {
   opacity: 0.7;
 }
 .ios bp-cell {
@@ -584,8 +488,8 @@ body.android {
   -webkit-box-pack: start;
   -webkit-box-align: center;
   display: -webkit-box;
-  -webkit-box-shadow: inset 0px 1px #d6d6d6;
-  box-shadow: inset 0px 1px #d6d6d6;
+  -webkit-box-shadow: inset 0 1px #d6d6d6;
+  box-shadow: inset 0 1px #d6d6d6;
   color: inherit;
   font-size: inherit;
   height: 44px;
@@ -597,26 +501,13 @@ body.android {
   position: relative;
   z-index: 1000;
   background-color: #d6d6d6;
-  -webkit-box-shadow: 0px 1px #d6d6d6;
-  box-shadow: 0px 1px #d6d6d6;
+  -webkit-box-shadow: 0 1px #d6d6d6;
+  box-shadow: 0 1px #d6d6d6;
 }
 .ios bp-cell.bp-cell-value1 .value {
   color: #8c8c8c;
 }
 .ios bp-cell.bp-cell-value2 .label {
-  color: #0069ff;
-}
-.ios bp-cell.bp-cell-disclosure:after {
-  color: #d6d6d6;
-  font-size: 0.8em;
-  content: '\e001';
-}
-.ios bp-cell.bp-cell-disclosure.bp-active:after {
-  color: #8c8c8c;
-}
-.ios bp-cell.bp-cell-checkmark:after {
-  font-size: 0.8em;
-  content: '\e002';
   color: #0069ff;
 }
 .ios bp-cell:first-child {
@@ -689,8 +580,8 @@ body.android {
   -webkit-box-align: center;
   display: -webkit-box;
   color: inherit;
-  -webkit-box-shadow: inset 0px -1px #d9d9d9;
-  box-shadow: inset 0px -1px #d9d9d9;
+  -webkit-box-shadow: inset 0 -1px #d9d9d9;
+  box-shadow: inset 0 -1px #d9d9d9;
   background: transparent;
   font-size: inherit;
   list-style: none;
@@ -747,16 +638,6 @@ body.android {
   font-size: 18px;
   height: 24px;
   line-height: 24px;
-}
-.android bp-cell.bp-cell-disclosure:after {
-  font-size: 0.8em;
-  content: '\e001';
-  color: #333333;
-}
-.android bp-cell.bp-cell-checkmark:after {
-  font-size: 0.8em;
-  content: '\e002';
-  color: #333333;
 }
 bp-content,
 [bp-content],
@@ -816,13 +697,8 @@ bp-table {
   visibility: hidden;
   speak: none;
 }
-@font-face {
-  font-family: 'bp-system';
-  src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-bp-icon:before {
+.bp-icon:before {
+  content: '\e000';
   display: inline-block;
   font-family: 'bp-app';
   font-style: normal;
@@ -837,54 +713,15 @@ bp-icon:before {
   -webkit-box-flex: 0;
   -webkit-font-smoothing: antialiased;
 }
-.bp-icon-system:before,
-.ios bp-cell.bp-cell-disclosure:after,
-.ios bp-cell.bp-cell-checkmark:after,
-.android bp-cell.bp-cell-disclosure:after,
-.android bp-cell.bp-cell-checkmark:after,
-.bp-icon-search:before,
-.bp-icon-chevron-right:before,
-.bp-icon-check:before,
-.ios bp-button.bp-button-forward:after,
-.bp-icon-chevron-left:before,
-.bp-icon-chevron-up:before,
-.bp-icon-chevron-down:before,
-.ios bp-search:before,
-.android bp-search:before,
-.ios bp-button.bp-button-back:before,
-.android bp-navbar bp-button.bp-button-back:first-child:before {
+@font-face {
   font-family: 'bp-system';
+  src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg6SAyoAAAC8AAAAYGNtYXAaVcxXAAABHAAAAExnYXNwAAAAEAAAAWgAAAAIZ2x5Zu8sTbgAAAFwAAAA2GhlYWQBZD1VAAACSAAAADZoaGVhB8IDxgAAAoAAAAAkaG10eAYAAAAAAAKkAAAAFGxvY2EAKACAAAACuAAAAAxtYXhwAAgAOAAAAsQAAAAgbmFtZZ6kRfwAAALkAAACwXBvc3QAAwAAAAAFqAAAACAAAwQAAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADmAAPA/8D/wAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAACAAAAAwAAABQAAwABAAAAFAAEADgAAAAKAAgAAgACAAEAIOYA//3//wAAAAAAIOYA//3//wAB/+MaBAADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgAA/9EEAAPRACAANQAAJRQOAjEBDgMjIi4CNTQ+AjMyHgIVFA4CBwEBIg4CFRQeAjMyPgI1NC4CIwQAHSMd/vYaOj5CIleYckJCcphXV5hyQgsVHhIBCv2jRHZZMzNZdkRDd1kzM1l3Qy8jJhIDAQsTHhQLQXKZV1aZckFBcplWI0I+ORr+9gNFM1h3Q0R3WDMzWHdEQ3dYMwAAAQAAAAEAALIS0FBfDzz1AAsEAAAAAADPInxbAAAAAM8ifFsAAP/RBAAD0QAAAAgAAgAAAAAAAAABAAADwP/AAAAEAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAAKABQAHgBsAAEAAAAFADYAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAYASYAAQAAAAAAAQASAAAAAQAAAAAAAgAOAVMAAQAAAAAAAwASASYAAQAAAAAABAASAWEAAQAAAAAABQAWARAAAQAAAAAABgAJATgAAQAAAAAACQAcAPQAAQAAAAAACgAoAXMAAQAAAAAACwBQAKQAAQAAAAAADAAqABIAAQAAAAAADQAGAJ4AAQAAAAAADgBiADwAAwABBAkAAQASAAAAAwABBAkAAgAOAVMAAwABBAkAAwASASYAAwABBAkABAASAWEAAwABBAkABQAWARAAAwABBAkABgASAUEAAwABBAkACQAcAPQAAwABBAkACgAoAXMAAwABBAkACwBQAKQAAwABBAkADAAqABIAAwABBAkADQAGAJ4AAwABBAkADgBiADwAYgBwAC0AcwB5AHMAdABlAG0AaAB0AHQAcAA6AC8ALwB3AHcAdwAuAGQAdgBxAC4AYwBvAC4AbgB6AC8AaAB0AHQAcAA6AC8ALwBjAHIAZQBhAHQAaQB2AGUAYwBvAG0AbQBvAG4AcwAuAG8AcgBnAC8AcAB1AGIAbABpAGMAZABvAG0AYQBpAG4ALwB6AGUAcgBvAC8AMQAuADAALwBDAEMAMABoAHQAdABwADoALwAvAGQAcgBpAGIAYgBiAGwAZQAuAGMAbwBtAC8AcwBoAG8AdABzAC8ANgA2ADUANQA4ADUALQBFAGMAbwAtAEkAYwBvAE0AYQB0AHQAaABlAHcAIABTAGsAaQBsAGUAcwBWAGUAcgBzAGkAbwBuACAAMQAuADAAYgBwAC0AcwB5AHMAdABlAG1icC1zeXN0ZW0AYgBwAC0AcwB5AHMAdABlAG0AUgBlAGcAdQBsAGEAcgBiAHAALQBzAHkAcwB0AGUAbQBHAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-.bp-icon-search:before,
-.ios bp-search:before,
-.android bp-search:before {
-  content: '\e000';
-}
-.bp-icon-chevron-right:before,
-.ios bp-button.bp-button-forward:after,
-.bp-icon-chevron-left:before,
-.bp-icon-chevron-up:before,
-.bp-icon-chevron-down:before,
-.ios bp-button.bp-button-back:before,
-.android bp-navbar bp-button.bp-button-back:first-child:before {
-  content: '\e001';
-}
-.bp-icon-chevron-left:before,
-.ios bp-button.bp-button-back:before,
-.android bp-navbar bp-button.bp-button-back:first-child:before {
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-.bp-icon-chevron-up:before {
-  -webkit-transform: rotate(270deg);
-  transform: rotate(270deg);
-}
-.bp-icon-chevron-down:before {
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-.bp-icon-check:before {
-  content: '\e002';
+.bp-icon.bp-icon-search:before {
+  font-family: 'bp-system';
+  content: '\e600';
 }
 .iScrollVerticalScrollbar {
   width: 2px !important;
@@ -906,48 +743,6 @@ bp-iscroll-wrapper {
 .iScrollIndicator {
   border-radius: none !important;
 }
-#loading-bar .peg,
-#loading-bar-spinner {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  speak: none !important;
-}
-#loading-bar {
-  pointer-events: none;
-  -webkit-transition: 0.5s linear all;
-  transition: 0.5s linear all;
-}
-#loading-bar.ng-enter,
-#loading-bar.ng-leave.ng-leave-active {
-  opacity: 0;
-}
-#loading-bar.ng-enter.ng-enter-active,
-#loading-bar.ng-leave {
-  opacity: 1;
-}
-#loading-bar .bar {
-  -webkit-transition: width 500ms;
-  transition: width 500ms;
-  position: fixed;
-  z-index: 99999;
-  left: 0;
-  width: 100%;
-  height: 2px;
-}
-.ios #loading-bar .bar {
-  top: 42px;
-  background-color: #0069ff;
-}
-@media only screen and (orientation: landscape) and (max-height: 480px) {
-  .ios #loading-bar .bar {
-    top: 31px !important;
-  }
-}
-.android #loading-bar .bar {
-  top: 0;
-  background-color: #5ac2e9;
-}
 bp-navbar {
   -webkit-box-ordinal-group: 10;
   -webkit-order: 10;
@@ -957,6 +752,8 @@ bp-navbar {
   background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
   background-image: linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
   background-color: #f8f8f8;
+  position: relative;
+  overflow: hidden;
   background-size: 1px 1px;
   background-repeat: repeat no-repeat;
   background-position: left bottom;
@@ -964,16 +761,24 @@ bp-navbar {
   padding: 0 8px;
   width: 100%;
 }
-.ios bp-navbar .bp-navbar-text {
+.ios bp-navbar bp-navbar-title {
   color: inherit;
 }
-.ios bp-navbar .before {
-  margin-right: 8px;
+.ios bp-navbar .bp-button {
+  color: #0069ff;
 }
-.ios bp-navbar .after {
-  margin-left: 8px;
+.ios bp-navbar .bp-button.bp-active {
+  color: rgba(0, 105, 255, 0.5);
 }
-.ios bp-navbar .bp-navbar-text {
+.ios bp-navbar .bp-button.bp-action-up ~ bp-button-up {
+  opacity: 1;
+  box-shadow: inset 3px -3px #0069ff, -15px 0 #f8f8f8, 0 15px #f8f8f8, -15px 15px #f8f8f8;
+}
+.ios bp-navbar .bp-button.bp-action-up.bp-active ~ bp-button-up {
+  box-shadow: inset 3px -3px rgba(0, 105, 255, 0.5), -15px 0 #f8f8f8, 0 15px #f8f8f8, -15px 15px #f8f8f8;
+}
+.ios bp-navbar bp-navbar-title {
+  margin: 0 8px;
   font-size: inherit;
   text-align: center;
   display: block;
@@ -985,102 +790,110 @@ bp-navbar {
   .ios bp-navbar {
     height: 33px;
   }
-  .ios bp-navbar bp-button {
+  .ios bp-navbar .bp-button {
     min-width: 33px;
     height: 33px;
     line-height: 33px;
   }
+  .ios bp-navbar bp-button-up {
+    top: 9px;
+  }
 }
 .android bp-navbar {
   background: #dddddd;
-  -webkit-box-shadow: inset 0px -2px #d2d2d2, 0px 0px 1px #000000;
-  box-shadow: inset 0px -2px #d2d2d2, 0px 0px 1px #000000;
+  -webkit-box-shadow: inset 0 -2px #d2d2d2, 0 0 1px #000000;
+  box-shadow: inset 0 -2px #d2d2d2, 0 0 1px #000000;
   position: relative;
   height: 48px;
   padding: 0 8px;
   width: 100%;
 }
-.android bp-navbar .bp-navbar-text {
+.android bp-navbar bp-navbar-title {
   color: #333333;
 }
 .android bp-navbar[disabled],
 .android bp-navbar.disabled {
   color: rgba(51, 51, 51, 0.3);
 }
-.android bp-navbar bp-icon {
+.android bp-navbar .bp-icon {
   color: rgba(51, 51, 51, 0.6);
 }
-.android bp-navbar bp-icon.bp-active {
+.android bp-navbar .bp-icon.bp-active {
   background-color: #afdceb;
 }
-.android bp-navbar bp-button.bp-button-back:first-child:before {
-  color: rgba(51, 51, 51, 0.6);
-}
-.android bp-navbar bp-button.bp-button-back:first-child.bp-active {
-  background-color: #afdceb;
-}
-.android bp-navbar .bp-navbar-text {
-  overflow: visible;
+.android bp-navbar bp-navbar-title {
+  overflow: hidden;
   position: relative;
   font-size: inherit;
   display: block;
   height: 40px;
   line-height: 40px;
-  margin-left: 40px;
   -webkit-box-flex: 1;
 }
-.android bp-navbar .bp-navbar-text:before {
-  content: '';
+.android bp-navbar bp-navbar-icon {
   display: block;
-  position: absolute;
-  top: 5px;
-  left: -34px;
   pointer-events: none;
   width: 30px;
   height: 30px;
+  margin: 0 8px;
   background-repeat: no-repeat;
   -webkit-background-size: 30px 30px;
   background-size: 30px 30px;
   background-image: url(favicon.ico), -webkit-linear-gradient(#a9a9a9, #a9a9a9);
   background-image: url(favicon.ico), linear-gradient(#a9a9a9, #a9a9a9);
 }
-.android bp-navbar bp-icon {
+.android bp-navbar .bp-icon {
   display: block;
   width: 48px;
   height: 48px;
   line-height: 48px;
   text-align: center;
 }
-.android bp-navbar bp-icon:last-child {
+.android bp-navbar .bp-icon:last-child {
   margin-right: -8px;
 }
-.android bp-navbar bp-button {
-  margin-left: 8px;
-}
-.android bp-navbar bp-button.bp-button-back:first-child {
-  -webkit-border-radius: 0px;
-  -webkit-background-clip: padding-box;
-  border-radius: 0px;
-  background-clip: padding-box;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  position: absolute;
-  top: 0px;
-  left: -8px;
-  width: 48px;
+.android bp-navbar .bp-action-up {
   height: 48px;
-  line-height: 48px;
-  padding: 0;
+  position: relative;
+  width: 52px;
+  margin: 0 4px 0 -8px;
   background: transparent;
-  color: transparent;
 }
-.android bp-navbar bp-button.bp-button-back:first-child:before {
-  -webkit-transform: scale(1, 1.5) rotate(180deg);
-  transform: scale(1, 1.5) rotate(180deg);
-  display: inline-block;
+.android bp-navbar .bp-action-up:before {
+  content: none;
+}
+.android bp-navbar .bp-action-up div {
+  -webkit-transform: scale(1, 1.7);
+  transform: scale(1, 1.7);
   position: absolute;
-  left: 0;
-  font-size: 12px;
+  z-index: 1000;
+  top: 18px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  overflow: hidden;
+}
+.android bp-navbar .bp-action-up div:before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 4px;
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  box-shadow: inset 3px -3px #9a9a9a;
+}
+.android bp-navbar .bp-action-up bp-navbar-icon {
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  margin: 0;
+}
+.android bp-navbar .bp-button {
+  margin-left: 8px;
 }
 bp-scroll,
 [bp-scroll] {
@@ -1112,28 +925,77 @@ bp-search {
   background: #c9c9c9;
   overflow: hidden;
   height: 44px;
-  padding: 0 6px;
   position: relative;
 }
-.ios bp-search:before {
-  -webkit-transition: left 0.3s ease;
-  transition: left 0.3s ease;
-  pointer-events: none;
-  color: #8c8c8c;
-  font-size: 14px;
-  line-height: 44px;
-  height: 44px;
-  width: 44px;
-  text-align: center;
-  z-index: 100;
+.ios bp-search bp-search-bg-left,
+.ios bp-search bp-search-bg-right {
+  display: block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   position: absolute;
-  left: 50%;
-  margin-left: -38px;
+  top: 6px;
+  background-color: white;
+  height: 32px;
 }
-.ios bp-search.focus:before {
-  left: 38px;
+.ios bp-search bp-search-bg-left {
+  -webkit-border-radius: 6px;
+  -webkit-background-clip: padding-box;
+  border-radius: 6px;
+  background-clip: padding-box;
+  left: 0;
+  margin-left: 6px;
+  width: 65%;
 }
-.ios bp-search bp-button {
+.ios bp-search bp-search-bg-right {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -webkit-background-clip: padding-box;
+  border-bottom-right-radius: 6px;
+  background-clip: padding-box;
+  right: 0;
+  margin-right: 6px;
+  width: 35%;
+}
+.ios bp-search.focus bp-search-bg-right {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.ios bp-search input[type=search] {
+  -webkit-appearance: searchfield;
+  appearance: searchfield;
+  border: none;
+  background: transparent;
+  position: relative;
+  z-index: 100;
+  color: black;
+  display: block;
+  margin: 6px;
+  padding-right: 6px;
+  padding-left: 18px;
+  height: 32px;
+  width: 65%;
+}
+.ios bp-search input[type=search]::-webkit-input-placeholder {
+  color: transparent;
+}
+.ios bp-search input[type=search]:-moz-placeholder {
+  color: transparent;
+}
+.ios bp-search input[type=search]::-moz-placeholder {
+  color: transparent;
+}
+.ios bp-search input[type=search]:-ms-input-placeholder {
+  color: transparent;
+}
+.ios bp-search.focus input[type=search]:valid ~ bp-search-placeholder span {
+  display: none;
+}
+.ios bp-search .bp-button {
   -webkit-opacity: 0;
   opacity: 0;
   -webkit-transform: translateX(100%);
@@ -1141,107 +1003,108 @@ bp-search {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: absolute;
-  right: 6px;
+  right: 0;
   pointer-events: none;
   speak: none;
-  padding: 0 6px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
-.ios bp-search.focus bp-button {
-  -webkit-transition: all 0.3s linear 0.3s;
-  transition: all 0.3s linear 0.3s;
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
+.ios bp-search.focus .bp-button {
   -webkit-opacity: 1;
   opacity: 1;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
   speak: normal;
   pointer-events: auto;
 }
-.ios bp-search input[type=search] {
-  -webkit-border-radius: 6px;
-  -webkit-background-clip: padding-box;
-  border-radius: 6px;
-  background-clip: padding-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: width 0.1s ease 0.3s;
-  transition: width 0.1s ease 0.3s;
-  position: relative;
-  font-size: 14px;
-  background-color: white;
-  border: none;
-  display: block;
-  height: 32px;
-  padding: 0 24px;
-  width: 100%;
-}
-.ios bp-search input[type=search]::-webkit-input-placeholder {
-  -webkit-transition: -webkit-transform 0.3s ease;
-  transition: -webkit-transform 0.3s ease,-moz-transform 0.3s ease,-o-transform 0.3s ease,transform 0.3s ease;
-  -webkit-transform: translateX(50%);
-  transform: translateX(50%);
+.ios bp-search bp-search-placeholder {
+  font-size: 13px;
+  font: -apple-system-footnote;
   color: #8c8c8c;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  line-height: 44px;
+  padding: 0 12px;
+  text-align: center;
 }
-.ios bp-search input[type=search]:focus::-webkit-input-placeholder {
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
+.ios bp-search.focus bp-search-placeholder {
+  text-align: left;
 }
-.ios bp-search .focus input[type=search] {
-  -webkit-transition: width 0.3s ease 0.1s;
-  transition: width 0.3s ease 0.1s;
+.ios bp-search bp-search-tap {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.ios bp-search.focus bp-search-tap {
+  pointer-events: none;
 }
 .android bp-search {
   background: #dddddd;
-  -webkit-box-shadow: inset 0px -2px #d2d2d2;
-  box-shadow: inset 0px -2px #d2d2d2;
+  -webkit-box-shadow: inset 0 -2px #d2d2d2;
+  box-shadow: inset 0 -2px #d2d2d2;
   height: 48px;
   padding: 0 8px;
   margin: 0;
   position: relative;
   overflow: hidden;
 }
-.android bp-search:before {
-  position: absolute;
-  left: 8px;
-  width: 24px;
-  text-align: center;
-  content: '\e000';
-  pointer-events: none;
-  line-height: 48px;
-  color: #ababab;
-}
-.android bp-search bp-button {
-  -webkit-opacity: 0;
-  opacity: 0;
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  position: absolute;
-  right: 8px;
-  top: 4px;
-  speak: none;
-  pointer-events: none;
-}
-.android bp-search.focus bp-button {
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  -webkit-opacity: 1;
-  opacity: 1;
-  speak: normal;
-  pointer-events: auto;
-}
-.android bp-search input[type=search] {
+.android bp-search bp-search-bg {
+  display: block;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: width 0.3s ease;
-  transition: width 0.3s ease;
-  height: 30px;
-  font-size: 14px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  background-color: white;
+}
+.android bp-search input[type=search] {
   display: block;
-  position: relative;
-  padding: 0 12px 0 24px;
-  margin-top: 0;
-  width: 100%;
+  -webkit-box-flex: 1;
+}
+.android bp-search input[type=search]::-webkit-input-placeholder {
+  color: transparent;
+}
+.android bp-search input[type=search]:-moz-placeholder {
+  color: transparent;
+}
+.android bp-search input[type=search]::-moz-placeholder {
+  color: transparent;
+}
+.android bp-search input[type=search]:-ms-input-placeholder {
+  color: transparent;
+}
+.android bp-search.focus input[type=search]:valid ~ bp-search-placeholder {
+  display: none;
+}
+.android bp-search bp-search-placeholder {
+  color: #ababab;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  line-height: 48px;
+  padding-right: 16px;
+  padding-left: 18px;
+}
+.android bp-search bp-search-tap {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.android bp-search.focus bp-search-tap {
+  pointer-events: none;
 }
 .ios bp-tabbar {
   background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
@@ -1268,7 +1131,7 @@ bp-search {
 .ios bp-tab.bp-tab-active {
   color: #0069ff;
 }
-.ios bp-tab bp-icon {
+.ios bp-tab .bp-icon {
   display: block;
   height: 32px;
   font-size: 16px;
@@ -1285,8 +1148,8 @@ bp-search {
   -webkit-box-ordinal-group: 20;
   -webkit-order: 20;
   order: 20;
-  -webkit-box-shadow: inset 0px -3px #d2d2d2;
-  box-shadow: inset 0px -3px #d2d2d2;
+  -webkit-box-shadow: inset 0 -3px #d2d2d2;
+  box-shadow: inset 0 -3px #d2d2d2;
   background-color: #fcfcfc;
   height: 50px;
   width: 100%;
@@ -1306,7 +1169,7 @@ bp-search {
 .android bp-tab.bp-tab-active {
   border-bottom: 6px solid rgba(90, 194, 233, 0.6);
 }
-.android bp-tab bp-icon {
+.android bp-tab .bp-icon {
   display: none;
 }
 .android bp-tab span {
@@ -1326,8 +1189,8 @@ bp-search {
   -webkit-box-pack: start;
   -webkit-box-align: center;
   display: -webkit-box;
-  -webkit-box-shadow: inset 0px -2px #5ac2e9;
-  box-shadow: inset 0px -2px #5ac2e9;
+  -webkit-box-shadow: inset 0 -2px #5ac2e9;
+  box-shadow: inset 0 -2px #5ac2e9;
   background-color: transparent;
   color: #333333;
   font-size: 15px;
@@ -1419,8 +1282,8 @@ bp-table {
   -webkit-box-pack: start;
   -webkit-box-align: center;
   display: -webkit-box;
-  -webkit-box-shadow: inset 0px -2px #5ac2e9;
-  box-shadow: inset 0px -2px #5ac2e9;
+  -webkit-box-shadow: inset 0 -2px #5ac2e9;
+  box-shadow: inset 0 -2px #5ac2e9;
   background-color: transparent;
   color: #333333;
   font-size: 15px;
@@ -1436,8 +1299,8 @@ bp-table {
   -webkit-box-pack: start;
   -webkit-box-align: center;
   display: -webkit-box;
-  -webkit-box-shadow: inset 0px -2px #5ac2e9;
-  box-shadow: inset 0px -2px #5ac2e9;
+  -webkit-box-shadow: inset 0 -2px #5ac2e9;
+  box-shadow: inset 0 -2px #5ac2e9;
   background-color: transparent;
   color: #333333;
   font-size: 15px;

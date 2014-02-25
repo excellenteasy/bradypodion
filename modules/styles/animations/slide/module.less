@@ -1,144 +1,30 @@
-.bp-slide(normal, @duration: .65s, @name: slide) {
-  @direction: normal;
+.bp-slide(normal, @duration: 0.65s, @name: slide) {
   @ease: cubic-bezier(0.23,1,0.32,1);
-  .@{name}-@{direction}.ng-animate {
-    clip: auto !important;
-  }
+  .keyframes(~'@{name}-normal-enter, 0%{ transform: translateX(100%) } 100%{ transform: translateX(0) }');
+  .keyframes(~'@{name}-normal-leave, 0%{ transform: translateX(0); filter: brightness(1) } 100%{ transform: translateX(-30%); filter: brightness(0.9) }');
 
-  .@{name}-@{direction}.ng-enter {
+  .@{name}-normal.ng-enter {
     z-index: 1000;
-    // ngAnimate expects a transition on this class, so we'll just give it sth.
-    .transition(~"@{duration} @{ease} all");
-    > * {
-      .transform(translateX(100%));
-    }
-    > bp-navbar {
-      .bp-navbar-text, bp-button, bp-icon {
-        .transform(translateX(50%));
-        opacity: 0;
-      }
-    }
+    .animation(slide-normal-enter, @duration, @ease);
   }
-
-  .@{name}-@{direction}.ng-enter.ng-enter-active {
-    > * {
-      .transition(~"@{duration} @{ease} all");
-      .transform(translateX(0));
-    }
-    bp-navbar {
-      .transition(none);
-      background-color: transparent !important;
-      .bp-navbar-text, bp-button, bp-icon {
-        .transition(~"@{duration} @{ease} all");
-        .transform(translateX(0));
-        opacity: 1;
-      }
-    }
-  }
-
-  .@{name}-@{direction}.ng-leave {
+  .@{name}-normal.ng-leave {
     z-index: inherit;
-    // ngAnimate expects a transition on this class, so we'll just give it sth.
-    .transition(~"@{duration} @{ease} all");
-    > * {
-      .filter(brightness(1));
-      .transform(translateX(0));
-    }
-    > bp-navbar {
-      .bp-navbar-text, bp-button, bp-icon {
-        .transform(translateX(0));
-        opacity: 1;
-      }
-    }
-  }
-
-  .@{name}-@{direction}.ng-leave.ng-leave-active {
-    > * {
-      .transition(~"@{duration} @{ease} all");
-      .filter(brightness(0.9));
-      .transform(translateX(-30%));
-    }
-    bp-navbar {
-      .transition(none);
-      .filter(brightness(1));
-      .transform(translateX(0));
-      .bp-navbar-text, bp-button, bp-icon {
-        .transition(~"@{duration} @{ease} all");
-        .transform(translateX(-50%));
-        opacity: 0;
-      }
-    }
+    .animation(slide-normal-leave, @duration, @ease);
   }
 }
 
-.bp-slide(reverse, @duration: .65s, @name: slide) {
-  @direction: reverse;
+.bp-slide(reverse, @duration: 0.65s, @name: slide) {
   @ease: cubic-bezier(0.23,1,0.32,1);
-  .@{name}-@{direction}.ng-animate {
-    clip: auto !important;
-  }
+  .keyframes(~'@{name}-reverse-leave, 0%{ transform: translateX(0) } 100%{ transform: translateX(100%) }');
+  .keyframes(~'@{name}-reverse-enter, 0%{ transform: translateX(-30%); filter: brightness(0.9) } 100%{ transform: translateX(0); filter: brightness(1) }');
 
-  .@{name}-@{direction}.ng-enter {
+  .@{name}-reverse.ng-enter {
     z-index: inherit;
-    // ngAnimate expects a transition on this class, so we'll just give it sth.
-    .transition(~"@{duration} @{ease} all");
-    > * {
-      .transform(translateX(-30%));
-      .filter(brightness(0.9));
-    }
-    > bp-navbar {
-      .bp-navbar-text, bp-button, bp-icon {
-        .transform(translateX(-50%));
-        opacity: 0;
-      }
-    }
+    .animation(slide-reverse-enter, @duration, @ease);
   }
-
-  .@{name}-@{direction}.ng-enter.ng-enter-active {
-    > * {
-      .transition(~"@{duration} @{ease} all");
-      .transform(translateX(0));
-      .filter(brightness(1));
-    }
-    bp-navbar {
-      .transition(none);
-      .bp-navbar-text, bp-button, bp-icon {
-        .transition(~"@{duration} @{ease} all");
-        .transform(translateX(0));
-        opacity: 1;
-      }
-    }
-  }
-
-  .@{name}-@{direction}.ng-leave {
+  .@{name}-reverse.ng-leave {
     z-index: 1000;
-    // ngAnimate expects a transition on this class, so we'll just give it sth.
-    .transition(~"@{duration} @{ease} all");
-    > * {
-      .transition(~"@{duration} @{ease} all");
-      .transform(translateX(0));
-    }
-    > bp-navbar {
-      background-color: transparent !important;
-      .transition(none);
-      .bp-navbar-text, bp-button, bp-icon {
-        .transition(~"@{duration} @{ease} all");
-        .transform(translateX(0));
-        opacity: 1;
-      }
-    }
-  }
-
-  .@{name}-@{direction}.ng-leave.ng-leave-active {
-    > * {
-      .transform(translateX(100%));
-    }
-    bp-navbar {
-      .transform(translateX(0));
-      .bp-navbar-text, bp-button, bp-icon {
-        .transform(translateX(50%));
-        opacity: 0;
-      }
-    }
+    .animation(slide-reverse-leave, @duration, @ease);
   }
 }
+

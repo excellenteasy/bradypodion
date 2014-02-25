@@ -1,0 +1,11 @@
+<bp-navbar-config>
+  <bp-action bp-sref="scroll-sticky" class="fa-sort-amount-asc">Sticky</bp-action>
+</bp-navbar-config>
+<bp-table bp-scroll>
+  <bp-cell class="bp-cell-subtitle" ng-repeat="cell in cells">
+    <div class="titles">
+      <div class="title">{{$index + 1}}</div>
+      <div class="subtitle">{{cell | currency}}</div>
+    </div>
+  </bp-cell>
+</bp-table>
