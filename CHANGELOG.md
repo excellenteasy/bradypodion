@@ -1,3 +1,52 @@
+<a name="0.5.0-beta.1"></a>
+### 0.5.0-beta.1 (2014-02-25)
+
+
+#### Bug Fixes
+
+* **action-overflow:** unbind events on destroy ([b51aa80d](http://github.com/excellenteasy/bradypodion/commit/b51aa80df13eefe490f1ddba71c0134062ee14c5))
+* **navbar:** should remove spawned toolbar on destroy ([cbdf30d1](http://github.com/excellenteasy/bradypodion/commit/cbdf30d1dbb34e90d1a3c26826c7ae5cdc0c0440))
+* **view:** getDirection should return null if segments do not match ([18327616](http://github.com/excellenteasy/bradypodion/commit/1832761678a06ec888abcc26ce5669d631649413))
+
+
+#### Features
+
+* **action-overflow:** initial ([9c4c9e2b](http://github.com/excellenteasy/bradypodion/commit/9c4c9e2bae2b83fd1d783e6b16e103053684821a))
+* **navbar:**
+  * animate on ios enter/leave ([1e98fc84](http://github.com/excellenteasy/bradypodion/commit/1e98fc844c0d60ef82e4019eeb62a984662a02e7))
+  * spawn toolbar ([436c1137](http://github.com/excellenteasy/bradypodion/commit/436c1137fe85b9355734c918f599ac7d4354ae71))
+  * allow icons in ios navbar ([3d1dd209](http://github.com/excellenteasy/bradypodion/commit/3d1dd20988220394cd2378a6423050795a892e15))
+* **navbar-config:** allows to configure injected navbars ([3017651b](http://github.com/excellenteasy/bradypodion/commit/3017651bf48b4ad57086400b7dbbcea928791e14))
+* **navigation:** navigation directive that injects navbars ([d8679a2c](http://github.com/excellenteasy/bradypodion/commit/d8679a2c714d066ec7f94fe2a9b6797e861b7596))
+* **toolbar:** initial ([950726f5](http://github.com/excellenteasy/bradypodion/commit/950726f5c5c84f48e2efc0391c0c7003933cbeee))
+* **view:**
+  * introduce view wrapper ([b72f45a8](http://github.com/excellenteasy/bradypodion/commit/b72f45a80a78f70b58ba8cc965ef0abdc64f09b9))
+  * use data from state to detect direction ([a71fcbb0](http://github.com/excellenteasy/bradypodion/commit/a71fcbb022db59ba379d2b796add0c88e0426374))
+
+
+#### Breaking Changes
+
+* getDirection method is now more strict about detecting the direction from URL segments.
+It requires the URLs to be the same in but the one segment that they defer from one
+another. Examples below illustrate URL changes and the returned value of getDirection
+if fed with the respective URL segments.
+
+Before:
+/home -> /home/second returned 'normal'
+/home/second -> /home returned 'reverse'
+/home/second/third -> /home returned null
+/home -> /home/second/third returned 'normal'
+/home/second -> /crazy/bar/baz returned 'normal'
+
+After:
+/home -> /home/second returns 'normal'
+/home/second -> /home returns 'reverse'
+/home/second/third -> /home returns null
+/home -> /home/second/third returns null
+/home/second -> /crazy/bar/baz returns null
+ ([18327616](http://github.com/excellenteasy/bradypodion/commit/1832761678a06ec888abcc26ce5669d631649413))
+
+
 <a name="v0.5.0-alpha.3"></a>
 ### v0.5.0-alpha.3 (2014-02-17)
 

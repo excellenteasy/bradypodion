@@ -1,14 +1,18 @@
 /*!
- * Bradypodion v0.5.0-alpha.3
+ * Bradypodion v0.5.0-beta.1
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
- * Currently in private beta.
+ * Released under the MIT license.
  *
- * Date: 2014-02-17T14:07:21
+ * Date: 2014-02-25T12:08:53
  */
-
-.bp-fullsize {
+.bp-fullsize,
+html,
+bp-app,
+[bp-app],
+ui-view,
+[ui-view] {
   height: 100%;
   width: 100%;
 }
@@ -33,13 +37,10 @@
 .android bp-table-header,
 .android bp-table-grouped-header,
 .android bp-table-grouped-header,
-.android bp-table-grouped-footer {
+.android bp-table-grouped-footer,
+.ios bp-toolbar {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-.contentbox {
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
 }
 .flexbox,
 .ios bp-navbar,
@@ -47,7 +48,8 @@
 .ios bp-search,
 .android bp-search,
 .ios bp-tabbar,
-.android bp-tabbar {
+.android bp-tabbar,
+.ios bp-toolbar {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
   -webkit-box-align: center;
@@ -128,8 +130,6 @@ input[type="submit"] {
   display: none !important;
 }
 html {
-  height: 100%;
-  width: 100%;
   overflow: hidden;
   -webkit-text-size-adjust: 100%;
 }
@@ -199,6 +199,34 @@ a:visited {
   background-color: #afdceb;
   -webkit-box-shadow: inset 0 -2px #ababab, 0 0 0 6px #afdceb, 0 0 0 8px #5ac2e9;
   box-shadow: inset 0 -2px #ababab, 0 0 0 6px #afdceb, 0 0 0 8px #5ac2e9;
+}
+.bp-action-overflow-open-add {
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  -webkit-opacity: 0;
+  opacity: 0;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.bp-action-overflow-open-add-active {
+  -webkit-opacity: 1;
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.bp-action-overflow-open-remove {
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  -webkit-opacity: 1;
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.bp-action-overflow-open-remove-active {
+  -webkit-opacity: 0;
+  opacity: 0;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
 }
 lesshat-selector {
   -lh-property: 0; } 
@@ -283,6 +311,114 @@ lesshat-selector {
 }
 .fade-reverse.ng-leave.ng-leave-active {
   opacity: 0;
+}
+.bp-navbar-normal.ng-enter {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 100;
+  background-color: transparent;
+}
+.bp-navbar-normal.ng-enter bp-navbar-title,
+.bp-navbar-normal.ng-enter bp-button-up,
+.bp-navbar-normal.ng-enter bp-action {
+  opacity: 0;
+}
+.bp-navbar-normal.ng-enter bp-navbar-title,
+.bp-navbar-normal.ng-enter bp-action:first-child {
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+}
+.bp-navbar-normal.ng-enter.ng-enter-active bp-navbar-title,
+.bp-navbar-normal.ng-enter.ng-enter-active bp-button-up,
+.bp-navbar-normal.ng-enter.ng-enter-active bp-action {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 1;
+}
+.bp-navbar-normal.ng-enter.ng-enter-active bp-navbar-title,
+.bp-navbar-normal.ng-enter.ng-enter-active bp-action:first-child {
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+}
+.bp-navbar-normal.ng-leave {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.bp-navbar-normal.ng-leave bp-navbar-title,
+.bp-navbar-normal.ng-leave bp-button-up,
+.bp-navbar-normal.ng-leave bp-action {
+  opacity: 1;
+}
+.bp-navbar-normal.ng-leave bp-navbar-title,
+.bp-navbar-normal.ng-leave bp-action:first-child {
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+}
+.bp-navbar-normal.ng-leave.ng-leave-active bp-navbar-title,
+.bp-navbar-normal.ng-leave.ng-leave-active bp-button-up,
+.bp-navbar-normal.ng-leave.ng-leave-active bp-action {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+}
+.bp-navbar-normal.ng-leave.ng-leave-active bp-navbar-title,
+.bp-navbar-normal.ng-leave.ng-leave-active bp-action:first-child {
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.bp-navbar-reverse.ng-enter {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 100;
+  background-color: transparent;
+}
+.bp-navbar-reverse.ng-enter bp-navbar-title,
+.bp-navbar-reverse.ng-enter bp-button-up,
+.bp-navbar-reverse.ng-enter bp-action {
+  opacity: 0;
+}
+.bp-navbar-reverse.ng-enter bp-navbar-title,
+.bp-navbar-reverse.ng-enter bp-action:first-child {
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.bp-navbar-reverse.ng-enter.ng-enter-active bp-navbar-title,
+.bp-navbar-reverse.ng-enter.ng-enter-active bp-button-up,
+.bp-navbar-reverse.ng-enter.ng-enter-active bp-action {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 1;
+}
+.bp-navbar-reverse.ng-enter.ng-enter-active bp-navbar-title,
+.bp-navbar-reverse.ng-enter.ng-enter-active bp-action:first-child {
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+}
+.bp-navbar-reverse.ng-leave {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.bp-navbar-reverse.ng-leave bp-navbar-title,
+.bp-navbar-reverse.ng-leave bp-button-up,
+.bp-navbar-reverse.ng-leave bp-action {
+  opacity: 1;
+}
+.bp-navbar-reverse.ng-leave bp-navbar-title,
+.bp-navbar-reverse.ng-leave bp-action:first-child {
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+}
+.bp-navbar-reverse.ng-leave.ng-leave-active bp-navbar-title,
+.bp-navbar-reverse.ng-leave.ng-leave-active bp-button-up,
+.bp-navbar-reverse.ng-leave.ng-leave-active bp-action {
+  -webkit-transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+}
+.bp-navbar-reverse.ng-leave.ng-leave-active bp-navbar-title,
+.bp-navbar-reverse.ng-leave.ng-leave-active bp-action:first-child {
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
 }
 .scale-normal.ng-enter {
   -webkit-transition: all 0.3s ease-in;
@@ -376,14 +512,77 @@ lesshat-selector {
   -webkit-animation: slide-reverse-leave 0.65s cubic-bezier(0.23, 1, 0.32, 1);
   animation: slide-reverse-leave 0.65s cubic-bezier(0.23, 1, 0.32, 1);
 }
+bp-action-overflow {
+  -webkit-box-ordinal-group: 80;
+  -webkit-order: 80;
+  order: 80;
+}
+.ios bp-action-overflow {
+  display: none;
+  visibility: hidden;
+  speak: none;
+}
+.android bp-action-overflow {
+  display: block;
+  width: 48px;
+  height: 48px;
+  position: relative;
+}
+.android bp-action-overflow:after {
+  -webkit-box-shadow: 0 8px rgba(51, 51, 51, 0.6), 0 16px rgba(51, 51, 51, 0.6);
+  box-shadow: 0 8px rgba(51, 51, 51, 0.6), 0 16px rgba(51, 51, 51, 0.6);
+  background-color: rgba(51, 51, 51, 0.6);
+}
+.android bp-action-overflow.bp-active:before {
+  background-color: #afdceb;
+}
+.android bp-action-overflow:before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+}
+.android bp-action-overflow:after {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 13px;
+  left: 21px;
+  width: 6px;
+  height: 6px;
+}
+.android bp-action-overflow bp-action-overflow-menu {
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  display: none;
+  position: absolute;
+  right: 6px;
+  top: 100%;
+}
+.android bp-action-overflow bp-action-overflow-menu .bp-button {
+  -webkit-border-radius: 0;
+  -webkit-background-clip: padding-box;
+  border-radius: 0;
+  background-clip: padding-box;
+  text-align: left;
+  min-width: 144px;
+}
+.android bp-action-overflow bp-action-overflow-menu .bp-button:before {
+  content: '';
+}
+.android bp-action-overflow bp-action-overflow-menu.ng-animate {
+  display: block;
+}
+.android bp-action-overflow bp-action-overflow-menu.bp-action-overflow-open {
+  display: block;
+}
 bp-app,
 [bp-app] {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-user-select: none;
   user-select: none;
-  height: 100%;
-  width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-pack: start;
   -webkit-box-align: stretch;
@@ -723,25 +922,14 @@ bp-table {
   font-family: 'bp-system';
   content: '\e600';
 }
-.iScrollVerticalScrollbar {
-  width: 2px !important;
-  right: 2px !important;
-}
-.iScrollIndicator {
-  border: none !important;
-}
-[bp-iscroll] {
-  position: relative;
-  -webkit-box-flex: 1;
-  overflow: hidden;
-}
-bp-iscroll-wrapper {
-  position: absolute;
+bp-navbar-wrapper {
   display: block;
+  position: relative;
+  height: 44px;
   width: 100%;
 }
-.iScrollIndicator {
-  border-radius: none !important;
+bp-navbar-wrapper bp-navbar {
+  position: absolute !important;
 }
 bp-navbar {
   -webkit-box-ordinal-group: 10;
@@ -777,6 +965,12 @@ bp-navbar {
 .ios bp-navbar .bp-button.bp-action-up.bp-active ~ bp-button-up {
   box-shadow: inset 3px -3px rgba(0, 105, 255, 0.5), -15px 0 #f8f8f8, 0 15px #f8f8f8, -15px 15px #f8f8f8;
 }
+.ios bp-navbar .bp-icon {
+  color: #0069ff;
+}
+.ios bp-navbar .bp-icon.bp-active {
+  color: rgba(0, 105, 255, 0.5);
+}
 .ios bp-navbar bp-navbar-title {
   margin: 0 8px;
   font-size: inherit;
@@ -801,11 +995,12 @@ bp-navbar {
 }
 .android bp-navbar {
   background: #dddddd;
-  -webkit-box-shadow: inset 0 -2px #d2d2d2, 0 0 1px #000000;
-  box-shadow: inset 0 -2px #d2d2d2, 0 0 1px #000000;
+  -webkit-box-shadow: inset 0 -2px #d2d2d2;
+  box-shadow: inset 0 -2px #d2d2d2;
+  z-index: 1000;
   position: relative;
   height: 48px;
-  padding: 0 8px;
+  padding-left: 8px;
   width: 100%;
 }
 .android bp-navbar bp-navbar-title {
@@ -824,6 +1019,7 @@ bp-navbar {
 .android bp-navbar bp-navbar-title {
   overflow: hidden;
   position: relative;
+  padding-right: 8px;
   font-size: inherit;
   display: block;
   height: 40px;
@@ -848,9 +1044,6 @@ bp-navbar {
   height: 48px;
   line-height: 48px;
   text-align: center;
-}
-.android bp-navbar .bp-icon:last-child {
-  margin-right: -8px;
 }
 .android bp-navbar .bp-action-up {
   height: 48px;
@@ -892,7 +1085,7 @@ bp-navbar {
   left: 16px;
   margin: 0;
 }
-.android bp-navbar .bp-button {
+.android bp-navbar > .bp-button {
   margin-left: 8px;
 }
 bp-scroll,
@@ -1327,12 +1520,46 @@ bp-table {
   font-size: 16px;
   padding: 8px 8px 16px;
 }
+bp-toolbar {
+  -webkit-box-ordinal-group: 80;
+  -webkit-order: 80;
+  order: 80;
+}
+.ios bp-toolbar {
+  background-image: -webkit-linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
+  background-image: linear-gradient(transparent, transparent 50%, #c0c0c0 50%);
+  background-color: #f8f8f8;
+  position: relative;
+  overflow: hidden;
+  background-size: 1px 1px;
+  background-repeat: repeat no-repeat;
+  background-position: left top;
+  height: 44px;
+  width: 100%;
+}
+.ios bp-toolbar .bp-icon {
+  color: #0069ff;
+}
+.ios bp-toolbar .bp-icon.bp-active {
+  color: rgba(0, 105, 255, 0.5);
+}
+.ios bp-toolbar bp-action {
+  height: 44px;
+  line-height: 44px;
+  display: block;
+  text-align: center;
+  -webkit-box-flex: 1;
+}
+.android bp-toolbar {
+  display: none;
+  visibility: hidden;
+  speak: none;
+}
+ui-view,
 [ui-view] {
   position: absolute !important;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-pack: start;
   -webkit-box-align: stretch;
@@ -1340,7 +1567,15 @@ bp-table {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   z-index: 1;
+}
+ui-view-wrapper {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: start;
+  -webkit-box-align: stretch;
+  display: -webkit-box;
   -webkit-box-ordinal-group: 50;
   -webkit-order: 50;
   order: 50;
+  position: relative;
+  -webkit-box-flex: 1;
 }
