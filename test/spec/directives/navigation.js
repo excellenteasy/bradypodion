@@ -37,7 +37,7 @@ describe('navigation',function() {
 
       ctrl.registerNavbar(attrs,$actions,fooState, scope)
 
-      var navbarConfig = scope.bpNavbarConfig.foostate
+      var navbarConfig = ctrl.configs.foostate
       expect(angular.isObject(navbarConfig)).toBe(true)
       expect(navbarConfig.$actions).toBe($actions)
       expect(navbarConfig.attrs).toEqual({
