@@ -3,11 +3,8 @@ angular.module('bp')
   return {
     restrict: 'E',
     transclude: true,
-    scope: {
-      bpNavbarTitle: '@'
-    },
-    controller: function($scope) {
-      $scope.getTitleFromState = function(state) {
+    controller: function() {
+      this.getTitleFromState = function(state) {
         if (angular.isObject(state.data) &&
           angular.isString(state.data.title)) {
 
@@ -16,7 +13,7 @@ angular.module('bp')
           return state.name.charAt(0).toUpperCase() + state.name.slice(1)
         }
       }
-      $scope.convertActionToIcon = function($action) {
+      this.convertActionToIcon = function($action) {
         if (angular.isElement($action)) {
           $action
             .attr('aria-label', $action.text())
@@ -26,25 +23,27 @@ angular.module('bp')
         }
       }
     },
+    require: 'bpNavbar',
     compile: function(elem, attrs, transcludeFn) {
       var ios = bpConfig.platform === 'android' ? false : true
 
-      return function(scope, element, attrs) {
+      return function(scope, element, attrs, ctrl) {
         var state = $state.current
         element.attr('role', 'navigation')
 
         transcludeFn(scope, function(clone) {
-          var $arrow, $frstAction, $scndAction, $toolbar, $up
+          var $arrow, $frstAction, $scndAction, $toolbar, $up, title
 
           if (angular.isUndefined(attrs.bpNavbarTitle)) {
-            attrs.bpNavbarTitle = scope.getTitleFromState(state)
+            title = ctrl.getTitleFromState(state)
+          } else {
+            title = attrs.bpNavbarTitle
           }
 
           var $title = $compile(angular.element('<bp-navbar-title>')
-            .attr({
-              role: 'heading',
-              'ng-bind': 'bpNavbarTitle'
-            }))(scope)
+            .attr('role', 'heading')
+            .text(title)
+            )(scope)
 
           var $actions = clone.filter('bp-action')
 
@@ -53,7 +52,7 @@ angular.module('bp')
             !angular.isDefined(attrs.bpNavbarNoUp)) {
 
             var upState = $state.get(state.data.up)
-            var upTitle = scope.getTitleFromState(upState)
+            var upTitle = ctrl.getTitleFromState(upState)
             $arrow = angular.element('<bp-button-up>')
             $up = $compile(angular.element('<bp-action>')
               .addClass('bp-action-up')
@@ -68,7 +67,7 @@ angular.module('bp')
               }
 
               $actions.each(function() {
-                scope.convertActionToIcon(angular.element(this))
+                ctrl.convertActionToIcon(angular.element(this))
               })
               $toolbar = angular.element('<bp-toolbar>').append($actions)
             } else {
@@ -81,7 +80,7 @@ angular.module('bp')
               $actions.each(function() {
                 var $action = angular.element(this)
                 if ($action.hasClass('bp-icon')) {
-                  scope.convertActionToIcon($action)
+                  ctrl.convertActionToIcon($action)
                 } else {
                   $action.addClass('bp-button')
                 }
@@ -117,9 +116,9 @@ angular.module('bp')
 
             $frstAction = $actions.eq(0)
             $scndAction = $actions.eq(1)
-            scope.convertActionToIcon($frstAction)
-            scope.convertActionToIcon($scndAction)
-            scope.convertActionToIcon($up)
+            ctrl.convertActionToIcon($frstAction)
+            ctrl.convertActionToIcon($scndAction)
+            ctrl.convertActionToIcon($up)
 
             if ($actions.length > 2) {
               $toolbar = $compile(angular.element('<bp-action-overflow>')
