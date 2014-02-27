@@ -33,9 +33,9 @@ describe('navigation',function() {
   }))
 
   describe('controller', function() {
-    it('should register and creat navbar', function() {
+    it('should register and create navbar', function() {
 
-      ctrl.registerNavbar(attrs,$actions,fooState)
+      ctrl.registerNavbar(attrs,$actions,fooState, scope)
 
       var navbarConfig = scope.bpNavbarConfig.foostate
       expect(angular.isObject(navbarConfig)).toBe(true)
@@ -44,6 +44,7 @@ describe('navigation',function() {
         'foo-bar': 'foo'
       })
       expect(navbarConfig.noNavbar).toBe(false)
+      expect(navbarConfig.scope).toBe(scope)
     })
   })
 
