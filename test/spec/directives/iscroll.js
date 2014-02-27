@@ -32,7 +32,7 @@ describe('iscrollDirective', function() {
     it('should set iscroll instance', function() {
       var foo = {}
       var bar = {}
-      scope.setIScroll(foo, bar)
+      element.controller('bpIscroll').setIScroll(foo, bar)
       expect(scope.getIScroll()).toBe(foo)
       expect(scope.getIScrollSticky()).toBe(bar)
     })

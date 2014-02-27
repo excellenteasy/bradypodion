@@ -1,6 +1,6 @@
 describe('action overflow', function() {
   describe('android', function() {
-    var element, scope
+    var element, scope, ctrl
 
     beforeEach(module('bp', function(bpConfigProvider) {
       bpConfigProvider.setConfig({
@@ -11,6 +11,7 @@ describe('action overflow', function() {
     beforeEach(inject(function($rootScope, $compile) {
       scope = $rootScope.$new()
       element = $compile('<bp-action-overflow> <bp-action bp-tap class="fa-bookmark">First</bp-action> <bp-action bp-tap class="fa-comment">Second</bp-action> </bp-action-overflow>')(scope)
+      ctrl = element.controller('bpActionOverflow')
       scope.$apply()
     }))
 
@@ -32,32 +33,32 @@ describe('action overflow', function() {
 
     describe('events', function() {
       it('should open on tap', function() {
-        spyOn(scope, 'open')
+        spyOn(ctrl, 'open')
         element.trigger('tap')
-        expect(scope.open).toHaveBeenCalled()
-        spyOn(scope, 'close')
+        expect(ctrl.open).toHaveBeenCalled()
+        spyOn(ctrl, 'close')
         element.trigger('tap')
-        expect(scope.close).toHaveBeenCalled()
+        expect(ctrl.close).toHaveBeenCalled()
         element.trigger('tap')
-        expect(scope.open).toHaveBeenCalled()
+        expect(ctrl.open).toHaveBeenCalled()
       })
 
       it('should prevent close on actions', function() {
         var $menu = element.find('bp-action-overflow-menu')
         var $actions = $menu.children()
-        spyOn(scope, 'close')
+        spyOn(ctrl, 'close')
         $actions.trigger('touchstart')
-        expect(scope.close).not.toHaveBeenCalled()
+        expect(ctrl.close).not.toHaveBeenCalled()
       })
 
       it('should close on window', inject(function($window) {
-        spyOn(scope, 'open')
+        spyOn(ctrl, 'open')
         element.trigger('tap')
-        expect(scope.open).toHaveBeenCalled()
+        expect(ctrl.open).toHaveBeenCalled()
         var $$window = angular.element($window)
-        spyOn(scope, 'close')
+        spyOn(ctrl, 'close')
         $$window.trigger('touchstart')
-        expect(scope.close).toHaveBeenCalled()
+        expect(ctrl.close).toHaveBeenCalled()
       }))
 
       it('should unbind after destroy', inject(function($window) {
@@ -76,14 +77,14 @@ describe('action overflow', function() {
     describe('controller', function() {
       it('should open menu', function() {
         var $menu = element.find('bp-action-overflow-menu')
-        scope.open($menu)
+        ctrl.open($menu)
         expect($menu.attr('aria-hidden')).toBe('false')
         expect($menu.hasClass('bp-action-overflow-open')).toBe(true)
       })
 
       it('should close menu', function() {
         var $menu = element.find('bp-action-overflow-menu')
-        scope.close($menu)
+        ctrl.close($menu)
         expect($menu.attr('aria-hidden')).toBe('true')
         expect($menu.hasClass('bp-action-overflow-open')).toBe(false)
       })
