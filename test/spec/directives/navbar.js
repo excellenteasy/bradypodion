@@ -1,6 +1,6 @@
 describe('navbarDirective', function() {
   describe('ios', function() {
-    var element, scope, state, timeout, title
+    var element, scope, state, ctrl, timeout, title
 
     beforeEach(module('bp'))
 
@@ -25,24 +25,23 @@ describe('navbarDirective', function() {
       timeout.flush()
       element = $compile('<bp-navbar> <bp-action>Action</bp-action> </bp-navbar>')(scope)
       title = element.find('bp-navbar-title')
+      ctrl = element.controller('bpNavbar')
       scope.$apply()
     }))
 
     describe('controller', function() {
       it('should getTitleFromState', function() {
-        var childScope, stateTitle
-        childScope = title.scope()
-        stateTitle = childScope.getTitleFromState({
+        var stateTitle = ctrl.getTitleFromState({
           data: {
             title: 'Foo'
           }
         })
         expect(stateTitle).toBe('Foo')
-        stateTitle = childScope.getTitleFromState({
+        stateTitle = ctrl.getTitleFromState({
           name: 'Bar'
         })
         expect(stateTitle).toBe('Bar')
-        stateTitle = childScope.getTitleFromState({
+        stateTitle = ctrl.getTitleFromState({
           name: 'Buz',
           data: {
             title: 'Baz'
@@ -52,10 +51,8 @@ describe('navbarDirective', function() {
       })
 
       it('should convertActionToIcon', function() {
-        var $action, childScope
-        childScope = title.scope()
-        $action = angular.element('<bp-action class="bp-button">Yo</bp-action>')
-        childScope.convertActionToIcon($action)
+        var $action = angular.element('<bp-action class="bp-button">Yo</bp-action>')
+        ctrl.convertActionToIcon($action)
         expect($action.text()).toBe('')
         expect($action.hasClass('bp-button')).toBe(false)
         expect($action.hasClass('bp-icon')).toBe(true)
