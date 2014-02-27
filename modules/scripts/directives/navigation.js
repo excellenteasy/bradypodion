@@ -1,8 +1,8 @@
 angular.module('bp')
   .directive('bpNavigation', function($state, $compile, $animate, bpView, bpConfig) {
     return {
-      controller: function($scope) {
-        $scope.bpNavbarConfig = {}
+      controller: function() {
+        this.configs = {}
 
         this.registerNavbar = function(attrs, $actions, state, scope) {
           var attrsHash = {}
@@ -13,7 +13,7 @@ angular.module('bp')
             }
           }
 
-          $scope.bpNavbarConfig[state.name] = {
+          this.configs[state.name] = {
             $actions: $actions,
             attrs: attrsHash,
             noNavbar: (angular.isDefined(attrs.bpNavbarNoNavbar) ? true : false),
@@ -21,7 +21,8 @@ angular.module('bp')
           }
         }
       },
-      link: function(scope, element) {
+      require: 'bpNavigation',
+      link: function(scope, element, attrs, ctrl) {
         var $wrapper = angular.element('<bp-navbar-wrapper>')
         var $oldNavbar
 
@@ -29,7 +30,7 @@ angular.module('bp')
 
         scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
           var $navbar = angular.element()
-          var navbarConfig = scope.bpNavbarConfig[toState.name] || {}
+          var navbarConfig = ctrl.configs[toState.name] || {}
           var direction = bpView.getDirection(fromState,toState)
           if (!navbarConfig.noNavbar) {
             $navbar = angular.element('<bp-navbar>')
