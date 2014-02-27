@@ -6,7 +6,7 @@ angular.module('bp').directive('bpNavbarConfig', function($state) {
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs, ctrl) {
         transcludeFn(scope, function(clone) {
-          ctrl.registerNavbar(attrs,clone,$state.current)
+          ctrl.registerNavbar(attrs,clone,$state.current,scope)
           element.remove()
         })
       }

@@ -4,7 +4,7 @@ angular.module('bp')
       controller: function($scope) {
         $scope.bpNavbarConfig = {}
 
-        this.registerNavbar = function(attrs, $actions, state) {
+        this.registerNavbar = function(attrs, $actions, state, scope) {
           var attrsHash = {}
 
           if (angular.isObject(attrs) && angular.isObject(attrs.$attr)) {
@@ -16,7 +16,8 @@ angular.module('bp')
           $scope.bpNavbarConfig[state.name] = {
             $actions: $actions,
             attrs: attrsHash,
-            noNavbar: (angular.isDefined(attrs.bpNavbarNoNavbar) ? true : false)
+            noNavbar: (angular.isDefined(attrs.bpNavbarNoNavbar) ? true : false),
+            scope: scope
           }
         }
       },
@@ -35,7 +36,13 @@ angular.module('bp')
               .append(navbarConfig.$actions)
               .attr(navbarConfig.attrs || {})
           }
-          $compile($navbar)(scope)
+
+          if (angular.isDefined(navbarConfig.scope)) {
+            $compile($navbar)(navbarConfig.scope)
+          } else {
+            $compile($navbar)(scope)
+          }
+
           if (bpConfig.platform === 'ios' && angular.isElement($oldNavbar)) {
             var animation = 'bp-navbar-' + direction
             $animate.enter($navbar.addClass(animation),$wrapper);
