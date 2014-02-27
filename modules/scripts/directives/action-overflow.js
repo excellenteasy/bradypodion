@@ -6,18 +6,18 @@ angular.module('bp').directive('bpActionOverflow', function(
   return {
     restrict: 'E',
     transclude: true,
-    controller: function($scope, $animate) {
-      $scope.open = function($menu) {
+    controller: function($animate) {
+      this.open = function($menu) {
         $menu.attr('aria-hidden', 'false')
         $animate.addClass($menu, 'bp-action-overflow-open')
       }
-      $scope.close = function($menu) {
+      this.close = function($menu) {
         $menu.attr('aria-hidden', 'true')
         $animate.removeClass($menu, 'bp-action-overflow-open')
       }
     },
     compile: function(elem, attrs, transcludeFn) {
-      return function(scope, element, attrs) {
+      return function(scope, element, attrs, ctrl) {
         if (bpConfig.platform === 'ios') {
           element.attr('aria-hidden', 'true')
         } else {
@@ -47,10 +47,10 @@ angular.module('bp').directive('bpActionOverflow', function(
             element.append($menu)
             element.on('tap', function() {
               if (open) {
-                scope.close($menu)
+                ctrl.close($menu)
                 open = false
               } else {
-                scope.open($menu)
+                ctrl.open($menu)
                 open = true
               }
             })
@@ -59,7 +59,7 @@ angular.module('bp').directive('bpActionOverflow', function(
             })
             $$window.on('touchstart', function() {
               if (open) {
-                scope.close($menu)
+                ctrl.close($menu)
                 open = false
                 element.trigger('touchcancel')
               }

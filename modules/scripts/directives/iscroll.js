@@ -12,12 +12,12 @@ angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
       $scope.getIScrollSticky = function() {
         return iscrollsticky
       }
-      $scope.setIScroll = function(inIscroll, inSticky) {
+      this.setIScroll = function(inIscroll, inSticky) {
         iscroll = inIscroll
         iscrollsticky = inSticky
       }
     },
-    link: function(scope, element, attrs) {
+    link: function(scope, element, attrs, ctrl) {
       var options
       options = angular.extend({
         probeType: 3,
@@ -32,7 +32,7 @@ angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
           var selector = attrs.bpIscrollSticky || 'bp-table-header'
           iscs = new IScrollSticky(isc, selector)
         }
-        scope.setIScroll(isc, iscs)
+        ctrl.setIScroll(isc, iscs)
       }, 0)
       element.on('$destroy', function() {
         scope.getIScroll().destroy()

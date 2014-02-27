@@ -21,7 +21,6 @@ angular.module('bp')
           }
         }
       },
-      require: 'bpNavigation',
       link: function(scope, element, attrs, ctrl) {
         var $wrapper = angular.element('<bp-navbar-wrapper>')
         var $oldNavbar

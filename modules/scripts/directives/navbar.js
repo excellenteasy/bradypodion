@@ -23,7 +23,6 @@ angular.module('bp')
         }
       }
     },
-    require: 'bpNavbar',
     compile: function(elem, attrs, transcludeFn) {
       var ios = bpConfig.platform === 'android' ? false : true
 
