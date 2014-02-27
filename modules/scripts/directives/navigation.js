@@ -40,6 +40,7 @@ angular.module('bp')
 
           if (angular.isDefined(navbarConfig.scope)) {
             $compile($navbar)(navbarConfig.scope)
+            delete ctrl.configs[toState.name]
           } else {
             $compile($navbar)(scope)
           }
