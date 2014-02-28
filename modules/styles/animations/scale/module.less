@@ -1,21 +1,25 @@
-.bp-scale (@direction: normal, @name: scale, @duration: 0.3s) {
+.bp-scale (@direction: normal, @name: scale, @duration: 0.1s) {
   @enter: ~`'@{direction}' === 'normal' ? 0 : 1`;
   @leave: ~`'@{direction}' === 'normal' ? 1 : 0`;
 
   .@{name}-@{direction}.ng-enter {
     .transition(all @duration ease-in);
-    .scale(@enter);
-    z-index: ~`'@{leave}' === '1' ? 1000 : 'inherit'`;
+    .scale(~`'@{enter}' === '1' ? 1 : 0.9`);
+    opacity: @enter;
+    z-index: ~`'@{enter}' === '1' ? 'inherit' : 1000`;
   }
   .@{name}-@{direction}.ng-enter.ng-enter-active {
     .scale(1);
+    opacity: 1;
   }
   .@{name}-@{direction}.ng-leave {
     .transition(all @duration ease-in);
     .scale(1);
-    z-index: ~`'@{enter}' === '1' ? 1000 : 'inherit'`;
+    opacity: 1;
+    z-index: ~`'@{leave}' === '1' ? 'inherit' : 1000`;
   }
   .@{name}-@{direction}.ng-leave.ng-leave-active {
-    .scale(@leave);
+    .scale(~`'@{leave}' === '1' ? 1 : 0.9`);
+    opacity: @leave;
   }
 }
