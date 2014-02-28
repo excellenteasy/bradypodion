@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.0-beta.1
+ * Bradypodion v0.5.0-beta.2
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-02-25T12:08:54
+ * Date: 2014-02-28T23:30:36
  */
 (function () {
   'use strict';
@@ -28,13 +28,13 @@
             $scope.getIScrollSticky = function () {
               return iscrollsticky;
             };
-            $scope.setIScroll = function (inIscroll, inSticky) {
+            this.setIScroll = function (inIscroll, inSticky) {
               iscroll = inIscroll;
               iscrollsticky = inSticky;
             };
           }
         ],
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs, ctrl) {
           var options;
           options = angular.extend({
             probeType: 3,
@@ -47,7 +47,7 @@
               var selector = attrs.bpIscrollSticky || 'bp-table-header';
               iscs = new IScrollSticky(isc, selector);
             }
-            scope.setIScroll(isc, iscs);
+            ctrl.setIScroll(isc, iscs);
           }, 0);
           element.on('$destroy', function () {
             scope.getIScroll().destroy();

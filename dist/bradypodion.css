@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.0-beta.1
+ * Bradypodion v0.5.0-beta.2
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-02-25T12:08:53
+ * Date: 2014-02-28T23:30:34
  */
 .bp-fullsize,
 html,
@@ -421,48 +421,56 @@ lesshat-selector {
   transform: translateX(50%);
 }
 .scale-normal.ng-enter {
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
-  -webkit-transform: scale(0);
-  transform: scale(0);
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: 0;
   z-index: 1000;
 }
 .scale-normal.ng-enter.ng-enter-active {
   -webkit-transform: scale(1);
   transform: scale(1);
+  opacity: 1;
 }
 .scale-normal.ng-leave {
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
   -webkit-transform: scale(1);
   transform: scale(1);
+  opacity: 1;
   z-index: inherit;
 }
 .scale-normal.ng-leave.ng-leave-active {
   -webkit-transform: scale(1);
   transform: scale(1);
+  opacity: 1;
 }
 .scale-reverse.ng-enter {
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
   -webkit-transform: scale(1);
   transform: scale(1);
+  opacity: 1;
   z-index: inherit;
 }
 .scale-reverse.ng-enter.ng-enter-active {
   -webkit-transform: scale(1);
   transform: scale(1);
+  opacity: 1;
 }
 .scale-reverse.ng-leave {
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
   -webkit-transform: scale(1);
   transform: scale(1);
+  opacity: 1;
   z-index: 1000;
 }
 .scale-reverse.ng-leave.ng-leave-active {
-  -webkit-transform: scale(0);
-  transform: scale(0);
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: 0;
 }
 lesshat-selector {
   -lh-property: 0; } 
@@ -1091,7 +1099,7 @@ bp-navbar {
 bp-scroll,
 [bp-scroll] {
   -webkit-box-flex: 1;
-  overflow: scroll;
+  overflow: scroll !important;
   -webkit-overflow-scrolling: touch;
 }
 bp-scroll[bp-scroll-sticky] bp-table-header,
@@ -1401,6 +1409,9 @@ bp-table {
   display: block;
   margin: 0;
   padding: 0;
+}
+.ios bp-table {
+  overflow: hidden;
 }
 .ios bp-table.bp-table-grouped {
   background-color: #e5e5e5;

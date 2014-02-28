@@ -1,3 +1,30 @@
+<a name="0.5.0-beta.2"></a>
+### 0.5.0-beta.2 (2014-02-28)
+
+
+#### Bug Fixes
+
+* use controllers instead of scope ([95578fa0](http://github.com/excellenteasy/bradypodion/commit/95578fa0c9916559d94e4fa44a7932c5db44ff9a))
+* **navbar:** do not expose private helpers to scope, no isolate ([fb166e14](http://github.com/excellenteasy/bradypodion/commit/fb166e14945e3b6106a9252111c820bf839fb0c6))
+* **navigation:**
+  * only animate on slide ([5f84f60f](http://github.com/excellenteasy/bradypodion/commit/5f84f60f7695b8b5e1f1d677ecfb344322d7794b))
+  * do not leak memory w/ configs ([86289cc5](http://github.com/excellenteasy/bradypodion/commit/86289cc560e821a1538e6cc0a6d841f8ffd74a13))
+  * do not expose configs to scope ([1604d9bb](http://github.com/excellenteasy/bradypodion/commit/1604d9bb06ea0cdccac14f3bf7632ff4024af116))
+  * compile injected navbar against view scope ([8429e967](http://github.com/excellenteasy/bradypodion/commit/8429e9677718e08c3bcca1fe158f33a2e4a35814))
+* **scale:** look more like android ([ebd9ea5b](http://github.com/excellenteasy/bradypodion/commit/ebd9ea5bb4fdae88b5a03cc2f613ba78f55aa3a5))
+* **scroll:** fix scroll w/table ([59b5630b](http://github.com/excellenteasy/bradypodion/commit/59b5630bcfc5d86dcf0b5b39d0477516db2d400a))
+* **table:** prevent margin collapse in grouped ([3f825b40](http://github.com/excellenteasy/bradypodion/commit/3f825b40e27dca941cbeb2a8e4592b05c5c176eb))
+
+
+#### Features
+
+* **navbar:** support state params for up button ([65e08083](http://github.com/excellenteasy/bradypodion/commit/65e0808379f9def82c4a70d4bc91df22d0af06a2))
+* **sref:**
+  * extract parseSref in service ([d19ed574](http://github.com/excellenteasy/bradypodion/commit/d19ed574a3e5affd05f8c6a1c1c8f999c890ed9d))
+  * allow ui-router style param definition ([1106fd9c](http://github.com/excellenteasy/bradypodion/commit/1106fd9c3cfc62f12a4e31162e0bd99dc8faf3ac))
+* **view:** platform specific transition defaults ([27e879cc](http://github.com/excellenteasy/bradypodion/commit/27e879cc93700072c511e13b2bf9af3f48cc8da5))
+
+
 <a name="0.5.0-beta.1"></a>
 ### 0.5.0-beta.1 (2014-02-25)
 

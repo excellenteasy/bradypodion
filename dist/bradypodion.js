@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.0-beta.1
+ * Bradypodion v0.5.0-beta.2
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-02-25T12:08:54
+ * Date: 2014-02-28T23:30:36
  */
 (function () {
   'use strict';
@@ -22,21 +22,20 @@
         restrict: 'E',
         transclude: true,
         controller: [
-          '$scope',
           '$animate',
-          function ($scope, $animate) {
-            $scope.open = function ($menu) {
+          function ($animate) {
+            this.open = function ($menu) {
               $menu.attr('aria-hidden', 'false');
               $animate.addClass($menu, 'bp-action-overflow-open');
             };
-            $scope.close = function ($menu) {
+            this.close = function ($menu) {
               $menu.attr('aria-hidden', 'true');
               $animate.removeClass($menu, 'bp-action-overflow-open');
             };
           }
         ],
         compile: function (elem, attrs, transcludeFn) {
-          return function (scope, element, attrs) {
+          return function (scope, element, attrs, ctrl) {
             if (bpConfig.platform === 'ios') {
               element.attr('aria-hidden', 'true');
             } else {
@@ -60,10 +59,10 @@
                 element.append($menu);
                 element.on('tap', function () {
                   if (open) {
-                    scope.close($menu);
+                    ctrl.close($menu);
                     open = false;
                   } else {
-                    scope.open($menu);
+                    ctrl.open($menu);
                     open = true;
                   }
                 });
@@ -72,7 +71,7 @@
                 });
                 $$window.on('touchstart', function () {
                   if (open) {
-                    scope.close($menu);
+                    ctrl.close($menu);
                     open = false;
                     element.trigger('touchcancel');
                   }
@@ -163,7 +162,7 @@
         compile: function (elem, attrs, transcludeFn) {
           return function (scope, element, attrs, ctrl) {
             transcludeFn(scope, function (clone) {
-              ctrl.registerNavbar(attrs, clone, $state.current);
+              ctrl.registerNavbar(attrs, clone, $state.current, scope);
               element.remove();
             });
           };
@@ -173,51 +172,48 @@
   ]);
   angular.module('bp').directive('bpNavbar', [
     'bpConfig',
+    'bpSref',
     '$timeout',
     '$state',
     '$compile',
-    function (bpConfig, $timeout, $state, $compile) {
+    function (bpConfig, bpSref, $timeout, $state, $compile) {
       return {
         restrict: 'E',
         transclude: true,
-        scope: { bpNavbarTitle: '@' },
-        controller: [
-          '$scope',
-          function ($scope) {
-            $scope.getTitleFromState = function (state) {
-              if (angular.isObject(state.data) && angular.isString(state.data.title)) {
-                return state.data.title;
-              } else {
-                return state.name.charAt(0).toUpperCase() + state.name.slice(1);
-              }
-            };
-            $scope.convertActionToIcon = function ($action) {
-              if (angular.isElement($action)) {
-                $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
-              }
-            };
-          }
-        ],
+        controller: function () {
+          this.getTitleFromState = function (state) {
+            if (angular.isObject(state.data) && angular.isString(state.data.title)) {
+              return state.data.title;
+            } else {
+              return state.name.charAt(0).toUpperCase() + state.name.slice(1);
+            }
+          };
+          this.convertActionToIcon = function ($action) {
+            if (angular.isElement($action)) {
+              $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
+            }
+          };
+        },
         compile: function (elem, attrs, transcludeFn) {
           var ios = bpConfig.platform === 'android' ? false : true;
-          return function (scope, element, attrs) {
+          return function (scope, element, attrs, ctrl) {
             var state = $state.current;
             element.attr('role', 'navigation');
             transcludeFn(scope, function (clone) {
-              var $arrow, $frstAction, $scndAction, $toolbar, $up;
+              var $arrow, $frstAction, $scndAction, $toolbar, $up, title;
               if (angular.isUndefined(attrs.bpNavbarTitle)) {
-                attrs.bpNavbarTitle = scope.getTitleFromState(state);
+                title = ctrl.getTitleFromState(state);
+              } else {
+                title = attrs.bpNavbarTitle;
               }
-              var $title = $compile(angular.element('<bp-navbar-title>').attr({
-                  role: 'heading',
-                  'ng-bind': 'bpNavbarTitle'
-                }))(scope);
+              var $title = $compile(angular.element('<bp-navbar-title>').attr('role', 'heading').text(title))(scope);
               var $actions = clone.filter('bp-action');
               if (angular.isObject(state.data) && angular.isString(state.data.up) && !angular.isDefined(attrs.bpNavbarNoUp)) {
-                var upState = $state.get(state.data.up);
-                var upTitle = scope.getTitleFromState(upState);
+                var ref = bpSref.parse(state.data.up);
+                var upState = $state.get(ref.state);
+                var upTitle = ctrl.getTitleFromState(upState);
                 $arrow = angular.element('<bp-button-up>');
-                $up = $compile(angular.element('<bp-action>').addClass('bp-action-up').attr('bp-sref', upState.name).text(upTitle))(scope);
+                $up = $compile(angular.element('<bp-action>').addClass('bp-action-up').attr('bp-sref', state.data.up).text(upTitle))(scope);
               }
               if (ios) {
                 if ($actions.length > 2) {
@@ -225,7 +221,7 @@
                     $frstAction = $up.addClass('bp-button');
                   }
                   $actions.each(function () {
-                    scope.convertActionToIcon(angular.element(this));
+                    ctrl.convertActionToIcon(angular.element(this));
                   });
                   $toolbar = angular.element('<bp-toolbar>').append($actions);
                 } else {
@@ -237,7 +233,7 @@
                   $actions.each(function () {
                     var $action = angular.element(this);
                     if ($action.hasClass('bp-icon')) {
-                      scope.convertActionToIcon($action);
+                      ctrl.convertActionToIcon($action);
                     } else {
                       $action.addClass('bp-button');
                     }
@@ -266,9 +262,9 @@
                 var $icon = angular.element('<bp-navbar-icon>');
                 $frstAction = $actions.eq(0);
                 $scndAction = $actions.eq(1);
-                scope.convertActionToIcon($frstAction);
-                scope.convertActionToIcon($scndAction);
-                scope.convertActionToIcon($up);
+                ctrl.convertActionToIcon($frstAction);
+                ctrl.convertActionToIcon($scndAction);
+                ctrl.convertActionToIcon($up);
                 if ($actions.length > 2) {
                   $toolbar = $compile(angular.element('<bp-action-overflow>').append($actions.not($frstAction).not($scndAction)))(scope);
                 }
@@ -293,38 +289,43 @@
     'bpConfig',
     function ($state, $compile, $animate, bpView, bpConfig) {
       return {
-        controller: [
-          '$scope',
-          function ($scope) {
-            $scope.bpNavbarConfig = {};
-            this.registerNavbar = function (attrs, $actions, state) {
-              var attrsHash = {};
-              if (angular.isObject(attrs) && angular.isObject(attrs.$attr)) {
-                for (var attr in attrs.$attr) {
-                  attrsHash[attrs.$attr[attr]] = attrs[attr];
-                }
+        controller: function () {
+          this.configs = {};
+          this.registerNavbar = function (attrs, $actions, state, scope) {
+            var attrsHash = {};
+            if (angular.isObject(attrs) && angular.isObject(attrs.$attr)) {
+              for (var attr in attrs.$attr) {
+                attrsHash[attrs.$attr[attr]] = attrs[attr];
               }
-              $scope.bpNavbarConfig[state.name] = {
-                $actions: $actions,
-                attrs: attrsHash,
-                noNavbar: angular.isDefined(attrs.bpNavbarNoNavbar) ? true : false
-              };
+            }
+            this.configs[state.name] = {
+              $actions: $actions,
+              attrs: attrsHash,
+              noNavbar: angular.isDefined(attrs.bpNavbarNoNavbar) ? true : false,
+              scope: scope
             };
-          }
-        ],
-        link: function (scope, element) {
+          };
+        },
+        link: function (scope, element, attrs, ctrl) {
           var $wrapper = angular.element('<bp-navbar-wrapper>');
           var $oldNavbar;
           element.prepend($wrapper);
           scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
             var $navbar = angular.element();
-            var navbarConfig = scope.bpNavbarConfig[toState.name] || {};
+            var navbarConfig = ctrl.configs[toState.name] || {};
             var direction = bpView.getDirection(fromState, toState);
+            var isSlide = bpView.getType(fromState, toState, direction) === 'slide';
+            var isIos = bpConfig.platform === 'ios';
             if (!navbarConfig.noNavbar) {
               $navbar = angular.element('<bp-navbar>').append(navbarConfig.$actions).attr(navbarConfig.attrs || {});
             }
-            $compile($navbar)(scope);
-            if (bpConfig.platform === 'ios' && angular.isElement($oldNavbar)) {
+            if (angular.isDefined(navbarConfig.scope)) {
+              $compile($navbar)(navbarConfig.scope);
+              delete ctrl.configs[toState.name];
+            } else {
+              $compile($navbar)(scope);
+            }
+            if (isIos && isSlide && angular.isElement($oldNavbar)) {
               var animation = 'bp-navbar-' + direction;
               $animate.enter($navbar.addClass(animation), $wrapper);
               $animate.leave($oldNavbar.addClass(animation), function () {
@@ -449,11 +450,13 @@
     '$state',
     '$parse',
     'BpTap',
-    function ($state, $parse, BpTap) {
+    'bpSref',
+    function ($state, $parse, BpTap, bpSref) {
       return function (scope, element, attrs) {
+        var ref = bpSref.parse(attrs.bpSref, scope);
         new BpTap(scope, element, attrs);
         element.bind('tap', function () {
-          $state.transitionTo(attrs.bpSref);
+          $state.go(ref.state, ref.params);
           return false;
         });
         scope.$on('$destroy', function () {
@@ -591,6 +594,19 @@
     };
     return BpConfig;
   }());
+  angular.module('bp').service('bpSref', [
+    '$parse',
+    function ($parse) {
+      this.parse = function (ref, scope) {
+        var parsed = ref.replace(/\n/g, ' ').match(/^([^(]+?)\s*(\((.*)\))?$/);
+        return {
+          state: parsed[1],
+          params: parsed[3] ? $parse(parsed[3])(scope) : null
+        };
+      };
+      return this;
+    }
+  ]);
   angular.module('bp').factory('BpTap', [
     'bpConfig',
     function (bpConfig) {
@@ -703,7 +719,8 @@
   ]);
   angular.module('bp').service('bpView', [
     '$rootScope',
-    function ($rootScope) {
+    'bpConfig',
+    function ($rootScope, bpConfig) {
       function BpView() {
         this.onViewContentLoaded = angular.bind(this, this.onViewContentLoaded);
         this.onStateChangeStart = angular.bind(this, this.onStateChangeStart);
@@ -756,16 +773,22 @@
         return null;
       };
       BpView.prototype.getType = function (from, to, direction) {
+        var typeFromState = function (state) {
+          var data = state.data;
+          var hasData = angular.isObject(data);
+          if (hasData && angular.isString(data.transition)) {
+            return data.transition;
+          } else if (hasData && data.modal) {
+            return 'cover';
+          } else {
+            return bpConfig.platform === 'ios' ? 'slide' : 'scale';
+          }
+        };
         if (direction === 'reverse') {
-          if (angular.isObject(from.data)) {
-            return from.data.transition || null;
-          }
+          return typeFromState(from);
         } else {
-          if (angular.isObject(to.data)) {
-            return to.data.transition || null;
-          }
+          return typeFromState(to);
         }
-        return null;
       };
       BpView.prototype._getURLSegments = function (state) {
         return (state.url || '').replace(/\/$/, '').split('/');
