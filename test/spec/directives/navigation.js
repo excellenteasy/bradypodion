@@ -1,5 +1,5 @@
 describe('navigation',function() {
-  var scope, element, ctrl
+  var scope, scope2, element, ctrl
 
   var attrs = {
     $attr: {
@@ -28,6 +28,7 @@ describe('navigation',function() {
 
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new()
+    scope2 = $rootScope.$new()
     element = $compile('<div bp-navigation>')(scope)
     ctrl = element.controller('bpNavigation')
   }))
@@ -50,11 +51,12 @@ describe('navigation',function() {
 
   describe('link', function() {
     it('should create navbar', function() {
-      ctrl.registerNavbar(attrs,$actions,fooState)
+      ctrl.registerNavbar(attrs, $actions, fooState, scope2)
       scope.$broadcast('$stateChangeSuccess', fooState, null, barState)
       var $navbar = element.children('bp-navbar-wrapper').children()
       expect($navbar.attr('foo-bar')).toBe('foo')
       expect($navbar.children('bp-action').length).toBe(1)
+      expect($navbar.scope()).toBe(scope2)
     })
     it('should remove old navbar', inject(function($timeout, bpConfig) {
       angular.element('body').append(element)
