@@ -10,8 +10,8 @@ cache:
     - node_modules
 env:
   global:
-    - COVERALLS_SERVICE_NAME="travis-pro"
-    - secure: "ke17kytjrriZjX0AVPxnsQm6uFR8AZ/ymb7b3wlUNoWc3E2nzyUj+07S9R81oMQGjyfXC6bb3t8+XcVBJAGDPbArCx59sBZKPMHM7hzUJTAb3eQB/ptgMDHneYLYNOqxSyvIHdC40wPoBdB3vlAgew4/31UHDe69RznQTicV5Iw="
+    - COVERALLS_SERVICE_NAME="travis-ci"
+    - secure: "gRReaTKLPsQFrcNccJHYJztHCOmGiorT9oqRHA2YeH4m1jV7Kf8Ku8hjN+3zjMr4cFA8yUHAmf7rh+zUg5Ovo+DRx9L8PdsErgXGFGEmPBCTLALnnrXgZ20X7OrrTMu/sAXFh+r803SuldByci1TBDyH+S7bX76oRkj7sxjKSdc="
 notifications:
   email: false
   webhooks:
