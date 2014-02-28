@@ -1,7 +1,11 @@
 # [BradyPodion](http://bradypodion.io)
-[![Build Status](https://travis-ci.org/excellenteasy/bradypodion.png?branch=master)](https://travis-ci.org/excellenteasy/bradypodion) [![Coverage Status](https://coveralls.io/repos/excellenteasy/bradypodion/badge.png?branch=master)](https://coveralls.io/r/excellenteasy/bradypodion?branch=master) [![devDependency Status](https://david-dm.org/excellenteasy/bradypodion/dev-status.png?theme=shields.io)](https://david-dm.org/excellenteasy/bradypodion#info=devDependencies) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-<img align="right" height="256" src="https://pbs.twimg.com/profile_images/378800000798578409/24091764801b299251ff2aea883055f1.png">
 > Create [post-platform](http://bradypodion.io/#postplatform) mobile apps with ease
+
+[![Build Status](https://travis-ci.org/excellenteasy/bradypodion.png?branch=master)](https://travis-ci.org/excellenteasy/bradypodion) 
+[![Coverage Status](https://coveralls.io/repos/excellenteasy/bradypodion/badge.png?branch=master)](https://coveralls.io/r/excellenteasy/bradypodion?branch=master) 
+[![Bower Dependency Status](https://www.versioneye.com/user/projects/5310e2a3ec137568d700024a/badge.png)](https://www.versioneye.com/user/projects/5310e2a3ec137568d700024a)
+[![npm devDependency Status](https://david-dm.org/excellenteasy/bradypodion/dev-status.png?theme=shields.io)](https://david-dm.org/excellenteasy/bradypodion#info=devDependencies) 
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 The repository provides a [prebuilt bradypodion version](dist).
 There is no documentation available yet, so stick to the [demo](demo).
