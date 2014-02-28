@@ -30,7 +30,10 @@ angular.module('bp')
         scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
           var $navbar = angular.element()
           var navbarConfig = ctrl.configs[toState.name] || {}
-          var direction = bpView.getDirection(fromState,toState)
+          var direction = bpView.getDirection(fromState, toState)
+          var isSlide = bpView.getType(fromState, toState, direction) === 'slide'
+          var isIos = bpConfig.platform === 'ios'
+
           if (!navbarConfig.noNavbar) {
             $navbar = angular.element('<bp-navbar>')
               .append(navbarConfig.$actions)
@@ -44,7 +47,7 @@ angular.module('bp')
             $compile($navbar)(scope)
           }
 
-          if (bpConfig.platform === 'ios' && angular.isElement($oldNavbar)) {
+          if (isIos && isSlide && angular.isElement($oldNavbar)) {
             var animation = 'bp-navbar-' + direction
             $animate.enter($navbar.addClass(animation),$wrapper);
             $animate.leave($oldNavbar.addClass(animation), function() {

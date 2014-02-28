@@ -11,25 +11,13 @@ describe('viewService', function() {
         transition: 'fade'
       }
     }).state('second', {
-      url: '/home/second',
-      data: {
-        transition: 'slide'
-      }
+      url: '/home/second'
     }).state('third', {
-      url: '/home/second/:third',
-      data: {
-        transition: 'slide'
-      }
+      url: '/home/second/:third'
     }).state('fourth', {
-      url: '/home/foo/bar/fourth',
-      data: {
-        transition: 'slide'
-      }
+      url: '/home/foo/bar/fourth'
     }).state('fifth', {
-      url: '/home/baz/fifth',
-      data: {
-        transition: 'slide'
-      }
+      url: '/home/baz/fifth'
     }).state('faroff', {
       url: '/home/second/foo/bar/baz'
     }).state('alien', {
@@ -146,9 +134,18 @@ describe('viewService', function() {
       expect(viewService.getType(home, second, 'reverse')).toBe('fade')
     })
 
-    it('should detect no type', function() {
-      expect(viewService.getType({}, {}, 'reverse')).toBe(null)
-      expect(viewService.getType({}, {}, 'normal')).toBe(null)
+    it('should read type from different configs', function() {
+      expect(viewService.getType({}, {}, 'normal')).toBe('slide')
+      expect(viewService.getType({
+        data: {
+          transition: 'scale'
+        }
+      }, {}, 'reverse')).toBe('scale')
+      expect(viewService.getType({
+        data: {
+          modal: true
+        }
+      }, {}, 'reverse')).toBe('cover')
     })
   })
 

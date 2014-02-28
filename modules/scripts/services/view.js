@@ -1,4 +1,4 @@
-angular.module('bp').service('bpView', function($rootScope) {
+angular.module('bp').service('bpView', function($rootScope, bpConfig) {
   function BpView() {
     this.onViewContentLoaded  = angular.bind(this, this.onViewContentLoaded)
     this.onStateChangeStart   = angular.bind(this, this.onStateChangeStart)
@@ -74,16 +74,24 @@ angular.module('bp').service('bpView', function($rootScope) {
   }
 
   BpView.prototype.getType = function(from, to, direction) {
-    if (direction === 'reverse') {
-      if (angular.isObject(from.data)) {
-        return from.data.transition || null
-      }
-    } else {
-      if (angular.isObject(to.data)) {
-        return to.data.transition || null
+    var typeFromState = function(state) {
+      var data = state.data
+      var hasData = angular.isObject(data)
+
+      if (hasData && angular.isString(data.transition)) {
+        return data.transition
+      } else if (hasData && data.modal) {
+        return 'cover'
+      } else {
+        return bpConfig.platform === 'ios' ? 'slide' : 'scale'
       }
     }
-    return null
+
+    if (direction === 'reverse') {
+      return typeFromState(from)
+    } else {
+      return typeFromState(to)
+    }
   }
 
   BpView.prototype._getURLSegments = function(state) {
