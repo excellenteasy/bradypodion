@@ -67,7 +67,6 @@ module.exports = (grunt) ->
         src: ['<%=bp.test%>/spec/**/*.js']
 
     jscs:
-      options: config: ".jscs.json"
       all: ['<%=bp.app%>/scripts/**/*.js', '<%=bp.test%>/spec/**/*.js']
 
     watch:
