@@ -1,5 +1,11 @@
 angular.module('bp')
-  .directive('bpNavbar', function(bpConfig, $timeout, $state, $compile) {
+  .directive('bpNavbar', function(
+    bpConfig,
+    bpSref,
+    $timeout,
+    $state,
+    $compile) {
+
   return {
     restrict: 'E',
     transclude: true,
@@ -50,12 +56,13 @@ angular.module('bp')
             angular.isString(state.data.up) &&
             !angular.isDefined(attrs.bpNavbarNoUp)) {
 
-            var upState = $state.get(state.data.up)
+            var ref = bpSref.parse(state.data.up)
+            var upState = $state.get(ref.state)
             var upTitle = ctrl.getTitleFromState(upState)
             $arrow = angular.element('<bp-button-up>')
             $up = $compile(angular.element('<bp-action>')
               .addClass('bp-action-up')
-              .attr('bp-sref', upState.name)
+              .attr('bp-sref', state.data.up)
               .text(upTitle))(scope)
           }
 
