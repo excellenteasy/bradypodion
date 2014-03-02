@@ -17,7 +17,7 @@ describe('navigation',function() {
 
   var barState = {
     name: 'barstate',
-    url: '/barurl'
+    url: '/foourl/barurl'
   }
 
   beforeEach(module('bp', function(bpConfigProvider) {
