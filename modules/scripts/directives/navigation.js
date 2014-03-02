@@ -47,7 +47,7 @@ angular.module('bp')
             $compile($navbar)(scope)
           }
 
-          if (isIos && isSlide && angular.isElement($oldNavbar)) {
+          if (isIos && isSlide && direction && angular.isElement($oldNavbar)) {
             var animation = 'bp-navbar-' + direction
             $animate.enter($navbar.addClass(animation),$wrapper);
             $animate.leave($oldNavbar.addClass(animation), function() {
