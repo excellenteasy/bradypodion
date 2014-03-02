@@ -115,7 +115,7 @@ angular.module('bp')
                       'max-width': Math.abs(diff)
                     })[diff > 0 ? 'insertBefore' : 'insertAfter']($title)
                 }
-              }, 0)
+              }, 0, false)
             }
           } else {
             var $icon = angular.element('<bp-navbar-icon>')

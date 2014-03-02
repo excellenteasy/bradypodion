@@ -33,7 +33,7 @@ angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
           iscs = new IScrollSticky(isc, selector)
         }
         ctrl.setIScroll(isc, iscs)
-      }, 0)
+      }, 0, false)
       element.on('$destroy', function() {
         scope.getIScroll().destroy()
       })

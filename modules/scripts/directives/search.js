@@ -66,7 +66,7 @@ angular.module('bp').directive('bpSearch', function(
             width: inputWidth,
             'padding-left': 1.5 * iconWidth
           })
-        }, 50)
+        }, 50, false)
 
         childScope.onResize = function() {
           var inputWidth = element.outerWidth() - cancelWidth
