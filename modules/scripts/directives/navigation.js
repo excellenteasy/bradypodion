@@ -35,31 +35,36 @@ angular.module('bp')
           var isIos = bpConfig.platform === 'ios'
 
           if (!navbarConfig.noNavbar) {
+            $wrapper.show()
             $navbar = angular.element('<bp-navbar>')
               .append(navbarConfig.$actions)
               .attr(navbarConfig.attrs || {})
+
+            if (angular.isDefined(navbarConfig.scope)) {
+              $compile($navbar)(navbarConfig.scope)
+            } else {
+              $compile($navbar)(scope)
+            }
+          } else {
+            $wrapper.hide()
           }
 
-          if (angular.isDefined(navbarConfig.scope)) {
-            $compile($navbar)(navbarConfig.scope)
-            delete ctrl.configs[toState.name]
-          } else {
-            $compile($navbar)(scope)
-          }
+          delete ctrl.configs[toState.name]
 
           if (isIos && isSlide && direction && angular.isElement($oldNavbar)) {
             var animation = 'bp-navbar-' + direction
-            $animate.enter($navbar.addClass(animation),$wrapper);
-            $animate.leave($oldNavbar.addClass(animation), function() {
-              $oldNavbar = $navbar.removeClass(animation)
+            $animate.enter($navbar.addClass(animation),$wrapper, null, function() {
+              $navbar.removeClass(animation)
             })
+            $animate.leave($oldNavbar.addClass(animation))
           } else {
             $wrapper.append($navbar)
             if (angular.isElement($oldNavbar)) {
               $oldNavbar.remove()
             }
-            $oldNavbar = $navbar
           }
+
+          $oldNavbar = $navbar
         })
       }
     }
