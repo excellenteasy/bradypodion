@@ -58,6 +58,7 @@ describe('navigation',function() {
       expect($navbar.children('bp-action').length).toBe(1)
       expect($navbar.scope()).toBe(scope2)
     })
+
     it('should remove old navbar', inject(function($timeout, bpConfig) {
       angular.element('body').append(element)
       scope.$broadcast('$stateChangeSuccess', fooState, null, barState)
@@ -70,6 +71,14 @@ describe('navigation',function() {
       bpConfig.setConfig({platform: 'android'})
       scope.$broadcast('$stateChangeSuccess', fooState, null, barState)
       expect($.contains(document, $navbar.get(0))).toBe(false)
+      bpConfig.setConfig({platform: 'ios'})
     }))
+
+    it('should hide wrapper if no navbar is present', function() {
+      attrs.bpNavbarNoNavbar = true
+      ctrl.registerNavbar(attrs, $actions, fooState, scope)
+      scope.$broadcast('$stateChangeSuccess', fooState, null, barState)
+      expect(element.children('ui-view-wrapper').is(':visible')).toBe(false)
+    })
   })
 })
