@@ -12,7 +12,7 @@ describe('navbarDirective', function() {
           up: 'second'
         }
       }).state('second', {
-        url: '/second'
+        url: '/first/second'
       }).state('third', {
         url: '/third',
         data: {
@@ -119,7 +119,7 @@ describe('navbarDirective', function() {
         expect($.contains(document, element4.next().get(0))).toBe(false)
       }))
 
-      it('should parse state params from up', inject(function($compile) {
+      it('should parse state up (w/ params)', inject(function($compile) {
         state.go('third')
         timeout.flush()
         var element5 = $compile(angular.element('<bp-navbar>'))(scope)
@@ -127,6 +127,14 @@ describe('navbarDirective', function() {
 
         expect($up.text()).toBe('First')
         expect($up.attr('bp-sref')).toBe('first({foo: 1})')
+        state.go('second')
+        timeout.flush()
+        var element6 = $compile(angular.element('<bp-navbar>'))(scope)
+        $up = element6.find('.bp-action-up')
+
+        expect($up.text()).toBe('First')
+        expect($up.attr('bp-sref')).toBe('first')
+
       }))
     })
   })
