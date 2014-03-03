@@ -1,4 +1,4 @@
-# Contributing to BradyPodion
+# Contributing to Bradypodion
 
 * Sign our [Contributor License Agreement](CONTRIBUTOR_LICENSE_AGREEMENTS.md).
 * Adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).

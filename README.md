@@ -1,4 +1,4 @@
-# [BradyPodion](http://bradypodion.io)
+# [Bradypodion](http://bradypodion.io)
 > Create [post-platform](http://bradypodion.io/#postplatform) mobile apps with ease
 
 [![Build Status](https://travis-ci.org/excellenteasy/bradypodion.png?branch=master)](https://travis-ci.org/excellenteasy/bradypodion)
@@ -26,7 +26,7 @@ See [Contributing](CONTRIBUTING.md)
 See [Changelog](CHANGELOG.md)
 
 ## License
-BradyPodion is [MIT](LICENSE) licensed.
+Bradypodion is [MIT](LICENSE) licensed.
 Copyright (c) 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
 
 ## Authors
@@ -34,6 +34,6 @@ Copyright (c) 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
 |---|---|
 | [Stephan Bönnemann](http://boennemann.me/) | David Pfahler |
 
-To get the latest BradyPodion news follow [@bradypodionjs](https://twitter.com/bradypodionjs) on Twitter.
+To get the latest Bradypodion news follow [@bradypodionjs](https://twitter.com/bradypodionjs) on Twitter.
 
 An [excellenteasy](https://excellenteasy.com) project.

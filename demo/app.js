@@ -10,7 +10,7 @@
       templateUrl: 'table.html',
       data: {
         transition: 'fade',
-        title: 'BradyPodion'
+        title: 'Bradypodion'
       }
     }).state('animations', {
       url: '/animations',
