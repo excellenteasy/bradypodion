@@ -22,29 +22,25 @@
       url: '/animations/cover',
       templateUrl: 'animations/transition.html',
       data: {
-        transition: 'cover',
-        up: 'animations'
+        transition: 'cover'
       }
     }).state('fade', {
       url: '/animations/fade',
       templateUrl: 'animations/transition.html',
       data: {
-        transition: 'fade',
-        up: 'animations'
+        transition: 'fade'
       }
     }).state('scale', {
       url: '/animations/scale',
       templateUrl: 'animations/transition.html',
       data: {
-        transition: 'scale',
-        up: 'animations'
+        transition: 'scale'
       }
     }).state('slide', {
       url: '/animations/slide',
       templateUrl: 'animations/transition.html',
       data: {
-        transition: 'slide',
-        up: 'animations'
+        transition: 'slide'
       }
     }).state('directives', {
       url: '/directives',
@@ -54,22 +50,13 @@
       }
     }).state('button', {
       url: '/directives/button',
-      templateUrl: 'directives/button.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/button.html'
     }).state('cell', {
       url: '/directives/cell',
-      templateUrl: 'directives/cell.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/cell.html'
     }).state('detail-disclosure', {
       url: '/directives/detail-disclosure',
-      templateUrl: 'directives/detail-disclosure.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/detail-disclosure.html'
     }).state('detail-disclosure-site', {
       url: '/directives/detail-disclosure/site',
       templateUrl: 'directives/detail-disclosure/site.html',
@@ -78,62 +65,39 @@
       }
     }).state('detail-disclosure-detail', {
       url: '/directives/detail-disclosure/detail',
-      templateUrl: 'directives/detail-disclosure/detail.html',
-      data: {
-        up: 'detail-disclosure'
-      }
+      templateUrl: 'directives/detail-disclosure/detail.html'
     }).state('icon', {
       url: '/directives/icon',
-      templateUrl: 'directives/icon.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/icon.html'
     }).state('iscroll', {
       url: '/directives/iscroll',
       templateUrl: 'directives/iscroll.html',
       controller: 'DemoDataCtrl',
       data: {
-        up: 'directives',
         title: 'iScroll'
       }
     }).state('iscroll-sticky', {
       url: '/directives/iscroll/sticky',
       templateUrl: 'directives/iscroll/sticky.html',
       data: {
-        up: 'iscroll',
         title: 'iScroll-sticky'
       }
     }).state('navbar', {
       url: '/directives/navbar',
-      templateUrl: 'directives/navbar.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/navbar.html'
     }).state('scroll', {
       url: '/directives/scroll',
       templateUrl: 'directives/scroll.html',
-      controller: 'DemoDataCtrl',
-      data: {
-        up: 'directives'
-      }
+      controller: 'DemoDataCtrl'
     }).state('scroll-sticky', {
       url: '/directives/scroll/sticky',
-      templateUrl: 'directives/scroll/sticky.html',
-      data: {
-        up: 'scroll'
-      }
+      templateUrl: 'directives/scroll/sticky.html'
     }).state('search', {
       url: '/directives/search',
-      templateUrl: 'directives/search.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/search.html'
     }).state('tabbar', {
       url: '/directives/tabbar',
-      templateUrl: 'directives/tabbar.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/tabbar.html'
     }).state('first', {
       parent: 'tabbar',
       url: '/directives/tabbar',
@@ -176,49 +140,28 @@
       }
     }).state('table-header', {
       url: '/directives/table-header',
-      templateUrl: 'directives/table-header.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/table-header.html'
     }).state('table', {
       url: '/directives/table',
-      templateUrl: 'directives/table.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/table.html'
     }).state('table-grouped', {
       url: '/directives/table/grouped',
       templateUrl: 'directives/table/grouped.html',
-      controller: 'DemoDataCtrl',
-      data: {
-        up: 'table'
-      }
+      controller: 'DemoDataCtrl'
     }).state('table-plain', {
       url: '/directives/table/plain',
       templateUrl: 'directives/table/plain.html',
-      controller: 'DemoDataCtrl',
-      data: {
-        up: 'table'
-      }
+      controller: 'DemoDataCtrl'
     }).state('table-section', {
       url: '/directives/table/section',
       templateUrl: 'directives/table/section.html',
-      controller: 'DemoDataCtrl',
-      data: {
-        up: 'table'
-      }
+      controller: 'DemoDataCtrl'
     }).state('tap', {
       url: '/directives/tap',
-      templateUrl: 'directives/tap.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/tap.html'
     }).state('toolbar', {
       url: '/directives/toolbar',
-      templateUrl: 'directives/toolbar.html',
-      data: {
-        up: 'directives'
-      }
+      templateUrl: 'directives/toolbar.html'
     });
   }).factory('dummyFriends', function() {
     return [
