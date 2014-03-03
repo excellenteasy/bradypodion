@@ -3,6 +3,7 @@
 
 [![Build Status](https://travis-ci.org/excellenteasy/bradypodion.png?branch=master)](https://travis-ci.org/excellenteasy/bradypodion)
 [![Coverage Status](https://coveralls.io/repos/excellenteasy/bradypodion/badge.png?branch=master)](https://coveralls.io/r/excellenteasy/bradypodion?branch=master)
+[![Code Climate](https://codeclimate.com/github/excellenteasy/bradypodion.png)](https://codeclimate.com/github/excellenteasy/bradypodion)
 [![Bower Dependency Status](https://www.versioneye.com/user/projects/5310e2a3ec137568d700024a/badge.png)](https://www.versioneye.com/user/projects/5310e2a3ec137568d700024a)
 [![npm devDependency Status](https://david-dm.org/excellenteasy/bradypodion/dev-status.png?theme=shields.io)](https://david-dm.org/excellenteasy/bradypodion#info=devDependencies)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
