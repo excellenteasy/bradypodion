@@ -2,6 +2,7 @@ angular.module('bp')
   .directive('bpNavbar', function(
     bpConfig,
     bpSref,
+    bpView,
     $timeout,
     $state,
     $compile) {
@@ -52,17 +53,25 @@ angular.module('bp')
 
           var $actions = clone.filter('bp-action')
 
-          if (angular.isObject(state.data) &&
-            angular.isString(state.data.up) &&
-            !angular.isDefined(attrs.bpNavbarNoUp)) {
+          var up
 
-            var ref = bpSref.parse(state.data.up)
+          if (angular.isObject(state.data) &&
+            angular.isString(state.data.up)) {
+            up = state.data.up
+          } else if (state.url) {
+            var urlSegments = bpView._getURLSegments(state)
+            up = urlSegments[urlSegments.length - 2]
+          }
+
+          if (up && !angular.isDefined(attrs.bpNavbarNoUp)) {
+
+            var ref = bpSref.parse(up)
             var upState = $state.get(ref.state)
             var upTitle = ctrl.getTitleFromState(upState)
             $arrow = angular.element('<bp-button-up>')
             $up = $compile(angular.element('<bp-action>')
               .addClass('bp-action-up')
-              .attr('bp-sref', state.data.up)
+              .attr('bp-sref', up)
               .text(upTitle))(scope)
           }
 
