@@ -276,4 +276,9 @@ module.exports = (grunt) ->
     'concat:banner'
   ]
 
+  grunt.registerTask 'docs', [
+    'clean:docs'
+    'ngdocs'
+  ]
+
   grunt.registerTask 'default', ['test']
