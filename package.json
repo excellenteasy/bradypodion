@@ -45,6 +45,7 @@
     "grunt-jscs-checker": "^0.4.0",
     "grunt-karma": "^0.6.2",
     "grunt-karma-coveralls": "^2.3.0",
+    "grunt-ngdocs": "^0.2.1",
     "grunt-ngmin": "^0.0.3",
     "grunt-shell": "^0.6.4",
     "karma": "^0.10.9",
