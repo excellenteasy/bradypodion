@@ -149,6 +149,25 @@ describe('viewService', function() {
     })
   })
 
+  describe('parseState', function() {
+    it('should parse state name', function() {
+      var ref = viewService.parseState('foo', scope)
+      expect(ref.state).toBe('foo')
+      ref = viewService.parseState('bar({bar: 1})', scope)
+      expect(ref.state).toBe('bar')
+    })
+
+    it('should parse state params', function() {
+      var ref = viewService.parseState('foo', scope)
+      expect(ref.params).toBe(null)
+      ref = viewService.parseState('bar({bar: 1})', scope)
+      expect(ref.params).toEqual({bar: 1})
+      scope.baz = {baz: 2}
+      ref = viewService.parseState('bar(baz)', scope)
+      expect(ref.params).toEqual({baz: 2})
+    })
+  })
+
   describe('_getURLSegments', function() {
     it('should correct array', function() {
       var fn = viewService._getURLSegments
