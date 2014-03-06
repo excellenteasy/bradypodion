@@ -3,59 +3,7 @@
 @name bp.bpView
 @description Service providing some helpers for views and states. Mainly used internally.
 */
-angular.module('bp').service('bpView', function($rootScope, bpConfig) {
-  function BpView() {
-    this.onViewContentLoaded  = angular.bind(this, this.onViewContentLoaded)
-    this.onStateChangeStart   = angular.bind(this, this.onStateChangeStart)
-  }
-
-  BpView.prototype.listen = function() {
-    $rootScope.$on('$stateChangeStart', this.onStateChangeStart)
-    $rootScope.$on('$viewContentLoaded', this.onViewContentLoaded)
-  }
-
-  BpView.prototype.onStateChangeStart = function(
-    event,
-    toState,
-    toParams,
-    fromState) {
-
-    var direction = toParams.direction ||
-      this.getDirection(fromState, toState)
-
-    var type = toParams.transition ||
-      this.getType(fromState, toState, direction)
-
-    this.setTransition(type, direction)
-  }
-
-  BpView.prototype.onViewContentLoaded = function() {
-    var $views = angular.element('[ui-view], ui-view')
-    if (this.transition != null) {
-      $views
-        .removeClass(this.lastTransition)
-        .addClass(this.transition)
-      this.lastTransition = this.transition
-    } else {
-      $views.removeClass(this.lastTransition)
-    }
-  }
-
-  /**
-  @ngdoc function
-  @name bp.bpView#setTransition
-  @description
-  @methodOf bp.bpView
-  @param {string} type The transition type (cover|scale|slide)
-  @param {string} direction The transition direction (normal|reverse)
-  */
-  BpView.prototype.setTransition = function(type, direction) {
-    if (type != null && direction != null) {
-      this.transition = type + '-' + direction
-    } else {
-      this.transition = null
-    }
-  }
+angular.module('bp').service('bpView', function($parse, bpConfig) {
 
   /**
   @ngdoc function
