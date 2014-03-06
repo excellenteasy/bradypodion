@@ -1,3 +1,13 @@
+/**
+@ngdoc service
+@name bp.BpTap
+@requires bp.bpConfig
+@param {scope} scope The scope object of the element.
+@param {element} element The element that should receive the `tap` event.
+@param {attrs=} attrs The element's attributes array as provided by the link function.
+@param {object=} options An optional options hash.
+@description BpTap is a factory that is used internally to fire a `tap` event without 300ms click delay on an element.
+*/
 angular.module('bp').factory('BpTap', function(bpConfig) {
   function BpTap(scope, element, attrs, customOptions) {
     this.element      = element

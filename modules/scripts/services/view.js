@@ -1,3 +1,8 @@
+/**
+@ngdoc service
+@name bp.bpView
+@description Service providing some helpers for views and states. Mainly used internally.
+*/
 angular.module('bp').service('bpView', function($rootScope, bpConfig) {
   function BpView() {
     this.onViewContentLoaded  = angular.bind(this, this.onViewContentLoaded)
@@ -36,6 +41,14 @@ angular.module('bp').service('bpView', function($rootScope, bpConfig) {
     }
   }
 
+  /**
+  @ngdoc function
+  @name bp.bpView#setTransition
+  @description
+  @methodOf bp.bpView
+  @param {string} type The transition type (cover|scale|slide)
+  @param {string} direction The transition direction (normal|reverse)
+  */
   BpView.prototype.setTransition = function(type, direction) {
     if (type != null && direction != null) {
       this.transition = type + '-' + direction
@@ -44,6 +57,15 @@ angular.module('bp').service('bpView', function($rootScope, bpConfig) {
     }
   }
 
+  /**
+  @ngdoc function
+  @name bp.bpView#getDirection
+  @description Determines the direction between two states based on URL conventions.
+  @methodOf bp.bpView
+  @param {string} from A state object
+  @param {string} to A state object
+  @returns {string | null} direction The transition direction (normal|reverse)
+  */
   BpView.prototype.getDirection = function(from, to) {
     if (from.url === '^') {
       return null
@@ -73,6 +95,16 @@ angular.module('bp').service('bpView', function($rootScope, bpConfig) {
     return null
   }
 
+  /**
+  @ngdoc function
+  @name bp.bpView#getType
+  @description Determines the type of a transition.
+  @methodOf bp.bpView
+  @param {string} from A state object
+  @param {string} to A state object
+  @param {string} direction The transition direction (normal|reverse)
+  @returns {string} type The transition type (cover|scale|slide)
+  */
   BpView.prototype.getType = function(from, to, direction) {
     var typeFromState = function(state) {
       var data = state.data

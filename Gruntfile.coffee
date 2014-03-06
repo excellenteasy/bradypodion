@@ -10,6 +10,7 @@ module.exports = (grunt) ->
       app: 'modules'
       dist: 'dist'
       demo: 'demo'
+      docs: 'docs'
       test: 'test'
       tmp: '.tmp'
       platforms: ['android', 'ios']
@@ -136,8 +137,24 @@ module.exports = (grunt) ->
             '!<%=bp.dist%>/.git*'
           ]
         ]
-
+      docs: '<%=bp.docs%>/build'
       server: '<%=bp.tmp%>/test'
+
+    ngdocs:
+      options:
+        dest: '<%=bp.docs%>/build'
+        title: 'Bradypodion'
+        titleLink: 'http://bradypodion.io/'
+        startPage: 'api'
+        navTemplate: '<%=bp.docs%>/navigation.html'
+        html5Mode: off
+        bestMatch: on
+      guides:
+        src: ['<%=bp.docs%>/content/guides/**/*.ngdoc']
+        title: 'Guides'
+      api:
+        src: ['<%=bp.docs%>/content/api/**/*.ngdoc', '<%=bp.app%>/scripts/**/*.js']
+        title: 'Documentation'
 
     concurrent:
       build: [
@@ -257,6 +274,11 @@ module.exports = (grunt) ->
     'concurrent'
     'ngmin'
     'concat:banner'
+  ]
+
+  grunt.registerTask 'docs', [
+    'clean:docs'
+    'ngdocs'
   ]
 
   grunt.registerTask 'default', ['test']
