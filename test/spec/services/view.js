@@ -44,60 +44,6 @@ describe('viewService', function() {
     up = state.get('up')
   }))
 
-  describe('listen', function() {
-    it('should listen to events', function() {
-      spyOn(viewService, 'onStateChangeStart')
-      spyOn(viewService, 'onViewContentLoaded')
-      viewService.listen()
-      scope.$emit('$stateChangeStart')
-      scope.$emit('$viewContentLoaded')
-      expect(viewService.onStateChangeStart).toHaveBeenCalled()
-      expect(viewService.onViewContentLoaded).toHaveBeenCalled()
-    })
-  })
-
-  describe('onStateChangeStart', function() {
-    it('should set transition', function() {
-      viewService.onStateChangeStart({}, {}, {
-        direction: 'foo',
-        transition: 'bar'
-      })
-      expect(viewService.transition).toBe('bar-foo')
-      viewService.onStateChangeStart({}, second, {}, home)
-      expect(viewService.transition).toBe('slide-normal')
-    })
-  })
-
-  describe('onViewContentLoaded', function() {
-    it('should add and remove classes', function() {
-      var $views = angular.element('<div ui-view>')
-      angular.element('body').append($views)
-      scope.$apply()
-      viewService.transition = 'foo'
-      viewService.onViewContentLoaded()
-      expect($views.hasClass('foo')).toBe(true)
-      viewService.transition = 'bar'
-      viewService.onViewContentLoaded()
-      expect($views.hasClass('foo')).toBe(false)
-      expect($views.hasClass('bar')).toBe(true)
-      viewService.transition = null
-      viewService.onViewContentLoaded()
-      expect($views.hasClass('foo')).toBe(false)
-      expect($views.hasClass('bar')).toBe(false)
-    })
-  })
-
-  describe('setTransition', function() {
-    it('should set transition', function() {
-      viewService.setTransition('foo', 'bar')
-      expect(viewService.transition).toBe('foo-bar')
-      viewService.setTransition(null, 'bar')
-      expect(viewService.transition).toBe(null)
-      viewService.setTransition('foo', null)
-      expect(viewService.transition).toBe(null)
-    })
-  })
-
   describe('getDirection', function() {
     it('should detect "normal"', function() {
       expect(viewService.getDirection(home, second)).toBe('normal')
