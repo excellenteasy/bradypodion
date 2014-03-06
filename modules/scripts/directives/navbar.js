@@ -1,7 +1,6 @@
 angular.module('bp')
   .directive('bpNavbar', function(
     bpConfig,
-    bpSref,
     bpView,
     $timeout,
     $state,
@@ -65,7 +64,7 @@ angular.module('bp')
 
           if (up && !angular.isDefined(attrs.bpNavbarNoUp)) {
 
-            var ref = bpSref.parse(up)
+            var ref = bpView.parseState(up)
             var upState = $state.get(ref.state)
             var upTitle = ctrl.getTitleFromState(upState)
             $arrow = angular.element('<bp-button-up>')

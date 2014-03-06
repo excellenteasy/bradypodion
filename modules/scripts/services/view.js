@@ -66,7 +66,7 @@ angular.module('bp').service('bpView', function($rootScope, bpConfig) {
   @param {string} to A state object
   @returns {string | null} direction The transition direction (normal|reverse)
   */
-  BpView.prototype.getDirection = function(from, to) {
+  this.getDirection = function(from, to) {
     if (from.url === '^') {
       return null
     }
@@ -105,7 +105,7 @@ angular.module('bp').service('bpView', function($rootScope, bpConfig) {
   @param {string} direction The transition direction (normal|reverse)
   @returns {string} type The transition type (cover|scale|slide)
   */
-  BpView.prototype.getType = function(from, to, direction) {
+  this.getType = function(from, to, direction) {
     var typeFromState = function(state) {
       var data = state.data
       var hasData = angular.isObject(data)
@@ -126,11 +126,32 @@ angular.module('bp').service('bpView', function($rootScope, bpConfig) {
     }
   }
 
-  BpView.prototype._getURLSegments = function(state) {
+  /**
+  @ngdoc function
+  @name bp.bpView#parseState
+  @description
+  ```javascript
+  bpView.parse('customer({id: id})', scope)
+  // {state: 'customer', params: {id: 5}}
+  ```
+  @methodOf bp.bpView
+  @param {string} ref The state reference with optional parameters.
+  @param {scope} scope The scope the params should be parsed against.
+  @returns {object} Contains parsed `state` and `params`.
+  */
+  this.parseState = function(ref, scope) {
+    var parsed = ref.replace(/\n/g, ' ').match(/^([^(]+?)\s*(\((.*)\))?$/)
+    return {
+      state: parsed[1],
+      params: parsed[3] ? $parse(parsed[3])(scope) : null
+    }
+  }
+
+  this._getURLSegments = function(state) {
     return (state.url || '')
       .replace(/\/$/, '')
       .split('/')
   }
 
-  return new BpView()
+  return this
 })
