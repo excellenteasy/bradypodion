@@ -2,6 +2,7 @@ describe('iscrollDirective', function() {
   var element, scope
 
   beforeEach(module('bp'))
+  beforeEach(module('bp.iscroll'))
 
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new()
