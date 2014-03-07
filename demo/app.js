@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('bradypodionApp', ['bp']).config(function(bpConfigProvider, $urlRouterProvider, $stateProvider) {
+  angular.module('bradypodionApp', ['bp', 'bp.iscroll']).config(function(bpConfigProvider, $urlRouterProvider, $stateProvider) {
     bpConfigProvider.setConfig({
       platform: localStorage.getItem('platform') || 'ios'
     });
