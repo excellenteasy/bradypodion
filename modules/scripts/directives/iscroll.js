@@ -1,4 +1,14 @@
-angular.module('bp').directive('bpIscroll', function(bpConfig, $timeout) {
+/**
+@ngdoc overview
+@name bp.iscroll
+@description
+# The `bp.iscroll` sub-module
+*/
+/**
+@ngdoc directive
+@name bp.iscroll.directive:bpIscroll
+*/
+angular.module('bp.iscroll', ['bp']).directive('bpIscroll', function(bpConfig, $timeout) {
   return {
     transclude: true,
     template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
