@@ -1,5 +1,16 @@
 /**
 @ngdoc overview
+@name bp.util
+@description
+# The `bp.util` sub-module
+
+This module is a dependency of other modules. Do not include this module as a dependency
+in your angular app (use {@link bp} module instead).
+*/
+angular.module('bp.util', []);
+
+/**
+@ngdoc overview
 @name bp
 @description
 # The `bp` module
@@ -9,4 +20,4 @@ It requires `ngAnimate` and `ui.router`. Use it with your app likes this:
 angular.module('yourApp', ['bp'])
 ```
 */
-angular.module('bp', ['ngAnimate', 'ui.router'])
+angular.module('bp', ['bp.util', 'ngAnimate', 'ui.router'])

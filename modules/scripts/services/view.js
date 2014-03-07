@@ -1,15 +1,15 @@
 /**
 @ngdoc service
-@name bp.bpView
+@name bp.util.bpView
 @description Service providing some helpers for views and states. Mainly used internally.
 */
-angular.module('bp').service('bpView', function($parse, bpConfig) {
+angular.module('bp.util').service('bpView', function($parse, bpConfig) {
 
   /**
   @ngdoc function
-  @name bp.bpView#getDirection
+  @name bp.util.bpView#getDirection
   @description Determines the direction between two states based on URL conventions.
-  @methodOf bp.bpView
+  @methodOf bp.util.bpView
   @param {string} from A state object
   @param {string} to A state object
   @returns {string | null} direction The transition direction (normal|reverse)
@@ -45,9 +45,9 @@ angular.module('bp').service('bpView', function($parse, bpConfig) {
 
   /**
   @ngdoc function
-  @name bp.bpView#getType
+  @name bp.util.bpView#getType
   @description Determines the type of a transition.
-  @methodOf bp.bpView
+  @methodOf bp.util.bpView
   @param {string} from A state object
   @param {string} to A state object
   @param {string} direction The transition direction (normal|reverse)
@@ -76,13 +76,13 @@ angular.module('bp').service('bpView', function($parse, bpConfig) {
 
   /**
   @ngdoc function
-  @name bp.bpView#parseState
+  @name bp.util.bpView#parseState
   @description
   ```javascript
   bpView.parse('customer({id: id})', scope)
   // {state: 'customer', params: {id: 5}}
   ```
-  @methodOf bp.bpView
+  @methodOf bp.util.bpView
   @param {string} ref The state reference with optional parameters.
   @param {scope} scope The scope the params should be parsed against.
   @returns {object} Contains parsed `state` and `params`.
