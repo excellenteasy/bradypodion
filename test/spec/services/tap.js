@@ -3,10 +3,16 @@ describe('tapService', function() {
 
   beforeEach(module('bp'))
 
-  beforeEach(inject(function($rootScope, $compile, BpTap) {
+  beforeEach(module(function(bpTapProvider) {
+    bpTapProvider.setConfig({
+      custom: true
+    })
+  }))
+
+  beforeEach(inject(function($rootScope, $compile, bpTap) {
     scope = $rootScope.$new()
     element = $compile('<div>A</div>')(scope)
-    tap = new BpTap(scope, element)
+    tap = bpTap(element)
     scope.$apply()
   }))
 
@@ -20,10 +26,9 @@ describe('tapService', function() {
       expect(events.touchcancel != null).toBe(true)
     })
 
-    it('should unbind after destroy', function() {
-      var events
-      events = $._data(element.get(0)).events
-      scope.$destroy()
+    it('should unbind', function() {
+      var events = $._data(element.get(0)).events
+      tap.disable()
       expect(events.click != null).toBe(false)
       expect(events.touchstart != null).toBe(false)
       expect(events.touchmove != null).toBe(false)
@@ -120,7 +125,7 @@ describe('tapService', function() {
   })
 
   describe('privates', function() {
-    it('should coordinate from event', function() {
+    it('should get coordinate from event', function() {
       expect(tap._getCoordinate({})).toBe(0)
       var e = {
         originalEvent: {
@@ -148,42 +153,37 @@ describe('tapService', function() {
       expect(tap._getCoordinate(e)).toBe(4)
     })
 
-    it('should determine options', inject(function(BpTap) {
-      tap._setOptions()
-      expect(tap.options).toEqual({
-        activeClass: 'bp-active',
-        allowClick: false,
-        boundMargin: 50,
-        noScroll: false
-      })
-      tap._setOptions({}, {
-        foo: true
-      })
+    it('should determine options', inject(function(bpTap) {
       expect(tap.options).toEqual({
         activeClass: 'bp-active',
         allowClick: false,
         boundMargin: 50,
         noScroll: false,
-        foo: true
+        custom: true
       })
-      tap._setOptions({
+
+      tap._setConfig({
         bpAllowClick: true
       })
+
       expect(tap.options).toEqual({
         activeClass: 'bp-active',
         allowClick: true,
         boundMargin: 50,
-        noScroll: false
+        noScroll: false,
+        custom: true
       })
-      var parents2 = angular.element('<bp-navbar bp-iscroll> <bp-action></bp-action> </navbar>')
+
+      var parents2 = angular.element('<bp-navbar bp-iscroll> <bp-action></bp-action> </bp-navbar>')
       var element2 = parents2.find('bp-action')
-      var tap2 = new BpTap(scope, element2)
-      tap2._setOptions()
+      var tap2 = bpTap(element2)
+
       expect(tap2.options).toEqual({
         activeClass: 'bp-active',
         allowClick: false,
         boundMargin: 5,
-        noScroll: true
+        noScroll: true,
+        custom: true
       })
     }))
   })
