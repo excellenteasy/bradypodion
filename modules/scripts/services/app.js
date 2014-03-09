@@ -12,15 +12,10 @@ angular.module('bp.util').provider('bpApp', function() {
   @name bp.util.bpAppProvider#setConfig
   @methodOf bp.util.bpAppProvider
   @param {object} config custom configuration
-  @param {bool=} overwrite `true` overwrites (rather than extends) the config.
-  @description Allows to modify Bradypodion configuration.
+  @description Allows to modify and extend Bradypodion configuration.
   */
-  this.setConfig = function(inConfig, overwrite) {
-    if (overwrite && inConfig.platform) {
-      config = inConfig
-    } else {
-      config = angular.extend(config, inConfig)
-    }
+  this.setConfig = function(inConfig) {
+    config = angular.extend(config, inConfig)
   }
 
   /**

@@ -1,6 +1,6 @@
-angular.module('bp').directive('bpTap', function($parse, BpTap) {
+angular.module('bp').directive('bpTap', function($parse, bpTap) {
   return function(scope, element, attrs) {
-    new BpTap(scope, element, attrs)
+    var tap = bpTap(element, attrs)
     element.bind('tap', function(e, touch) {
       scope.$apply($parse(attrs.bpTap), {
         $event: e,
@@ -9,7 +9,7 @@ angular.module('bp').directive('bpTap', function($parse, BpTap) {
       return false
     })
     scope.$on('$destroy', function() {
-      element.unbind('tap')
+      tap.disable()
     })
   }
 })

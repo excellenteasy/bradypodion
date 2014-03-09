@@ -1,151 +1,169 @@
 /**
-@ngdoc service
-@name bp.BpTap
-@requires bp.util.bpApp
-@param {scope} scope The scope object of the element.
-@param {element} element The element that should receive the `tap` event.
-@param {attrs=} attrs The element's attributes array as provided by the link function.
-@param {object=} options An optional options hash.
-@description BpTap is a factory that is used internally to fire a `tap` event without 300ms click delay on an element.
+@ngdoc object
+@name bp.util.bpTapProvider
 */
-angular.module('bp').factory('BpTap', function(bpApp) {
-  function BpTap(scope, element, attrs, customOptions) {
-    this.element      = element
-    this.touch        = {}
-    this.onTouchend   = angular.bind(this, this.onTouchend)
-    this.onTouchmove  = angular.bind(this, this.onTouchmove)
-    this.onTouchstart = angular.bind(this, this.onTouchstart)
-
-    element.bind('touchstart', this.onTouchstart)
-    element.bind('touchmove', this.onTouchmove)
-    element.bind('touchend touchcancel', this.onTouchend)
-
-    this._setOptions(attrs, customOptions)
-
-    if ((!this.options.allowClick) && 'ontouchstart' in window) {
-      this.element.bind('click', this.onClick)
-    }
-
-    scope.$on('$destroy', function() {
-      element.unbind('touchstart touchmove touchend touchcancel click')
-    })
+angular.module('bp').provider('bpTap', function() {
+  var globalConfig = {
+    activeClass: 'bp-active',
+    allowClick: false,
+    boundMargin: 50,
+    noScroll: false
   }
 
-  BpTap.prototype.onClick = function(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    if (angular.isFunction(e.stopImmediatePropagation)) {
-      e.stopImmediatePropagation()
-    }
+  /**
+  @ngdoc function
+  @name bp.util.bpTapProvider#setConfig
+  @methodOf bp.util.bpTapProvider
+  @param {object} config custom configuration
+  @description Allows to modify and extend Tap configuration globally, so it applies throughout the framework.
+  */
+  this.setConfig = function(inConfig) {
+    globalConfig = angular.extend(globalConfig, inConfig)
   }
 
-  BpTap.prototype.onTouchstart = function(e) {
-    var $t
-    this.touch.x        = this._getCoordinate(e, true)
-    this.touch.y        = this._getCoordinate(e, false)
-    this.touch.ongoing  = true
-    $t                  = angular.element(e.target)
+  /**
+  @ngdoc function
+  @name bp.util.bpTap
+  @param {element} element The element that should receive the `tap` event.
+  @param {attrs=} attrs The element's attributes array as provided by the link function.
+  @return {object} A `tap` object containing various information and references. Use `tap.disable()` on `$destroy` to prevent memory leaks.
+  @description bpTap is a service that is used to fire a `tap` event without 300ms click delay on an element.
+  */
+  function bpTap(element, attrs) {
+    var config = angular.copy(globalConfig)
+    var touch = {}
 
-    if ((($t.attr('bp-tap') != null) ||
-      ($t.attr('bp-sref') != null)) &&
-      this.element.get(0) !== e.target) {
+    var _getCoordinate = function(e, isX) {
+      var axis = isX ? 'pageX' : 'pageY'
 
-      this.touch.nestedTap = true
-    } else {
-      this.element.addClass(this.options.activeClass)
-    }
-  }
-
-  BpTap.prototype.onTouchmove = function(e) {
-    var x, y
-    x = this._getCoordinate(e, true)
-    y = this._getCoordinate(e, false)
-
-    if ((this.options.boundMargin != null) &&
-      (Math.abs(this.touch.y - y) < this.options.boundMargin &&
-        Math.abs(this.touch.x - x) < this.options.boundMargin)) {
-
-      if (!this.touch.nestedTap) {
-        this.element.addClass(this.options.activeClass)
+      if (angular.isDefined(e.originalEvent)) {
+        e = e.originalEvent
       }
 
-      this.touch.ongoing = true
+      if (angular.isDefined(e[axis])) {
+        return e[axis]
+      } else if (angular.isObject(e.changedTouches) &&
+        angular.isObject(e.changedTouches[0])) {
 
-      if (this.options.noScroll) {
-        e.preventDefault()
-      }
-    } else {
-      this.touch.ongoing = false
-      this.element.removeClass(this.options.activeClass)
-    }
-  }
-
-  BpTap.prototype.onTouchend = function(e) {
-    if (this.touch.ongoing && !this.touch.nestedTap && e.type === 'touchend') {
-      this.element.trigger('tap', this.touch)
-    }
-    this.touch = {}
-    this.element.removeClass(this.options.activeClass)
-  }
-
-  BpTap.prototype._setOptions = function(attrs, customOptions) {
-    if (attrs == null) {
-      attrs = {}
-    }
-    if (customOptions == null) {
-      customOptions = {}
-    }
-
-    var options = angular.extend({
-      activeClass: 'bp-active',
-      allowClick: false,
-      boundMargin: 50,
-      noScroll: false
-    }, bpApp.tap || {})
-
-    if ((this.element.is('bp-action') &&
-      this.element.parent('bp-navbar')) ||
-      this.element.is('bp-detail-disclosure')) {
-
-      this.element.attr('bp-no-scroll', '')
-      options.noScroll = true
-    }
-
-    if (this.element.parents('[bp-iscroll]').length) {
-      this.element.attr('bp-bound-margin', '5')
-      options.boundMargin = 5
-    }
-
-    angular.extend(options, customOptions)
-
-    for (var key in options) {
-      var attr = attrs['bp' + (key.charAt(0).toUpperCase()) + (key.slice(1))]
-      if (attr != null) {
-        options[key] = attr === '' ? true : attr
+        return e.changedTouches[0][axis]
+      } else {
+        return 0
       }
     }
 
-    this.options = options
-  }
-
-  BpTap.prototype._getCoordinate = function(e, isX) {
-    var axis
-    axis = isX ? 'pageX' : 'pageY'
-
-    if (e.originalEvent != null) {
-      e = e.originalEvent
+    var onClick = function(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      if (angular.isFunction(e.stopImmediatePropagation)) {
+        e.stopImmediatePropagation()
+      }
     }
 
-    if (e[axis] != null) {
-      return e[axis]
-    } else if (angular.isObject(e.changedTouches) &&
-      angular.isObject(e.changedTouches[0])) {
+    var onTouchstart = function(e) {
+      var $target = angular.element(e.target)
+      touch.x = _getCoordinate(e, true)
+      touch.y = _getCoordinate(e, false)
+      touch.ongoing = true
 
-      return e.changedTouches[0][axis]
-    } else {
-      return 0
+      if ((angular.isDefined($target.attr('bp-tap')) || angular.isDefined($target.attr('bp-sref'))) &&
+        element.get(0) !== e.target) {
+
+        touch.nestedTap = true
+      } else {
+        element.addClass(config.activeClass)
+      }
+    }
+
+    var onTouchmove = function(e) {
+      var x = _getCoordinate(e, true)
+      var y = _getCoordinate(e, false)
+
+      if ((config.boundMargin != null) &&
+        (Math.abs(touch.y - y) < config.boundMargin &&
+          Math.abs(touch.x - x) < config.boundMargin)) {
+
+        if (!touch.nestedTap) {
+          element.addClass(config.activeClass)
+        }
+
+        touch.ongoing = true
+
+        if (config.noScroll) {
+          e.preventDefault()
+        }
+      } else {
+        touch.ongoing = false
+        element.removeClass(config.activeClass)
+      }
+    }
+
+    var onTouchend = function(e) {
+      if (touch.ongoing && !touch.nestedTap && e.type === 'touchend') {
+        element.trigger('tap', touch)
+      }
+      element.removeClass(config.activeClass)
+      delete touch.x
+      delete touch.y
+      delete touch.ongoing
+      delete touch.nestedTap
+    }
+
+    var disable = function() {
+      element.unbind('tap touchstart touchmove touchend touchcancel click')
+    }
+
+    var _setConfig = function(attrs) {
+      var attrConfig = {}
+
+      if ((element.is('bp-action') &&
+        element.parent('bp-navbar')) ||
+        element.is('bp-detail-disclosure')) {
+
+        element.attr('bp-no-scroll', '')
+        attrConfig.noScroll = true
+      }
+
+      if (element.parents('[bp-iscroll]').length) {
+        element.attr('bp-bound-margin', '5')
+        attrConfig.boundMargin = 5
+      }
+
+      if (angular.isObject(attrs)) {
+        for (var key in config) {
+          var attr = attrs['bp' + (key.charAt(0).toUpperCase()) + (key.slice(1))]
+          if (angular.isDefined(attr)) {
+            attrConfig[key] = attr === '' ? true : attr
+          }
+        }
+      }
+
+      angular.extend(config, attrConfig)
+    }
+
+    element.bind('touchstart', onTouchstart)
+    element.bind('touchmove', onTouchmove)
+    element.bind('touchend touchcancel', onTouchend)
+
+    _setConfig(attrs)
+
+    if ((!config.allowClick) && 'ontouchstart' in window) {
+      element.bind('click', onClick)
+    }
+
+    return {
+      touch: touch,
+      options: config,
+      disable: disable,
+      onClick: onClick,
+      onTouchstart: onTouchstart,
+      onTouchmove: onTouchmove,
+      onTouchend: onTouchend,
+      _getCoordinate: _getCoordinate,
+      _setConfig: _setConfig
     }
   }
 
-  return BpTap
+  this.$get = function() {
+    return bpTap
+  }
 })

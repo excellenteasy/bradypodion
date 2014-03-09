@@ -1,7 +1,7 @@
 angular.module('bp').directive('bpActionOverflow', function(
   $window,
   bpApp,
-  BpTap) {
+  bpTap) {
 
   return {
     restrict: 'E',
@@ -26,7 +26,7 @@ angular.module('bp').directive('bpActionOverflow', function(
             'aria-has-popup': 'true'
           })
 
-          new BpTap(scope, element, attrs)
+          var tap = bpTap(element, attrs)
           var open = false
 
           transcludeFn(scope, function(clone) {
@@ -65,7 +65,7 @@ angular.module('bp').directive('bpActionOverflow', function(
               }
             })
             scope.$on('$destroy', function() {
-              element.unbind('tap')
+              tap.disable()
               $actions.unbind('touchstart')
               $$window.unbind('touchstart')
             })

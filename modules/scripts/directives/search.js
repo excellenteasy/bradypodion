@@ -2,7 +2,7 @@ angular.module('bp').directive('bpSearch', function(
   $compile,
   $timeout,
   $window,
-  BpTap,
+  bpTap,
   bpApp) {
 
   return {
@@ -43,9 +43,9 @@ angular.module('bp').directive('bpSearch', function(
       }
 
       if (ios) {
-        new BpTap(childScope, $cancel, {})
+        var cancelTap = bpTap($cancel)
       }
-      new BpTap(childScope, $tapLayer, {})
+      var tap = bpTap($tapLayer)
 
       element
         .attr('role', 'search')
@@ -119,10 +119,10 @@ angular.module('bp').directive('bpSearch', function(
         childScope.$destroy()
         if (ios) {
           angular.element($window).unbind('resize orientationchange')
-          $cancel.unbind('tap')
+          cancelTap.disable()
         }
         $search.unbind('blur')
-        $tapLayer.unbind('tap click touchstart touchmove touchend')
+        tap.disable()
       })
     }
   }
