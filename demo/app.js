@@ -1,7 +1,7 @@
 (function() {
   'use strict';
-  angular.module('bradypodionApp', ['bp', 'bp.iscroll']).config(function(bpConfigProvider, $urlRouterProvider, $stateProvider) {
-    bpConfigProvider.setConfig({
+  angular.module('bradypodionApp', ['bp', 'bp.iscroll']).config(function(bpAppProvider, $urlRouterProvider, $stateProvider) {
+    bpAppProvider.setConfig({
       platform: localStorage.getItem('platform') || 'ios'
     });
     $urlRouterProvider.otherwise('/');
@@ -182,20 +182,20 @@
         phone: '555-8765'
       }
     ];
-  }).directive('switchTheme', function(bpConfig) {
+  }).directive('switchTheme', function(bpApp) {
     return function(scope, element, attrs) {
       var platforms;
       platforms = ['ios', 'android'];
-      element.addClass(bpConfig.platform === 'ios' ? 'fa-android' : 'fa-apple');
+      element.addClass(bpApp.platform === 'ios' ? 'fa-android' : 'fa-apple');
       scope.toggleTheme = function(e) {
         var index;
-        index = platforms.indexOf(bpConfig.platform);
-        bpConfig.platform = platforms[++index % 2];
-        localStorage.setItem('platform', bpConfig.platform);
+        index = platforms.indexOf(bpApp.platform);
+        bpApp.platform = platforms[++index % 2];
+        localStorage.setItem('platform', bpApp.platform);
         location.reload();
       };
     };
-  }).directive('demoTapped', function(bpConfig) {
+  }).directive('demoTapped', function(bpApp) {
     return function(scope, element, attrs) {
       scope.tapped = function() {
         scope.random = Math.floor(Math.random() * 100);
