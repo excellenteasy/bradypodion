@@ -2,8 +2,8 @@ describe('searchDirective', function() {
   describe('android', function() {
     var $placeholder, $search, $tapLayer, children, element, scope
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'android'
       })
 
@@ -71,8 +71,8 @@ describe('searchDirective', function() {
   describe('ios', function() {
     var $bgLeft, $bgRight, $cancel, $placeholder, $search, $tapLayer, children, element, scope
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'ios'
       })
     }))

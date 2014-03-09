@@ -20,8 +20,8 @@ describe('navigation',function() {
     url: '/foourl/barurl'
   }
 
-  beforeEach(module('bp', function(bpConfigProvider) {
-    bpConfigProvider.setConfig({
+  beforeEach(module('bp', function(bpAppProvider) {
+    bpAppProvider.setConfig({
       platform: 'ios'
     })
   }))
@@ -59,7 +59,7 @@ describe('navigation',function() {
       expect($navbar.scope()).toBe(scope2)
     })
 
-    it('should remove old navbar', inject(function($timeout, bpConfig) {
+    it('should remove old navbar', inject(function($timeout, bpApp) {
       angular.element('body').append(element)
       scope.$broadcast('$stateChangeSuccess', fooState, null, barState)
       var $navbar = element.children('bp-navbar-wrapper').children()
@@ -68,10 +68,10 @@ describe('navigation',function() {
       $timeout.flush()
       expect($.contains(document, $navbar.get(0))).toBe(false)
       $navbar = element.children('bp-navbar-wrapper').children()
-      bpConfig.setConfig({platform: 'android'})
+      bpApp.platform = 'android'
       scope.$broadcast('$stateChangeSuccess', fooState, null, barState)
       expect($.contains(document, $navbar.get(0))).toBe(false)
-      bpConfig.setConfig({platform: 'ios'})
+      bpApp.platform = 'ios'
     }))
 
     it('should hide wrapper if no navbar is present', function() {

@@ -3,8 +3,8 @@ describe('appDirective', function() {
 
   beforeEach(module('bp'))
 
-  beforeEach(inject(function($rootScope, $compile, bpConfig) {
-    config = bpConfig
+  beforeEach(inject(function($rootScope, $compile, bpApp) {
+    config = bpApp
     scope = $rootScope.$new()
     element = $compile('<bp-app></bp-app>')(scope)
     ctrl = element.controller('bpApp')

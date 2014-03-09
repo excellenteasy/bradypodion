@@ -2,8 +2,8 @@ describe('action overflow', function() {
   describe('android', function() {
     var element, scope, ctrl
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'android'
       })
     }))
@@ -93,14 +93,14 @@ describe('action overflow', function() {
   describe('ios', function() {
     var config, element, scope
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'ios'
       })
     }))
 
-    beforeEach(inject(function($rootScope, $compile, bpConfig) {
-      config = bpConfig
+    beforeEach(inject(function($rootScope, $compile, bpApp) {
+      config = bpApp
       scope = $rootScope.$new()
       element = $compile('<bp-action-overflow></bp-action-overflow>')(scope)
       scope.$apply()

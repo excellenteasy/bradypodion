@@ -2,14 +2,14 @@ describe('detailDisclosure', function() {
   describe('on android', function() {
     var config, element, scope
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'android'
       })
     }))
 
-    beforeEach(inject(function($rootScope, $compile, bpConfig) {
-      config = bpConfig
+    beforeEach(inject(function($rootScope, $compile, bpApp) {
+      config = bpApp
       scope = $rootScope.$new()
       element = $compile('<bp-detail-disclosure></bp-detail-disclosure>')(scope)
       scope.$apply()
@@ -23,8 +23,8 @@ describe('detailDisclosure', function() {
   describe('on ios and ios7', function() {
     var element, parent, scope
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'ios'
       })
     }))

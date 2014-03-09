@@ -141,8 +141,8 @@ describe('navbarDirective', function() {
   describe('android', function() {
     var compile, element, scope, state, timeout
 
-    beforeEach(module('bp', function(bpConfigProvider) {
-      bpConfigProvider.setConfig({
+    beforeEach(module('bp', function(bpAppProvider) {
+      bpAppProvider.setConfig({
         platform: 'android'
       })
     }))
