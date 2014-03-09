@@ -1,6 +1,6 @@
 angular.module('bp').directive('bpActionOverflow', function(
   $window,
-  bpConfig,
+  bpApp,
   BpTap) {
 
   return {
@@ -18,7 +18,7 @@ angular.module('bp').directive('bpActionOverflow', function(
     },
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs, ctrl) {
-        if (bpConfig.platform === 'ios') {
+        if (bpApp.platform === 'ios') {
           element.attr('aria-hidden', 'true')
         } else {
           element.attr({

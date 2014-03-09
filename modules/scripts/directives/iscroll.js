@@ -8,7 +8,7 @@
 @ngdoc directive
 @name bp.iscroll.directive:bpIscroll
 */
-angular.module('bp.iscroll', ['bp']).directive('bpIscroll', function(bpConfig, $timeout) {
+angular.module('bp.iscroll', ['bp']).directive('bpIscroll', function(bpApp, $timeout) {
   return {
     transclude: true,
     template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
@@ -32,12 +32,12 @@ angular.module('bp.iscroll', ['bp']).directive('bpIscroll', function(bpConfig, $
       options = angular.extend({
         probeType: 3,
         scrollbars: true
-      }, bpConfig.iscroll)
+      }, bpApp.iscroll)
       $timeout(function() {
         var iscs
         var isc = new IScroll(element.get(0), options)
         if ((attrs.bpIscrollSticky != null) &&
-          bpConfig.platform !== 'android') {
+          bpApp.platform !== 'android') {
 
           var selector = attrs.bpIscrollSticky || 'bp-table-header'
           iscs = new IScrollSticky(isc, selector)

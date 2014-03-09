@@ -1,6 +1,6 @@
 angular.module('bp')
   .directive('bpNavbar', function(
-    bpConfig,
+    bpApp,
     bpView,
     $timeout,
     $state,
@@ -30,7 +30,7 @@ angular.module('bp')
       }
     },
     compile: function(elem, attrs, transcludeFn) {
-      var ios = bpConfig.platform === 'android' ? false : true
+      var ios = bpApp.platform === 'android' ? false : true
 
       return function(scope, element, attrs, ctrl) {
         var state = $state.current

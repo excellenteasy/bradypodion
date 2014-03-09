@@ -3,12 +3,12 @@ angular.module('bp').directive('bpSearch', function(
   $timeout,
   $window,
   BpTap,
-  bpConfig) {
+  bpApp) {
 
   return {
     restrict: 'E',
     link: function(scope, element) {
-      var ios = bpConfig.platform === 'ios'
+      var ios = bpApp.platform === 'ios'
       var childScope = scope.$new(true)
 
       var $bgLeft, $bgRight, $cancel

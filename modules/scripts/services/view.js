@@ -3,7 +3,7 @@
 @name bp.util.bpView
 @description Service providing some helpers for views and states. Mainly used internally.
 */
-angular.module('bp.util').service('bpView', function($parse, bpConfig) {
+angular.module('bp.util').service('bpView', function($parse, bpApp) {
 
   /**
   @ngdoc function
@@ -63,7 +63,7 @@ angular.module('bp.util').service('bpView', function($parse, bpConfig) {
       } else if (hasData && data.modal) {
         return 'cover'
       } else {
-        return bpConfig.platform === 'ios' ? 'slide' : 'scale'
+        return bpApp.platform === 'ios' ? 'slide' : 'scale'
       }
     }
 

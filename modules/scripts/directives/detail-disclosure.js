@@ -1,12 +1,12 @@
 angular.module('bp').directive('bpDetailDisclosure', function(
-  bpConfig,
+  bpApp,
   $rootScope) {
 
   return {
     restrict: 'E',
     link: function(scope, element) {
       var $parent, uniqueId
-      if (bpConfig.platform === 'android') {
+      if (bpApp.platform === 'android') {
         element.attr('aria-hidden', 'true')
       } else {
         $parent = element.parent()

@@ -1,5 +1,5 @@
 angular.module('bp')
-  .directive('bpNavigation', function($state, $compile, $animate, bpView, bpConfig) {
+  .directive('bpNavigation', function($state, $compile, $animate, bpView, bpApp) {
     return {
       controller: function() {
         this.configs = {}
@@ -32,7 +32,7 @@ angular.module('bp')
           var navbarConfig = ctrl.configs[toState.name] || {}
           var direction = bpView.getDirection(fromState, toState)
           var isSlide = bpView.getType(fromState, toState, direction) === 'slide'
-          var isIos = bpConfig.platform === 'ios'
+          var isIos = bpApp.platform === 'ios'
 
           if (!navbarConfig.noNavbar) {
             $wrapper.show()
