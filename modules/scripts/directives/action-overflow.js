@@ -1,3 +1,22 @@
+/**
+@ngdoc directive
+@name bp.directive:bpActionOverflow
+@restrict E
+@requires bp.util.bpApp
+@requires bp.util.bpTap
+@example
+<pre>
+<bp-action-overflow>
+  <bp-action>First</bp-action>
+  <bp-action>Second</bp-action>
+</bp-action-overflow>
+</pre>
+@description
+If there is no more space to display `bpAction`s within a `bpNavbar` on android this menu is created.
+Normally you won't create it by yourself, but it will be created for you by the navbar.
+This is described in more detail in the {@link bp.directive:bpNavbar `bpNavbar`} documentation.
+ */
+
 angular.module('bp').directive('bpActionOverflow', function(
   $window,
   bpApp,
