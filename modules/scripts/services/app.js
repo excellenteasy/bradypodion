@@ -33,7 +33,7 @@ angular.module('bp.util').provider('bpApp', function() {
   <div class="alert">
     The returned object is not just a copy, but a reference to the configuration object.
     This means you can change it app-wide on runtime, but this may cause an inconsistent app state.
-    It's recommend to alter configuration with the {@link bp.util.bpAppProvider#setConfig provider} method.
+    It's recommend to alter configuration with the {@link bp.util.bpAppProvider#methods_setConfig provider} method.
   </div>
   */
   this.$get = function() {
