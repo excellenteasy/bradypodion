@@ -6,6 +6,13 @@
 @element ANY
 @param {string} bpSref Name of the state to transition to. You can define params for the state like this:
 `statename({id: 1})`,
+@example
+<pre>
+<bp-navbar>
+  <bp-action bp-sref="customers">Overview</bp-action>
+  <bp-action bp-sref="customer({id: 4})">Detail</bp-action>
+</bp-navbar>
+</pre>
 @description
 `bpSref` is similiar to Angular UI Router's own `uiSref` directive,
 as it transitions to a state, but without 300ms delay.

@@ -9,6 +9,13 @@
 @param {boolean=} bpAllowClick Whether to allow the original click event or not. (`false`)
 @param {number=} bpBoundMargin Threshold one is allowed to move the finger before the tap is cancelled. (50)
 @param {boolean=} bpNoScroll Whether to allow scrolling during tap or not. (`false`)
+@example
+<pre>
+<bp-toolbar>
+  <bp-action bp-tap="reload()">Reload</bp-action>
+  <bp-action bp-tap="openShareSheet()">Share</bp-action>
+</bp-toolbar>
+</pre>
 @description
 `bpTap` is similiar to Angular's own `ngClick` directive,
 as it executes the provided expression, but without 300ms delay.
