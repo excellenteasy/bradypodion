@@ -4,6 +4,16 @@
 @requires bp.util.bpApp
 @requires bp.util.bpView
 @restrict AE
+@example
+<pre>
+<html>
+  <head>
+    <title>Bradypodion App</title>
+  </head>
+  <body ng-app="bradypodionApp" bp-app>
+    ...
+  </body>
+</pre>
 @description
 The bpApp directive is similiar to Angular's own ngApp directive.
 It is used to initalize a Bradypodion application, as it applies important CSS information and sets up transitions.
