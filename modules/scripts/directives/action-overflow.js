@@ -7,14 +7,22 @@
 @example
 <pre>
 <bp-action-overflow>
-  <bp-action>First</bp-action>
-  <bp-action>Second</bp-action>
+  <bp-action bp-tap="doSomething()">First</bp-action>
+  <bp-action bp-tap="doSomething()">Second</bp-action>
+  <bp-action bp-tap="doSomething()">Third</bp-action>
+  <bp-action bp-tap="doSomething()">Fourth</bp-action>
+  <bp-action bp-tap="doSomething()">Fifth</bp-action>
+
 </bp-action-overflow>
 </pre>
 @description
 If there is no more space to display `bpAction`s within a `bpNavbar` on android this menu is created.
 Normally you won't create it by yourself, but it will be created for you by the navbar.
 This is described in more detail in the {@link bp.directive:bpNavbar `bpNavbar`} documentation.
+
+<div class="alert alert-info">
+  {@link bp.directive:bpToolbar `bpToolbar`} is the ios equivalent of `bpActionOverflow`.
+</div>
  */
 
 angular.module('bp').directive('bpActionOverflow', function(
