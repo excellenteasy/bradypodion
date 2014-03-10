@@ -1,3 +1,17 @@
+/**
+@ngdoc directive
+@restrict E
+@name bp.directive:bpSearch
+@example
+<pre>
+<bp-search>
+  <input ng-model="mymodel">
+</bp-search>
+</pre>
+@description A search box that recreates native behavior on both ios and android.
+You have to create an `<input>` field within the directive yourself, so you can control the associated model.
+*/
+
 angular.module('bp').directive('bpSearch', function(
   $compile,
   $timeout,
