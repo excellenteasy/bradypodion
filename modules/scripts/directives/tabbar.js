@@ -1,3 +1,10 @@
+/**
+@ngdoc directive
+@restrict E
+@name bp.directive:bpTabbar
+@description A bar that should be filled with  {@link bp.directive:bpTab `bpTab`}s.
+*/
+
 angular.module('bp').directive('bpTabbar', function() {
   return {
     restrict: 'E',
