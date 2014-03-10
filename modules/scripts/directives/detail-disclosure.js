@@ -1,3 +1,19 @@
+/**
+@ngdoc directive
+@name bp.directive:bpDetailDisclosure
+@restrict E
+@requires bp.util.bpApp
+@example
+<pre>
+  <bp-cell>
+    Cell
+    <bp-detail-disclosure></bp-detail-disclosure>
+  </bp-cell>
+</pre>
+@description
+`bpDetailDisclosure` is an ios only interface element.
+ */
+
 angular.module('bp').directive('bpDetailDisclosure', function(
   bpApp,
   $rootScope) {
