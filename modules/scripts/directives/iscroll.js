@@ -2,6 +2,7 @@
 @ngdoc directive
 @name bp.iscroll.directive:bpIscroll
 @requires bp.util.bpApp
+@requires bp.iscroll.bpIscroll
 @param {string=} bpIscrollSticky Enables sticky headers for `ios`.
 You can define the CSS Selector that is used to determine what a header is (`bp-table-header`).
 @example
@@ -20,7 +21,7 @@ You can define the CSS Selector that is used to determine what a header is (`bp-
 @description Makes the content within the directive scrollable via [iScroll](http://iscrolljs.com).
 */
 
-angular.module('bp.iscroll').directive('bpIscroll', function(bpApp, $timeout) {
+angular.module('bp.iscroll').directive('bpIscroll', function(bpApp, bpIscroll, $timeout) {
   return {
     transclude: true,
     template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
@@ -41,14 +42,9 @@ angular.module('bp.iscroll').directive('bpIscroll', function(bpApp, $timeout) {
       }
     },
     link: function(scope, element, attrs, ctrl) {
-      var options = angular.extend({
-        probeType: 3,
-        scrollbars: true
-      }, bpApp.iscroll)
-
       $timeout(function() {
         var iscs
-        var isc = new IScroll(element.get(0), options)
+        var isc = new IScroll(element.get(0), bpIscroll)
         if ((angular.isDefined(attrs.bpIscrollSticky)) &&
           bpApp.platform !== 'android') {
 
