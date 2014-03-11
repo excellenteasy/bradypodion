@@ -20,6 +20,7 @@ angular.module('bp').directive('bpTabbar', function() {
 @ngdoc directive
 @restrict E
 @name bp.directive:bpTab
+@requires bp.util.bpView
 @scope true
 @param {string} bpSref The name of the state the tab is associated to.
 @param {string} bpTabIcon A CSS class that represents a font-icon for the tab.
@@ -37,7 +38,7 @@ angular.module('bp').directive('bpTabbar', function() {
 </pre>
 */
 
-angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
+angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpView) {
   return {
     restrict: 'E',
     scope: {
@@ -49,7 +50,7 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout) {
       element.attr({
         role: 'tab'
       })
-      var state = $state.get(scope.bpSref)
+      var state = $state.get(bpView.parseState(scope.bpSref).state)
       if (angular.isUndefined(attrs.bpTabTitle)) {
         if (angular.isObject(state.data) && state.data.title) {
           attrs.bpTabTitle = state.data.title
