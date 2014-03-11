@@ -9,6 +9,11 @@
 <script src="bradypodion.js"></script>
 <script src="bradypodion-iscroll.js"></script>
 </pre>
+
+<pre>
+angular.module('yourApp', ['bp', 'bp.iscroll'])
+</pre>
+
 @description
 # The `bp.iscroll` module
 

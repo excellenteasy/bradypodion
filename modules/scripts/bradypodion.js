@@ -16,8 +16,8 @@ angular.module('bp.util', []);
 # The `bp` module
 All Bradypodion services and directives are exposed on the `bp` module.
 It requires `ngAnimate` and `ui.router`. Use it with your app likes this:
-```js
+<pre>
 angular.module('yourApp', ['bp'])
-```
+</pre>
 */
 angular.module('bp', ['bp.util', 'ngAnimate', 'ui.router'])
