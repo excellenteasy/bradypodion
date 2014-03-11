@@ -2,7 +2,7 @@
 @ngdoc object
 @name bp.iscroll.bpIscrollProvider
 */
-angular.module('bp').provider('bpIscroll', function() {
+angular.module('bp.iscroll').provider('bpIscroll', function() {
   var config = {
     probeType: 3,
     scrollbars: true
