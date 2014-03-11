@@ -1,3 +1,64 @@
+/**
+@ngdoc directive
+@restrict E
+@name bp.directive:bpNavbar
+@requires bp.util.bpApp
+@requires bp.util.bpView
+@requires bp.directive:bpToolbar
+@requires bp.directive:bpActionOverflow
+@param {boolean=} bp-navbar-no-up Don't show the default up button from the state (false).
+@param {string=} bp-navbar-title The title of the navbar. Defaults to the current state's title.
+@example
+<pre>
+  <bp-navbar bp-navbar-title="Hello World" bp-navbar-no-up>
+    <bp-action class="icon-cross">Cancel</bp-action>
+    <bp-action class="icon-checkmark">Save</bp-action>
+  </bp-navbar>
+</pre>
+@description `bpNavbar` is the beating heart of Bradypodion as it provides the structure for your application.
+
+The navbar tries to fill itself with the right information based on the context of the current state.
+
+<div class="alert alert-info">
+  The {@link bp.bpNavigation `bpNavigation`} directive offers a convenient way to inject navbars in all of your screens automatically.
+</div>
+
+## Title
+Based on [ui.router's](http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state)
+`$state.current` the `bp-navbar-title` is filled with `state.data.title` or `state.name` (First letter capitalized).
+
+If you want to define a custom Title for the navbar just assign any string to the `bp-navbar-title` attribute.
+If you don’t want any title at all just assign an empty string.
+
+## Up Button
+
+<div class="alert alert-info">
+  "Up" Button should be more familiar to iOS developers as "Back" button,
+  but it's named "Up" throughout the framework to maintain a consistent and semantically correct naming for all platforms.
+</div>
+
+The navbar automatically injects an up button for you. The state information is either taken directly from `$state.data.up` or read from the URL of the state.
+If the URL of the current state is `/customers/:id` and `customers` is a valid state name then this will be the up button's target.
+The up button's label is determined in the same way as the navbar's title.
+
+## Actions
+
+{@link bp.directive:bpAction `bpAction`}s are (currently) the only supported content within a navbar.
+They are automatically processed to be icons on android and buttons on ios.
+You can however force an action to be an icon on ios by adding the `bp-icon` CSS class.
+
+### Action Overflow
+
+The navbar offers space for two actions on both ios and android.
+If you define more than those two actions on ios the navbar will automatically spawn a {@link bp.bpToolbar `bpToolbar`} for you.
+On android it will create a {@link bp.bpActionOverflow `bpActionOverflow`} menu for you.
+
+<div class="alert">
+  On ios the injected up button counts against the action limit.
+  So in most cases, unless you decide to set `bp-navbar-no-up` to true, there is space for one action.
+</div>
+*/
+
 angular.module('bp')
   .directive('bpNavbar', function(
     bpApp,

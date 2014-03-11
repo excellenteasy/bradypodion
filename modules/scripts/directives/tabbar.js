@@ -24,7 +24,7 @@ angular.module('bp').directive('bpTabbar', function() {
 @param {string} bpSref The name of the state the tab is associated to.
 @param {string} bpTabIcon A CSS class that represents a font-icon for the tab.
 @param {string=} bpTabTitle The title of the tab. By default it's read from the associated state.
-@description A tab withing a  {@link bp.directive:bpTabbar `bpTabbar`}.
+@description A tab within a  {@link bp.directive:bpTabbar `bpTabbar`}.
 @example
 <pre>
 <bp-tabbar>
