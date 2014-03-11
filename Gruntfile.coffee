@@ -31,9 +31,18 @@ module.exports = (grunt) ->
           '<%=bp.dist%>/bradypodion.css': '<%=bp.dist%>/bradypodion.css'
           '<%=bp.dist%>/bradypodion.less': '<%=bp.dist%>/bradypodion.less'
         ]
+
+    uglify:
       dist:
         options:
-          stripBanners: true,
+          mangle: off
+          compress: off
+          beautify:
+            beautify: true
+            bracketize: true
+            'indent_level': 2
+            'indent_start': 2
+          preserveComments: 'some'
           banner: grunt.file.read('modules/banner.template') +
                   grunt.file.read 'modules/header.template'
           footer: grunt.file.read 'modules/footer.template'
@@ -84,7 +93,7 @@ module.exports = (grunt) ->
           '<%=bp.app%>/scripts/bradypodion.js'
           '<%=bp.app%>/scripts/*/**/*.js'
         ]
-        tasks: [ 'concat:dist', 'ngmin', 'karma:unit:run' ]
+        tasks: [ 'uglify:dist', 'ngmin', 'karma:unit:run' ]
 
       tests:
         files: ['test/spec/**/*.js']
@@ -159,7 +168,7 @@ module.exports = (grunt) ->
 
     concurrent:
       build: [
-        'concat:dist'
+        'uglify:dist'
         'cssbuild'
       ]
 
