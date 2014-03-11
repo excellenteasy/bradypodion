@@ -41,10 +41,11 @@ module.exports = (grunt) ->
           '<%=bp.dist%>/bradypodion.js': [
             '<%=bp.app%>/scripts/bradypodion.js'
             '<%=bp.app%>/scripts/*/**/*.js'
-            '!<%=bp.app%>/scripts/directives/iscroll.js'
+            '!<%=bp.app%>/scripts/*/iscroll.js'
           ]
           '<%=bp.dist%>/bradypodion-iscroll.js': [
-            '<%=bp.app%>/scripts/directives/iscroll.js'
+            '<%=bp.app%>/scripts/iscroll.js'
+            '<%=bp.app%>/scripts/*/iscroll.js'
           ]
         ]
 

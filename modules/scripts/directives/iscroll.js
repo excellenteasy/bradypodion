@@ -1,28 +1,4 @@
 /**
-@ngdoc overview
-@name bp.iscroll
-@example
-<pre>
-<script src="iscroll-probe.js"></script>
-<script src="iscroll-sticky.js"></script>
-...
-<script src="bradypodion.js"></script>
-<script src="bradypodion-iscroll.js"></script>
-</pre>
-
-<pre>
-angular.module('yourApp', ['bp', 'bp.iscroll'])
-</pre>
-
-@description
-# The `bp.iscroll` module
-
-`bp.iscroll` is a separate module that you need to embed in your application.
-It wraps [iScroll](http://iscrolljs.com/) so you can easily use it in your views.
-
-*/
-
-/**
 @ngdoc directive
 @name bp.iscroll.directive:bpIscroll
 @requires bp.util.bpApp
@@ -44,7 +20,7 @@ You can define the CSS Selector that is used to determine what a header is (`bp-
 @description Makes the content within the directive scrollable via [iScroll](http://iscrolljs.com).
 */
 
-angular.module('bp.iscroll', ['bp']).directive('bpIscroll', function(bpApp, $timeout) {
+angular.module('bp.iscroll').directive('bpIscroll', function(bpApp, $timeout) {
   return {
     transclude: true,
     template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
