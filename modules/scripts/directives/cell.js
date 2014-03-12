@@ -30,7 +30,7 @@
   </bp-cell>
 </pre>
 @description
-`bpCell` is a interface element that, together with other cells, constitutes a {@link bp.bpTable `bpTable`}.
+`bpCell` is a interface element that, together with other cells, constitutes a {@link bp.directive:bpTable `bpTable`}.
  */
 
 angular.module('bp').directive('bpCell', function() {

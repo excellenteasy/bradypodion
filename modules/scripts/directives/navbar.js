@@ -20,7 +20,7 @@
 The navbar tries to fill itself with the right information based on the context of the current state.
 
 <div class="alert alert-info">
-  The {@link bp.bpNavigation `bpNavigation`} directive offers a convenient way to inject navbars in all of your screens automatically.
+  The {@link bp.directive:bpNavigation `bpNavigation`} directive offers a convenient way to inject navbars in all of your screens automatically.
 </div>
 
 ## Title
@@ -50,8 +50,8 @@ You can however force an action to be an icon on ios by adding the `bp-icon` CSS
 ### Action Overflow
 
 The navbar offers space for two actions on both ios and android.
-If you define more than those two actions on ios the navbar will automatically spawn a {@link bp.bpToolbar `bpToolbar`} for you.
-On android it will create a {@link bp.bpActionOverflow `bpActionOverflow`} menu for you.
+If you define more than those two actions on ios the navbar will automatically spawn a {@link bp.directive:bpToolbar `bpToolbar`} for you.
+On android it will create a {@link bp.directive:bpActionOverflow `bpActionOverflow`} menu for you.
 
 <div class="alert">
   On ios the injected up button counts against the action limit.
