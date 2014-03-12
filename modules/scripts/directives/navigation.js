@@ -1,3 +1,21 @@
+/**
+@ngdoc directive
+@name bp.directive:bpNavigation
+@requires bp.directive:bpNavigation
+@description `bpNavigation` is a high-level abstraction for the entire app navigation.
+It assumes that every state should have a `bpNavbar` and automatically injects one into the screen for you.
+
+`bpNavigation` handles transitions between navbars and and allows to configure the injected navbar via {@link bp.directive:bpNavbarConfig `bpNavbarConfig`}.
+@example
+<pre>
+<body ng-app="bradypodionApp" bp-app bp-navigation>
+  <ui-view-wrapper>
+    <div ui-view></div>
+  </ui-view-wrapper>
+</body>
+</pre>
+*/
+
 angular.module('bp')
   .directive('bpNavigation', function($state, $compile, $animate, bpView, bpApp) {
     return {
