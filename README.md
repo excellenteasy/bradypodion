@@ -17,7 +17,7 @@ bower install bradypodion
 ```
 
 ## Documentation
-There is no documentation available yet, so stick to the [demo](demo).
+See [docs.bradypodion.io](http://docs.bradypodion.io/)
 
 ## Contributing
 See [Contributing](CONTRIBUTING.md)
