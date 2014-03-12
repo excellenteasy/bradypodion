@@ -1,3 +1,25 @@
+<a name="0.5.0-beta.3"></a>
+### 0.5.0-beta.3 (2014-03-12)
+
+
+#### Bug Fixes
+
+* prevent digest at end of timeouts for perf ([daa9da73](http://github.com/excellenteasy/bradypodion/commit/daa9da734fbeda75a015d547d3bd049953578813))
+* **app:** move transition logic to directive closes #76 ([5a2311b2](http://github.com/excellenteasy/bradypodion/commit/5a2311b28e9b502f9c62df48f93d9c136f7a40e6))
+* **iscroll:**
+  * put the provider in the bp.iscroll module ([478a6609](http://github.com/excellenteasy/bradypodion/commit/478a660957c86fb0599942b4597ca27c3786e5c3))
+  * make options configurable via provider ([05a31f6a](http://github.com/excellenteasy/bradypodion/commit/05a31f6a9618595f13ce377a3632716f25966133))
+* **navbar:** hide wrapper if no navbar present ([c79c7b32](http://github.com/excellenteasy/bradypodion/commit/c79c7b328f44ffdc2b05d0aced3b875d34017216))
+* **navigation:** no animation w/o direction ([f4b1570e](http://github.com/excellenteasy/bradypodion/commit/f4b1570e9d81aa45e70d694bb85b99fa7b6388f1))
+* **tab:** enable state params for tab state ([1e7beda7](http://github.com/excellenteasy/bradypodion/commit/1e7beda7b863f557002ed3948acd285824c175d7))
+* **view:** merge sref into view closes #77 ([78dfa517](http://github.com/excellenteasy/bradypodion/commit/78dfa51776fc55cae7f9f04690aeefdb50d7adad))
+
+
+#### Features
+
+* **navbar:** read up state from url ([7a258fa4](http://github.com/excellenteasy/bradypodion/commit/7a258fa490e282595cd161aad4f6651f866dbf8f))
+
+
 <a name="0.5.0-beta.2"></a>
 ### 0.5.0-beta.2 (2014-02-28)
 

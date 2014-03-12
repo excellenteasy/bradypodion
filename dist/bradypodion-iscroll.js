@@ -1,18 +1,20 @@
 /*!
- * Bradypodion v0.5.0-beta.2
+ * Bradypodion v0.5.0-beta.3
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-02-28T23:30:36
+ * Date: 2014-03-12T14:31:39
  */
 (function () {
   'use strict';
-  angular.module('bp').directive('bpIscroll', [
-    'bpConfig',
+  angular.module('bp.iscroll', ['bp']);
+  angular.module('bp.iscroll').directive('bpIscroll', [
+    'bpApp',
+    'bpIscroll',
     '$timeout',
-    function (bpConfig, $timeout) {
+    function (bpApp, bpIscroll, $timeout) {
       return {
         transclude: true,
         template: '<bp-iscroll-wrapper ng-transclude></bp-iscroll-wrapper>',
@@ -20,8 +22,6 @@
           '$scope',
           function ($scope) {
             var iscroll, iscrollsticky;
-            iscroll = null;
-            iscrollsticky = null;
             $scope.getIScroll = function () {
               return iscroll;
             };
@@ -35,20 +35,15 @@
           }
         ],
         link: function (scope, element, attrs, ctrl) {
-          var options;
-          options = angular.extend({
-            probeType: 3,
-            scrollbars: true
-          }, bpConfig.iscroll);
           $timeout(function () {
             var iscs;
-            var isc = new IScroll(element.get(0), options);
-            if (attrs.bpIscrollSticky != null && bpConfig.platform !== 'android') {
+            var isc = new IScroll(element.get(0), bpIscroll);
+            if (angular.isDefined(attrs.bpIscrollSticky) && bpApp.platform !== 'android') {
               var selector = attrs.bpIscrollSticky || 'bp-table-header';
               iscs = new IScrollSticky(isc, selector);
             }
             ctrl.setIScroll(isc, iscs);
-          }, 0);
+          }, 0, false);
           element.on('$destroy', function () {
             scope.getIScroll().destroy();
           });
@@ -56,4 +51,16 @@
       };
     }
   ]);
+  angular.module('bp.iscroll').provider('bpIscroll', function () {
+    var config = {
+        probeType: 3,
+        scrollbars: true
+      };
+    this.setConfig = function (inConfig) {
+      config = angular.extend(config, inConfig);
+    };
+    this.$get = function () {
+      return config;
+    };
+  });
 }.call(this));
