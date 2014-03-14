@@ -6,6 +6,7 @@
 @description `bpNavbarConfig` is a way to configure navbars injected by the {@link bp.directive:bpNavigation `bpNavigation`} directive.
 It offers exactly the {@link bp.directive:bpNavbar#usage_parameters same attributes} for configuration as the original navbar, and forwards them to it.
 If you put `bpAction`s into the directive they will be moved to the original navbar.
+@param {boolean=} bpNavbarNoNavbar If you set this attribute no navbar will be rendered for this screen.
 @example
 <pre>
 <bp-navbar-config bp-navbar-no-up>
