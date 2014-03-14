@@ -39,3 +39,10 @@
 
   }
 }
+
+.bp-ios-navbar-wrapper {
+  height: @ios-navbar-height;
+  @media only screen and (orientation:landscape) and (max-height: 480px) {
+    height: @ios-navbar-height-landscape;
+  }
+}

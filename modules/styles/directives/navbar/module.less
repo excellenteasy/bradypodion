@@ -5,7 +5,6 @@
   @{name}-wrapper {
     display: block;
     position: relative;
-    height: 44px;
     width: 100%;
     @{name} {
       position: absolute !important;
@@ -20,11 +19,19 @@
     @{name} {
       .bp-ios-navbar(@prefix);
     }
+
+    @{name}-wrapper {
+      .bp-ios-navbar-wrapper;
+    }
   }
 
   .bp-platforms-navbar() when (@android) and not (@ios) {
     @{name} {
       .bp-android-navbar(@prefix);
+    }
+
+    @{name}-wrapper {
+      .bp-ios-android-wrapper;
     }
   }
 
@@ -32,8 +39,17 @@
     .@{ios-name} @{name} {
       .bp-ios-navbar(@prefix);
     }
+
+    .@{ios-name} @{name}-wrapper {
+      .bp-ios-navbar-wrapper;
+    }
+
     .@{android-name} @{name} {
       .bp-android-navbar(@prefix);
+    }
+
+    .@{android-name} @{name}-wrapper {
+      .bp-android-navbar-wrapper;
     }
   }
 
