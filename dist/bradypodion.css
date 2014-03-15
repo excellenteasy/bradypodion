@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.0-beta.3
+ * Bradypodion v0.5.0
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-03-12T14:31:38
+ * Date: 2014-03-15T10:10:52
  */
 .bp-fullsize,
 html,
@@ -930,10 +930,20 @@ bp-table {
   font-family: 'bp-system';
   content: '\e600';
 }
+.bp-android-navbar-wrapper {
+  height: 48px;
+}
+.bp-ios-navbar-wrapper {
+  height: 44px;
+}
+@media only screen and (orientation: landscape) and (max-height: 480px) {
+  .bp-ios-navbar-wrapper {
+    height: 33px;
+  }
+}
 bp-navbar-wrapper {
   display: block;
   position: relative;
-  height: 44px;
   width: 100%;
 }
 bp-navbar-wrapper bp-navbar {
@@ -999,6 +1009,14 @@ bp-navbar {
   }
   .ios bp-navbar bp-button-up {
     top: 9px;
+  }
+}
+.ios bp-navbar-wrapper {
+  height: 44px;
+}
+@media only screen and (orientation: landscape) and (max-height: 480px) {
+  .ios bp-navbar-wrapper {
+    height: 33px;
   }
 }
 .android bp-navbar {
@@ -1095,6 +1113,9 @@ bp-navbar {
 }
 .android bp-navbar > .bp-button {
   margin-left: 8px;
+}
+.android bp-navbar-wrapper {
+  height: 48px;
 }
 bp-scroll,
 [bp-scroll] {
@@ -1335,7 +1356,7 @@ bp-search {
 .ios bp-tab .bp-icon {
   display: block;
   height: 32px;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 32px;
 }
 .ios bp-tab span {

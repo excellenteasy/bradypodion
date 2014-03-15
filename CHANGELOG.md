@@ -1,3 +1,13 @@
+<a name="0.5.0"></a>
+## 0.5.0 (2014-03-15)
+
+
+#### Bug Fixes
+
+* **navbar:** correct height on any platform/orientation ([ad20c91f](http://github.com/excellenteasy/bradypodion/commit/ad20c91f27eb0427eda25e354d092001424c2f7d))
+* **tabbar:** bigger icons ([5dc9a212](http://github.com/excellenteasy/bradypodion/commit/5dc9a21278b315308464aea28929e0dddda28875))
+
+
 <a name="0.5.0-beta.3"></a>
 ### 0.5.0-beta.3 (2014-03-12)
 
