@@ -1,0 +1,81 @@
+@ngdoc overview
+@name State Configuration
+@description
+
+# State Configuration
+Bradypodion (short: bp) assumes that you are using [ui-router](https://github.com/angular-ui/ui-router) to configure the states of your application. If you adhere to certain conventions explained in this document, bp can automate a lot of common use cases' processes for you. We highly recommend sticking to these conventions.
+
+Let's start with an example to illustrate the different implications your state configuration has on your bp app.
+```javascript
+angular.module('bradypodionApp', ['bp'])
+  .config(function($urlRouterProvider, $stateProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider.state('customers', {
+      url: '/',
+      templateUrl: 'customers.html'
+    });
+  });
+```
+The above code instantiates a new angular app with bp as a dependency and immediately configures the app. If you have used ui-router before, you might be familar with `$urlRouterProvider` and `$stateProvider`, as well as the `url` and `templateUrl` properties. However, the values have additional meaning in bp.
+
+## State names
+The current state's name is used as the default title for [bp-navbar](#/api/bp.directive:bpNavbar), if no `bp-navbar-title` attribute is set.
+With example configuration above, the navbar title would be "Customers".
+
+## State data
+### title
+If we did not want the state name to be useed for the navbar title, but we also did not want to change a template to set the title using bp-navbar-title attribute, we would need to use the state data object's title attribute:
+```javascript
+$stateProvider.state('customers', {
+  url: '/',
+  templateUrl: 'customers.html',
+  data: {
+    title: 'My Customers'
+  }
+});
+```
+### up
+The up property allows you to explicitly define – by state name – which state should be considered the parent of this state. If set, the navbar renders an up button which points to the defined state. Usually you don't need this property, because the up state is detected automatically using the states' urls (see below).
+
+### modal
+The modal property (Boolean) is a semantically more correct way to define the state to be transitioned using the cover transition.
+<div class="alert alert-info">The modal property might have further implications in the future, so we recommend you use it instead of simply forcing the transition.</div>
+
+### transition
+The data object can also be used to define the transition that is used when navigating to this state.
+```javascript
+$stateProvider.state('customers', {
+  url: '/',
+  templateUrl: 'customers.html'
+}).state('customer', {
+  url: '/customer',
+  templateUrl: 'customer.html',
+  data: {
+    transition: 'cover'
+  }
+});
+```
+When navigating to the customer state, the cover transition would be used. If not explicitly set on the data object, the transition type is automatically determined depending on the platform. On iOS we use "slide" and on Android "cover" is the default transition.
+
+## State url
+While the transition type is determined automatically, the direction of the transition needs to be determined somehow as well. If the url property is used correctly, bp can do this for you.
+```javascript
+$stateProvider.state('customers', {
+  url: '/',
+  templateUrl: 'customers.html'
+}).state('customer', {
+  url: '/customer',
+  templateUrl: 'customer.html'
+});
+```
+In this example, bp would know to transition towards the customer state when coming from the customer**s** state. It would transition in the reverse direction, when navigating "up" from the customer state towards the customer**s** state. This detection works by comparing the url segments and testing if they match (but the last one). If that is the case, we can detect the direction. This is not possible if you don't adhere to this convention, however:
+```javascript
+$stateProvider.state('customers', {
+  url: '/customers',
+  templateUrl: 'customers.html'
+}).state('customer', {
+  url: '/detail/customer',
+  templateUrl: 'customer.html'
+});
+```
+Eventhough one state's url has one and the other has two segments, bp cannot determine the direction here, because the states' urls don't have a common url "parent".
