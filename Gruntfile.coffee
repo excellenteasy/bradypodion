@@ -155,7 +155,7 @@ module.exports = (grunt) ->
         dest: '<%=bp.docs%>/build'
         title: 'Bradypodion'
         titleLink: 'http://bradypodion.io/'
-        startPage: 'api'
+        startPage: 'guides'
         navTemplate: '<%=bp.docs%>/navigation.html'
         html5Mode: off
         bestMatch: on
