@@ -4,3 +4,6 @@
 
 # Bradypodion API Documentation
 Welcome to the Bradypodion API docs page.
+
+You can find detailed information about the Bradypodion modules and their API here.
+If you're new to Bradypodion understanding how the {@link bp.directive:bpNavbar `bpNavbar`} works is probably a good starting point.
