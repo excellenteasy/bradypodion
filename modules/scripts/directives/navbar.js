@@ -124,8 +124,11 @@ angular.module('bp')
             up = urlSegments[urlSegments.length - 2]
           }
 
-          if (up && !angular.isDefined(attrs.bpNavbarNoUp)) {
+          if (up && up[0] == ':') {
+            $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.')
+          }
 
+          if (up && up[0] !== ':' && !angular.isDefined(attrs.bpNavbarNoUp)) {
             var ref = bpView.parseState(up)
             var upState = $state.get(ref.state)
             if (upState) {
