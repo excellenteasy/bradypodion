@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.0
+ * Bradypodion v0.5.1-beta.1
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-03-15T10:10:53
+ * Date: 2014-03-21T21:28:51
  */
 (function () {
   'use strict';
@@ -207,7 +207,8 @@
     '$timeout',
     '$state',
     '$compile',
-    function (bpApp, bpView, $timeout, $state, $compile) {
+    '$log',
+    function (bpApp, bpView, $timeout, $state, $compile, $log) {
       return {
         restrict: 'E',
         transclude: true,
@@ -248,12 +249,19 @@
                   up = urlSegments[urlSegments.length - 2];
                 }
               }
-              if (up && !angular.isDefined(attrs.bpNavbarNoUp)) {
+              if (up && up[0] == ':') {
+                $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.');
+              }
+              if (up && up[0] !== ':' && !angular.isDefined(attrs.bpNavbarNoUp)) {
                 var ref = bpView.parseState(up);
                 var upState = $state.get(ref.state);
-                var upTitle = ctrl.getTitleFromState(upState);
-                $arrow = angular.element('<bp-button-up>');
-                $up = $compile(angular.element('<bp-action>').addClass('bp-action-up').attr('bp-sref', up).text(upTitle))(scope);
+                if (upState) {
+                  var upTitle = ctrl.getTitleFromState(upState);
+                  $arrow = angular.element('<bp-button-up>');
+                  $up = $compile(angular.element('<bp-action>').addClass('bp-action-up').attr('bp-sref', up).text(upTitle))(scope);
+                } else {
+                  $log.error('up state detection failed. No up button compiled. Check your state configuration.');
+                }
               }
               if (ios) {
                 if ($actions.length > 2) {
@@ -498,9 +506,9 @@
     'bpView',
     function ($state, $parse, bpTap, bpView) {
       return function (scope, element, attrs) {
-        var ref = bpView.parseState(attrs.bpSref, scope);
         var tap = bpTap(element, attrs);
         element.bind('tap', function () {
+          var ref = bpView.parseState(attrs.bpSref, scope);
           $state.go(ref.state, ref.params);
           return false;
         });

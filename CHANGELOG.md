@@ -1,3 +1,15 @@
+<a name="0.5.1-beta.1"></a>
+### 0.5.1-beta.1 (2014-03-21)
+
+
+#### Bug Fixes
+
+* **navbar:**
+  * log error when param in state url ([21ba62b8](http://github.com/excellenteasy/bradypodion/commit/21ba62b83e707b249c109787a77d06e6621b9a17))
+  * only compile up button if up state is found ([3c16bc18](http://github.com/excellenteasy/bradypodion/commit/3c16bc18ad25d65c0dbae2f2d566c1f8f95f2a50))
+* **sref:** evaluate on tap, rather than on load ([d507a2fb](http://github.com/excellenteasy/bradypodion/commit/d507a2fb04305caba403bba9a9f0df51f9d92e08))
+
+
 <a name="0.5.0"></a>
 ## 0.5.0 (2014-03-15)
 
