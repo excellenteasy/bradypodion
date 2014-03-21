@@ -27,6 +27,8 @@ describe('viewService', function() {
       data: {
         up: 'home'
       }
+    }).state('param', {
+      url: '/home/second/:third/fourth'
     })
   }))
 
@@ -42,6 +44,7 @@ describe('viewService', function() {
     alien = state.get('alien')
     faroff = state.get('faroff')
     up = state.get('up')
+    param = state.get('param')
   }))
 
   describe('getDirection', function() {
@@ -50,12 +53,14 @@ describe('viewService', function() {
       expect(viewService.getDirection(second, third)).toBe('normal')
       expect(viewService.getDirection(home, faroff)).toBe('normal')
       expect(viewService.getDirection(home, up)).toBe('normal')
+      expect(viewService.getDirection(third, param)).toBe('normal')
     })
 
     it('should detect "reverse"', function() {
       expect(viewService.getDirection(second, home)).toBe('reverse')
       expect(viewService.getDirection(faroff, home)).toBe('reverse')
       expect(viewService.getDirection(up, home)).toBe('reverse')
+      expect(viewService.getDirection(param, third)).toBe('reverse')
     })
 
     it('should detect no direction', function() {
@@ -68,6 +73,7 @@ describe('viewService', function() {
       expect(viewService.getDirection(alien, fifth)).toBe(null)
       expect(viewService.getDirection(third, fifth)).toBe(null)
       expect(viewService.getDirection(home, alien)).toBe(null)
+      expect(viewService.getDirection(param, alien)).toBe(null)
     })
   })
 
