@@ -65,7 +65,8 @@ angular.module('bp')
     bpView,
     $timeout,
     $state,
-    $compile) {
+    $compile,
+    $log) {
 
   return {
     restrict: 'E',
@@ -123,16 +124,23 @@ angular.module('bp')
             up = urlSegments[urlSegments.length - 2]
           }
 
-          if (up && !angular.isDefined(attrs.bpNavbarNoUp)) {
+          if (up && up[0] == ':') {
+            $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.')
+          }
 
+          if (up && up[0] !== ':' && !angular.isDefined(attrs.bpNavbarNoUp)) {
             var ref = bpView.parseState(up)
             var upState = $state.get(ref.state)
-            var upTitle = ctrl.getTitleFromState(upState)
-            $arrow = angular.element('<bp-button-up>')
-            $up = $compile(angular.element('<bp-action>')
-              .addClass('bp-action-up')
-              .attr('bp-sref', up)
-              .text(upTitle))(scope)
+            if (upState) {
+              var upTitle = ctrl.getTitleFromState(upState)
+              $arrow = angular.element('<bp-button-up>')
+              $up = $compile(angular.element('<bp-action>')
+                .addClass('bp-action-up')
+                .attr('bp-sref', up)
+                .text(upTitle))(scope)
+            } else {
+              $log.error('up state detection failed. No up button compiled. Check your state configuration.')
+            }
           }
 
           if (ios) {
