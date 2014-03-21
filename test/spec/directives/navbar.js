@@ -18,8 +18,12 @@ describe('navbarDirective', function() {
         data: {
           up: 'first({foo: 1})'
         }
+      }).state('fourth', {
+        url: '/fourth',
+        data: {
+          up: 'doesNotExist'
+        }
       })
-
     }))
 
     beforeEach(inject(function($rootScope, $compile, $state, $timeout) {
@@ -135,6 +139,11 @@ describe('navbarDirective', function() {
         expect($up.text()).toBe('First')
         expect($up.attr('bp-sref')).toBe('first')
 
+        state.go('fourth')
+        timeout.flush()
+        expect(function() {
+          $compile(angular.element('<bp-navbar>'))(scope)
+        }).not.toThrow()
       }))
     })
   })
