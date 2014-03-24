@@ -2,6 +2,7 @@
 @ngdoc directive
 @name bp.directive:bpCell
 @restrict E
+@priority 10
 @param {string} class You can define different cell styles.
 
 `bp-cell-value1` | `bp-cell-value2` | `bp-cell-subtitle`
@@ -36,6 +37,7 @@
 angular.module('bp').directive('bpCell', function() {
   return {
     restrict: 'E',
+    priority: 10,
     transclude: true,
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element) {

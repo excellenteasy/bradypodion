@@ -3,6 +3,7 @@
 @name bp.directive:bpTap
 @requires bp.util.bpTap
 @restrict A
+@priority 50
 @element ANY
 @param {expression} bpTap Expression to evaluate upon tap.
 @param {string=} bpActiveClass CSS class that is applied to the element during tap. (`bp-active`)
@@ -31,21 +32,25 @@ as this one provides fine grained control.
  */
 
 angular.module('bp').directive('bpTap', function($parse, bpTap) {
-  return function(scope, element, attrs) {
-    var tap = bpTap(element, attrs)
+  return {
+    priority: 50,
+    link: function(scope, element, attrs) {
+      var tap = bpTap(element, attrs)
 
-    element
-      .bind('tap', function(e, touch) {
-        scope.$apply($parse(attrs.bpTap), {
-          $event: e,
-          touch: touch
+      element
+        .bind('tap', function(e, touch) {
+          scope.$apply($parse(attrs.bpTap), {
+            $event: e,
+            touch: touch
+          })
+          return false
         })
-        return false
-      })
-      .attr('role', attrs.role || 'link')
+        .attr('role', attrs.role || 'link')
 
-    scope.$on('$destroy', function() {
-      tap.disable()
-    })
+      scope.$on('$destroy', function() {
+        tap.disable()
+      })
+    }
   }
+
 })

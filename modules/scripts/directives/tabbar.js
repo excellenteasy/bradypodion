@@ -22,6 +22,7 @@ angular.module('bp').directive('bpTabbar', function() {
 @name bp.directive:bpTab
 @requires bp.util.bpView
 @scope true
+@priority 100
 @param {string} bpSref The name of the state the tab is associated to.
 @param {string} bpTabIcon A CSS class that represents a font-icon for the tab.
 @param {string=} bpTabTitle The title of the tab. By default it's read from the associated state.
@@ -40,6 +41,7 @@ angular.module('bp').directive('bpTabbar', function() {
 
 angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpView) {
   return {
+    priority: 100,
     restrict: 'E',
     scope: {
       bpSref: '@',
