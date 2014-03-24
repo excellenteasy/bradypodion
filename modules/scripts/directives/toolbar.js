@@ -31,24 +31,25 @@ angular.module('bp').directive('bpToolbar', function(bpApp) {
       return function(scope, element) {
         if (bpApp.platform === 'android') {
           element.attr('aria-hidden', 'true')
-        } else {
-          element.attr({
-            role: 'toolbar'
-          })
-          transcludeFn(scope, function(clone) {
-            var $actions
-            $actions = clone.filter('bp-action')
-            $actions.each(function() {
-              var $action = angular.element(this)
-              $action
-                .attr('aria-label', $action.text())
-                .text('')
-                .removeClass('bp-button')
-                .addClass('bp-icon')
-            })
-            element.append($actions)
-          })
+          return
         }
+
+        element.attr('role', attrs.role || 'toolbar')
+
+        transcludeFn(scope, function(clone) {
+          var $actions
+          $actions = clone.filter('bp-action')
+          $actions.each(function() {
+            var $action = angular.element(this)
+            var label = $action.attr('aria-label') || $action.text()
+            $action
+              .attr('aria-label', label)
+              .text('')
+              .removeClass('bp-button')
+              .addClass('bp-icon')
+          })
+          element.append($actions)
+        })
       }
     }
   }

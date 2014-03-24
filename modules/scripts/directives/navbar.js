@@ -83,8 +83,9 @@ angular.module('bp')
       }
       this.convertActionToIcon = function($action) {
         if (angular.isElement($action)) {
+          var label = $action.attr('aria-label') || $action.text()
           $action
-            .attr('aria-label', $action.text())
+            .attr('aria-label', label)
             .text('')
             .removeClass('bp-button')
             .addClass('bp-icon')
@@ -96,7 +97,7 @@ angular.module('bp')
 
       return function(scope, element, attrs, ctrl) {
         var state = $state.current
-        element.attr('role', 'navigation')
+        element.attr('role', attrs.role || 'navigation')
 
         transcludeFn(scope, function(clone) {
           var $arrow, $frstAction, $scndAction, $toolbar, $up, title

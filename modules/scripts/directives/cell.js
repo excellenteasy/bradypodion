@@ -40,9 +40,9 @@ angular.module('bp').directive('bpCell', function() {
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element) {
         transcludeFn(scope, function(clone) {
-          element.attr({
-            role: 'listitem'
-          }).append(clone)
+          element
+            .attr('role', attrs.role || 'listitem')
+            .append(clone)
         })
       }
     }

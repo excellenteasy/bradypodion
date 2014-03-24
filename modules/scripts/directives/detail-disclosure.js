@@ -20,25 +20,29 @@ angular.module('bp').directive('bpDetailDisclosure', function(
 
   return {
     restrict: 'E',
-    link: function(scope, element) {
-      var $parent, uniqueId
+    link: function(scope, element, attrs) {
       if (bpApp.platform === 'android') {
         element.attr('aria-hidden', 'true')
-      } else {
-        $parent = element.parent()
+        return
+      }
+
+      var uniqueId = attrs.ariaDescribedby
+      if (!uniqueId) {
+        var $parent = element.parent()
         if (!(uniqueId = $parent.attr('id'))) {
-          if ($rootScope._uniqueId == null) {
+          if (angular.isUndefined($rootScope._uniqueId)) {
             $rootScope._uniqueId = 0
           }
           uniqueId = 'bp_' + $rootScope._uniqueId++
           $parent.attr('id', uniqueId)
         }
-        element.attr({
-          'aria-describedby': uniqueId,
-          'aria-label': 'More Info',
-          role: 'button'
-        })
       }
+
+      element.attr({
+        'aria-describedby': uniqueId,
+        'aria-label': attrs.ariaLabel || 'More Info',
+        role: attrs.role || 'button'
+      })
     }
   }
 })
