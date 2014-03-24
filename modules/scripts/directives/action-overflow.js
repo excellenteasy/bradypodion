@@ -49,7 +49,7 @@ angular.module('bp').directive('bpActionOverflow', function(
           element.attr('aria-hidden', 'true')
         } else {
           element.attr({
-            role: 'button',
+            role: attrs.role || 'button',
             'aria-has-popup': 'true'
           })
 

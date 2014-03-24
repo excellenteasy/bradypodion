@@ -44,12 +44,11 @@
 angular.module('bp').directive('bpTable', function() {
   return {
     restrict: 'E',
-    link: function(scope, element) {
-      var role
-      role = element.parents('bp-table').length ? 'group' : 'list'
-      element.attr({
-        role: role
-      })
+    link: function(scope, element, attrs) {
+      if (!attrs.role) {
+        var role = element.parents('bp-table').length ? 'group' : 'list'
+        element.attr('role', role)
+      }
     }
   }
 })

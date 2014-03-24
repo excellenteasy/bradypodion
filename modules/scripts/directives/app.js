@@ -67,9 +67,9 @@ angular.module('bp').directive('bpApp', function($compile, bpApp) {
       scope.$on('$stateChangeStart', ctrl.onStateChangeStart)
       scope.$on('$viewContentLoaded', ctrl.onViewContentLoaded)
 
-      element.addClass(bpApp.platform).attr({
-        role: 'application'
-      })
+      element
+        .addClass(bpApp.platform)
+        .attr('role', attrs.role || 'application')
     }
   }
 })

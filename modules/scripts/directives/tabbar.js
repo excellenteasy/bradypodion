@@ -8,10 +8,10 @@
 angular.module('bp').directive('bpTabbar', function() {
   return {
     restrict: 'E',
-    link: function(scope, element) {
-      element.attr({
-        role: 'tablist'
-      })
+    link: function(scope, element, attrs) {
+      if (!attrs.role) {
+        element.attr('role', 'tablist')
+      }
     }
   }
 })
@@ -22,6 +22,7 @@ angular.module('bp').directive('bpTabbar', function() {
 @name bp.directive:bpTab
 @requires bp.util.bpView
 @scope true
+@priority 100
 @param {string} bpSref The name of the state the tab is associated to.
 @param {string} bpTabIcon A CSS class that represents a font-icon for the tab.
 @param {string=} bpTabTitle The title of the tab. By default it's read from the associated state.
@@ -40,6 +41,7 @@ angular.module('bp').directive('bpTabbar', function() {
 
 angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpView) {
   return {
+    priority: 100,
     restrict: 'E',
     scope: {
       bpSref: '@',
@@ -47,9 +49,6 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpV
       bpTabTitle: '@'
     },
     link: function(scope, element, attrs) {
-      element.attr({
-        role: 'tab'
-      })
       var state = $state.get(bpView.parseState(scope.bpSref).state)
       if (angular.isUndefined(attrs.bpTabTitle)) {
         if (angular.isObject(state.data) && state.data.title) {
@@ -65,7 +64,9 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpV
       var $title = $compile(angular.element('<span>')
         .attr('ng-bind', 'bpTabTitle'))(scope)
 
-      element.append($icon, $title)
+      element
+        .append($icon, $title)
+        .attr('role', attrs.role || 'tab')
 
       scope.$on('$stateChangeSuccess', function() {
         if ($state.includes(scope.bpSref)) {

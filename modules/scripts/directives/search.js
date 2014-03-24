@@ -21,7 +21,7 @@ angular.module('bp').directive('bpSearch', function(
 
   return {
     restrict: 'E',
-    link: function(scope, element) {
+    link: function(scope, element, attrs) {
       var ios = bpApp.platform === 'ios'
       var childScope = scope.$new(true)
 
@@ -46,9 +46,11 @@ angular.module('bp').directive('bpSearch', function(
       )(childScope)
 
       var $tapLayer = angular.element('<bp-search-tap>')
-      var $search = element.find('input').attr({
+      var $search = element.find('input')
+
+      $search.attr({
         required: 'required',
-        type: 'search'
+        type: $search.attr('type') || 'search'
       })
 
       childScope.placeholder = $search.attr('placeholder')
@@ -62,7 +64,7 @@ angular.module('bp').directive('bpSearch', function(
       var tap = bpTap($tapLayer)
 
       element
-        .attr('role', 'search')
+        .attr('role', attrs.role || 'search')
         .prepend($bgLeft, $bgRight)
         .append($placeholder, $cancel, $tapLayer)
 

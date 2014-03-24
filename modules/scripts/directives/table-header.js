@@ -9,10 +9,10 @@ If you enable either `bpScrollSticky` or `bpIscrollSticky` it's the default elem
 angular.module('bp').directive('bpTableHeader', function() {
   return {
     restrict: 'E',
-    link: function(scope, element) {
-      element.attr({
-        role: 'heading'
-      })
+    link: function(scope, element, attrs) {
+      if (!attrs.role) {
+        element.attr('role', 'heading')
+      }
     }
   }
 })
