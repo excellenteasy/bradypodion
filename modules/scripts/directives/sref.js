@@ -25,11 +25,15 @@ as it transitions to a state, but without 300ms delay.
 angular.module('bp').directive('bpSref', function($state, $parse, bpTap, bpView) {
   return function(scope, element, attrs) {
     var tap = bpTap(element, attrs)
-    element.bind('tap', function() {
-      var ref = bpView.parseState(attrs.bpSref, scope)
-      $state.go(ref.state,ref.params)
-      return false
-    })
+
+    element
+      .bind('tap', function() {
+        var ref = bpView.parseState(attrs.bpSref, scope)
+        $state.go(ref.state,ref.params)
+        return false
+      })
+      .attr('role', attrs.role || 'link')
+
     scope.$on('$destroy', function() {
       tap.disable()
     })
