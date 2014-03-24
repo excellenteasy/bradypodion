@@ -144,21 +144,24 @@ angular.module('bp')
           }
 
           if (ios) {
-            if ($actions.length > 2) {
-              if (angular.isElement($up)) {
-                $frstAction = $up.addClass('bp-button')
-              }
+            var actionsCount = $actions.length
 
+            if (angular.isElement($up)) {
+              $frstAction = $up.addClass('bp-button')
+            }
+
+            if (($frstAction && actionsCount > 1) || (!$frstAction && actionsCount > 2)) {
               $actions.each(function() {
                 ctrl.convertActionToIcon(angular.element(this))
               })
               $toolbar = angular.element('<bp-toolbar>').append($actions)
             } else {
-              if (angular.isElement($up)) {
-                $actions = $up.add($actions)
+              if (actionsCount === 1 || $frstAction) {
+                $scndAction = $actions.eq(0)
+              } else {
+                $frstAction = $actions.eq(0)
+                $scndAction = $actions.eq(1)
               }
-              $frstAction = $actions.eq(0)
-              $scndAction = $actions.eq(1)
 
               $actions.each(function() {
                 var $action = angular.element(this)
@@ -186,7 +189,7 @@ angular.module('bp')
                 var scndW = angular.isElement($frstAction) ? $frstAction.outerWidth() : 0
                 var diff  = frstW - scndW
 
-                if (diff !== 0 && $frstAction.length) {
+                if (diff !== 0) {
                   angular.element('<div>').css({
                       '-webkit-box-flex': '10',
                       'max-width': Math.abs(diff)
