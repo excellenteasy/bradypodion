@@ -40,22 +40,24 @@ angular.module('bp').directive('bpApp', function($compile, bpApp) {
 
       this.onViewContentLoaded = function() {
         var $views = angular.element('[ui-view], ui-view')
-        if (angular.isString(this.transition)) {
-          $views
-            .removeClass(this.lastTransition)
-            .addClass(this.transition)
-          this.lastTransition = this.transition
-        } else {
+
+        if (!angular.isString(this.transition)) {
           $views.removeClass(this.lastTransition)
+          return
         }
+
+        $views
+          .removeClass(this.lastTransition)
+          .addClass(this.transition)
+        this.lastTransition = this.transition
       }
 
       this.setTransition = function(type, direction) {
         if (angular.isString(type) && angular.isString(direction)) {
           this.transition = type + '-' + direction
-        } else {
-          this.transition = null
+          return
         }
+        this.transition = null
       }
 
       this.onViewContentLoaded = angular.bind(this, this.onViewContentLoaded)

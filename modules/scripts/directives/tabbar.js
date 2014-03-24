@@ -73,11 +73,12 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpV
           element
             .addClass('bp-tab-active')
             .attr('aria-selected', 'true')
-        } else {
-          element
-            .removeClass('bp-tab-active')
-            .attr('aria-selected', 'false')
+          return
         }
+
+        element
+          .removeClass('bp-tab-active')
+          .attr('aria-selected', 'false')
       })
 
       element.bind('touchstart', function() {

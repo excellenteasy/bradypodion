@@ -46,9 +46,9 @@ angular.module('bp').provider('bpTap', function() {
         angular.isObject(e.changedTouches[0])) {
 
         return e.changedTouches[0][axis]
-      } else {
-        return 0
       }
+
+      return 0
     }
 
     var onClick = function(e) {
@@ -69,9 +69,10 @@ angular.module('bp').provider('bpTap', function() {
         element.get(0) !== e.target) {
 
         touch.nestedTap = true
-      } else {
-        element.addClass(config.activeClass)
+        return
       }
+
+      element.addClass(config.activeClass)
     }
 
     var onTouchmove = function(e) {
@@ -91,10 +92,12 @@ angular.module('bp').provider('bpTap', function() {
         if (config.noScroll) {
           e.preventDefault()
         }
-      } else {
-        touch.ongoing = false
-        element.removeClass(config.activeClass)
+
+        return
       }
+
+      touch.ongoing = false
+      element.removeClass(config.activeClass)
     }
 
     var onTouchend = function(e) {

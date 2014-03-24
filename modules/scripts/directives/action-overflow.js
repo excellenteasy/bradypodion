@@ -47,57 +47,58 @@ angular.module('bp').directive('bpActionOverflow', function(
       return function(scope, element, attrs, ctrl) {
         if (bpApp.platform === 'ios') {
           element.attr('aria-hidden', 'true')
-        } else {
-          element.attr({
-            role: attrs.role || 'button',
-            'aria-has-popup': 'true'
-          })
-
-          var tap = bpTap(element, attrs)
-          var open = false
-
-          transcludeFn(scope, function(clone) {
-            var $actions = clone.filter('bp-action')
-            $actions.each(function() {
-              var $action = angular.element(this)
-              $action
-                .attr('role', 'menu-item')
-                .addClass('bp-button')
-            })
-            var $menu = angular.element('<bp-action-overflow-menu>')
-              .attr({
-                role: 'menu',
-                'aria-hidden': 'true'
-              }).append($actions)
-
-            var $$window = angular.element($window)
-            element.append($menu)
-            element.on('tap', function() {
-              if (open) {
-                ctrl.close($menu)
-                open = false
-              } else {
-                ctrl.open($menu)
-                open = true
-              }
-            })
-            $actions.on('touchstart', function(e) {
-              e.stopPropagation()
-            })
-            $$window.on('touchstart', function() {
-              if (open) {
-                ctrl.close($menu)
-                open = false
-                element.trigger('touchcancel')
-              }
-            })
-            scope.$on('$destroy', function() {
-              tap.disable()
-              $actions.unbind('touchstart')
-              $$window.unbind('touchstart')
-            })
-          })
+          return
         }
+
+        element.attr({
+          role: attrs.role || 'button',
+          'aria-has-popup': 'true'
+        })
+
+        var tap = bpTap(element, attrs)
+        var open = false
+
+        transcludeFn(scope, function(clone) {
+          var $actions = clone.filter('bp-action')
+          $actions.each(function() {
+            var $action = angular.element(this)
+            $action
+              .attr('role', 'menu-item')
+              .addClass('bp-button')
+          })
+          var $menu = angular.element('<bp-action-overflow-menu>')
+            .attr({
+              role: 'menu',
+              'aria-hidden': 'true'
+            }).append($actions)
+
+          var $$window = angular.element($window)
+          element.append($menu)
+          element.on('tap', function() {
+            if (open) {
+              ctrl.close($menu)
+              open = false
+            } else {
+              ctrl.open($menu)
+              open = true
+            }
+          })
+          $actions.on('touchstart', function(e) {
+            e.stopPropagation()
+          })
+          $$window.on('touchstart', function() {
+            if (open) {
+              ctrl.close($menu)
+              open = false
+              element.trigger('touchcancel')
+            }
+          })
+          scope.$on('$destroy', function() {
+            tap.disable()
+            $actions.unbind('touchstart')
+            $$window.unbind('touchstart')
+          })
+        })
       }
     }
   }

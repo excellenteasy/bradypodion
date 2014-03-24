@@ -77,9 +77,9 @@ angular.module('bp')
           angular.isString(state.data.title)) {
 
           return state.data.title
-        } else {
-          return state.name.charAt(0).toUpperCase() + state.name.slice(1)
         }
+
+        return state.name.charAt(0).toUpperCase() + state.name.slice(1)
       }
       this.convertActionToIcon = function($action) {
         if (angular.isElement($action)) {
@@ -100,12 +100,11 @@ angular.module('bp')
         element.attr('role', attrs.role || 'navigation')
 
         transcludeFn(scope, function(clone) {
-          var $arrow, $frstAction, $scndAction, $toolbar, $up, title
+          var $arrow, $frstAction, $scndAction, $toolbar, $up
 
-          if (angular.isUndefined(attrs.bpNavbarTitle)) {
+          var title = attrs.bpNavbarTitle
+          if (angular.isUndefined(title)) {
             title = ctrl.getTitleFromState(state)
-          } else {
-            title = attrs.bpNavbarTitle
           }
 
           var $title = $compile(angular.element('<bp-navbar-title>')
@@ -195,27 +194,28 @@ angular.module('bp')
                 }
               }, 0, false)
             }
-          } else {
-            var $icon = angular.element('<bp-navbar-icon>')
-
-            $frstAction = $actions.eq(0)
-            $scndAction = $actions.eq(1)
-            ctrl.convertActionToIcon($frstAction)
-            ctrl.convertActionToIcon($scndAction)
-            ctrl.convertActionToIcon($up)
-
-            if ($actions.length > 2) {
-              $toolbar = $compile(angular.element('<bp-action-overflow>')
-                .append($actions.not($frstAction).not($scndAction)))(scope)
-            }
-
-            if (angular.isElement($up)) {
-              $up.append('<div>', $icon)
-              element.append($up, $title, $frstAction, $scndAction, $toolbar)
-            } else {
-              element.append($icon, $title, $frstAction, $scndAction, $toolbar)
-            }
+            return
           }
+
+          var $icon = angular.element('<bp-navbar-icon>')
+
+          $frstAction = $actions.eq(0)
+          $scndAction = $actions.eq(1)
+          ctrl.convertActionToIcon($frstAction)
+          ctrl.convertActionToIcon($scndAction)
+          ctrl.convertActionToIcon($up)
+
+          if ($actions.length > 2) {
+            $toolbar = $compile(angular.element('<bp-action-overflow>')
+              .append($actions.not($frstAction).not($scndAction)))(scope)
+          }
+
+          if (angular.isElement($up)) {
+            $up.append('<div>', $icon)
+            element.append($up, $title, $frstAction, $scndAction, $toolbar)
+            return
+          }
+          element.append($icon, $title, $frstAction, $scndAction, $toolbar)
         })
       }
     }

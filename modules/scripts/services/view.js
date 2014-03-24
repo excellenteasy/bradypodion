@@ -40,6 +40,7 @@ angular.module('bp.util').service('bpView', function($parse, bpApp) {
 
       return 'reverse'
     }
+
     return null
   }
 
@@ -62,16 +63,16 @@ angular.module('bp.util').service('bpView', function($parse, bpApp) {
         return data.transition
       } else if (hasData && data.modal) {
         return 'cover'
-      } else {
-        return bpApp.platform === 'ios' ? 'slide' : 'scale'
       }
+
+      return bpApp.platform === 'ios' ? 'slide' : 'scale'
     }
 
     if (direction === 'reverse') {
       return typeFromState(from)
-    } else {
-      return typeFromState(to)
     }
+
+    return typeFromState(to)
   }
 
   /**
