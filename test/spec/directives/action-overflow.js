@@ -10,7 +10,7 @@ describe('action overflow', function() {
 
     beforeEach(inject(function($rootScope, $compile) {
       scope = $rootScope.$new()
-      element = $compile('<bp-action-overflow> <bp-action bp-tap class="fa-bookmark">First</bp-action> <bp-action bp-tap class="fa-comment">Second</bp-action> </bp-action-overflow>')(scope)
+      element = $compile('<bp-action-overflow> <bp-action ng-click class="fa-bookmark">First</bp-action> <bp-action ng-click class="fa-comment">Second</bp-action> </bp-action-overflow>')(scope)
       ctrl = element.controller('bpActionOverflow')
       scope.$apply()
     }))

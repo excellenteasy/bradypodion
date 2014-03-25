@@ -18,7 +18,7 @@ describe('tabbarDirective', function() {
   beforeEach(inject(function($rootScope, $compile, $state) {
     scope = $rootScope.$new()
     state = $state
-    var template = '<bp-tabbar> <bp-tab bp-sref="first" bp-tab-icon="bp-icon-search"></bp-tab> <bp-tab bp-sref="second" bp-tab-icon="bp-icon-search"></bp-tab> </bp-tabbar>'
+    var template = '<bp-tabbar> <bp-tab ui-sref="first" bp-tab-icon="bp-icon-search"></bp-tab> <bp-tab ui-sref="second" bp-tab-icon="bp-icon-search"></bp-tab> </bp-tabbar>'
     element = $compile(template)(scope)
     scope.$apply()
   }))

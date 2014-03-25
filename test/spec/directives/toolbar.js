@@ -31,7 +31,7 @@ describe('toolbar', function() {
 
     beforeEach(inject(function($rootScope, $compile) {
       scope = $rootScope.$new()
-      element = $compile('<bp-toolbar> <bp-action bp-tap class="fa-bookmark">First</bp-action> <bp-action bp-tap class="fa-comment">Second</bp-action> </bp-toolbar>')(scope)
+      element = $compile('<bp-toolbar> <bp-action ng-click class="fa-bookmark">First</bp-action> <bp-action ng-click class="fa-comment">Second</bp-action> </bp-toolbar>')(scope)
       scope.$apply()
     }))
 

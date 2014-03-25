@@ -64,7 +64,7 @@ describe('tapService', function() {
       e = $.Event('touchstart', {
         pageX: 5,
         pageY: 5,
-        target: angular.element('<div bp-tap>').eq(0)
+        target: angular.element('<div ng-click>').eq(0)
       })
       element.trigger(e)
       expect(tap.touch).toEqual({

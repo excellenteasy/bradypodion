@@ -130,14 +130,14 @@ describe('navbarDirective', function() {
         var $up = element5.find('.bp-action-up')
 
         expect($up.text()).toBe('First')
-        expect($up.attr('bp-sref')).toBe('first({foo: 1})')
+        expect($up.attr('ui-sref')).toBe('first({foo: 1})')
         state.go('second')
         timeout.flush()
         var element6 = $compile(angular.element('<bp-navbar>'))(scope)
         $up = element6.find('.bp-action-up')
 
         expect($up.text()).toBe('First')
-        expect($up.attr('bp-sref')).toBe('first')
+        expect($up.attr('ui-sref')).toBe('first')
 
         state.go('fourth')
         timeout.flush()
