@@ -35,14 +35,12 @@ describe('searchDirective', function() {
         var searchEvents = $._data($search.get(0)).events
         var tapLayerEvents = $._data($tapLayer.get(0)).events
         expect(searchEvents.blur != null).toBe(true)
-        expect(tapLayerEvents.tap != null).toBe(true)
         expect(tapLayerEvents.click != null).toBe(true)
         expect(tapLayerEvents.touchstart != null).toBe(true)
         expect(tapLayerEvents.touchmove != null).toBe(true)
         expect(tapLayerEvents.touchend != null).toBe(true)
         scope.$destroy()
         expect(searchEvents.blur != null).toBe(false)
-        expect(tapLayerEvents.tap != null).toBe(false)
         expect(tapLayerEvents.click != null).toBe(false)
         expect(tapLayerEvents.touchstart != null).toBe(false)
         expect(tapLayerEvents.touchmove != null).toBe(false)
@@ -116,13 +114,10 @@ describe('searchDirective', function() {
       it('should bind and unbind events', inject(function($window) {
         var windowEvents = $._data($window).events
         var searchEvents = $._data($search.get(0)).events
-        var cancelEvents = $._data($cancel.get(0)).events
         var tapLayerEvents = $._data($tapLayer.get(0)).events
         expect(windowEvents.resize != null).toBe(true)
         expect(windowEvents.orientationchange != null).toBe(true)
         expect(searchEvents.blur != null).toBe(true)
-        expect(cancelEvents.tap != null).toBe(true)
-        expect(tapLayerEvents.tap != null).toBe(true)
         expect(tapLayerEvents.click != null).toBe(true)
         expect(tapLayerEvents.touchstart != null).toBe(true)
         expect(tapLayerEvents.touchmove != null).toBe(true)
@@ -131,8 +126,6 @@ describe('searchDirective', function() {
         expect(windowEvents.resize != null).toBe(false)
         expect(windowEvents.orientationchange != null).toBe(false)
         expect(searchEvents.blur != null).toBe(false)
-        expect(cancelEvents.tap != null).toBe(false)
-        expect(tapLayerEvents.tap != null).toBe(false)
         expect(tapLayerEvents.click != null).toBe(false)
         expect(tapLayerEvents.touchstart != null).toBe(false)
         expect(tapLayerEvents.touchmove != null).toBe(false)
