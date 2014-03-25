@@ -16,6 +16,7 @@ module.exports = (config) ->
       'modules/bower_components/iscroll-sticky/dist/iscroll-sticky.js'
       'modules/bower_components/angular/angular.js'
       'modules/bower_components/angular-animate/angular-animate.js'
+      'modules/bower_components/angular-touch/angular-touch.js'
       'modules/bower_components/angular-ui-router/release/angular-ui-router.js'
       'dist/bradypodion.js'
       'dist/bradypodion-iscroll.js'
