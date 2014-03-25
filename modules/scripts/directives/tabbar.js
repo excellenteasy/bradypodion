@@ -80,16 +80,6 @@ angular.module('bp').directive('bpTab', function($state, $compile, $timeout, bpV
           .removeClass('bp-tab-active')
           .attr('aria-selected', 'false')
       })
-
-      element.bind('touchstart', function() {
-        $timeout(function() {
-          element.trigger('touchend')
-        }, 500)
-      })
-
-      scope.$on('$destroy', function() {
-        element.unbind('touchstart')
-      })
     }
   }
 })
