@@ -6,11 +6,11 @@
 @example
 <pre>
 <bp-toolbar>
-  <bp-action bp-tap="doSomething()" class="icon-bookmark">First</bp-action>
-  <bp-action bp-tap="doSomething()" class="icon-comment">Second</bp-action>
-  <bp-action bp-tap="doSomething()" class="icon-download">Third</bp-action>
-  <bp-action bp-tap="doSomething()" class="icon-inbox">Fourth</bp-action>
-  <bp-action bp-tap="doSomething()" class="icon-music">Fifth</bp-action>
+  <bp-action ng-click="doSomething()" class="icon-bookmark">First</bp-action>
+  <bp-action ng-click="doSomething()" class="icon-comment">Second</bp-action>
+  <bp-action ng-click="doSomething()" class="icon-download">Third</bp-action>
+  <bp-action ng-click="doSomething()" class="icon-inbox">Fourth</bp-action>
+  <bp-action ng-click="doSomething()" class="icon-music">Fifth</bp-action>
 </bp-toolbar>
 </pre>
 @description

@@ -7,11 +7,11 @@
 @example
 <pre>
 <bp-action-overflow>
-  <bp-action bp-tap="doSomething()">First</bp-action>
-  <bp-action bp-tap="doSomething()">Second</bp-action>
-  <bp-action bp-tap="doSomething()">Third</bp-action>
-  <bp-action bp-tap="doSomething()">Fourth</bp-action>
-  <bp-action bp-tap="doSomething()">Fifth</bp-action>
+  <bp-action ng-click="doSomething()">First</bp-action>
+  <bp-action ng-click="doSomething()">Second</bp-action>
+  <bp-action ng-click="doSomething()">Third</bp-action>
+  <bp-action ng-click="doSomething()">Fourth</bp-action>
+  <bp-action ng-click="doSomething()">Fifth</bp-action>
 
 </bp-action-overflow>
 </pre>

@@ -65,7 +65,7 @@ angular.module('bp').provider('bpTap', function() {
       touch.y = _getCoordinate(e, false)
       touch.ongoing = true
 
-      if ((angular.isDefined($target.attr('bp-tap')) || angular.isDefined($target.attr('bp-sref'))) &&
+      if ((angular.isDefined($target.attr('ng-click')) || angular.isDefined($target.attr('bp-sref'))) &&
         element.get(0) !== e.target) {
 
         touch.nestedTap = true
