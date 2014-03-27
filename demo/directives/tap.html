@@ -1,10 +1,10 @@
 <bp-content bp-scroll>
   <br><br>
   <bp-navbar bp-navbar-no-up>
-    <bp-action bp-tap="tapped()" demo-tapped>default {{ random }}</bp-action>
+    <bp-action ng-click="tapped()" demo-tapped>default {{ random }}</bp-action>
   </bp-navbar>
   <bp-navbar bp-navbar-no-up>
-    <bp-action bp-tap="tapped()" demo-tapped bp-bound-margin="100">
+    <bp-action ng-click="tapped()" demo-tapped bp-bound-margin="100">
       bound margin 100 {{ random }}
     </bp-action>
   </bp-navbar>

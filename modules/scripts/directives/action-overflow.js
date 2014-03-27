@@ -3,16 +3,14 @@
 @name bp.directive:bpActionOverflow
 @restrict E
 @requires bp.util.bpApp
-@requires bp.util.bpTap
 @example
 <pre>
 <bp-action-overflow>
-  <bp-action bp-tap="doSomething()">First</bp-action>
-  <bp-action bp-tap="doSomething()">Second</bp-action>
-  <bp-action bp-tap="doSomething()">Third</bp-action>
-  <bp-action bp-tap="doSomething()">Fourth</bp-action>
-  <bp-action bp-tap="doSomething()">Fifth</bp-action>
-
+  <bp-action ng-click="doSomething()">First</bp-action>
+  <bp-action ng-click="doSomething()">Second</bp-action>
+  <bp-action ng-click="doSomething()">Third</bp-action>
+  <bp-action ng-click="doSomething()">Fourth</bp-action>
+  <bp-action ng-click="doSomething()">Fifth</bp-action>
 </bp-action-overflow>
 </pre>
 @description
@@ -27,8 +25,7 @@ This is described in more detail in the {@link bp.directive:bpNavbar `bpNavbar`}
 
 angular.module('bp').directive('bpActionOverflow', function(
   $window,
-  bpApp,
-  bpTap) {
+  bpApp) {
 
   return {
     restrict: 'E',
@@ -43,6 +40,8 @@ angular.module('bp').directive('bpActionOverflow', function(
         $animate.removeClass($menu, 'bp-action-overflow-open')
       }
     },
+    replace: true,
+    template: '<bp-action-overflow-wrapper ng-click></bp-action-overflow-wrapper>',
     compile: function(elem, attrs, transcludeFn) {
       return function(scope, element, attrs, ctrl) {
         if (bpApp.platform === 'ios') {
@@ -55,8 +54,8 @@ angular.module('bp').directive('bpActionOverflow', function(
           'aria-has-popup': 'true'
         })
 
-        var tap = bpTap(element, attrs)
         var open = false
+        var dismiss = false
 
         transcludeFn(scope, function(clone) {
           var $actions = clone.filter('bp-action')
@@ -74,29 +73,37 @@ angular.module('bp').directive('bpActionOverflow', function(
 
           var $$window = angular.element($window)
           element.append($menu)
-          element.on('tap', function() {
+
+          element.on('click', function() {
             if (open) {
               ctrl.close($menu)
               open = false
-            } else {
+            }
+            if (!dismiss) {
               ctrl.open($menu)
               open = true
             }
+            dismiss = false
           })
-          $actions.on('touchstart', function(e) {
+
+          $actions.on('touchstart mousedown click', function(e) {
             e.stopPropagation()
           })
-          $$window.on('touchstart', function() {
+
+          $$window.on('touchstart mousedown', function(e) {
             if (open) {
               ctrl.close($menu)
               open = false
-              element.trigger('touchcancel')
+              if (element.is(e.target) || $menu.is(e.target)) {
+                dismiss = true
+              }
             }
           })
+
           scope.$on('$destroy', function() {
-            tap.disable()
-            $actions.unbind('touchstart')
-            $$window.unbind('touchstart')
+            element.unbind('click')
+            $actions.unbind('touchstart mousedown click')
+            $$window.unbind('touchstart mousedown')
           })
         })
       }

@@ -130,14 +130,14 @@ describe('navbarDirective', function() {
         var $up = element5.find('.bp-action-up')
 
         expect($up.text()).toBe('First')
-        expect($up.attr('bp-sref')).toBe('first({foo: 1})')
+        expect($up.attr('ui-sref')).toBe('first({foo: 1})')
         state.go('second')
         timeout.flush()
         var element6 = $compile(angular.element('<bp-navbar>'))(scope)
         $up = element6.find('.bp-action-up')
 
         expect($up.text()).toBe('First')
-        expect($up.attr('bp-sref')).toBe('first')
+        expect($up.attr('ui-sref')).toBe('first')
 
         state.go('fourth')
         timeout.flush()
@@ -200,7 +200,7 @@ describe('navbarDirective', function() {
       it('should spawn action overflow', function() {
         var element3 = compile('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> </bp-navbar>')(scope)
         expect(element3.children().length).toBe(5)
-        expect(element3.find('bp-action-overflow').length).toBe(1)
+        expect(element3.find('bp-action-overflow-wrapper').length).toBe(1)
       })
     })
   })

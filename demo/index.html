@@ -54,12 +54,13 @@
     <ui-view-wrapper>
       <div ui-view></div>
     </ui-view-wrapper>
-    <bp-action id='switch' class='bp-icon' bp-tap='toggleTheme()' switch-theme aria-label="Toggle Theme"></bp-action>
+    <bp-action id='switch' class='bp-icon' ng-click='toggleTheme()' switch-theme aria-label="Toggle Theme"></bp-action>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/iscroll/build/iscroll-probe.js"></script>
     <script src="bower_components/iscroll-sticky/dist/iscroll-sticky.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bradypodion.js"></script>
     <script src="bradypodion-iscroll.js"></script>

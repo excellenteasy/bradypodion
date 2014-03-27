@@ -16,7 +16,6 @@ angular.module('bp').directive('bpSearch', function(
   $compile,
   $timeout,
   $window,
-  bpTap,
   bpApp) {
 
   return {
@@ -31,6 +30,7 @@ angular.module('bp').directive('bpSearch', function(
         $bgRight = angular.element('<bp-search-bg-right>')
         $cancel = $compile(angular.element('<bp-action>')
           .addClass('bp-button')
+          .attr('ng-click', 'onCancel()')
           .text('Cancel'))(childScope)
       }
 
@@ -45,7 +45,9 @@ angular.module('bp').directive('bpSearch', function(
         )
       )(childScope)
 
-      var $tapLayer = angular.element('<bp-search-tap>')
+      var $tapLayer = $compile(angular.element('<bp-search-tap>')
+        .attr('ng-click', 'onFocus()'))(childScope)
+
       var $search = element.find('input')
 
       $search.attr({
@@ -57,11 +59,6 @@ angular.module('bp').directive('bpSearch', function(
       if (childScope.placeholder == null) {
         childScope.placeholder = 'Search'
       }
-
-      if (ios) {
-        var cancelTap = bpTap($cancel)
-      }
-      var tap = bpTap($tapLayer)
 
       element
         .attr('role', attrs.role || 'search')
@@ -98,13 +95,13 @@ angular.module('bp').directive('bpSearch', function(
       }
 
       childScope.onBlur = function(e, extra) {
-        if (extra == null) {
+        if (angular.isUndefined(extra)) {
           extra = {}
         }
         if (!ios) {
           element.removeClass('focus')
         } else if (!$search.val() && !extra.programatic) {
-          $cancel.trigger('tap')
+          childScope.onCancel()
         }
       }
 
@@ -123,22 +120,18 @@ angular.module('bp').directive('bpSearch', function(
       if (ios) {
         angular.element($window)
           .bind('resize orientationchange', childScope.onResize)
-        $cancel.bind('tap', childScope.onCancel)
       }
 
       $search.bind('blur', childScope.onBlur)
-      $tapLayer
-        .bind('tap', childScope.onFocus)
-        .bind('click touchstart touchmove touchend', childScope.stopPropagation)
+      $tapLayer.bind('click touchstart touchmove touchend', childScope.stopPropagation)
 
       scope.$on('$destroy', function() {
         childScope.$destroy()
         if (ios) {
           angular.element($window).unbind('resize orientationchange')
-          cancelTap.disable()
         }
+        $tapLayer.unbind('click touchstart touchmove touchend')
         $search.unbind('blur')
-        tap.disable()
       })
     }
   }

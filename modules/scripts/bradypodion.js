@@ -20,4 +20,4 @@ It requires `ngAnimate` and `ui.router`. Use it with your app likes this:
 angular.module('yourApp', ['bp'])
 </pre>
 */
-angular.module('bp', ['bp.util', 'ngAnimate', 'ui.router'])
+angular.module('bp', ['bp.util', 'ngAnimate', 'ngTouch', 'ui.router'])

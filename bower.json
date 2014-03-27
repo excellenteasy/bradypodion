@@ -7,6 +7,7 @@
     "angular": "1.2.13",
     "angular-animate": "1.2.13",
     "angular-ui-router": "0.2.9",
+    "angular-touch": "1.2.13",
     "iscroll": "~5.1.1",
     "iscroll-sticky": "~0.1.1",
     "jquery": "~2.1.0",

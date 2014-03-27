@@ -152,7 +152,7 @@ angular.module('bp')
             if (up) {
               $up = $compile(angular.element('<bp-action>')
                 .addClass('bp-action-up')
-                .attr('bp-sref', up.sref)
+                .attr('ui-sref', up.sref)
                 .text(ctrl.getTitleFromState(up.state)))(scope)
             }
           }

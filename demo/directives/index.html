@@ -1,5 +1,5 @@
 <bp-table bp-scroll ng-init="directives = ['button','cell','detail-disclosure','iscroll','navbar','scroll','search','tabbar','table','tap','toolbar']">
-  <bp-cell ng-repeat='directive in directives' bp-sref="{{directive}}">
+  <bp-cell ng-repeat='directive in directives' ui-sref="{{directive}}" ng-click>
     {{ directive }}
   </bp-cell>
 </bp-table>

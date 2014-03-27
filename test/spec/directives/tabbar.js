@@ -18,7 +18,7 @@ describe('tabbarDirective', function() {
   beforeEach(inject(function($rootScope, $compile, $state) {
     scope = $rootScope.$new()
     state = $state
-    var template = '<bp-tabbar> <bp-tab bp-sref="first" bp-tab-icon="bp-icon-search"></bp-tab> <bp-tab bp-sref="second" bp-tab-icon="bp-icon-search"></bp-tab> </bp-tabbar>'
+    var template = '<bp-tabbar> <bp-tab ui-sref="first" bp-tab-icon="bp-icon-search"></bp-tab> <bp-tab ui-sref="second" bp-tab-icon="bp-icon-search"></bp-tab> </bp-tabbar>'
     element = $compile(template)(scope)
     scope.$apply()
   }))
@@ -51,24 +51,5 @@ describe('tabbarDirective', function() {
       expect($first.hasClass('bp-tab-active')).toBe(false)
       expect($second.hasClass('bp-tab-active')).toBe(true)
     }))
-  })
-
-  describe('events', function() {
-    it('should bind touchstart', function() {
-      var events = $._data(element.children().get(0)).events
-      expect(events.touchstart != null).toBe(true)
-    })
-
-    it('should change state 500ms after touchstart', inject(function($timeout) {
-      element.children().eq(1).trigger('touchstart')
-      $timeout.flush()
-      expect(state.$current.name).toBe('second')
-    }))
-
-    it('should unbind touchstart after destroy', function() {
-      var events = $._data(element.children().get(0)).events
-      scope.$destroy()
-      expect(events.touchstart != null).toBe(false)
-    })
   })
 })
