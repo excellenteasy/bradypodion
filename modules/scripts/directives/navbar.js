@@ -66,7 +66,8 @@ angular.module('bp')
     $timeout,
     $state,
     $compile,
-    $log) {
+    $log,
+    $urlMatcherFactory) {
 
   return {
     restrict: 'E',
@@ -89,24 +90,60 @@ angular.module('bp')
           angular.isString(state.data.up)) {
           up.sref = state.data.up
         } else if (state.url) {
-          var urlSegments = bpView._getURLSegments(state)
-          up.sref = urlSegments[urlSegments.length - 2]
+          var currentUrlSegments = bpView._getURLSegments(state)
+          var states = $state.get()
 
-          if (up.sref && up.sref[0] == ':') {
-            $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.')
-            return
+          for (var i = states.length - 1; i >= 0; i--) {
+            if (states[i] === state) {
+              continue
+            }
+
+            var otherUrlSegments = bpView._getURLSegments(states[i])
+            if (otherUrlSegments.length !== -1 + currentUrlSegments.length) {
+              continue
+            }
+
+            for (var j = otherUrlSegments.length - 1; j >= 0; j--) {
+              if (otherUrlSegments[j] !== currentUrlSegments[j]) {
+                break
+              }
+              if (j === 0) {
+                up.sref = states[i].name
+                up.state = states[i]
+              }
+            }
+
+            if (up.sref) {
+              break
+            }
           }
         }
 
         if (!up.sref) {
-          return
+          return null
         }
 
-        up.state = $state.get(bpView.parseState(up.sref).state)
+        if (!up.state && up.sref) {
+          up.state = $state.get(bpView.parseState(up.sref).state)
+        }
 
         if (!up.state) {
           $log.error('up state detection failed. No up button compiled. Check your state configuration.')
-          return
+          return null
+        }
+
+        var params = $urlMatcherFactory.compile(up.state.url).params
+        if (params.length) {
+          up.sref += '({'
+
+          for (var k = params.length - 1; k >= 0; k--) {
+            up.sref += params[k] + ':' + "'" + $state.params[params[k]] + "'"
+            if (k !== 0) {
+              up.sref += ','
+            }
+          }
+
+          up.sref += '})'
         }
 
         return up
