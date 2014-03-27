@@ -83,6 +83,29 @@ angular.module('bp')
         return state.name.charAt(0).toUpperCase() + state.name.slice(1)
       }
 
+      function _getUpFromStateByUrl(state) {
+        var up = {}
+        var wantedUrl = bpView._getURLSegments(state)
+        wantedUrl = wantedUrl.slice(0, -1 + wantedUrl.length).join('/')
+        var states = $state.get()
+
+        for (var i = states.length - 1; i >= 0; i--) {
+          if (states[i] === state) {
+            continue
+          }
+
+          if (wantedUrl === states[i].url) {
+            up.sref = states[i].name
+            up.state = states[i]
+          }
+
+          if (up.sref) {
+            break
+          }
+        }
+        return up
+      }
+
       this.getUpFromState = function(state) {
         var up = {}
 
@@ -90,24 +113,7 @@ angular.module('bp')
           angular.isString(state.data.up)) {
           up.sref = state.data.up
         } else if (state.url) {
-          var wantedUrl = bpView._getURLSegments(state)
-          wantedUrl = wantedUrl.slice(0, -1 + wantedUrl.length).join('/')
-          var states = $state.get()
-
-          for (var i = states.length - 1; i >= 0; i--) {
-            if (states[i] === state) {
-              continue
-            }
-
-            if (wantedUrl === states[i].url) {
-              up.sref = states[i].name
-              up.state = states[i]
-            }
-
-            if (up.sref) {
-              break
-            }
-          }
+          up = _getUpFromStateByUrl(state)
         }
 
         if (!up.sref) {
