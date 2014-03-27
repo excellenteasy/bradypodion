@@ -23,6 +23,14 @@ describe('navbarDirective', function() {
         data: {
           up: 'doesNotExist'
         }
+      }).state('fifth', {
+        url: '/fifth'
+      }).state('sixth', {
+        url: '/first/:id'
+      }).state('seventh', {
+        url: '/first/:id/foo'
+      }).state('eighth', {
+        url: '/fourth/:foo/bar'
       })
     }))
 
@@ -66,6 +74,25 @@ describe('navbarDirective', function() {
         expect($action.hasClass('bp-button')).toBe(false)
         expect($action.hasClass('bp-icon')).toBe(true)
         expect($action.attr('aria-label')).toBe('Yo')
+      })
+
+      it('should getUpFromState', function() {
+        var currentState = state.get('second')
+        expect(ctrl.getUpFromState(currentState).state.name).toBe('first')
+        currentState = state.get('first')
+        expect(ctrl.getUpFromState(currentState).state.name).toBe('second')
+        currentState = state.get('third')
+        expect(ctrl.getUpFromState(currentState).state.name).toBe('first')
+        currentState = state.get('third')
+        expect(ctrl.getUpFromState(currentState).state.name).toBe('first')
+        currentState = state.get('fifth')
+        expect(ctrl.getUpFromState(currentState)).toBe(null)
+        currentState = state.get('sixth')
+        expect(ctrl.getUpFromState(currentState).state.name).toBe('first')
+        currentState = state.get('seventh')
+        expect(ctrl.getUpFromState(currentState).state.name).toBe('sixth')
+        currentState = state.get('eighth')
+        expect(ctrl.getUpFromState(currentState)).toBe(null)
       })
     })
 
