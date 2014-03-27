@@ -31,6 +31,12 @@ describe('navbarDirective', function() {
         url: '/first/:id/foo'
       }).state('eighth', {
         url: '/fourth/:foo/bar'
+      }).state('ninth', {
+        url: '/foo/:bar'
+      }).state('tenth', {
+        url: '/foo/:bar/baz'
+      }).state('eleventh', {
+        url: '/foo/:bar/baz/:bat'
       })
     }))
 
@@ -93,6 +99,16 @@ describe('navbarDirective', function() {
         expect(ctrl.getUpFromState(currentState).state.name).toBe('sixth')
         currentState = state.get('eighth')
         expect(ctrl.getUpFromState(currentState)).toBe(null)
+
+        state.go('tenth', {bar: 'test'})
+        timeout.flush()
+        currentState = state.current
+        expect(ctrl.getUpFromState(currentState).sref).toBe('ninth({"bar":"test"})')
+
+        state.go('eleventh', {bar: 'test', bat: 'value'})
+        timeout.flush()
+        currentState = state.current
+        expect(ctrl.getUpFromState(currentState).sref).toBe('tenth({"bar":"test","bat":"value"})')
       })
     })
 
