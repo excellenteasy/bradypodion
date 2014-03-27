@@ -90,7 +90,8 @@ angular.module('bp')
           angular.isString(state.data.up)) {
           up.sref = state.data.up
         } else if (state.url) {
-          var currentUrlSegments = bpView._getURLSegments(state)
+          var wantedUrl = bpView._getURLSegments(state)
+          wantedUrl = wantedUrl.slice(0, -1 + wantedUrl.length).join('/')
           var states = $state.get()
 
           for (var i = states.length - 1; i >= 0; i--) {
@@ -98,19 +99,9 @@ angular.module('bp')
               continue
             }
 
-            var otherUrlSegments = bpView._getURLSegments(states[i])
-            if (otherUrlSegments.length !== -1 + currentUrlSegments.length) {
-              continue
-            }
-
-            for (var j = otherUrlSegments.length - 1; j >= 0; j--) {
-              if (otherUrlSegments[j] !== currentUrlSegments[j]) {
-                break
-              }
-              if (j === 0) {
-                up.sref = states[i].name
-                up.state = states[i]
-              }
+            if (wantedUrl === states[i].url) {
+              up.sref = states[i].name
+              up.state = states[i]
             }
 
             if (up.sref) {
@@ -133,18 +124,17 @@ angular.module('bp')
         }
 
         var params = $urlMatcherFactory.compile(up.state.url).params
-        if (params.length) {
-          up.sref += '({'
-
-          for (var k = params.length - 1; k >= 0; k--) {
-            up.sref += params[k] + ':' + "'" + $state.params[params[k]] + "'"
-            if (k !== 0) {
-              up.sref += ','
-            }
-          }
-
-          up.sref += '})'
+        if (!params.length) {
+          return up
         }
+
+        for (var k = params.length - 1; k >= 0; k--) {
+          if (angular.isUndefined($state.params[params[k]])) {
+            $log.error("A parameter defined in the up state's url is not in the current state params. Check your state configuration.")
+          }
+        }
+
+        up.sref += '(' + angular.toJson($state.params) + ')'
 
         return up
       }
