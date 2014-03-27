@@ -4,9 +4,9 @@
   "license": "MIT",
   "version": "0.5.1-beta.1",
   "dependencies": {
-    "angular": "1.2.13",
-    "angular-animate": "1.2.13",
-    "angular-touch": "1.2.13",
+    "angular": "~1.2.15",
+    "angular-animate": "~1.2.15",
+    "angular-touch": "~1.2.15",
     "angular-ui-router": "~0.2.10",
     "iscroll": "~5.1.1",
     "iscroll-sticky": "~0.1.1",
@@ -14,6 +14,6 @@
     "lesshat": "~2.0.15"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.13"
+    "angular-mocks": "~1.2.15"
   }
 }
