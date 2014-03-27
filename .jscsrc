@@ -22,7 +22,10 @@
   "disallowMultipleLineStrings": true,
   "disallowMultipleLineBreaks": true,
   "validateLineBreaks": "LF",
-  "validateQuoteMarks": "'",
+  "validateQuoteMarks": {
+    "mark": "'",
+    "escape": true
+  },
   "disallowKeywordsOnNewLine": ["else"],
   "requireLineFeedAtFileEnd": true,
   "safeContextKeyword": "that",
