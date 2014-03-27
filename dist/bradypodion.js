@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.1-beta.1
+ * Bradypodion v0.5.1-beta.2
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-03-21T21:28:51
+ * Date: 2014-03-27T15:23:27
  */
 (function () {
   'use strict';
@@ -13,13 +13,13 @@
   angular.module('bp', [
     'bp.util',
     'ngAnimate',
+    'ngTouch',
     'ui.router'
   ]);
   angular.module('bp').directive('bpActionOverflow', [
     '$window',
     'bpApp',
-    'bpTap',
-    function ($window, bpApp, bpTap) {
+    function ($window, bpApp) {
       return {
         restrict: 'E',
         transclude: true,
@@ -36,55 +36,61 @@
             };
           }
         ],
+        replace: true,
+        template: '<bp-action-overflow-wrapper ng-click></bp-action-overflow-wrapper>',
         compile: function (elem, attrs, transcludeFn) {
           return function (scope, element, attrs, ctrl) {
             if (bpApp.platform === 'ios') {
               element.attr('aria-hidden', 'true');
-            } else {
-              element.attr({
-                role: 'button',
-                'aria-has-popup': 'true'
-              });
-              var tap = bpTap(element, attrs);
-              var open = false;
-              transcludeFn(scope, function (clone) {
-                var $actions = clone.filter('bp-action');
-                $actions.each(function () {
-                  var $action = angular.element(this);
-                  $action.attr('role', 'menu-item').addClass('bp-button');
-                });
-                var $menu = angular.element('<bp-action-overflow-menu>').attr({
-                    role: 'menu',
-                    'aria-hidden': 'true'
-                  }).append($actions);
-                var $$window = angular.element($window);
-                element.append($menu);
-                element.on('tap', function () {
-                  if (open) {
-                    ctrl.close($menu);
-                    open = false;
-                  } else {
-                    ctrl.open($menu);
-                    open = true;
-                  }
-                });
-                $actions.on('touchstart', function (e) {
-                  e.stopPropagation();
-                });
-                $$window.on('touchstart', function () {
-                  if (open) {
-                    ctrl.close($menu);
-                    open = false;
-                    element.trigger('touchcancel');
-                  }
-                });
-                scope.$on('$destroy', function () {
-                  tap.disable();
-                  $actions.unbind('touchstart');
-                  $$window.unbind('touchstart');
-                });
-              });
+              return;
             }
+            element.attr({
+              role: attrs.role || 'button',
+              'aria-has-popup': 'true'
+            });
+            var open = false;
+            var dismiss = false;
+            transcludeFn(scope, function (clone) {
+              var $actions = clone.filter('bp-action');
+              $actions.each(function () {
+                var $action = angular.element(this);
+                $action.attr('role', 'menu-item').addClass('bp-button');
+              });
+              var $menu = angular.element('<bp-action-overflow-menu>').attr({
+                  role: 'menu',
+                  'aria-hidden': 'true'
+                }).append($actions);
+              var $$window = angular.element($window);
+              element.append($menu);
+              element.on('click', function () {
+                if (open) {
+                  ctrl.close($menu);
+                  open = false;
+                }
+                if (!dismiss) {
+                  ctrl.open($menu);
+                  open = true;
+                }
+                dismiss = false;
+              });
+              $actions.on('touchstart mousedown click', function (e) {
+                e.stopPropagation();
+              });
+              $$window.on('touchstart mousedown', function (e) {
+                if (open) {
+                  ctrl.close($menu);
+                  open = false;
+                  if (element.is(e.target) || $menu.is(e.target)) {
+                    dismiss = true;
+                  }
+                }
+              });
+              scope.$on('$destroy', function () {
+                element.unbind('click');
+                $actions.unbind('touchstart mousedown click');
+                $$window.unbind('touchstart mousedown');
+              });
+            });
           };
         }
       };
@@ -93,8 +99,10 @@
   angular.module('bp').directive('bpAction', function () {
     return {
       restrict: 'E',
-      link: function (scope, element) {
-        element.attr('role', 'button');
+      link: function (scope, element, attrs) {
+        if (angular.isUndefined(attrs.role)) {
+          element.attr('role', 'button');
+        }
       }
     };
   });
@@ -114,19 +122,19 @@
             };
             this.onViewContentLoaded = function () {
               var $views = angular.element('[ui-view], ui-view');
-              if (angular.isString(this.transition)) {
-                $views.removeClass(this.lastTransition).addClass(this.transition);
-                this.lastTransition = this.transition;
-              } else {
+              if (!angular.isString(this.transition)) {
                 $views.removeClass(this.lastTransition);
+                return;
               }
+              $views.removeClass(this.lastTransition).addClass(this.transition);
+              this.lastTransition = this.transition;
             };
             this.setTransition = function (type, direction) {
               if (angular.isString(type) && angular.isString(direction)) {
                 this.transition = type + '-' + direction;
-              } else {
-                this.transition = null;
+                return;
               }
+              this.transition = null;
             };
             this.onViewContentLoaded = angular.bind(this, this.onViewContentLoaded);
             this.onStateChangeStart = angular.bind(this, this.onStateChangeStart);
@@ -136,7 +144,7 @@
         link: function (scope, element, attrs, ctrl) {
           scope.$on('$stateChangeStart', ctrl.onStateChangeStart);
           scope.$on('$viewContentLoaded', ctrl.onViewContentLoaded);
-          element.addClass(bpApp.platform).attr({ role: 'application' });
+          element.addClass(bpApp.platform).attr('role', attrs.role || 'application');
         }
       };
     }
@@ -144,11 +152,12 @@
   angular.module('bp').directive('bpCell', function () {
     return {
       restrict: 'E',
+      priority: 10,
       transclude: true,
       compile: function (elem, attrs, transcludeFn) {
         return function (scope, element) {
           transcludeFn(scope, function (clone) {
-            element.attr({ role: 'listitem' }).append(clone);
+            element.attr('role', attrs.role || 'listitem').append(clone);
           });
         };
       }
@@ -160,25 +169,27 @@
     function (bpApp, $rootScope) {
       return {
         restrict: 'E',
-        link: function (scope, element) {
-          var $parent, uniqueId;
+        link: function (scope, element, attrs) {
           if (bpApp.platform === 'android') {
             element.attr('aria-hidden', 'true');
-          } else {
-            $parent = element.parent();
+            return;
+          }
+          var uniqueId = attrs.ariaDescribedby;
+          if (!uniqueId) {
+            var $parent = element.parent();
             if (!(uniqueId = $parent.attr('id'))) {
-              if ($rootScope._uniqueId == null) {
+              if (angular.isUndefined($rootScope._uniqueId)) {
                 $rootScope._uniqueId = 0;
               }
               uniqueId = 'bp_' + $rootScope._uniqueId++;
               $parent.attr('id', uniqueId);
             }
-            element.attr({
-              'aria-describedby': uniqueId,
-              'aria-label': 'More Info',
-              role: 'button'
-            });
           }
+          element.attr({
+            'aria-describedby': uniqueId,
+            'aria-label': attrs.ariaLabel || 'More Info',
+            role: attrs.role || 'button'
+          });
         }
       };
     }
@@ -216,13 +227,37 @@
           this.getTitleFromState = function (state) {
             if (angular.isObject(state.data) && angular.isString(state.data.title)) {
               return state.data.title;
-            } else {
-              return state.name.charAt(0).toUpperCase() + state.name.slice(1);
             }
+            return state.name.charAt(0).toUpperCase() + state.name.slice(1);
+          };
+          this.getUpFromState = function (state) {
+            var up = {};
+            if (angular.isObject(state.data) && angular.isString(state.data.up)) {
+              up.sref = state.data.up;
+            } else {
+              if (state.url) {
+                var urlSegments = bpView._getURLSegments(state);
+                up.sref = urlSegments[urlSegments.length - 2];
+                if (up.sref && up.sref[0] == ':') {
+                  $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.');
+                  return;
+                }
+              }
+            }
+            if (!up.sref) {
+              return;
+            }
+            up.state = $state.get(bpView.parseState(up.sref).state);
+            if (!up.state) {
+              $log.error('up state detection failed. No up button compiled. Check your state configuration.');
+              return;
+            }
+            return up;
           };
           this.convertActionToIcon = function ($action) {
             if (angular.isElement($action)) {
-              $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
+              var label = $action.attr('aria-label') || $action.text();
+              $action.attr('aria-label', label).text('').removeClass('bp-button').addClass('bp-icon');
             }
           };
         },
@@ -230,83 +265,23 @@
           var ios = bpApp.platform === 'android' ? false : true;
           return function (scope, element, attrs, ctrl) {
             var state = $state.current;
-            element.attr('role', 'navigation');
+            element.attr('role', attrs.role || 'navigation');
             transcludeFn(scope, function (clone) {
-              var $arrow, $frstAction, $scndAction, $toolbar, $up, title;
-              if (angular.isUndefined(attrs.bpNavbarTitle)) {
+              var $actions = clone.filter('bp-action');
+              var title = attrs.bpNavbarTitle;
+              if (angular.isUndefined(title)) {
                 title = ctrl.getTitleFromState(state);
-              } else {
-                title = attrs.bpNavbarTitle;
               }
               var $title = $compile(angular.element('<bp-navbar-title>').attr('role', 'heading').text(title))(scope);
-              var $actions = clone.filter('bp-action');
-              var up;
-              if (angular.isObject(state.data) && angular.isString(state.data.up)) {
-                up = state.data.up;
-              } else {
-                if (state.url) {
-                  var urlSegments = bpView._getURLSegments(state);
-                  up = urlSegments[urlSegments.length - 2];
+              var $up;
+              if (angular.isUndefined(attrs.bpNavbarNoUp)) {
+                var up = ctrl.getUpFromState(state);
+                if (up) {
+                  $up = $compile(angular.element('<bp-action>').addClass('bp-action-up').attr('ui-sref', up.sref).text(ctrl.getTitleFromState(up.state)))(scope);
                 }
               }
-              if (up && up[0] == ':') {
-                $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.');
-              }
-              if (up && up[0] !== ':' && !angular.isDefined(attrs.bpNavbarNoUp)) {
-                var ref = bpView.parseState(up);
-                var upState = $state.get(ref.state);
-                if (upState) {
-                  var upTitle = ctrl.getTitleFromState(upState);
-                  $arrow = angular.element('<bp-button-up>');
-                  $up = $compile(angular.element('<bp-action>').addClass('bp-action-up').attr('bp-sref', up).text(upTitle))(scope);
-                } else {
-                  $log.error('up state detection failed. No up button compiled. Check your state configuration.');
-                }
-              }
-              if (ios) {
-                if ($actions.length > 2) {
-                  if (angular.isElement($up)) {
-                    $frstAction = $up.addClass('bp-button');
-                  }
-                  $actions.each(function () {
-                    ctrl.convertActionToIcon(angular.element(this));
-                  });
-                  $toolbar = angular.element('<bp-toolbar>').append($actions);
-                } else {
-                  if (angular.isElement($up)) {
-                    $actions = $up.add($actions);
-                  }
-                  $frstAction = $actions.eq(0);
-                  $scndAction = $actions.eq(1);
-                  $actions.each(function () {
-                    var $action = angular.element(this);
-                    if ($action.hasClass('bp-icon')) {
-                      ctrl.convertActionToIcon($action);
-                    } else {
-                      $action.addClass('bp-button');
-                    }
-                  });
-                }
-                element.append($frstAction, $title, $scndAction, $arrow).after($toolbar);
-                if (angular.isElement($toolbar)) {
-                  element.on('$destroy', function () {
-                    $toolbar.remove();
-                  });
-                }
-                if (!scope.navbarTitle) {
-                  $timeout(function () {
-                    var frstW = angular.isElement($scndAction) ? $scndAction.outerWidth() : 0;
-                    var scndW = angular.isElement($frstAction) ? $frstAction.outerWidth() : 0;
-                    var diff = frstW - scndW;
-                    if (diff !== 0 && $frstAction.length) {
-                      angular.element('<div>').css({
-                        '-webkit-box-flex': '10',
-                        'max-width': Math.abs(diff)
-                      })[diff > 0 ? 'insertBefore' : 'insertAfter']($title);
-                    }
-                  }, 0, false);
-                }
-              } else {
+              var $frstAction, $scndAction, $toolbar;
+              if (!ios) {
                 var $icon = angular.element('<bp-navbar-icon>');
                 $frstAction = $actions.eq(0);
                 $scndAction = $actions.eq(1);
@@ -319,9 +294,56 @@
                 if (angular.isElement($up)) {
                   $up.append('<div>', $icon);
                   element.append($up, $title, $frstAction, $scndAction, $toolbar);
-                } else {
-                  element.append($icon, $title, $frstAction, $scndAction, $toolbar);
+                  return;
                 }
+                element.append($icon, $title, $frstAction, $scndAction, $toolbar);
+                return;
+              }
+              var $arrow;
+              var actionsCount = $actions.length;
+              if (angular.isElement($up)) {
+                $arrow = angular.element('<bp-button-up>');
+                $frstAction = $up.addClass('bp-button');
+              }
+              if ($frstAction && actionsCount > 1 || !$frstAction && actionsCount > 2) {
+                $actions.each(function () {
+                  ctrl.convertActionToIcon(angular.element(this));
+                });
+                $toolbar = angular.element('<bp-toolbar>').append($actions);
+              } else {
+                if (actionsCount === 1 || $frstAction) {
+                  $scndAction = $actions.eq(0);
+                } else {
+                  $frstAction = $actions.eq(0);
+                  $scndAction = $actions.eq(1);
+                }
+                $actions.each(function () {
+                  var $action = angular.element(this);
+                  if ($action.hasClass('bp-icon')) {
+                    ctrl.convertActionToIcon($action);
+                  } else {
+                    $action.addClass('bp-button');
+                  }
+                });
+              }
+              element.append($frstAction, $title, $scndAction, $arrow).after($toolbar);
+              if (angular.isElement($toolbar)) {
+                element.on('$destroy', function () {
+                  $toolbar.remove();
+                });
+              }
+              if (!scope.navbarTitle) {
+                $timeout(function () {
+                  var frstW = angular.isElement($scndAction) ? $scndAction.outerWidth() : 0;
+                  var scndW = angular.isElement($frstAction) ? $frstAction.outerWidth() : 0;
+                  var diff = frstW - scndW;
+                  if (diff !== 0) {
+                    angular.element('<div>').css({
+                      '-webkit-box-flex': '10',
+                      'max-width': Math.abs(diff)
+                    })[diff > 0 ? 'insertBefore' : 'insertAfter']($title);
+                  }
+                }, 0, false);
               }
             });
           };
@@ -406,35 +428,31 @@
     '$compile',
     '$timeout',
     '$window',
-    'bpTap',
     'bpApp',
-    function ($compile, $timeout, $window, bpTap, bpApp) {
+    function ($compile, $timeout, $window, bpApp) {
       return {
         restrict: 'E',
-        link: function (scope, element) {
+        link: function (scope, element, attrs) {
           var ios = bpApp.platform === 'ios';
           var childScope = scope.$new(true);
           var $bgLeft, $bgRight, $cancel;
           if (ios) {
             $bgLeft = angular.element('<bp-search-bg-left>');
             $bgRight = angular.element('<bp-search-bg-right>');
-            $cancel = $compile(angular.element('<bp-action>').addClass('bp-button').text('Cancel'))(childScope);
+            $cancel = $compile(angular.element('<bp-action>').addClass('bp-button').attr('ng-click', 'onCancel()').text('Cancel'))(childScope);
           }
           var $placeholder = $compile(angular.element('<bp-search-placeholder>').append(angular.element('<bp-action>').addClass('bp-icon bp-icon-search')).append(angular.element('<span>').attr('ng-bind', 'placeholder')))(childScope);
-          var $tapLayer = angular.element('<bp-search-tap>');
-          var $search = element.find('input').attr({
-              required: 'required',
-              type: 'search'
-            });
+          var $tapLayer = $compile(angular.element('<bp-search-tap>').attr('ng-click', 'onFocus()'))(childScope);
+          var $search = element.find('input');
+          $search.attr({
+            required: 'required',
+            type: $search.attr('type') || 'search'
+          });
           childScope.placeholder = $search.attr('placeholder');
           if (childScope.placeholder == null) {
             childScope.placeholder = 'Search';
           }
-          if (ios) {
-            var cancelTap = bpTap($cancel);
-          }
-          var tap = bpTap($tapLayer);
-          element.attr('role', 'search').prepend($bgLeft, $bgRight).append($placeholder, $cancel, $tapLayer);
+          element.attr('role', attrs.role || 'search').prepend($bgLeft, $bgRight).append($placeholder, $cancel, $tapLayer);
           if (ios) {
             var cancelWidth;
             $timeout(function () {
@@ -459,14 +477,14 @@
             };
           }
           childScope.onBlur = function (e, extra) {
-            if (extra == null) {
+            if (angular.isUndefined(extra)) {
               extra = {};
             }
             if (!ios) {
               element.removeClass('focus');
             } else {
               if (!$search.val() && !extra.programatic) {
-                $cancel.trigger('tap');
+                childScope.onCancel();
               }
             }
           };
@@ -482,47 +500,41 @@
           };
           if (ios) {
             angular.element($window).bind('resize orientationchange', childScope.onResize);
-            $cancel.bind('tap', childScope.onCancel);
           }
           $search.bind('blur', childScope.onBlur);
-          $tapLayer.bind('tap', childScope.onFocus).bind('click touchstart touchmove touchend', childScope.stopPropagation);
+          $tapLayer.bind('click touchstart touchmove touchend', childScope.stopPropagation);
           scope.$on('$destroy', function () {
             childScope.$destroy();
             if (ios) {
               angular.element($window).unbind('resize orientationchange');
-              cancelTap.disable();
             }
+            $tapLayer.unbind('click touchstart touchmove touchend');
             $search.unbind('blur');
-            tap.disable();
           });
         }
       };
     }
   ]);
-  angular.module('bp').directive('bpSref', [
-    '$state',
-    '$parse',
-    'bpTap',
-    'bpView',
-    function ($state, $parse, bpTap, bpView) {
-      return function (scope, element, attrs) {
-        var tap = bpTap(element, attrs);
-        element.bind('tap', function () {
-          var ref = bpView.parseState(attrs.bpSref, scope);
-          $state.go(ref.state, ref.params);
-          return false;
-        });
-        scope.$on('$destroy', function () {
-          tap.disable();
-        });
+  angular.module('bp').directive('uiSref', [
+    '$injector',
+    function ($injector) {
+      return {
+        compile: function (e, attrs) {
+          if (angular.isDefined(attrs.ngClick)) {
+            return;
+          }
+          return $injector.get('ngClickDirective')[0].compile.apply(this, arguments);
+        }
       };
     }
   ]);
   angular.module('bp').directive('bpTabbar', function () {
     return {
       restrict: 'E',
-      link: function (scope, element) {
-        element.attr({ role: 'tablist' });
+      link: function (scope, element, attrs) {
+        if (!attrs.role) {
+          element.attr('role', 'tablist');
+        }
       }
     };
   });
@@ -533,15 +545,15 @@
     'bpView',
     function ($state, $compile, $timeout, bpView) {
       return {
+        priority: 100,
         restrict: 'E',
         scope: {
-          bpSref: '@',
+          uiSref: '@',
           bpTabIcon: '@',
           bpTabTitle: '@'
         },
         link: function (scope, element, attrs) {
-          element.attr({ role: 'tab' });
-          var state = $state.get(bpView.parseState(scope.bpSref).state);
+          var state = $state.get(bpView.parseState(scope.uiSref).state);
           if (angular.isUndefined(attrs.bpTabTitle)) {
             if (angular.isObject(state.data) && state.data.title) {
               attrs.bpTabTitle = state.data.title;
@@ -553,21 +565,13 @@
           }
           var $icon = $compile(angular.element('<span>').addClass('bp-icon {{bpTabIcon}}'))(scope);
           var $title = $compile(angular.element('<span>').attr('ng-bind', 'bpTabTitle'))(scope);
-          element.append($icon, $title);
+          element.append($icon, $title).attr('role', attrs.role || 'tab');
           scope.$on('$stateChangeSuccess', function () {
-            if ($state.includes(scope.bpSref)) {
+            if ($state.includes(scope.uiSref)) {
               element.addClass('bp-tab-active').attr('aria-selected', 'true');
-            } else {
-              element.removeClass('bp-tab-active').attr('aria-selected', 'false');
+              return;
             }
-          });
-          element.bind('touchstart', function () {
-            $timeout(function () {
-              element.trigger('touchend');
-            }, 500);
-          });
-          scope.$on('$destroy', function () {
-            element.unbind('touchstart');
+            element.removeClass('bp-tab-active').attr('aria-selected', 'false');
           });
         }
       };
@@ -576,40 +580,24 @@
   angular.module('bp').directive('bpTableHeader', function () {
     return {
       restrict: 'E',
-      link: function (scope, element) {
-        element.attr({ role: 'heading' });
+      link: function (scope, element, attrs) {
+        if (!attrs.role) {
+          element.attr('role', 'heading');
+        }
       }
     };
   });
   angular.module('bp').directive('bpTable', function () {
     return {
       restrict: 'E',
-      link: function (scope, element) {
-        var role;
-        role = element.parents('bp-table').length ? 'group' : 'list';
-        element.attr({ role: role });
+      link: function (scope, element, attrs) {
+        if (!attrs.role) {
+          var role = element.parents('bp-table').length ? 'group' : 'list';
+          element.attr('role', role);
+        }
       }
     };
   });
-  angular.module('bp').directive('bpTap', [
-    '$parse',
-    'bpTap',
-    function ($parse, bpTap) {
-      return function (scope, element, attrs) {
-        var tap = bpTap(element, attrs);
-        element.bind('tap', function (e, touch) {
-          scope.$apply($parse(attrs.bpTap), {
-            $event: e,
-            touch: touch
-          });
-          return false;
-        });
-        scope.$on('$destroy', function () {
-          tap.disable();
-        });
-      };
-    }
-  ]);
   angular.module('bp').directive('bpToolbar', [
     'bpApp',
     function (bpApp) {
@@ -620,18 +608,19 @@
           return function (scope, element) {
             if (bpApp.platform === 'android') {
               element.attr('aria-hidden', 'true');
-            } else {
-              element.attr({ role: 'toolbar' });
-              transcludeFn(scope, function (clone) {
-                var $actions;
-                $actions = clone.filter('bp-action');
-                $actions.each(function () {
-                  var $action = angular.element(this);
-                  $action.attr('aria-label', $action.text()).text('').removeClass('bp-button').addClass('bp-icon');
-                });
-                element.append($actions);
-              });
+              return;
             }
+            element.attr('role', attrs.role || 'toolbar');
+            transcludeFn(scope, function (clone) {
+              var $actions;
+              $actions = clone.filter('bp-action');
+              $actions.each(function () {
+                var $action = angular.element(this);
+                var label = $action.attr('aria-label') || $action.text();
+                $action.attr('aria-label', label).text('').removeClass('bp-button').addClass('bp-icon');
+              });
+              element.append($actions);
+            });
           };
         }
       };
@@ -644,124 +633,6 @@
     };
     this.$get = function () {
       return config;
-    };
-  });
-  angular.module('bp').provider('bpTap', function () {
-    var globalConfig = {
-        activeClass: 'bp-active',
-        allowClick: false,
-        boundMargin: 50,
-        noScroll: false
-      };
-    this.setConfig = function (inConfig) {
-      globalConfig = angular.extend(globalConfig, inConfig);
-    };
-    function bpTap(element, attrs) {
-      var config = angular.copy(globalConfig);
-      var touch = {};
-      var _getCoordinate = function (e, isX) {
-        var axis = isX ? 'pageX' : 'pageY';
-        if (angular.isDefined(e.originalEvent)) {
-          e = e.originalEvent;
-        }
-        if (angular.isDefined(e[axis])) {
-          return e[axis];
-        } else {
-          if (angular.isObject(e.changedTouches) && angular.isObject(e.changedTouches[0])) {
-            return e.changedTouches[0][axis];
-          } else {
-            return 0;
-          }
-        }
-      };
-      var onClick = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (angular.isFunction(e.stopImmediatePropagation)) {
-          e.stopImmediatePropagation();
-        }
-      };
-      var onTouchstart = function (e) {
-        var $target = angular.element(e.target);
-        touch.x = _getCoordinate(e, true);
-        touch.y = _getCoordinate(e, false);
-        touch.ongoing = true;
-        if ((angular.isDefined($target.attr('bp-tap')) || angular.isDefined($target.attr('bp-sref'))) && element.get(0) !== e.target) {
-          touch.nestedTap = true;
-        } else {
-          element.addClass(config.activeClass);
-        }
-      };
-      var onTouchmove = function (e) {
-        var x = _getCoordinate(e, true);
-        var y = _getCoordinate(e, false);
-        if (config.boundMargin != null && (Math.abs(touch.y - y) < config.boundMargin && Math.abs(touch.x - x) < config.boundMargin)) {
-          if (!touch.nestedTap) {
-            element.addClass(config.activeClass);
-          }
-          touch.ongoing = true;
-          if (config.noScroll) {
-            e.preventDefault();
-          }
-        } else {
-          touch.ongoing = false;
-          element.removeClass(config.activeClass);
-        }
-      };
-      var onTouchend = function (e) {
-        if (touch.ongoing && !touch.nestedTap && e.type === 'touchend') {
-          element.trigger('tap', touch);
-        }
-        element.removeClass(config.activeClass);
-        delete touch.x;
-        delete touch.y;
-        delete touch.ongoing;
-        delete touch.nestedTap;
-      };
-      var disable = function () {
-        element.unbind('tap touchstart touchmove touchend touchcancel click');
-      };
-      var _setConfig = function (attrs) {
-        var attrConfig = {};
-        if (element.is('bp-action') && element.parent('bp-navbar') || element.is('bp-detail-disclosure')) {
-          element.attr('bp-no-scroll', '');
-          attrConfig.noScroll = true;
-        }
-        if (element.parents('[bp-iscroll]').length) {
-          element.attr('bp-bound-margin', '5');
-          attrConfig.boundMargin = 5;
-        }
-        if (angular.isObject(attrs)) {
-          for (var key in config) {
-            var attr = attrs['bp' + key.charAt(0).toUpperCase() + key.slice(1)];
-            if (angular.isDefined(attr)) {
-              attrConfig[key] = attr === '' ? true : attr;
-            }
-          }
-        }
-        angular.extend(config, attrConfig);
-      };
-      element.bind('touchstart', onTouchstart);
-      element.bind('touchmove', onTouchmove);
-      element.bind('touchend touchcancel', onTouchend);
-      _setConfig(attrs);
-      if (!config.allowClick && 'ontouchstart' in window) {
-        element.bind('click', onClick);
-      }
-      return {
-        touch: touch,
-        options: config,
-        disable: disable,
-        onClick: onClick,
-        onTouchstart: onTouchstart,
-        onTouchmove: onTouchmove,
-        onTouchend: onTouchend,
-        _getCoordinate: _getCoordinate,
-        _setConfig: _setConfig
-      };
-    }
-    this.$get = function () {
-      return bpTap;
     };
   });
   angular.module('bp.util').service('bpView', [
@@ -801,16 +672,14 @@
           } else {
             if (hasData && data.modal) {
               return 'cover';
-            } else {
-              return bpApp.platform === 'ios' ? 'slide' : 'scale';
             }
           }
+          return bpApp.platform === 'ios' ? 'slide' : 'scale';
         };
         if (direction === 'reverse') {
           return typeFromState(from);
-        } else {
-          return typeFromState(to);
         }
+        return typeFromState(to);
       };
       this.parseState = function (ref, scope) {
         var parsed = ref.replace(/\n/g, ' ').match(/^([^(]+?)\s*(\((.*)\))?$/);

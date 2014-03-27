@@ -1,3 +1,55 @@
+<a name="0.5.1-beta.2"></a>
+### 0.5.1-beta.2 (2014-03-27)
+
+
+#### Bug Fixes
+
+* **a11y:**
+  * ensure most important roles are applied first ([fec78ae4](http://github.com/excellenteasy/bradypodion/commit/fec78ae4477ecf44afdc0acaa2d69911478e24e9))
+  * add link role to sref and tap ([932261bb](http://github.com/excellenteasy/bradypodion/commit/932261bbbafdd977950c23f0641e38ab658d865f))
+  * not overwriting existing attributes ([f8a141d4](http://github.com/excellenteasy/bradypodion/commit/f8a141d42bc2622e3af9a11d3212b95e7b791a68))
+* **bpSref:** remove bpSref, replace w/ uiSref ([72d38e1d](http://github.com/excellenteasy/bradypodion/commit/72d38e1dc773ee5e4a3f3bbf1cb21e4647d58cc6))
+* **bpTap:** remove bpTap, replace w/ ngClick ([08ff320a](http://github.com/excellenteasy/bradypodion/commit/08ff320a4dc5cc17e1d4301c7ead10d27ab7cb4a))
+* **navbar:** on ios put single action on the left ([98cc68b4](http://github.com/excellenteasy/bradypodion/commit/98cc68b4f1ef576b780f7dcc138798596b09da76))
+
+
+#### Features
+
+* **uiSref:** make it work w/o touch delay ([0eb87130](http://github.com/excellenteasy/bradypodion/commit/0eb871303dcf067c97314e9511a1082a86c14063))
+
+
+#### Breaking Changes
+
+* bpSref is now named uiSref
+
+before:
+```html
+<bp-action bp-sref="somestate"></bp-action>
+```
+
+after:
+```html
+<bp-action ui-sref="somestate"></bp-action>
+```
+
+This should be a search and replace migration.
+ ([72d38e1d](http://github.com/excellenteasy/bradypodion/commit/72d38e1dc773ee5e4a3f3bbf1cb21e4647d58cc6))
+* bpTap is now named ngClick
+
+before:
+```html
+<bp-action bp-tap="doSomething()"></bp-action>
+```
+
+after:
+```html
+<bp-action ng-click="doSomething()"></bp-action>
+```
+
+This should be a search and replace migration.
+ ([08ff320a](http://github.com/excellenteasy/bradypodion/commit/08ff320a4dc5cc17e1d4301c7ead10d27ab7cb4a))
+
+
 <a name="0.5.1-beta.1"></a>
 ### 0.5.1-beta.1 (2014-03-21)
 
