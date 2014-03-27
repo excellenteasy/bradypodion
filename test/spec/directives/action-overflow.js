@@ -32,14 +32,14 @@ describe('action overflow', function() {
     })
 
     describe('events', function() {
-      it('should open on tap', function() {
+      it('should open on click', function() {
         spyOn(ctrl, 'open')
-        element.trigger('tap')
+        element.trigger('click')
         expect(ctrl.open).toHaveBeenCalled()
         spyOn(ctrl, 'close')
-        element.trigger('tap')
+        element.trigger('click')
         expect(ctrl.close).toHaveBeenCalled()
-        element.trigger('tap')
+        element.trigger('click')
         expect(ctrl.open).toHaveBeenCalled()
       })
 
@@ -53,7 +53,7 @@ describe('action overflow', function() {
 
       it('should close on window', inject(function($window) {
         spyOn(ctrl, 'open')
-        element.trigger('tap')
+        element.trigger('click')
         expect(ctrl.open).toHaveBeenCalled()
         var $$window = angular.element($window)
         spyOn(ctrl, 'close')
@@ -68,7 +68,7 @@ describe('action overflow', function() {
         var actionEvents = $._data($actions.get(0)).events
         var windowEvents = $._data($window).events
         scope.$destroy()
-        expect(events.tap != null).toBe(false)
+        expect(events.click != null).toBe(false)
         expect(actionEvents.touchstart != null).toBe(false)
         expect(windowEvents.touchstart != null).toBe(false)
       }))

@@ -200,7 +200,7 @@ describe('navbarDirective', function() {
       it('should spawn action overflow', function() {
         var element3 = compile('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> </bp-navbar>')(scope)
         expect(element3.children().length).toBe(5)
-        expect(element3.find('bp-action-overflow').length).toBe(1)
+        expect(element3.find('bp-action-overflow-wrapper').length).toBe(1)
       })
     })
   })
