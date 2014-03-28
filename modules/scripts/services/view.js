@@ -29,15 +29,11 @@ angular.module('bp.util').service('bpView', function($parse, bpApp) {
 
     var fromSegs = this._getURLSegments(from)
     var toSegs   = this._getURLSegments(to)
-    var fromLen  = fromSegs.length
-    var toLen    = toSegs.length
-    var diff     = toLen - fromLen
+    var diff     = toSegs.length - fromSegs.length
 
-    if (diff > 0 && angular.equals(fromSegs, toSegs.slice(0,toLen - diff))) {
+    if (diff > 0 && fromSegs.join('') === toSegs.slice(0, -diff).join('')) {
       return 'normal'
-    } else if (diff < 0 &&
-      angular.equals(toSegs, fromSegs.slice(0, fromLen  + diff))) {
-
+    } else if (diff < 0 && toSegs.join('') === fromSegs.slice(0, diff).join('')) {
       return 'reverse'
     }
 

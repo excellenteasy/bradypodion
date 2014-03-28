@@ -66,7 +66,8 @@ angular.module('bp')
     $timeout,
     $state,
     $compile,
-    $log) {
+    $log,
+    $urlMatcherFactory) {
 
   return {
     restrict: 'E',
@@ -82,6 +83,21 @@ angular.module('bp')
         return state.name.charAt(0).toUpperCase() + state.name.slice(1)
       }
 
+      this._getUpFromStateByUrl = function(state) {
+        var up = {}
+        var wantedUrl = bpView._getURLSegments(state).slice(0, -1).join('/')
+        var states = $state.get()
+
+        for (var i = states.length - 1; i >= 0; i--) {
+          if (states[i] !== state && wantedUrl === states[i].url) {
+            up.sref = states[i].name
+            up.state = states[i]
+            break
+          }
+        }
+        return up
+      }
+
       this.getUpFromState = function(state) {
         var up = {}
 
@@ -89,25 +105,34 @@ angular.module('bp')
           angular.isString(state.data.up)) {
           up.sref = state.data.up
         } else if (state.url) {
-          var urlSegments = bpView._getURLSegments(state)
-          up.sref = urlSegments[urlSegments.length - 2]
-
-          if (up.sref && up.sref[0] == ':') {
-            $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.')
-            return
-          }
+          up = this._getUpFromStateByUrl(state)
         }
 
         if (!up.sref) {
-          return
+          return null
         }
 
-        up.state = $state.get(bpView.parseState(up.sref).state)
+        if (!up.state && up.sref) {
+          up.state = $state.get(bpView.parseState(up.sref).state)
+        }
 
         if (!up.state) {
           $log.error('up state detection failed. No up button compiled. Check your state configuration.')
-          return
+          return null
         }
+
+        var params = $urlMatcherFactory.compile(up.state.url).params
+        if (!params.length) {
+          return up
+        }
+
+        for (var k = params.length - 1; k >= 0; k--) {
+          if (angular.isUndefined($state.params[params[k]])) {
+            $log.error("A parameter defined in the up state's url is not in the current state params. Check your state configuration.")
+          }
+        }
+
+        up.sref += '(' + angular.toJson($state.params) + ')'
 
         return up
       }
