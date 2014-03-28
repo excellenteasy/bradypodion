@@ -1,3 +1,12 @@
+<a name="0.5.1-beta.3"></a>
+### 0.5.1-beta.3 (2014-03-28)
+
+
+#### Bug Fixes
+
+* **navbar:** getUpFromState should detect up state even with params ([0af3c3d6](http://github.com/excellenteasy/bradypodion/commit/0af3c3d61b80ebbb2b5fa9fdad4a6c45dee4b9d0))
+
+
 <a name="0.5.1-beta.2"></a>
 ### 0.5.1-beta.2 (2014-03-27)
 

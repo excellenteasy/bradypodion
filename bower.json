@@ -2,7 +2,7 @@
   "name": "bradypodion",
   "description": "Create post-platform mobile apps with ease",
   "license": "MIT",
-  "version": "0.5.1-beta.2",
+  "version": "0.5.1-beta.3",
   "dependencies": {
     "angular": "~1.2.15",
     "angular-animate": "~1.2.15",

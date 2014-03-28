@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.1-beta.2
+ * Bradypodion v0.5.1-beta.3
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-03-27T15:23:27
+ * Date: 2014-03-28T01:02:42
  */
 (function () {
   'use strict';
@@ -219,7 +219,8 @@
     '$state',
     '$compile',
     '$log',
-    function (bpApp, bpView, $timeout, $state, $compile, $log) {
+    '$urlMatcherFactory',
+    function (bpApp, bpView, $timeout, $state, $compile, $log, $urlMatcherFactory) {
       return {
         restrict: 'E',
         transclude: true,
@@ -230,28 +231,48 @@
             }
             return state.name.charAt(0).toUpperCase() + state.name.slice(1);
           };
+          this._getUpFromStateByUrl = function (state) {
+            var up = {};
+            var wantedUrl = bpView._getURLSegments(state).slice(0, -1).join('/');
+            var states = $state.get();
+            for (var i = states.length - 1; i >= 0; i--) {
+              if (states[i] !== state && wantedUrl === states[i].url) {
+                up.sref = states[i].name;
+                up.state = states[i];
+                break;
+              }
+            }
+            return up;
+          };
           this.getUpFromState = function (state) {
             var up = {};
             if (angular.isObject(state.data) && angular.isString(state.data.up)) {
               up.sref = state.data.up;
             } else {
               if (state.url) {
-                var urlSegments = bpView._getURLSegments(state);
-                up.sref = urlSegments[urlSegments.length - 2];
-                if (up.sref && up.sref[0] == ':') {
-                  $log.error('cannot detect up state from parameter. Please set the up property on the data object in your state configuration.');
-                  return;
-                }
+                up = this._getUpFromStateByUrl(state);
               }
             }
             if (!up.sref) {
-              return;
+              return null;
             }
-            up.state = $state.get(bpView.parseState(up.sref).state);
+            if (!up.state && up.sref) {
+              up.state = $state.get(bpView.parseState(up.sref).state);
+            }
             if (!up.state) {
               $log.error('up state detection failed. No up button compiled. Check your state configuration.');
-              return;
+              return null;
             }
+            var params = $urlMatcherFactory.compile(up.state.url).params;
+            if (!params.length) {
+              return up;
+            }
+            for (var k = params.length - 1; k >= 0; k--) {
+              if (angular.isUndefined($state.params[params[k]])) {
+                $log.error('A parameter defined in the up state\'s url is not in the current state params. Check your state configuration.');
+              }
+            }
+            up.sref += '(' + angular.toJson($state.params) + ')';
             return up;
           };
           this.convertActionToIcon = function ($action) {
@@ -651,13 +672,11 @@
         }
         var fromSegs = this._getURLSegments(from);
         var toSegs = this._getURLSegments(to);
-        var fromLen = fromSegs.length;
-        var toLen = toSegs.length;
-        var diff = toLen - fromLen;
-        if (diff > 0 && angular.equals(fromSegs, toSegs.slice(0, toLen - diff))) {
+        var diff = toSegs.length - fromSegs.length;
+        if (diff > 0 && fromSegs.join('') === toSegs.slice(0, -diff).join('')) {
           return 'normal';
         } else {
-          if (diff < 0 && angular.equals(toSegs, fromSegs.slice(0, fromLen + diff))) {
+          if (diff < 0 && toSegs.join('') === fromSegs.slice(0, diff).join('')) {
             return 'reverse';
           }
         }
