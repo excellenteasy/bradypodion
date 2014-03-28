@@ -11,16 +11,16 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
-      'modules/bower_components/jquery/dist/jquery.js'
-      'modules/bower_components/iscroll/build/iscroll-probe.js'
-      'modules/bower_components/iscroll-sticky/dist/iscroll-sticky.js'
-      'modules/bower_components/angular/angular.js'
-      'modules/bower_components/angular-animate/angular-animate.js'
-      'modules/bower_components/angular-touch/angular-touch.js'
-      'modules/bower_components/angular-ui-router/release/angular-ui-router.js'
+      'src/bower_components/jquery/dist/jquery.js'
+      'src/bower_components/iscroll/build/iscroll-probe.js'
+      'src/bower_components/iscroll-sticky/dist/iscroll-sticky.js'
+      'src/bower_components/angular/angular.js'
+      'src/bower_components/angular-animate/angular-animate.js'
+      'src/bower_components/angular-touch/angular-touch.js'
+      'src/bower_components/angular-ui-router/release/angular-ui-router.js'
       'dist/bradypodion.js'
       'dist/bradypodion-iscroll.js'
-      'modules/bower_components/angular-mocks/angular-mocks.js'
+      'src/bower_components/angular-mocks/angular-mocks.js'
       'test/spec/*/*.js'
     ]
 

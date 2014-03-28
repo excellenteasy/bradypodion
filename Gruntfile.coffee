@@ -7,7 +7,7 @@ module.exports = (grunt) ->
 
   grunt.initConfig
     bp:
-      app: 'modules'
+      app: 'src'
       dist: 'dist'
       demo: 'demo'
       docs: 'docs'
@@ -26,7 +26,7 @@ module.exports = (grunt) ->
       banner:
         options:
           stripBanners: true,
-          banner: grunt.file.read 'modules/banner.template'
+          banner: grunt.file.read 'src/banner.template'
         files: [
           '<%=bp.dist%>/bradypodion.css': '<%=bp.dist%>/bradypodion.css'
           '<%=bp.dist%>/bradypodion.less': '<%=bp.dist%>/bradypodion.less'
@@ -43,9 +43,9 @@ module.exports = (grunt) ->
             'indent_level': 2
             'indent_start': 2
           preserveComments: 'some'
-          banner: grunt.file.read('modules/banner.template') +
-                  grunt.file.read 'modules/header.template'
-          footer: grunt.file.read 'modules/footer.template'
+          banner: grunt.file.read('src/banner.template') +
+                  grunt.file.read 'src/header.template'
+          footer: grunt.file.read 'src/footer.template'
         files: [
           '<%=bp.dist%>/bradypodion.js': [
             '<%=bp.app%>/scripts/bradypodion.js'
@@ -201,7 +201,7 @@ module.exports = (grunt) ->
     grunt.file.expand(modulePaths).forEach (path) ->
       matches = path.match(/(^(.*\/|)([a-zA-Z0-9-_.]+))\.less$/)
       if matches[3] is 'class'
-        modules.push matches[1].replace('modules/','')
+        modules.push matches[1].replace('src/','')
 
     grunt.template.addDelimiters 'less', '/*%', '%*/'
 
