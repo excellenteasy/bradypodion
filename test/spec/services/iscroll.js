@@ -15,12 +15,13 @@ describe('bpIscrollProvider', function() {
     iscroll = bpIscroll
   }))
 
-  it('should return custom config', function() {
+  it('should return default config', function() {
     expect(iscroll.probeType).toBe(3)
     expect(iscroll.scrollbars).toBe(true)
+    expect(iscroll.click).toBe(true)
   })
 
-  it('should return default config', function() {
+  it('should return custom config', function() {
     expect(iscroll.custom).toBe(true)
   })
 })
