@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.1-beta.3
+ * Bradypodion v0.5.1-beta.4
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-03-28T01:02:42
+ * Date: 2014-03-28T11:57:04
  */
 (function () {
   'use strict';
@@ -54,7 +54,8 @@
   angular.module('bp.iscroll').provider('bpIscroll', function () {
     var config = {
         probeType: 3,
-        scrollbars: true
+        scrollbars: true,
+        click: true
       };
     this.setConfig = function (inConfig) {
       config = angular.extend(config, inConfig);

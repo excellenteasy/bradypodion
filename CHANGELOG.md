@@ -1,3 +1,12 @@
+<a name="0.5.1-beta.4"></a>
+### 0.5.1-beta.4 (2014-03-28)
+
+
+#### Bug Fixes
+
+* **iscroll:** make click compatible ([fae1ed8d](http://github.com/excellenteasy/bradypodion/commit/fae1ed8dddd2bf8f06708b27ecc7bc6edd0a1076))
+
+
 <a name="0.5.1-beta.3"></a>
 ### 0.5.1-beta.3 (2014-03-28)
 
