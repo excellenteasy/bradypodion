@@ -14,7 +14,5 @@ env:
     - secure: "gRReaTKLPsQFrcNccJHYJztHCOmGiorT9oqRHA2YeH4m1jV7Kf8Ku8hjN+3zjMr4cFA8yUHAmf7rh+zUg5Ovo+DRx9L8PdsErgXGFGEmPBCTLALnnrXgZ20X7OrrTMu/sAXFh+r803SuldByci1TBDyH+S7bX76oRkj7sxjKSdc="
 notifications:
   email: false
-  webhooks:
-    urls:
-      secure: "BaZQ5HQaFoJQCDadWEg7NkGe7KTB+OuLOAjKE/LrUxhrrNjWFLcIIsI7fuDAaUEH3b+aEbx5WMbiIY4Tz+QL31Nl9Vqn47JuHFg+2aOyOiS11FTxvSIEV+iaAwAsikGRcYEn7356A2zkUU/6iYNNjaoyhjLXz/ub5ZaMd9NwuBk="
-    on_start: true
+  slack:
+    secure: "DK9Jeix5GCmAkBfwdWa9f97dft4iIOqvxMN+XBbd0MWwKQV86VQq7hhJcXrGb3G1GhsaA5XBVuUxht4pStcsIadDkCfynDATd00r9Chlu9c4aLc2eQ5g5P3he+wa4iYHG8pLCtqq2S3YBxYc5Xja3rMmhOCSEwwu2gDSSyTyXFg="
