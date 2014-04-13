@@ -1,3 +1,12 @@
+<a name="0.5.1"></a>
+### 0.5.1 (2014-04-13)
+
+
+#### Bug Fixes
+
+* **icon:** symbolize missing icon ([99a7d182](http://github.com/excellenteasy/bradypodion/commit/99a7d182f12781b69249a4865ea2590828d78b7b))
+
+
 <a name="0.5.1-beta.4"></a>
 ### 0.5.1-beta.4 (2014-03-28)
 
