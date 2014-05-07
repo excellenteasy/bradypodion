@@ -127,10 +127,6 @@ module.exports = (grunt) ->
           ]
 
     shell:
-      options:
-        stderr : true
-        stdout : true
-        failOnError : true
       semver:
         command: './node_modules/semver-sync/bin/semver-sync -v'
       hooks:
