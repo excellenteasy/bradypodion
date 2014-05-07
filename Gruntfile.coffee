@@ -236,9 +236,6 @@ module.exports = (grunt) ->
       'bump-commit'
     ]
 
-  grunt.registerTask 'server', ->
-    grunt.fail.fatal '`grunt server` is deprecated, use `grunt serve` instead.'
-
   grunt.registerTask 'serve', (target) ->
     grunt.task.run if target isnt 'dist'
       [
