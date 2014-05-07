@@ -127,10 +127,6 @@ module.exports = (grunt) ->
           ]
 
     shell:
-      options:
-        stderr : true
-        stdout : true
-        failOnError : true
       semver:
         command: './node_modules/semver-sync/bin/semver-sync -v'
       hooks:
@@ -181,9 +177,21 @@ module.exports = (grunt) ->
         port: 9877
         background: true
 
-    coveralls:
-      options:
-        coverage_dir: 'test/coverage'
+    coveralls: options: coverage_dir: 'test/coverage'
+
+    bump: options:
+      commitMessage: 'v%VERSION%'
+      files: ['package.json', 'bower.json']
+      commitFiles: [
+        'bower.json'
+        'package.json'
+        'CHANGELOG.md'
+        'dist/bradypodion.less'
+        'dist/bradypodion.css'
+        'dist/bradypodion.js'
+        'dist/bradypodion-iscroll.js'
+      ]
+      push: no
 
     less: dist:
       src: ['<%=bp.app%>/styles/build.less']
@@ -216,38 +224,15 @@ module.exports = (grunt) ->
     # compile less
     grunt.task.run ['less:dist']
 
+
   grunt.registerTask 'release', ->
-    done = @async()
-
-    {exec} = require 'child_process'
-    semver = require 'semver'
-
-    oldVersion = pck.version
-    newVersion = @args[0]
-
-    unless semver.valid newVersion
-      grunt.fail.fatal "Invalid version specified: #{newVersion}"
-
-    unless semver.gt newVersion, oldVersion
-      grunt.fail.fatal "Version has to be greater than #{oldVersion}"
-
-    exec "./node_modules/semver-sync/bin/semver-sync -b #{newVersion} &&
-        grunt build changelog &&
-        git add package.json bower.json &&
-        git add -f dist/bradypodion.less &&
-        git add -f dist/bradypodion.css &&
-        git add -f dist/bradypodion.js &&
-        git add -f dist/bradypodion-iscroll.js &&
-        git add -f CHANGELOG.md &&
-        git commit -m 'v#{newVersion}' &&
-        git tag v#{newVersion}",
-    (error, stdout, stderr) ->
-      grunt.log.writeln stderr if stderr
-      grunt.log.writeln stdout if stdout
-      done error or {}
-
-  grunt.registerTask 'server', ->
-    grunt.fail.fatal '`grunt server` is deprecated, use `grunt serve` instead.'
+    @args.unshift 'bump-only'
+    grunt.task.run [
+      @args.join ':'
+      'build'
+      'changelog'
+      'bump-commit'
+    ]
 
   grunt.registerTask 'serve', (target) ->
     grunt.task.run if target isnt 'dist'
@@ -264,6 +249,18 @@ module.exports = (grunt) ->
         'build'
         'connect:server:keepalive'
       ]
+
+  grunt.registerTask 'coverage', ->
+    shell = grunt.config.get 'shell'
+    coverage = require('glob').sync('test/coverage/**/lcov.info')[0]
+    shell.coverage =
+      command: "./node_modules/codeclimate-test-reporter/bin/codeclimate.js < '#{coverage}'"
+    grunt.config.set 'shell', shell
+
+    grunt.task.run [
+      'coveralls'
+      'shell:coverage'
+    ]
 
   grunt.registerTask 'precommit', [
     'shell:semver'

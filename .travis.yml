@@ -4,7 +4,7 @@ node_js:
 before_script:
   - ./node_modules/bower/bin/bower install
 after_success:
-  - ./node_modules/grunt-cli/bin/grunt coveralls
+  - ./node_modules/grunt-cli/bin/grunt coverage
 cache:
   directories:
     - node_modules
@@ -12,6 +12,7 @@ env:
   global:
     - COVERALLS_SERVICE_NAME="travis-ci"
     - secure: "gRReaTKLPsQFrcNccJHYJztHCOmGiorT9oqRHA2YeH4m1jV7Kf8Ku8hjN+3zjMr4cFA8yUHAmf7rh+zUg5Ovo+DRx9L8PdsErgXGFGEmPBCTLALnnrXgZ20X7OrrTMu/sAXFh+r803SuldByci1TBDyH+S7bX76oRkj7sxjKSdc="
+    - secure: "Nohgv8DNaYI3l7tckOnElYejUv+8h89RGZROBhjPgJ/z9oreI9TvRKdAcL+KQmiGGuWEAQszGS9UTrY9VU00NZJAgRYchQ52XFdobqiDIYc4PH4VTUVy9ihv/ynl+uHEqNMYJb+rJqInufpzij3tN9/e2NKsxDK1Hx97IgaaRgQ="
 notifications:
   email: false
   slack:
