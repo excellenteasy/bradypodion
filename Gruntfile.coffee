@@ -177,9 +177,7 @@ module.exports = (grunt) ->
         port: 9877
         background: true
 
-    coveralls:
-      options:
-        coverage_dir: 'test/coverage'
+    coveralls: options: coverage_dir: 'test/coverage'
 
     bump: options:
       commitMessage: 'v%VERSION%'
@@ -251,6 +249,18 @@ module.exports = (grunt) ->
         'build'
         'connect:server:keepalive'
       ]
+
+  grunt.registerTask 'coverage', ->
+    shell = grunt.config.get 'shell'
+    coverage = require('glob').sync('test/coverage/**/lcov.info')[0]
+    shell.coverage =
+      command: "./node_modules/codeclimate-test-reporter/bin/codeclimate.js < '#{coverage}'"
+    grunt.config.set 'shell', shell
+
+    grunt.task.run [
+      'coveralls'
+      'shell:coverage'
+    ]
 
   grunt.registerTask 'precommit', [
     'shell:semver'
