@@ -48,7 +48,7 @@
     "grunt-karma-coveralls": "^2.3.0",
     "grunt-ngdocs": "git+https://github.com/excellenteasy/grunt-ngdocs.git",
     "grunt-ngmin": "^0.0.3",
-    "grunt-shell": "^0.6.4",
+    "grunt-shell": "^0.7.0",
     "karma": "^0.12.1",
     "karma-coverage": "^0.2.0",
     "karma-jasmine": "^0.1.5",
