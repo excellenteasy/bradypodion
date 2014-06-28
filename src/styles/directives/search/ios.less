@@ -38,7 +38,7 @@
     .translateX(-100%);
   }
 
-  input[type=search] {
+  input {
     .placeholder(transparent);
     .appearance(searchfield);
     border: none;
@@ -54,7 +54,7 @@
     width: 65%;
   }
 
-  &.focus input[type=search]:valid ~ bp-search-placeholder span {
+  &.focus input:valid ~ bp-search-placeholder span {
     display: none;
   }
 
@@ -63,6 +63,7 @@
     .translateX(100%);
     .transition(all 0.3s ease);
     position: absolute;
+    top: 0;
     right: 0;
     pointer-events: none;
     speak: none;
