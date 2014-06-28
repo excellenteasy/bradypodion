@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.1
+ * Bradypodion v0.5.2
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-04-13T16:53:40
+ * Date: 2014-06-28T12:19:18
  */
 (function () {
   'use strict';
@@ -347,7 +347,14 @@
                   }
                 });
               }
-              element.append($frstAction, $title, $scndAction, $arrow).after($toolbar);
+              element.append($frstAction, $title, $scndAction, $arrow);
+              if ($toolbar && angular.element.contains(document, element[0])) {
+                element.after($toolbar);
+              } else {
+                $timeout(function () {
+                  element.parent().siblings().find('[ui-view]').append($toolbar);
+                }, 0);
+              }
               if (angular.isElement($toolbar)) {
                 element.on('$destroy', function () {
                   $toolbar.remove();

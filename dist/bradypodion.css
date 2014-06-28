@@ -5,7 +5,7 @@
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-04-13T16:53:39
+ * Date: 2014-06-28T12:19:14
  */
 .bp-fullsize,
 html,
@@ -1187,7 +1187,7 @@ bp-search {
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
-.ios bp-search input[type=search] {
+.ios bp-search input {
   -webkit-appearance: searchfield;
   appearance: searchfield;
   border: none;
@@ -1202,19 +1202,19 @@ bp-search {
   height: 32px;
   width: 65%;
 }
-.ios bp-search input[type=search]::-webkit-input-placeholder {
+.ios bp-search input::-webkit-input-placeholder {
   color: transparent;
 }
-.ios bp-search input[type=search]:-moz-placeholder {
+.ios bp-search input:-moz-placeholder {
   color: transparent;
 }
-.ios bp-search input[type=search]::-moz-placeholder {
+.ios bp-search input::-moz-placeholder {
   color: transparent;
 }
-.ios bp-search input[type=search]:-ms-input-placeholder {
+.ios bp-search input:-ms-input-placeholder {
   color: transparent;
 }
-.ios bp-search.focus input[type=search]:valid ~ bp-search-placeholder span {
+.ios bp-search.focus input:valid ~ bp-search-placeholder span {
   display: none;
 }
 .ios bp-search .bp-button {
@@ -1225,6 +1225,7 @@ bp-search {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: absolute;
+  top: 0;
   right: 0;
   pointer-events: none;
   speak: none;
@@ -1288,23 +1289,23 @@ bp-search {
   left: 8px;
   background-color: white;
 }
-.android bp-search input[type=search] {
+.android bp-search input {
   display: block;
   -webkit-box-flex: 1;
 }
-.android bp-search input[type=search]::-webkit-input-placeholder {
+.android bp-search input::-webkit-input-placeholder {
   color: transparent;
 }
-.android bp-search input[type=search]:-moz-placeholder {
+.android bp-search input:-moz-placeholder {
   color: transparent;
 }
-.android bp-search input[type=search]::-moz-placeholder {
+.android bp-search input::-moz-placeholder {
   color: transparent;
 }
-.android bp-search input[type=search]:-ms-input-placeholder {
+.android bp-search input:-ms-input-placeholder {
   color: transparent;
 }
-.android bp-search.focus input[type=search]:valid ~ bp-search-placeholder {
+.android bp-search.focus input:valid ~ bp-search-placeholder {
   display: none;
 }
 .android bp-search bp-search-placeholder {

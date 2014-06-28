@@ -1,3 +1,13 @@
+<a name="0.5.2"></a>
+### 0.5.2 (2014-06-28)
+
+
+#### Bug Fixes
+
+* **navbar:** spawned toolbars of injected navbars appear ([ce4b22e1](http://github.com/excellenteasy/bradypodion/commit/ce4b22e14d46ee1d4644921ee05fb852fb30adf3))
+* **search:** input is now type agnostic ([4d709c99](http://github.com/excellenteasy/bradypodion/commit/4d709c99bb0e481e9adbd0642bf76730fd6b0784))
+
+
 <a name="0.5.1"></a>
 ### 0.5.1 (2014-04-13)
 
