@@ -245,9 +245,18 @@ angular.module('bp')
           }
 
           // Assemble final Navbar
-          element
-            .append($frstAction, $title, $scndAction, $arrow)
-            .after($toolbar)
+          element.append($frstAction, $title, $scndAction, $arrow)
+
+          if ($toolbar && angular.element.contains(document, element[0])) {
+            element.after($toolbar)
+          } else {
+            // For an injected navbar we have to await the DOM
+            // and find the matching screen for the toolbar
+            $timeout(function() {
+              element.parent().siblings().find('[ui-view]').append($toolbar)
+            },0)
+          }
+
 
           if (angular.isElement($toolbar)) {
             element.on('$destroy', function() {

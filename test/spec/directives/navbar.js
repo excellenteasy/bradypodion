@@ -152,9 +152,10 @@ describe('navbarDirective', function() {
       }))
 
       it('should spawn toolbar', inject(function($compile) {
-        var element3 = $compile('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> </bp-navbar>')(scope)
+        var element3 = $compile(angular.element('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> </bp-navbar>').appendTo('body'))(scope)
         expect(element3.next().is('bp-toolbar')).toBe(true)
         expect(element3.next().children().length).toBe(3)
+        element3.remove()
       }))
 
       it('should remove toolbar on destroy', inject(function($compile) {
