@@ -1,3 +1,12 @@
+<a name="0.5.3"></a>
+### 0.5.3 (2014-06-29)
+
+
+#### Bug Fixes
+
+* **navbar:** spawned toolbars of injected navbars appear part 2 ([55a9fb73](http://github.com/excellenteasy/bradypodion/commit/55a9fb736070e2afd4eaa214d568aafbd813c201))
+
+
 <a name="0.5.2"></a>
 ### 0.5.2 (2014-06-28)
 
