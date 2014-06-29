@@ -253,7 +253,12 @@ angular.module('bp')
             // For an injected navbar we have to await the DOM
             // and find the matching screen for the toolbar
             $timeout(function() {
-              element.parent().siblings().find('[ui-view]').append($toolbar)
+              element
+                .parent()
+                .siblings()
+                .filter('ui-view-wrapper')
+                .find('ui-view, [ui-view]')
+                .append($toolbar)
             },0)
           }
 
