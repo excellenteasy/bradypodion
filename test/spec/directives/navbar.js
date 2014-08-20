@@ -229,7 +229,7 @@ describe('navbarDirective', function() {
         expect($icons.length).toBe(2)
         expect($icons.eq(1).attr('aria-label')).toBe('Action')
         expect(element.find('.bp-action-up').length).toBe(1)
-        expect(element.children().length).toBe(3)
+        expect(element.children().length).toBe(4)
         expect(element.find('bp-navbar-icon').length).toBe(1)
       })
 
@@ -242,8 +242,8 @@ describe('navbarDirective', function() {
       })
 
       it('should spawn action overflow', function() {
-        var element3 = compile('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> </bp-navbar>')(scope)
-        expect(element3.children().length).toBe(5)
+        var element3 = compile('<bp-navbar> <bp-action>First</bp-action> <bp-action>Second</bp-action> <bp-action>Third</bp-action> <bp-action>Fourth</bp-action> </bp-navbar>')(scope)
+        expect(element3.children().length).toBe(6)
         expect(element3.find('bp-action-overflow-wrapper').length).toBe(1)
       })
     })

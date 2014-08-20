@@ -182,7 +182,7 @@ angular.module('bp')
             }
           }
 
-          var $frstAction, $scndAction, $toolbar
+          var $frstAction, $scndAction, $thrdAction, $toolbar
 
           // Android Navbar
           if (!ios) {
@@ -196,18 +196,25 @@ angular.module('bp')
             ctrl.convertActionToIcon($up)
 
             // Create Action Overflow
-            if ($actions.length > 2) {
+            if ($actions.length > 3) {
               $toolbar = $compile(angular.element('<bp-action-overflow>')
                 .append($actions.not($frstAction).not($scndAction)))(scope)
             }
 
             // Assemble final Navbar
-            if (angular.isElement($up)) {
+            if (angular.isElement($up)) { 
               $up.append('<div>', $icon)
-              element.append($up, $title, $frstAction, $scndAction, $toolbar)
-              return
+              element.append($up)
             }
-            element.append($icon, $title, $frstAction, $scndAction, $toolbar)
+            element.append($icon, $title, $frstAction, $scndAction)
+
+            if ($actions.length > 3) {
+              element.append($toolbar)
+            } else {
+              $thrdAction = $actions.eq(2)
+              ctrl.convertActionToIcon($thrdAction)
+              element.append($thrdAction, $toolbar)
+            }
             return
           }
 
