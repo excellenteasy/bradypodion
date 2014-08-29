@@ -1,3 +1,14 @@
+<a name="0.5.4"></a>
+### 0.5.4 (2014-08-29)
+
+
+#### Bug Fixes
+
+* **navbar:**
+  * account for breaking change in ui-router ([5b99e034](http://github.com/excellenteasy/bradypodion/commit/5b99e0345fc5e00d4acb410503547cd6a8fd9a57))
+  * show bpOverflow only w/ more than 3 bpActions ([4ca24256](http://github.com/excellenteasy/bradypodion/commit/4ca242563c627119d6ed83cf49d115670a10adde))
+
+
 <a name="0.5.3"></a>
 ### 0.5.3 (2014-06-29)
 

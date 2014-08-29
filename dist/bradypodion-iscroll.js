@@ -1,11 +1,11 @@
 /*!
- * Bradypodion v0.5.3
+ * Bradypodion v0.5.4
  * http://bradypodion.io/
  *
  * Copyright 2013, 2014 excellenteasy GbR, Stephan Bönnemann und David Pfahler
  * Released under the MIT license.
  *
- * Date: 2014-06-29T15:38:17
+ * Date: 2014-08-29T14:01:32
  */
 (function () {
   'use strict';
