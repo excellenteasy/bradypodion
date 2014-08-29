@@ -121,7 +121,7 @@ angular.module('bp')
           return null
         }
 
-        var params = $urlMatcherFactory.compile(up.state.url).params
+        var params = $urlMatcherFactory.compile(up.state.url).parameters()
         if (!params.length) {
           return up
         }
@@ -202,7 +202,7 @@ angular.module('bp')
             }
 
             // Assemble final Navbar
-            if (angular.isElement($up)) { 
+            if (angular.isElement($up)) {
               $up.append('<div>', $icon)
               element.append($up)
             }
